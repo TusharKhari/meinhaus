@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443437268523",
+    "project_id": "mein-haus-login",
+    "storage_bucket": "mein-haus-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443437268523:android:48e426696310cb0182746e",
+        "android_client_info": {
+          "package_name": "com.example.mein_haus_user_side_apk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-vH_F4MAnaGXDkZivwWlkZtY5u4yqPA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
