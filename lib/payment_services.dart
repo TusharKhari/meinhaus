@@ -67,7 +67,7 @@ class MakePayment {
         paymentIntent = null;
         isValueTrue = true;
       }).onError((error, stackTrace) {
-        showSnakeBar(context, "Transcation Declined By User");
+        showSnakeBarr(context, "Transcation Declined By User", BarState.Info);
         print("onError in payment sheet ->>> $error");
         isValueTrue = false;
         throw Exception(error);

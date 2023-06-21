@@ -14,6 +14,43 @@
       },
       "oauth_client": [
         {
+          "client_id": "443437268523-t75h3h8p1c8l4a5rpkmsjbge21gtfr35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mein_haus_user_side_apk",
+            "certificate_hash": "b398c2f9de12f6726a94d6faca4d3d5fdbeab40b"
+          }
+        },
+        {
+          "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-vH_F4MAnaGXDkZivwWlkZtY5u4yqPA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443437268523:android:9e3948ab6d5a9cd082746e",
+        "android_client_info": {
+          "package_name": "com.example.new_user_side"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
           "client_type": 3
         }
