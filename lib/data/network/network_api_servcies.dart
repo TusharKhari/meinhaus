@@ -84,13 +84,15 @@ class OldNetworkApiServices extends BaseApiServices {
 
 class NetworkApiServices {
   final dio = Dio();
-
+  
+  // SEND HTTP REQUEST WITH HEADER
   Future sendHttpRequest({
     required Uri url,
     required HttpMethod method,
     MapSS? body,
   }) async {
     final uri = url;
+    if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     final header = await UserPrefrences().getHeader();
     try {
@@ -126,12 +128,14 @@ class NetworkApiServices {
     }
   }
 
+  // SEND HTTP REQUEST WITHOUT HEADER
   Future sendHttpRequestWithoutHeader({
     required Uri url,
     required HttpMethod method,
     MapSS? body,
   }) async {
     final uri = url;
+    if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     try {
       late final http.Request request;
@@ -165,6 +169,7 @@ class NetworkApiServices {
     }
   }
 
+ // SNED FILES WITH DIO REQUEST
   Future<dynamic> sendDioRequest({
     required Uri url,
     required HttpMethod method,
@@ -172,7 +177,7 @@ class NetworkApiServices {
   }) async {
     final dio = Dio();
     final header = await UserPrefrences().getHeader();
-    if (body != null) body.log();
+    if (body != null) (body).log("${url.path}");
     try {
       late final Response<dynamic> response;
       switch (method) {
@@ -223,7 +228,8 @@ class NetworkApiServices {
       throw FetchDataException("No Internet Connection");
     }
   }
-
+ 
+  // ERROR HANDLING
   dynamic errorHandling(http.Response response) {
     (response.statusCode).log(response.request!.url.path.toString());
     dynamic responseJson =

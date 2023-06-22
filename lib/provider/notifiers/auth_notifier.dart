@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import 'package:new_user_side/data/models/UserModel.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
@@ -74,7 +73,6 @@ class AuthNotifier extends ChangeNotifier {
       setUser(user);
       Navigator.pushNamed(context, HomeScreen.routeName);
     }).onError((error, stackTrace) {
-      // showSnakeBarr(context, "$error", BarState.Error);
       ("$error").log("Auth notifier");
     });
   }
@@ -83,17 +81,28 @@ class AuthNotifier extends ChangeNotifier {
   Future login(MapSS data, BuildContext context) async {
     setLoadingState(true, true);
     repository.login(data).then((response) async {
+      User user = UserModel.fromJson(response).user!;
+      if (response['response_message'] == "Unverified User.") {
+        Navigator.of(context).pushScreen(
+          OtpValidateScreen(
+            email: "${user.email}",
+            contactNo: "${user.contact}",
+          ),
+        );
+      } else {
+        ("User Logged in Successfully ✨").log("Login Notifier");
+        setUser(user);
+        await prefs.setToken(user.token!);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeScreen.routeName,
+          (route) => false,
+        );
+      }
       setLoadingState(false, true);
       showSnakeBarr(context, response['response_message'], BarState.Success);
-      ("User Login Done ✅").log();
-      User user = UserModel.fromJson(response).user!;
-      setUser(user);
-      await prefs.setToken(user.token!);
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
-      ("Erorr in Login notifier :: $error").log("Auth-Login Notifier");
+      ("Erorr in Login notifier --> $error").log("Auth-Login Notifier");
       setLoadingState(false, true);
     });
   }
@@ -105,10 +114,11 @@ class AuthNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       (response).log("SignUp Response");
       showSnakeBarr(context, response['response_message'], BarState.Success);
-      Navigator.pushNamed(
-        context,
-        OtpValidateScreen.routeName,
-        arguments: data['email'],
+      Navigator.of(context).pushScreen(
+        OtpValidateScreen(
+          email: data["email"]!,
+          contactNo: data["phone"]!,
+        ),
       );
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
@@ -123,13 +133,17 @@ class AuthNotifier extends ChangeNotifier {
     required BuildContext context,
   }) async {
     setLoadingState(true, true);
-    UserPrefrences pref = await UserPrefrences();
     repository.verifyEmail(body).then((response) async {
       setLoadingState(false, true);
-      pref.setUserId(response['user_id'].toString());
-      (await pref.getUserId()).log("User Id");
+      final user = UserModel.fromJson(response).user!;
+      (user).log("Verify otp");
+      UserPrefrences().setToken(user.token.toString());
+      setUser(user);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        HomeScreen.routeName,
+        (route) => false,
+      );
       showSnakeBarr(context, response['response_message'], BarState.Success);
-      Navigator.pushNamed(context, UserDetailsScreen.routeName);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
       ("$error  $stackTrace").log(" Verify email notifier");
@@ -137,7 +151,7 @@ class AuthNotifier extends ChangeNotifier {
     });
   }
 
-  // Submit User Details
+  //? Submit User Details (OMIT)
   Future submitUserDetails({
     required BuildContext context,
     required MapSS body,
@@ -160,46 +174,50 @@ class AuthNotifier extends ChangeNotifier {
       showSnakeBarr(context, "Please Accept T&C..", BarState.Warning);
   }
 
-  // Google Login/Signup
-  Future googleAuth({
-    required BuildContext context,
-  }) async {
+  // Google Authentication
+  Future googleAuth(BuildContext context) async {
     setGoogleLoadingState(true, true);
     try {
+      // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
       accessToken = await gAuth.accessToken!;
       if (accessToken.isNotEmpty) googleSignIn(context);
     } catch (e) {
       showSnakeBarr(
-          context, "Something went wrong try again", BarState.Warning);
+        context,
+        "Something went wrong try again",
+        BarState.Warning,
+      );
       setGoogleLoadingState(false, true);
     }
   }
 
+  // Google Authentication
   Future googleSignIn(BuildContext context) async {
     UserPrefrences pref = await UserPrefrences();
     MapSS data = {"provider": "google", "access_token": accessToken};
-    (data).log();
     // share the token to backend to get user details
     await repository.googleLogin(data).then((response) async {
       print(response['response_message']);
       if (response['response_message'] == "Signup") {
-        setGoogleLoadingState(false, true);
-        ("Sigup with Google ✅").log("Google-Signup Notifier");
         await pref.setUserId(response['user_id'].toString());
         (await pref.getUserId()).log("User Id");
+        ("Sigup with Google ✅").log("Google-Signup Notifier");
+        setGoogleLoadingState(false, true);
         showSnakeBarr(context, "User Sigup with Google", BarState.Success);
         Navigator.pushNamed(context, UserDetailsScreen.routeName);
       } else {
-        setGoogleLoadingState(false, true);
-        ("Login with Google ✅").log("Google-Login Notifier");
-        showSnakeBarr(context, "User SignIn with Google", BarState.Success);
         User user = UserModel.fromJson(response).user!;
         setUser(user);
         await prefs.setToken(user.token!);
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
+        setGoogleLoadingState(false, true);
+        ("Login with Google ✅").log("Google-Login Notifier");
+        showSnakeBarr(context, "User SignIn with Google", BarState.Success);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeScreen.routeName,
+          (route) => false,
+        );
       }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
@@ -208,8 +226,8 @@ class AuthNotifier extends ChangeNotifier {
     });
   }
 
+  // Log-out
   Future logout(BuildContext context) async {
-    ("Logout Button Pressed").log("Log-out");
     try {
       if (user.isSocialLogin != null) {
         ("Social").log("Log-out");

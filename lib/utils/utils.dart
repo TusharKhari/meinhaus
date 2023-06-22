@@ -49,4 +49,6 @@ class Utils {
   static Future<List<Location>> getCordinates(String address) async {
     return await locationFromAddress(address);
   }
+
+
 }
