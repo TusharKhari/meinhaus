@@ -237,20 +237,11 @@ class _ItemList extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: h / 70),
               child: InkWell(
                 onTap: () {
-                  if (index == 6) {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const CustomerSupportDialog();
-                      },
-                    );
-                  } else {
-                    Navigator.pushNamed(
-                      context,
-                      drawerList[index][2],
-                      arguments: true,
-                    );
-                  }
+                  Navigator.pushNamed(
+                    context,
+                    drawerList[index][2],
+                    arguments: true,
+                  );
                 },
                 child: Row(
                   children: [

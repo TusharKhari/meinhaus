@@ -136,7 +136,6 @@ class AuthNotifier extends ChangeNotifier {
     repository.verifyEmail(body).then((response) async {
       setLoadingState(false, true);
       final user = UserModel.fromJson(response).user!;
-      (user).log("Verify otp");
       UserPrefrences().setToken(user.token.toString());
       setUser(user);
       Navigator.of(context).pushNamedAndRemoveUntil(
@@ -197,7 +196,6 @@ class AuthNotifier extends ChangeNotifier {
   Future googleSignIn(BuildContext context) async {
     MapSS data = {"provider": "google", "access_token": accessToken};
     await repository.googleLogin(data).then((response) async {
-      (response['response_message']).log("Google Authentication");
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);

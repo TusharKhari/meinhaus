@@ -83,7 +83,7 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-// Create Estimate
+// CREATE ESTIMATE
   Future createEstimate({
     required BuildContext context,
     required Map<String, Object?> data,
@@ -105,7 +105,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-// Get Estimate
+// GET ESTIMATE
   Future getEstimateWork() async {
     estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
@@ -115,7 +115,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-// Get Ongoing Projects
+// GET ONGOING PROJECTS
   Future getOngoingProjects() async {
     estimateRepository.getOngoingProjects().then((response) {
       var data = OngoingProjectsModel.fromJson(response);
@@ -125,7 +125,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-  // Get Projects History
+  // GET PROJECTS HISTORY
   Future getProjectsHistory() async {
     estimateRepository.getProjectsHistory().then((response) {
       var data = OngoingProjectsModel.fromJson(response);
@@ -135,7 +135,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-// Get Project and Pro Details
+// GET PROJECT AND PRO DETAILS
   Future getProjectDetails({
     required BuildContext context,
     required String id,
@@ -169,7 +169,7 @@ class EstimateNotifier extends ChangeNotifier {
     }
   }
 
-  // Progess Invoice
+  // PROGESS INVOICE
   Future progressInvoice({
     required BuildContext context,
     required String bookingId,
@@ -187,6 +187,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
+ // REMOVE OR ADD SERVICES
   Future toggleService({
     required BuildContext context,
     required MapSS body,
@@ -200,7 +201,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-  // write a review
+  // WRITE A REVIEW
   Future writeReview({
     required BuildContext context,
     required MapSS body,

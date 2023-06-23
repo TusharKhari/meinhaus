@@ -28,12 +28,13 @@ class OtpValidateScreen extends StatefulWidget {
 
 class _OtpValidateScreenState extends State<OtpValidateScreen> {
   bool isOtpEnterd = false;
-  bool isWaiting = false;
   late String otp;
   // Initial time for resending otp
   int startTime = 60;
   // Boolen for showing the resend button
   bool showResendButton = false;
+  // Timer for otp
+  late Timer _timer;
   Color buttonColor = AppColors.buttonBlue.withOpacity(0.0);
 
   @override
@@ -42,10 +43,16 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
     startTimer();
   }
 
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the state is disposed
+    super.dispose();
+  }
+
   // countdown for otp resending
   void startTimer() {
     final oneSec = Duration(seconds: 1);
-    Timer.periodic(oneSec, (timer) {
+    _timer = Timer.periodic(oneSec, (timer) {
       if (startTime == 0) {
         setState(() {
           timer.cancel();
@@ -189,10 +196,10 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                           color: AppColors.buttonBlue,
                         ),
                         SizedBox(width: w / 30),
-                        // LoadingAnimationWidget.inkDrop(
-                        //   color: AppColors.buttonBlue,
-                        //   size: w / 40,
-                        // ),
+                        LoadingAnimationWidget.inkDrop(
+                          color: AppColors.buttonBlue,
+                          size: w / 40,
+                        ),
                         SizedBox(width: w / 20),
                       ],
                     ),
