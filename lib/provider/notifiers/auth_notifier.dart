@@ -8,7 +8,6 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../data/network/network_api_servcies.dart';
 import '../../features/auth/screens/otp_validate_screen.dart';
-import '../../features/auth/screens/user_details.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../res/common/my_snake_bar.dart';
 
@@ -83,6 +82,7 @@ class AuthNotifier extends ChangeNotifier {
     repository.login(data).then((response) async {
       User user = UserModel.fromJson(response).user!;
       if (response['response_message'] == "Unverified User.") {
+        showSnakeBarr(context, response['response_message'], BarState.Warning);
         Navigator.of(context).pushScreen(
           OtpValidateScreen(
             email: "${user.email}",
@@ -91,6 +91,7 @@ class AuthNotifier extends ChangeNotifier {
         );
       } else {
         ("User Logged in Successfully ✨").log("Login Notifier");
+        showSnakeBarr(context, response['response_message'], BarState.Success);
         setUser(user);
         await prefs.setToken(user.token!);
         Navigator.of(context).pushNamedAndRemoveUntil(
@@ -99,7 +100,6 @@ class AuthNotifier extends ChangeNotifier {
         );
       }
       setLoadingState(false, true);
-      showSnakeBarr(context, response['response_message'], BarState.Success);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
       ("Erorr in Login notifier --> $error").log("Auth-Login Notifier");
@@ -195,30 +195,18 @@ class AuthNotifier extends ChangeNotifier {
 
   // Google Authentication
   Future googleSignIn(BuildContext context) async {
-    UserPrefrences pref = await UserPrefrences();
     MapSS data = {"provider": "google", "access_token": accessToken};
-    // share the token to backend to get user details
     await repository.googleLogin(data).then((response) async {
-      print(response['response_message']);
-      if (response['response_message'] == "Signup") {
-        await pref.setUserId(response['user_id'].toString());
-        (await pref.getUserId()).log("User Id");
-        ("Sigup with Google ✅").log("Google-Signup Notifier");
-        setGoogleLoadingState(false, true);
-        showSnakeBarr(context, "User Sigup with Google", BarState.Success);
-        Navigator.pushNamed(context, UserDetailsScreen.routeName);
-      } else {
-        User user = UserModel.fromJson(response).user!;
-        setUser(user);
-        await prefs.setToken(user.token!);
-        setGoogleLoadingState(false, true);
-        ("Login with Google ✅").log("Google-Login Notifier");
-        showSnakeBarr(context, "User SignIn with Google", BarState.Success);
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          HomeScreen.routeName,
-          (route) => false,
-        );
-      }
+      (response['response_message']).log("Google Authentication");
+      User user = UserModel.fromJson(response).user!;
+      setUser(user);
+      await prefs.setToken(user.token!);
+      setGoogleLoadingState(false, true);
+      showSnakeBarr(context, response['response_message'], BarState.Success);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        HomeScreen.routeName,
+        (route) => false,
+      );
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
       showSnakeBarr(context, "$error", BarState.Error);

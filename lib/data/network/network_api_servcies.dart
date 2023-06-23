@@ -84,12 +84,13 @@ class OldNetworkApiServices extends BaseApiServices {
 
 class NetworkApiServices {
   final dio = Dio();
-  
+
   // SEND HTTP REQUEST WITH HEADER
   Future sendHttpRequest({
     required Uri url,
     required HttpMethod method,
     MapSS? body,
+    bool? allowUnauthorizedResponse = false,
   }) async {
     final uri = url;
     if (body != null) (body).log("${uri.path}");
@@ -121,7 +122,8 @@ class NetworkApiServices {
       request.headers.addAll(header);
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      responseJson = errorHandling(response);
+      responseJson = errorHandling(response, allowUnauthorizedResponse);
+      (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -133,6 +135,7 @@ class NetworkApiServices {
     required Uri url,
     required HttpMethod method,
     MapSS? body,
+    bool? allowUnauthorizedResponse = false,
   }) async {
     final uri = url;
     if (body != null) (body).log("${uri.path}");
@@ -162,14 +165,15 @@ class NetworkApiServices {
       }
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      responseJson = errorHandling(response);
+      responseJson = errorHandling(response, allowUnauthorizedResponse);
+      (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");
     }
   }
 
- // SNED FILES WITH DIO REQUEST
+  // SNED FILES WITH DIO REQUEST
   Future<dynamic> sendDioRequest({
     required Uri url,
     required HttpMethod method,
@@ -214,12 +218,12 @@ class NetworkApiServices {
         return response.data;
       else
         ('API call failed').log("Estimate Creation");
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.sendTimeout ||
-          e.type == DioErrorType.receiveTimeout) {
+    } on DioException catch (e) {
+      if (e.type == DioException.connectionTimeout ||
+          e.type == DioException.sendTimeout ||
+          e.type == DioException.receiveTimeout) {
         throw FetchDataException("Request Timeout");
-      } else if (e.type == DioErrorType.cancel) {
+      } else if (e.type == DioException.requestCancelled) {
         throw FetchDataException("Request Cancelled");
       } else {
         throw FetchDataException("Error occurred while making the request");
@@ -228,10 +232,9 @@ class NetworkApiServices {
       throw FetchDataException("No Internet Connection");
     }
   }
- 
+
   // ERROR HANDLING
-  dynamic errorHandling(http.Response response) {
-    (response.statusCode).log(response.request!.url.path.toString());
+  dynamic errorHandling(http.Response response, allowUnauthorizedResponse) {
     dynamic responseJson =
         response.statusCode != 500 ? jsonDecode(response.body) : null;
     switch (response.statusCode) {
@@ -241,8 +244,13 @@ class NetworkApiServices {
         throw FetchDataException(
             " ${responseJson['response_message']}  ${response.statusCode}");
       case 401:
-        throw UnauthorizedException(
-            " ${responseJson['response_message']}  ${response.statusCode}");
+        if (allowUnauthorizedResponse) {
+          return responseJson;
+          
+        } else {
+          throw UnauthorizedException(
+              "${responseJson['response_message']} ${response.statusCode}");
+        }
       case 404:
         throw FetchDataException(
             " ${responseJson['response_message']}  ${response.statusCode}");

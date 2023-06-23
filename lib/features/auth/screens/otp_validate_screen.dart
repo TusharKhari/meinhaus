@@ -30,14 +30,11 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
   bool isOtpEnterd = false;
   bool isWaiting = false;
   late String otp;
+  // Initial time for resending otp
   int startTime = 60;
+  // Boolen for showing the resend button
   bool showResendButton = false;
-
-  Future _verifyEmailHandler(String OTP) async {
-    final notifer = context.read<AuthNotifier>();
-    final body = {"email": widget.email, "otp": OTP};
-    await notifer.verifyEmail(body: body, context: context);
-  }
+  Color buttonColor = AppColors.buttonBlue.withOpacity(0.0);
 
   @override
   void initState() {
@@ -45,9 +42,10 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
     startTimer();
   }
 
+  // countdown for otp resending
   void startTimer() {
     final oneSec = Duration(seconds: 1);
-    final _timer = Timer.periodic(oneSec, (timer) {
+    Timer.periodic(oneSec, (timer) {
       if (startTime == 0) {
         setState(() {
           timer.cancel();
@@ -61,7 +59,24 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
     });
   }
 
-  Color buttonColor = AppColors.buttonBlue.withOpacity(0.0);
+  // verify email handler
+  Future _verifyEmailHandler(String OTP) async {
+    final notifer = context.read<AuthNotifier>();
+    final body = {"email": widget.email, "otp": OTP};
+    if (isOtpEnterd) await notifer.verifyEmail(body: body, context: context);
+  }
+
+  // resend otp handler
+  void _resendOtpHandler() {
+    if (showResendButton) {
+      startTimer();
+      setState(() {
+        startTime = 60;
+        showResendButton = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final notifer = context.watch<AuthNotifier>();
@@ -75,6 +90,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: h / 80),
+              // Kind of App bar
               Row(
                 children: [
                   InkWell(
@@ -199,15 +215,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                         ),
                         SizedBox(width: w / 60),
                         InkWell(
-                          onTap: showResendButton
-                              ? () {
-                                  startTimer();
-                                  setState(() {
-                                    startTime = 60;
-                                    showResendButton = false;
-                                  });
-                                }
-                              : null,
+                          onTap: _resendOtpHandler,
                           child: MyTextPoppines(
                             text: "Resend",
                             fontSize: w / 27,
@@ -224,10 +232,9 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                     MediaQuery.of(context).viewInsets.bottom > 0
                         ? SizedBox(height: h / 25)
                         : SizedBox(height: h / 3.4),
+                    // Verify otp button
                     InkWell(
-                      onTap: () {
-                        isOtpEnterd ? _verifyEmailHandler(otp) : null;
-                      },
+                      onTap: () => _verifyEmailHandler(otp),
                       child: Container(
                         width: w / 2,
                         height: h / 15,
