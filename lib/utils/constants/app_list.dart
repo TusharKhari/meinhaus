@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:new_user_side/features/customer%20support/screens/customer_support_chat_screen.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
@@ -55,7 +56,7 @@ List drawerList = [
   [
     Icons.contact_support_outlined,
     "Customer Support",
-    HomeScreen.routeName,
+    CustomerSupportChatScreen.routeName,
   ],
 ];
 
@@ -103,7 +104,8 @@ List chatList = [
     "assets/images/face/man_1.png",
     "Nate Diaz",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "03.04 PM","Bathroom Renovation",
+    "03.04 PM",
+    "Bathroom Renovation",
   ],
   [
     true,
@@ -112,7 +114,7 @@ List chatList = [
     "Sam Kohli ",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
     "5 min ago",
-     "Window Fixing",
+    "Window Fixing",
   ],
   [
     false,
@@ -121,7 +123,7 @@ List chatList = [
     "Katherin Murphy",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
     "5 min ago",
-     "Furniture Fixing",
+    "Furniture Fixing",
   ],
   [
     true,
@@ -138,15 +140,8 @@ List chatList = [
     "assets/images/face/man_2.png",
     "Nate Diaz",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago", "Window Fixing",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago","Bathroom Renovation",
+    "5 min ago",
+    "Window Fixing",
   ],
   [
     true,
@@ -155,12 +150,18 @@ List chatList = [
     "Nate Diaz",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
     "5 min ago",
-     "Furniture Fixing",
+    "Bathroom Renovation",
+  ],
+  [
+    true,
+    true,
+    "assets/images/face/man_2.png",
+    "Nate Diaz",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
+    "5 min ago",
+    "Furniture Fixing",
   ],
 ];
-
-
-
 
 // User Details
 Map<String, List<String>> statesCities = {

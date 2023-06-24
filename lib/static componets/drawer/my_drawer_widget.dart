@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +19,19 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Drawer(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20.r),
-          bottomRight: Radius.circular(20.r),
+          topRight: Radius.circular(w / 20),
+          bottomRight: Radius.circular(w / 20),
         ),
       ),
-      width: 270.w,
+      width: w / 1.42,
       child: Stack(
         children: [
+          // Background Image
           Container(
             width: double.infinity,
             height: double.infinity,
@@ -40,28 +43,22 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 60.h),
+            padding: EdgeInsets.only(top: h / 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 40.w),
-                  child: _ExitIcon(),
-                ),
-                30.vs,
-                 _ProfileCard(),
-                10.vs,
+                _ExitIcon(),
+                SizedBox(height: h / 30),
+                _ProfileCard(),
+                SizedBox(height: h / 70),
                 Divider(thickness: 1.0),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w),
-                  child: _ItemList(),
-                ),
+                _ItemList(),
               ],
             ),
           ),
           Positioned(
-            bottom: 20.h,
-            left: 15.w,
+            bottom: h / 40,
+            left: w / 20,
             child: const _LogoutButton(),
           )
         ],
@@ -70,6 +67,7 @@ class MyDrawer extends StatelessWidget {
   }
 }
 
+// Exit Icon button
 class _ExitIcon extends StatelessWidget {
   const _ExitIcon({
     Key? key,
@@ -77,25 +75,29 @@ class _ExitIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final w = context.screenWidth;
     return InkWell(
       onTap: () => Navigator.pop(context),
-      child: Container(
-        width: 35.w,
-        height: 35.w,
-        transform: Matrix4.rotationZ(45 * pi / 180),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(
-            color: AppColors.black,
-            width: 1.2.w,
+      child: Padding(
+        padding: EdgeInsets.only(left: w / 10),
+        child: Container(
+          width: w / 11,
+          height: w / 11,
+          transform: Matrix4.rotationZ(45 * pi / 180),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(w / 40),
+            border: Border.all(
+              color: AppColors.black,
+              width: 1.2,
+            ),
           ),
-        ),
-        child: Transform.rotate(
-          angle: 45 * pi / 180,
-          child: Icon(
-            CupertinoIcons.xmark,
-            color: AppColors.buttonBlue,
-            size: 20.sp,
+          child: Transform.rotate(
+            angle: 45 * pi / 180,
+            child: Icon(
+              CupertinoIcons.xmark,
+              color: AppColors.buttonBlue,
+              size: w / 20,
+            ),
           ),
         ),
       ),
@@ -111,91 +113,93 @@ class _ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = context.screenHeight;
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     final user = context.watch<AuthNotifier>().user;
+    final placeholderImg =
+        "https://as1.ftcdn.net/v2/jpg/02/30/60/82/1000_F_230608264_fhoqBuEyiCPwT0h9RtnsuNAId3hWungP.jpg";
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.w),
-      padding: EdgeInsets.symmetric(vertical: 15.h),
+      margin: EdgeInsets.symmetric(horizontal: w / 40),
+      padding: EdgeInsets.symmetric(vertical: h / 60),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(w / 36),
         color: AppColors.white,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          15.hs,
-          // Hey + User name
+          SizedBox(width: w / 30),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // User first name
               MyTextPoppines(
                 text: user.firstname.toString(),
-                fontSize: height > 800 ? 18.sp : 20.sp,
+                fontSize: w / 20,
                 fontWeight: FontWeight.w600,
                 height: 1.5,
                 maxLines: 1,
               ),
+              // User last name
               SizedBox(
-                height: 30.h,
-                width: 100.w,
+                height: h / 30,
+                width: w / 4,
                 child: MyTextPoppines(
                   text: user.lastname.toString(),
-                  fontSize: height > 800 ? 18.sp : 20.sp,
+                  fontSize: w / 20,
                   fontWeight: FontWeight.w600,
                   maxLines: 1,
                 ),
               ),
-              5.vs,
+              SizedBox(height: 10),
               MyTextPoppines(
                 text: "View and update \nyour profile",
-                fontSize: height > 800 ? 8.sp : 10.sp,
+                fontSize: w / 40,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black.withOpacity(0.6),
                 height: 1.5,
               ),
             ],
           ),
-          height > 800 ? 10.hs : 15.hs,
+          SizedBox(width: w / 25),
           // Profile pic + Edit button
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               CircleAvatar(
-                radius: 28.r,
-                backgroundImage: NetworkImage(user.profilePic != null
-                    ? user.profilePic!
-                    : "https://as1.ftcdn.net/v2/jpg/02/30/60/82/1000_F_230608264_fhoqBuEyiCPwT0h9RtnsuNAId3hWungP.jpg"),
+                radius: w / 14,
+                backgroundImage: NetworkImage(
+                  user.profilePic!.length > 0
+                      ? user.profilePic!
+                      : placeholderImg,
+                ),
               ),
-              10.vs,
+              SizedBox(height: h / 80),
               Container(
-                width: 110.w,
-                height: 30.h,
+                width: w / 3.5,
+                height: h / 25,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(w / 40),
                   color: AppColors.black,
                 ),
                 child: InkWell(
                   onTap: () =>
                       Navigator.pushNamed(context, EditProfileScreen.routeName),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 12.w,
-                          top: 2.h,
-                          right: 5.w,
-                        ),
-                        child: MyTextPoppines(
-                          text: "Edit Profile",
-                          fontSize: height > 800 ? 10.sp : 12.sp,
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      MyTextPoppines(
+                        text: "Edit Profile",
+                        fontSize: w / 32,
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w600,
                       ),
                       Icon(
                         Icons.edit,
                         color: AppColors.white,
-                        size: height > 800 ? 16.sp : 18.sp,
+                        size: w / 28,
                       ),
                     ],
                   ),
@@ -203,70 +207,64 @@ class _ProfileCard extends StatelessWidget {
               ),
             ],
           ),
-          10.hs,
+          SizedBox(width: w / 25),
         ],
       ),
     );
   }
 }
 
+// Meny list
 class _ItemList extends StatelessWidget {
   const _ItemList({
     Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-
-    return SizedBox(
-      width: 260.w,
-      height: height / 2.2,
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: drawerList.length,
-        itemBuilder: (context, index) {
-          return Container(
-            height: 25.h,
-            margin: EdgeInsets.symmetric(vertical: 12.h),
-            child: InkWell(
-              onTap: () {
-                if (index == 6) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const CustomerSupportDialog();
-                    },
-                  );
-                } else {
+    final h = context.screenHeight;
+    final w = context.screenWidth;
+    return Padding(
+      padding: EdgeInsets.only(left: w / 20),
+      child: SizedBox(
+        width: w / 1.5,
+        height: h / 2.2,
+        child: ListView.builder(
+          padding: EdgeInsets.zero,
+          itemCount: drawerList.length,
+          itemBuilder: (context, index) {
+            return Container(
+              height: h / 30,
+              margin: EdgeInsets.symmetric(vertical: h / 70),
+              child: InkWell(
+                onTap: () {
                   Navigator.pushNamed(
                     context,
                     drawerList[index][2],
                     arguments: true,
                   );
-                }
-              },
-              child: Row(
-                children: [
-                  Icon(drawerList[index][0], size: 20.sp),
-                  10.hs,
-                  Padding(
-                    padding: EdgeInsets.only(top: 3.h),
-                    child: MyTextPoppines(
+                },
+                child: Row(
+                  children: [
+                    Icon(drawerList[index][0], size: w / 20),
+                    SizedBox(width: w / 35),
+                    MyTextPoppines(
                       text: drawerList[index][1],
-                      fontSize: height / MyFontSize.font14,
+                      fontSize: w / 28,
                       fontWeight: FontWeight.w500,
-                    ),
-                  )
-                ],
+                      height: 1.5,
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 }
 
+// Log out button
 class _LogoutButton extends StatelessWidget {
   const _LogoutButton({
     Key? key,
@@ -277,8 +275,8 @@ class _LogoutButton extends StatelessWidget {
     final height = context.screenHeight;
     final width = context.screenWidth;
 
+    // logged out function
     Future _logoutHandler() async {
-      print("working");
       final notifier = context.read<AuthNotifier>();
       await notifier.logout(context);
     }
@@ -287,34 +285,29 @@ class _LogoutButton extends StatelessWidget {
       onTap: () => _logoutHandler,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.r),
+          borderRadius: BorderRadius.circular(width / 12),
           color: AppColors.black.withOpacity(0.8),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x3f000000),
-              offset: Offset(0, 4),
-              blurRadius: 4,
-            ),
-          ],
+          boxShadow: buttonShadow,
         ),
-        padding: EdgeInsets.symmetric(horizontal: width / 6.8, vertical: 15.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: width / 6.8,
+          vertical: height / 55,
+        ),
         child: Row(
           children: [
             const Icon(
               Icons.logout_sharp,
               color: AppColors.white,
             ),
-            10.hs,
+            SizedBox(width: width / 35),
             InkWell(
               onTap: () => _logoutHandler(),
-              child: Padding(
-                padding: EdgeInsets.only(top: 3.h),
-                child: MyTextPoppines(
-                  text: "Log Out",
-                  fontSize: height / MyFontSize.font18,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w500,
-                ),
+              child: MyTextPoppines(
+                text: "Log Out",
+                fontSize: height / MyFontSize.font18,
+                color: AppColors.white,
+                fontWeight: FontWeight.w500,
+                height: 1.5,
               ),
             ),
           ],

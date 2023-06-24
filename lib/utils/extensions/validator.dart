@@ -1,4 +1,6 @@
 class Validator {
+
+  // VALIDATE EMAIL
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your email address';
@@ -7,6 +9,7 @@ class Validator {
     return !regex.hasMatch(value) ? 'Enter a valid email address' : null;
   }
 
+  // VALIDATE PASSWORD
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return "Password is required";
@@ -15,7 +18,16 @@ class Validator {
     }
     return null;
   }
+  
+  // VALIDATE CONTACT NUMBER
+  String? validateContactNo(String? value) {
+    if (value!.isEmpty || value.length < 10 || value.length > 20) {
+      return "Please enter valid contact no";
+    }
+    return null;
+  }
 
+  // VALIDATE CONFIRM PASSWORD
   String? validateConfirmPassword({
     required String? value,
     required String valController,
@@ -29,6 +41,7 @@ class Validator {
     return null;
   }
 
+  // VALIDATE NULL VALUE
   String? nullValidator(String? value) {
     if (value == null || value.isEmpty) {
       return "Field cannot be empty";

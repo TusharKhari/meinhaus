@@ -18,6 +18,16 @@ class MakePayment {
       final clientSecret = (paymentIntent!['payment_intent']['client_secret']);
       final customerId = (paymentIntent!['payment_intent']['customer']);
       final ephemeralKey = (paymentIntent!['ephemeralKey']['secret']);
+      // final setupintent = await Stripe.instance.confirmSetupIntent(
+      //   paymentIntentClientSecret: clientSecret,
+      //   params: PaymentMethodParams.card(
+      //     paymentMethodData: PaymentMethodData(),
+      //   ),
+      // );
+      // // Check the status of the returned SetupIntent
+      // if (setupintent.status.toLowerCase() == 'succeeded') {
+      //   return setupintent.paymentMethodId;
+      // }
       await Stripe.instance
           .initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(

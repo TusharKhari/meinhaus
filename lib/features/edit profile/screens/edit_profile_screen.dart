@@ -101,7 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   radius: 40.r,
                   backgroundImage: img.path.isNotEmpty
                       ? Image.file(File(img.path)).image
-                      : user.profilePic != null
+                      : user.profilePic!.length > 0
                           ? NetworkImage(user.profilePic!.toString())
                               as ImageProvider<Object>?
                           : AssetImage("assets/images/man.png"),
@@ -228,14 +228,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     controller: lastNameController,
                                     onSaved: (val) {},
                                   ),
-                                  const _TextField(
+                                  _TextField(
                                     hText: "Mobile No",
-                                    hintText: "(+1) (312) 090909",
+                                    hintText: "(+1) ${user.contact}",
                                     isEditable: false,
                                   ),
-                                  const _TextField(
+                                  _TextField(
                                     hText: "Email ID",
-                                    hintText: "user1meinhause@gmail.com",
+                                    hintText: user.email.toString(),
                                     isEditable: false,
                                   ),
                                   10.vs,

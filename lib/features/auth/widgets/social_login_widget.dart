@@ -17,7 +17,7 @@ class SocialLoginWidget extends StatelessWidget {
     final notifier = context.watch<AuthNotifier>();
 
     _handleGoogleAuth() async {
-      await notifier.googleAuth(context: context);
+      await notifier.googleAuth(context);
     }
 
     return Column(

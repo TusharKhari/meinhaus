@@ -314,6 +314,7 @@ class _MyTextFieldState extends State<MyTextField> {
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: TextFormField(
+              onTapOutside: (event) => FocusScope.of(context).unfocus(),
               controller: widget.controller,
               maxLines: widget.maxLines,
               decoration: InputDecoration(

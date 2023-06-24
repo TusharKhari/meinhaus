@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
@@ -24,25 +24,24 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Scaffold(
+      // APPBAR
       appBar: AppBar(
         backgroundColor: AppColors.white,
         elevation: 0.0,
         leading: Image.asset("assets/icons/support_2.png"),
         titleSpacing: 4.0,
-        title: MyTextPoppines(
-          text: "Customer support",
-          fontSize: 16.sp,
-        ),
+        title: MyTextPoppines(text: "Customer support", fontSize: w / 22),
         actions: [
           InkWell(
             onTap: () => Navigator.pop(context),
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 12.h),
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              margin: EdgeInsets.symmetric(vertical: h / 70),
+              padding: EdgeInsets.symmetric(horizontal: w / 70),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(w / 40),
                 border: Border.all(
                   width: 1.0,
                   color: AppColors.grey.withOpacity(0.4),
@@ -51,19 +50,19 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
               child: Icon(
                 CupertinoIcons.xmark,
                 color: AppColors.black,
-                size: 18.sp,
+                size: w / 22,
               ),
             ),
           ),
-          10.hs,
+          SizedBox(width: w / 30),
         ],
       ),
       body: Column(
         children: [
-          // Project details
+          // PROJECT DETAILS BANNER
           Container(
             color: AppColors.yellow.withOpacity(0.15),
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+            padding: EdgeInsets.symmetric(horizontal: w / 20, vertical: h / 70),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -72,13 +71,13 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
                   children: [
                     MyTextPoppines(
                       text: "Furniture Fixing",
-                      fontSize: height > 800 ? 12.sp : 14.sp,
+                      fontSize: w / 28,
                       fontWeight: FontWeight.w600,
                     ),
                     2.vs,
                     MyTextPoppines(
                       text: "OD-79E9646",
-                      fontSize: height > 800 ? 8.sp : 10.sp,
+                      fontSize: w / 36,
                       color: AppColors.yellow,
                       fontWeight: FontWeight.w500,
                     ),
@@ -86,7 +85,7 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
                 ),
                 MyTextPoppines(
                   text: "Project Started On : 15/02/2023",
-                  fontSize: height > 800 ? 10.sp : 12.sp,
+                  fontSize: w / 34,
                   fontWeight: FontWeight.w500,
                 ),
               ],
@@ -96,7 +95,7 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // No message yet
+                  // SHOWING MESSAGES
                   Consumer<SupportUserMessagesProvider>(
                     builder: (context, value, child) {
                       if (value.messagesList.isNotEmpty) {
@@ -134,43 +133,36 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
                           ],
                         );
                       } else {
+                        // NO MESSAGE YET BLOCK
                         return Padding(
-                          padding: EdgeInsets.only(top: 120.h),
+                          padding: EdgeInsets.only(top: h / 5.5),
                           child: Container(
                             decoration: BoxDecoration(
                               color: AppColors.white,
-                              borderRadius: BorderRadius.circular(20.r),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color.fromARGB(12, 0, 0, 0),
-                                  offset: const Offset(0, 0),
-                                  blurRadius: 10.r,
-                                  spreadRadius: 2.r,
-                                ),
-                              ],
+                              borderRadius: BorderRadius.circular(w / 20),
+                              boxShadow: boxShadow,
                             ),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 40.w, vertical: 40.h),
+                                horizontal: w / 10, vertical: h / 20),
                             child: Column(
                               children: [
                                 MyTextPoppines(
                                   text: "No Messages yet..!",
-                                  fontSize: 20.sp,
+                                  fontSize: w / 20,
                                   color: AppColors.yellow,
                                 ),
-                                20.vs,
+                                SizedBox(height: h / 35),
                                 MyTextPoppines(
-                                  text:
-                                      "Send a message to \n     chat with Pro..!",
-                                  fontSize: 16.sp,
+                                  text: "Send a message to \n chat with Pro..!",
+                                  fontSize: w / 25,
                                   color: AppColors.black.withOpacity(0.4),
+                                  textAlign: TextAlign.center,
                                 ),
-                                20.vs,
-                                SizedBox(
-                                  height: 96.h,
-                                  width: 101.w,
-                                  child:
-                                      Image.asset("assets/icons/message.png"),
+                                SizedBox(height: h / 35),
+                                Image.asset(
+                                  "assets/icons/message.png",
+                                  height: h / 8,
+                                  width: w / 2.3,
                                 ),
                               ],
                             ),
@@ -198,6 +190,7 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
   }
 }
 
+// USER MESSAGES
 class UserMessageToSupport extends StatelessWidget {
   final String sendText;
   final String timeOfText;
@@ -211,14 +204,17 @@ class UserMessageToSupport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Container(
-      margin: EdgeInsets.only(left: 90.w, top: 10.h, bottom: 10.h, right: 4.w),
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      margin: EdgeInsets.only(
+          left: w / 4, top: h / 80, bottom: h / 80, right: w / 80),
+      padding: EdgeInsets.symmetric(horizontal: w / 28, vertical: h / 80),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.r),
-          topRight: Radius.circular(20.r),
-          bottomLeft: Radius.circular(20.r),
+          topLeft: Radius.circular(w / 20),
+          topRight: Radius.circular(w / 20),
+          bottomLeft: Radius.circular(w / 20),
         ),
         color: isConvoEnd!
             ? AppColors.yellow.withOpacity(0.12)
@@ -229,18 +225,18 @@ class UserMessageToSupport extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 200.w,
+            width: w / 1.9,
             child: MyTextPoppines(
               text: sendText,
-              fontSize: 12.sp,
+              fontSize: w / 32,
               fontWeight: FontWeight.w500,
               color: isConvoEnd! ? AppColors.black : AppColors.white,
-              maxLines: 20,
+              maxLines: 100,
             ),
           ),
           MyTextPoppines(
             text: timeOfText,
-            fontSize: 12.sp,
+            fontSize: w / 32,
             fontWeight: FontWeight.w500,
             color: isConvoEnd!
                 ? AppColors.black.withOpacity(0.6)
@@ -253,6 +249,8 @@ class UserMessageToSupport extends StatelessWidget {
   }
 }
 
+
+// SUPPORT MESSAGES
 class SupportMessageToUser extends StatelessWidget {
   final String sendText;
   final String timeOfText;
@@ -264,25 +262,26 @@ class SupportMessageToUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Row(
-      //  crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        10.hs,
-        SizedBox(
-          height: 30.h,
-          width: 30.w,
-          child: Image.asset("assets/icons/support_2.png"),
+        SizedBox(width: w / 38),
+        Image.asset(
+          "assets/icons/support_2.png",
+          height: h / 30,
+          width: w / 15,
         ),
-        5.vs,
+        SizedBox(width: w / 80),
         Container(
-          margin:
-              EdgeInsets.only(left: 10.w, top: 10.h, bottom: 10.h, right: 50.w),
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+          margin: EdgeInsets.only(
+              left: w / 38, top: h / 80, bottom: h / 80, right: w / 6),
+          padding: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 80),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.r),
-              topRight: Radius.circular(20.r),
-              bottomRight: Radius.circular(20.r),
+              topLeft: Radius.circular(w / 20),
+              topRight: Radius.circular(w / 20),
+              bottomRight: Radius.circular(w / 20),
             ),
             color: const Color(0xFFC1C1C1).withOpacity(0.20),
           ),
@@ -291,10 +290,10 @@ class SupportMessageToUser extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 200.w,
+                width: w / 1.9,
                 child: MyTextPoppines(
                   text: sendText,
-                  fontSize: 12.sp,
+                  fontSize: w / 32,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
                   maxLines: 20,
@@ -303,7 +302,7 @@ class SupportMessageToUser extends StatelessWidget {
               ),
               MyTextPoppines(
                 text: timeOfText,
-                fontSize: 12.sp,
+                fontSize: w / 32,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black.withOpacity(0.6),
                 maxLines: 20,
@@ -316,6 +315,8 @@ class SupportMessageToUser extends StatelessWidget {
   }
 }
 
+
+// BACK TO HOME BUTTON
 class CustomerEndConvoBottomSheet extends StatelessWidget {
   const CustomerEndConvoBottomSheet({
     Key? key,
@@ -323,38 +324,35 @@ class CustomerEndConvoBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Container(
       width: double.infinity,
-      height: 160.h,
-      margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 25.h),
-      padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 10.h),
+      height: h / 5,
+      margin: EdgeInsets.symmetric(horizontal: w / 12, vertical: h / 25),
+      padding: EdgeInsets.symmetric(horizontal: w / 10, vertical: h / 80),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18.r),
+        borderRadius: BorderRadius.circular(w / 26),
         color: AppColors.yellow.withOpacity(0.12),
       ),
       child: Column(
         children: [
-          20.vs,
+          SizedBox(height: 18),
           MyTextPoppines(
             text: "Conversion has been ended succesfully...!",
-            fontSize: 16.sp,
+            fontSize: w / 26,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
           ),
-          30.vs,
+          SizedBox(height: 18),
           MyBlueButton(
-            hPadding: 35.w,
+            hPadding: w / 10,
+            fontSize: w / 26,
             text: "Back To Home",
             onTap: () {
               context.pushNamedRoute(HomeScreen.routeName);
             },
-            vPadding: height > 800
-                ? 10.h
-                : height > 700
-                    ? 12.h
-                    : 15.h,
+            vPadding: h / 60,
           )
         ],
       ),

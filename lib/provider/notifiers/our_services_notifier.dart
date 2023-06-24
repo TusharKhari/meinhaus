@@ -23,12 +23,11 @@ class OurServicesNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Get saved notes
+  // GET SAVED NOTES
   Future getOurServices() async {
     await savedNotesRepo.getOurServices().then((response) {
       var data = OurServicesModel.fromJson(response);
       setOurServices(data);
-      ('Get Our services ✅').log();
     }).onError((error, stackTrace) {
       ("${error} $stackTrace").log("Our Services notifier");
     });

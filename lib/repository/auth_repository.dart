@@ -14,6 +14,7 @@ class AuthRepositorys {
         url: ApiUrls.signIn,
         method: HttpMethod.post,
         body: body,
+        allowUnauthorizedResponse: true,
       );
     } catch (e) {
       throw e;

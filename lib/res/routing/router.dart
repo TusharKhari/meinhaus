@@ -1,10 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/add%20card/screens/add_new_card_screen.dart';
 import 'package:new_user_side/features/additional%20work/screens/add_addition_work_screen.dart';
 import 'package:new_user_side/features/additional%20work/screens/additional_work_from_pro_screen.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/features/auth/screens/otp_validate_screen.dart';
-import 'package:new_user_side/features/auth/screens/signup_screen.dart';
+import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
+import 'package:new_user_side/features/auth/screens/signup_secondstep_screen.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_screen.dart';
@@ -35,11 +37,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const SignInScreen(),
       );
-    case SignUpScreen.routeName:
+    case SignUpStepFirstScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const SignUpScreen(),
+        builder: (_) => const SignUpStepFirstScreen(),
       );
+    // case SignUpStepSecondScreen.routeName:
+    //   var email = routeSettings.arguments as String;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => SignUpStepSecondScreen(email: email),
+    //   );
     case SplashScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -96,12 +104,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const UserDetailsScreen(),
       );
-    case OtpValidateScreen.routeName:
-      var email = routeSettings.arguments as String;
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => OtpValidateScreen(email: email),
-      );
+    // case OtpValidateScreen.routeName:
+    //   var email = routeSettings.arguments as String;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => OtpValidateScreen(email: email),
+    //   );
     case EditProfileScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -155,14 +163,6 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const SavedNotesScreen(),
       );
-    // case SubOngoingProjectScreen.routeName:
-    //   var index = routeSettings.arguments as int;
-    //   return MaterialPageRoute(
-    //     settings: routeSettings,
-    //     builder: (_) => SubOngoingProjectScreen(
-    //       index: index,
-    //     ),
-    //   );
     case ProgressInvoiceScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
