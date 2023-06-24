@@ -15,7 +15,7 @@ class AuthNotifier extends ChangeNotifier {
   AuthRepositorys repository = AuthRepositorys();
   final prefs = UserPrefrences();
 
-  // variables
+  // variabless
   bool _isToggle = false;
   bool _isWaiting = false;
   bool _loading = false;
