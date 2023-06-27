@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:new_user_side/pusher_test.dart';
 import 'package:new_user_side/res/routing/router.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: const IntroScreen(),
+          home: const PusherTest(),
           onGenerateRoute: (settings) => generateRoute(settings),
         );
       },
