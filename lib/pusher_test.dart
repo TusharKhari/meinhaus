@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 class PusherTest extends StatefulWidget {
@@ -17,8 +17,9 @@ class _PusherTestState extends State<PusherTest> {
   String _log = 'output:\n';
   final apiKey = "823f246fdf95c1ff3f95";
   final cluster = "ap2";
-  final channelName = "private-encrypted-chat.2";
-  final String eventName = "message-send";
+  final channelName = "private-chat.2";
+  final toChannelName = "private-chat.4";
+  final String eventName = "message-sent";
   String token = "85|yZZhVY7zvwPG743n0alVzUncZ9hYDSXz4aGdCbt9";
   final _eventFormKey = GlobalKey<FormState>();
   final _listViewController = ScrollController();
@@ -81,7 +82,7 @@ class _PusherTestState extends State<PusherTest> {
   }
 
   void onEvent(PusherEvent event) {
-    print("New event");
+    ("New Event").log();
     log("onEvent: $event");
   }
 
@@ -113,6 +114,7 @@ class _PusherTestState extends State<PusherTest> {
 
   dynamic onAuthorizer(
       String channelName, String socketId, dynamic options) async {
+    print(options);
     var authUrl = "https://meinhaus.ca/broadcasting/auth";
     var result = await http.post(
       Uri.parse(authUrl),
@@ -134,13 +136,15 @@ class _PusherTestState extends State<PusherTest> {
 
   void onTriggerEventPressed() async {
     if (_eventFormKey.currentState!.validate()) {
-      pusher.trigger(
+      
+      await pusher.trigger(
         PusherEvent(
-          channelName: channelName,
+          channelName: "private-chat.2",
           eventName: eventName,
           data: _data.text,
         ),
       );
+      print("Event triggerd");
     }
   }
 

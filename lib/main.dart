@@ -7,7 +7,6 @@ import 'package:new_user_side/res/routing/router.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/providers.dart';
-import 'static componets/splash/screens/intro_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
