@@ -136,7 +136,6 @@ class _PusherTestState extends State<PusherTest> {
 
   void onTriggerEventPressed() async {
     if (_eventFormKey.currentState!.validate()) {
-      
       await pusher.trigger(
         PusherEvent(
           channelName: "private-chat.2",
