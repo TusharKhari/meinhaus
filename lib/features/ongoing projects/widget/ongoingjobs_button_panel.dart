@@ -76,9 +76,8 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
               firstButtonTextColor: AppColors.buttonBlue,
               firstButtonImgUrl: "assets/icons/customer-support.png",
               firstButtonColor: const Color(0xFFE8F4FF),
-              firstButtonOnTap: () {
-                context.pushNamedRoute(ChatWIthProChatListScreen.routeName);
-              },
+              firstButtonOnTap: () => Navigator.pushNamed(
+                  context, ChatWIthProChatListScreen.routeName),
               secondButtonext: isNormalProject
                   ? "Req Additional Work"
                   : "   Additional Work   ",

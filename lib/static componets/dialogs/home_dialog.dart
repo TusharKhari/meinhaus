@@ -40,26 +40,26 @@ class ShowDialogBox extends StatelessWidget {
               child: MyTextPoppines(
                 text:
                     "Have an estimate plan ?Let’s create an estimate for you..!",
-                fontSize: width / 28,
+                fontSize: width / 26,
                 fontWeight: FontWeight.w500,
                 maxLines: 3,
                 height: 1.4,
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: height / 40),
+            SizedBox(height: height / 30),
             MyBlueButton(
-              hPadding: width / 10,
+              hPadding: width / 8,
               text: "Okay..",
-              vPadding: height / 80,
-              fontSize: width / 26,
+              vPadding: height / 70,
+              fontSize: width / 22,
               onTap: () => Navigator.pushNamed(
                 context,
                 EstimateGenerationScreen.routeName,
                 arguments: false,
               ),
             ),
-            SizedBox(height: height / 40),
+            SizedBox(height: height / 45),
             InkWell(
               onTap: () => Navigator.pop(context),
               child: MyTextPoppines(

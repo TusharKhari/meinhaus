@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_screen.dart';
 import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
@@ -23,7 +24,6 @@ class CustomerSupportChatScreen extends StatefulWidget {
 class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final h = context.screenHeight;
     final w = context.screenWidth;
     return Scaffold(
@@ -60,37 +60,7 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
       body: Column(
         children: [
           // PROJECT DETAILS BANNER
-          Container(
-            color: AppColors.yellow.withOpacity(0.15),
-            padding: EdgeInsets.symmetric(horizontal: w / 20, vertical: h / 70),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyTextPoppines(
-                      text: "Furniture Fixing",
-                      fontSize: w / 28,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    2.vs,
-                    MyTextPoppines(
-                      text: "OD-79E9646",
-                      fontSize: w / 36,
-                      color: AppColors.yellow,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
-                ),
-                MyTextPoppines(
-                  text: "Project Started On : 15/02/2023",
-                  fontSize: w / 34,
-                  fontWeight: FontWeight.w500,
-                ),
-              ],
-            ),
-          ),
+          ProjectDetailsBlock(),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -102,11 +72,11 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
                         final message = value.messagesList.last;
                         return Column(
                           children: [
-                            UserMessageToSupport(
+                            SendMessage(
                               sendText: message.text,
                               timeOfText: message.time,
                             ),
-                            SupportMessageToUser(
+                            RecivedMessage(
                               sendText: "This Feature is not working yet..!",
                               timeOfText: message.time,
                             ),
@@ -119,13 +89,13 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
                                   },
                                 );
                               },
-                              child: SupportMessageToUser(
+                              child: RecivedMessage(
                                 sendText:
                                     "To try how it work tap on this meessage",
                                 timeOfText: message.time,
                               ),
                             ),
-                            UserMessageToSupport(
+                            SendMessage(
                               isConvoEnd: true,
                               sendText: "Conversation end Succesfully",
                               timeOfText: message.time,
@@ -133,40 +103,12 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
                           ],
                         );
                       } else {
-                        // NO MESSAGE YET BLOCK
-                        return Padding(
-                          padding: EdgeInsets.only(top: h / 5.5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(w / 20),
-                              boxShadow: boxShadow,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: w / 10, vertical: h / 20),
-                            child: Column(
-                              children: [
-                                MyTextPoppines(
-                                  text: "No Messages yet..!",
-                                  fontSize: w / 20,
-                                  color: AppColors.yellow,
-                                ),
-                                SizedBox(height: h / 35),
-                                MyTextPoppines(
-                                  text: "Send a message to \n chat with Pro..!",
-                                  fontSize: w / 25,
-                                  color: AppColors.black.withOpacity(0.4),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: h / 35),
-                                Image.asset(
-                                  "assets/icons/message.png",
-                                  height: h / 8,
-                                  width: w / 2.3,
-                                ),
-                              ],
-                            ),
-                          ),
+                        return Column(
+                          children: [
+                            SizedBox(height: h / 6),
+                            // No message yet
+                            NoMessageYetWidget(),
+                          ],
                         );
                       }
                     },
@@ -175,6 +117,7 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
               ),
             ),
           ),
+       
         ],
       ),
       bottomSheet: Consumer<SupportUserMessagesProvider>(
@@ -190,12 +133,12 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
   }
 }
 
-// USER MESSAGES
-class UserMessageToSupport extends StatelessWidget {
+// SEND MESSAGES
+class SendMessage extends StatelessWidget {
   final String sendText;
   final String timeOfText;
   final bool? isConvoEnd;
-  const UserMessageToSupport({
+  const SendMessage({
     Key? key,
     required this.sendText,
     required this.timeOfText,
@@ -249,12 +192,11 @@ class UserMessageToSupport extends StatelessWidget {
   }
 }
 
-
-// SUPPORT MESSAGES
-class SupportMessageToUser extends StatelessWidget {
+// RECIVED MESSAGES
+class RecivedMessage extends StatelessWidget {
   final String sendText;
   final String timeOfText;
-  const SupportMessageToUser({
+  const RecivedMessage({
     Key? key,
     required this.sendText,
     required this.timeOfText,
@@ -314,7 +256,6 @@ class SupportMessageToUser extends StatelessWidget {
     );
   }
 }
-
 
 // BACK TO HOME BUTTON
 class CustomerEndConvoBottomSheet extends StatelessWidget {

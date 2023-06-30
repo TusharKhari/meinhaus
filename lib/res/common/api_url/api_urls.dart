@@ -24,7 +24,6 @@ class ApiUrls {
   static Uri toggleServices = setUrls("toggle-invoice-item");
   static Uri writeReview = setUrls("write-review");
 
-
   // Address
   static Uri addAddress = setUrls("add-address");
   static String editAddress = "${baseUrl}edit-addres";
@@ -56,4 +55,8 @@ class ApiUrls {
 
   // Upload Img
   static Uri uploadImg = setUrls("upload-img");
+
+  // Chat with pro
+  static Uri allConversation = setUrls("all-conversations");
+  static Uri loadMessages = setUrls("load-messages");
 }
