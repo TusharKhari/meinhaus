@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -23,9 +22,7 @@ class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
-        text: "Message",
-      ),
+      appBar: MyAppBar(text: "Message"),
       body: Column(
         children: [
           Expanded(
@@ -72,53 +69,54 @@ class ChatCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return InkWell(
       onTap: () => context.pushNamedRoute(ChatWithProScreen.routeName),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+        margin: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 60),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              radius: 30.r,
+              radius: w / 14,
               backgroundImage: AssetImage(profilePic),
             ),
-            10.hs,
+            SizedBox(width: w / 40),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                4.vs,
+                SizedBox(height: h / 200),
                 MyTextPoppines(
                   text: projectName,
-                  fontSize: 14.sp,
+                  fontSize: w / 28,
                   color: AppColors.buttonBlue,
                   fontWeight: FontWeight.w600,
                 ),
-                6.vs,
+                SizedBox(height: h / 160),
                 MyTextPoppines(
                   text: userName,
-                  fontSize: 12.sp,
+                  fontSize: w / 32,
                   fontWeight: FontWeight.w600,
                 ),
-                2.vs,
+                SizedBox(height: h / 300),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     isSend
                         ? MyTextPoppines(
                             text: "You :  ",
-                            fontSize: 10.sp,
+                            fontSize: w / 40,
                             fontWeight: FontWeight.w500,
                             height: 1.4,
                           )
                         : const SizedBox(),
                     SizedBox(
-                      width: isSend ? 200.w : 240.w,
+                      width: isSend ? w / 1.9 : w / 1.6,
                       child: MyTextPoppines(
                         text:
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ... ",
-                        fontSize: 10.sp,
+                        fontSize: w / 40,
                         maxLines: 1,
                         height: 1.4,
                         color: isReaded
@@ -131,28 +129,31 @@ class ChatCardWidget extends StatelessWidget {
                 ),
               ],
             ),
+            isReaded ? SizedBox(width: w / 40) : SizedBox(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                SizedBox(height: h / 120),
                 MyTextPoppines(
                   text: textTime,
-                  fontSize: height > 800 ? 7.sp : 9.sp,
+                  fontSize: w / 45,
                   fontWeight: FontWeight.w600,
                 ),
-                5.vs,
+                SizedBox(height: h / 120),
                 isReaded
                     ? const SizedBox()
                     : Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
+                          borderRadius: BorderRadius.circular(w / 20),
                           color: AppColors.yellow,
                         ),
                         padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 3.h),
+                            horizontal: w / 50, vertical: h / 300),
                         child: MyTextPoppines(
                           text: "4",
-                          fontSize: 9.sp,
+                          fontSize: w / 45,
                           color: AppColors.white,
+                          fontWeight: FontWeight.w600,
                         ),
                       )
               ],

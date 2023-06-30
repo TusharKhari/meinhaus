@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:new_user_side/pusher_test.dart';
 import 'package:new_user_side/res/routing/router.dart';
+import 'package:new_user_side/static%20componets/splash/screens/intro_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/providers.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: const PusherTest(),
+          home: const IntroScreen(),
           onGenerateRoute: (settings) => generateRoute(settings),
         );
       },
