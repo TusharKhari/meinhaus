@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
+import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_service_card.dart';
@@ -14,6 +15,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../provider/notifiers/chat_with_pro_notifier.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../provider/notifiers/our_services_notifier.dart';
 import '../../../static componets/dialogs/home_dialog.dart';
@@ -350,6 +352,19 @@ class HomePageAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // AllConversation
+    Future allConversation() async {
+      final notifier = context.read<ChatWithProNotifier>();
+      await notifier.allConversation(context);
+      context.pushNamedRoute(ChatWIthProChatListScreen.routeName);
+    }
+
+    Future loadMessages() async {
+      final notifier = context.read<ChatWithProNotifier>();
+      MapSS body = {"to_user_id": "4"};
+      await notifier.loadMessages(context: context, body: body);
+    }
+
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -370,8 +385,7 @@ class HomePageAppBar extends StatelessWidget {
       actions: [
         20.hs,
         InkWell(
-          onTap: () =>
-              context.pushNamedRoute(ChatWIthProChatListScreen.routeName),
+          onTap: () => loadMessages(),
           child: Icon(
             CupertinoIcons.text_bubble,
             color: AppColors.black.withOpacity(0.8),
