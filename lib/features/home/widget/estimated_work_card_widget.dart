@@ -78,12 +78,19 @@ class EstimatedWorkCard extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-                right: width / 65, left: width / 65, bottom: height / 220),
+              right: width / 65,
+              left: width / 65,
+              bottom: height / 300,
+            ),
             padding: EdgeInsets.symmetric(
-                horizontal: width / 36, vertical: height / 80),
+              horizontal: width / 36,
+              vertical: height / 80,
+            ),
             decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.only(bottomLeft: cr12, bottomRight: cr12),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(width / 40),
+                bottomRight: Radius.circular(width / 40),
+              ),
               image: projectDetails.uploadedImgs!.isNotEmpty
                   ? DecorationImage(
                       image: NetworkImage(projectDetails.uploadedImgs![0]),
@@ -144,6 +151,7 @@ class EstimatedWorkCard extends StatelessWidget {
                   fontSize: width / 36,
                   color: AppColors.white,
                   fontWeight: FontWeight.w600,
+                  maxLines: 1,
                 ),
                 3.vspacing(context),
                 Divider(

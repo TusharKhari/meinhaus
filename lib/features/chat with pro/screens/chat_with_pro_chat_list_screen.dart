@@ -1,10 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/constants/app_list.dart';
 import 'chat_with_pro_screen.dart';
@@ -22,7 +24,7 @@ class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(text: "Message"),
+      appBar: MyAppBar(text: "Messages"),
       body: Column(
         children: [
           Expanded(

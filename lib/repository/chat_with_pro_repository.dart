@@ -6,7 +6,7 @@ class ChatWithProRepo {
   NetworkApiServices services = NetworkApiServices();
 
 // Get Conversation List
-  Future<ResponseType> allConversation(MapSS body) async {
+  Future<ResponseType> allConversation() async {
     try {
       return await services.sendHttpRequest(
         url: ApiUrls.allConversation,
