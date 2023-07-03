@@ -1,77 +1,91 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:new_user_side/data/models/pro_message_model.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/network/network_api_servcies.dart';
+import '../../../provider/notifiers/chat_with_pro_notifier.dart';
+import '../../../utils/utils.dart';
 import '../../customer support/screens/customer_support_chat_screen.dart';
 import '../../customer support/widget/customer_bottom_sheet.dart';
 
-class ChatWithProScreen extends StatelessWidget {
+class ChatWithProScreen extends StatefulWidget {
   static const String routeName = '/chatwithpro';
-  const ChatWithProScreen({super.key});
+  const ChatWithProScreen({
+    Key? key,
+    required this.sendUserId,
+  }) : super(key: key);
+  final String sendUserId;
+
+  @override
+  State<ChatWithProScreen> createState() => _ChatWithProScreenState();
+}
+
+class _ChatWithProScreenState extends State<ChatWithProScreen> {
+  @override
+  void initState() {
+    super.initState();
+    setupPusherChannel();
+  }
+
+  Future setupPusherChannel() async {
+    final notifier = context.read<ChatWithProNotifier>();
+    MapSS body = {"to_user_id": widget.sendUserId};
+    await notifier.setupPusher(context, body);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final notifier = context.watch<ChatWithProNotifier>();
+    final messages = notifier.proMessages.messages!;
     final h = context.screenHeight;
     final w = context.screenWidth;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(w, h / 14),
-        child: ProChatAppBar(),
+    return ModalProgressHUD(
+      inAsyncCall: notifier.loading,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size(w, h / 14),
+          child: ProChatAppBar(),
+        ),
+        body: Column(
+          children: [
+            ProjectDetailsBlock(),
+            messages.length > 0
+                ? Expanded(
+                    child: ListView.builder(
+                      controller: notifier.scrollController,
+                      padding: EdgeInsets.only(bottom: h / 10),
+                      // shrinkWrap: true,
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final message = messages[index];
+                        final messageTime = Utils.convertToRailwayTime(
+                            message.createdAt.toString());
+                        if (message.senderId == widget.sendUserId) {
+                          return RecivedMessage(
+                            sendText: message.message!,
+                            timeOfText: messageTime,
+                          );
+                        } else {
+                          return SendMessage(
+                            isConvoEnd: false,
+                            sendText: message.message!,
+                            timeOfText: messageTime,
+                          );
+                        }
+                      },
+                    ),
+                  )
+                : NoMessageYetWidget(),
+          ],
+        ),
+        bottomSheet: const CustomerBottomSheet(isSupportChat: false),
       ),
-      backgroundColor: AppColors.white,
-      body: Column(
-        children: [
-          ProjectDetailsBlock(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // SHOWING MESSAGES
-                  Consumer<SupportUserMessagesProvider>(
-                    builder: (context, value, child) {
-                      if (value.messagesList.isNotEmpty) {
-                        final message = value.messagesList.last;
-                        return Column(
-                          children: [
-                            SendMessage(
-                              sendText: message.text,
-                              timeOfText: message.time,
-                            ),
-                            RecivedMessage(
-                              sendText: "This Feature is not working yet..!",
-                              timeOfText: message.time,
-                            ),
-                            RecivedMessage(
-                              sendText:
-                                  "To try how it work tap on this meessage",
-                              timeOfText: message.time,
-                            ),
-                            SendMessage(
-                              isConvoEnd: true,
-                              sendText: "Conversation end Succesfully",
-                              timeOfText: message.time,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          children: [
-                            SizedBox(height: h / 6),
-                            NoMessageYetWidget(),
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      bottomSheet: const CustomerBottomSheet(isSupportChat: false),
     );
   }
 }
@@ -140,6 +154,7 @@ class NoMessageYetWidget extends StatelessWidget {
         horizontal: w / 10,
         vertical: h / 20,
       ),
+      margin: EdgeInsets.only(top: h / 7),
       child: Column(
         children: [
           MyTextPoppines(

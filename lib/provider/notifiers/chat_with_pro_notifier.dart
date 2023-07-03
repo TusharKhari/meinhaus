@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/data/models/pro_message_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/data/pusher_services.dart';
 import 'package:new_user_side/repository/chat_with_pro_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:provider/provider.dart';
 
 import '../../res/common/my_snake_bar.dart';
+import 'auth_notifier.dart';
 
 class ChatWithProNotifier extends ChangeNotifier {
   ChatWithProRepo repo = ChatWithProRepo();
+  PusherService _pusherService = PusherService();
   TextEditingController messageController = TextEditingController();
+  final scrollController = ScrollController();
 
   @override
   void dispose() {
     super.dispose();
     messageController.dispose();
+    scrollController.dispose();
+    _proMessages.messages!.clear();
+    _pusherService.pusher.disconnect();
   }
 
   // VARIABLES
@@ -37,6 +45,13 @@ class ChatWithProNotifier extends ChangeNotifier {
     }
   }
 
+  void _scrollToBottom() {
+    if (_proMessages.messages!.isEmpty) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+    });
+  }
+
   void setAllConversationList(ConversationsListModal conversationsList) {
     _conversationsList = conversationsList;
     notifyListeners();
@@ -47,12 +62,30 @@ class ChatWithProNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateOrAddNewMessage(Messages messages) {
+    final index = _proMessages.messages!.indexOf(messages);
+    if (index >= 0) {
+      _proMessages.messages![index] = messages;
+    } else {
+      _proMessages.messages!.add(messages);
+    }
+    notifyListeners();
+    _scrollToBottom();
+  }
+
+  void unsubscribe(BuildContext context) {
+    final userNotifier = context.read<AuthNotifier>().user;
+    final userId = userNotifier.userId.toString();
+    String channelName = "private-chat.$userId";
+    _pusherService.pusher.unsubscribe(channelName: channelName);
+    ("Channel Unsunscribed").log("Pusher");
+  }
+
   // METHODS
   /// Fetches all conversations list based on the provided `body` data.
   Future allConversation(BuildContext context) async {
     setLoadingState(true, true);
     await repo.allConversation().then((response) {
-      showSnakeBarr(context, "All conversation loaded", BarState.Success);
       final data = ConversationsListModal.fromJson(response);
       setAllConversationList(data);
       setLoadingState(false, true);
@@ -70,7 +103,6 @@ class ChatWithProNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true, true);
     await repo.loadMessages(body).then((response) {
-      print(response);
       final data = ProMessagesModel.fromJson(response);
       setMessages(data);
       setLoadingState(false, true);
@@ -80,12 +112,20 @@ class ChatWithProNotifier extends ChangeNotifier {
       setLoadingState(false, true);
     });
   }
+
+  /// Setup Pusher channel
+  Future setupPusher(
+    BuildContext context,
+    MapSS body,
+  ) async {
+    await _pusherService.setupPusherConnection(context).then((value) {
+      ("Pusher setup done").log("Pusher");
+      loadMessages(context: context, body: body);
+      _scrollToBottom();
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, error.toString(), BarState.Error);
+      ("Erorr in setup pusher --> $error").log("Pro-Chat Notifier");
+    });
+  }
 }
 
-
-/*
-Step 1 get Conversation list
-Step 2 get conversation related to user
-Step 3 listen to events and add them to message list
-Step 4 trigger an event and add them to message list
-*/
