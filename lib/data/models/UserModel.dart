@@ -34,6 +34,8 @@ class UserModel {
 
 class User {
   String? email;
+  String? phone;
+  int? userId;
   String? firstname;
   String? lastname;
   String? profilePic;
@@ -45,6 +47,8 @@ class User {
 
   User({
     this.email,
+    this.phone,
+    this.userId,
     this.firstname,
     this.lastname,
     this.profilePic,
@@ -57,6 +61,8 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     email = json['email'];
+    phone = json['phone'];
+    userId = json['user_id'];
     firstname = json['firstname'];
     lastname = json['lastname'];
     profilePic = json['profile_pic'];
@@ -80,6 +86,8 @@ class User {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['email'] = this.email;
+    data['phone'] = this.phone;
+    data['user_id'] = this.userId;
     data['firstname'] = this.firstname;
     data['lastname'] = this.lastname;
     data['profile_pic'] = this.profilePic;
@@ -98,6 +106,8 @@ class User {
 
   User copyWith({
     String? email,
+    String? phone,
+    int? userId,
     String? firstname,
     String? lastname,
     String? profilePic,
@@ -109,6 +119,8 @@ class User {
   }) {
     return User(
       email: email ?? this.email,
+      phone: phone ?? this.phone,
+      userId: userId ?? this.userId,
       firstname: firstname ?? this.firstname,
       lastname: lastname ?? this.lastname,
       profilePic: profilePic ?? this.profilePic,

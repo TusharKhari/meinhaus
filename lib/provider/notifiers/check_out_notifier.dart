@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/utils/utils.dart';
 import '../../features/home/screens/home_screen.dart';
-import '../../payment_services.dart';
+import '../../data/payment_services.dart';
 
 class CheckOutNotifier extends ChangeNotifier {
   CheckOutRepository repository = CheckOutRepository();

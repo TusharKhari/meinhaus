@@ -89,11 +89,6 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const ChatWIthProChatListScreen(),
       );
-    case ChatWithProScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const ChatWithProScreen(),
-      );
     case NotificationScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,

@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
-import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_service_card.dart';
+import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         estimateWork != null
                             ? estimateWork.length != 0
                                 ? SizedBox(
-                                    height: 265.h,
+                                    height: height / 3,
                                     child: ListView.builder(
                                       physics: const BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
@@ -359,12 +359,6 @@ class HomePageAppBar extends StatelessWidget {
       context.pushNamedRoute(ChatWIthProChatListScreen.routeName);
     }
 
-    Future loadMessages() async {
-      final notifier = context.read<ChatWithProNotifier>();
-      MapSS body = {"to_user_id": "4"};
-      await notifier.loadMessages(context: context, body: body);
-    }
-
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -385,7 +379,7 @@ class HomePageAppBar extends StatelessWidget {
       actions: [
         20.hs,
         InkWell(
-          onTap: () => loadMessages(),
+          onTap: () => allConversation(),
           child: Icon(
             CupertinoIcons.text_bubble,
             color: AppColors.black.withOpacity(0.8),

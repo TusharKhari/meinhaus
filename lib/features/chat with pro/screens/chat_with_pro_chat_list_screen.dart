@@ -1,12 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 
+import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
 import '../../../utils/constants/app_list.dart';
 import 'chat_with_pro_screen.dart';
@@ -23,27 +24,38 @@ class ChatWIthProChatListScreen extends StatefulWidget {
 class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(text: "Messages"),
-      body: Column(
-        children: [
-          Expanded(
-              child: ListView.builder(
-            itemCount: chatList.length,
-            itemBuilder: (context, index) {
-              final list = chatList[index];
-              return ChatCardWidget(
-                isSend: list[0],
-                isReaded: list[1],
-                profilePic: list[2],
-                userName: list[3],
-                message: list[4],
-                textTime: list[5],
-                projectName: list[6],
-              );
-            },
-          ))
-        ],
+    final notifier = context.watch<ChatWithProNotifier>();
+    final conversationList = notifier.conversationsList;
+    return ModalProgressHUD(
+      inAsyncCall: notifier.loading,
+      child: Scaffold(
+        appBar: MyAppBar(text: "Messages"),
+        body: Column(
+          children: [
+            Expanded(
+                child: ListView.builder(
+              itemCount: conversationList.conversations!.length,
+              itemBuilder: (context, index) {
+                final newList = conversationList.conversations![index];
+                final list = chatList[index];
+                return ChatCardWidget(
+                  isSend: list[0],
+                  isReaded: list[1],
+                  profilePic: list[2],
+                  userName: newList.toUserName.toString(),
+                  message: list[4],
+                  textTime: list[5],
+                  projectName: list[6],
+                  onTap: () => Navigator.of(context).pushScreen(
+                    ChatWithProScreen(
+                      sendUserId: newList.toUserId!,
+                    ),
+                  ),
+                );
+              },
+            ))
+          ],
+        ),
       ),
     );
   }
@@ -57,6 +69,7 @@ class ChatCardWidget extends StatelessWidget {
   final String message;
   final String textTime;
   final String projectName;
+  final VoidCallback onTap;
 
   const ChatCardWidget({
     Key? key,
@@ -67,6 +80,7 @@ class ChatCardWidget extends StatelessWidget {
     required this.message,
     required this.textTime,
     required this.projectName,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -74,7 +88,7 @@ class ChatCardWidget extends StatelessWidget {
     final h = context.screenHeight;
     final w = context.screenWidth;
     return InkWell(
-      onTap: () => context.pushNamedRoute(ChatWithProScreen.routeName),
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 60),
         child: Row(

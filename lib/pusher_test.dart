@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:new_user_side/res/common/api_url/api_urls.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
@@ -113,11 +114,12 @@ class _PusherTestState extends State<PusherTest> {
   }
 
   dynamic onAuthorizer(
-      String channelName, String socketId, dynamic options) async {
-    print(options);
-    var authUrl = "https://meinhaus.ca/broadcasting/auth";
+    String channelName,
+    String socketId,
+    dynamic options,
+  ) async {
     var result = await http.post(
-      Uri.parse(authUrl),
+      ApiUrls.broadcastAuth,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Bearer ${token}',
@@ -125,13 +127,7 @@ class _PusherTestState extends State<PusherTest> {
       body: 'socket_id=' + socketId + '&channel_name=' + channelName + '',
     );
     var json = jsonDecode(result.body);
-    print(json);
-    print(json['auth']);
-    return {
-      "auth": json['auth'],
-      //"channel_data": {"user_id": 2},
-      "shared_secret": json["shared_secret"],
-    };
+    return json['auth'];
   }
 
   void onTriggerEventPressed() async {

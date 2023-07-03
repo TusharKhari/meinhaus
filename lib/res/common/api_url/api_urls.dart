@@ -59,4 +59,7 @@ class ApiUrls {
   // Chat with pro
   static Uri allConversation = setUrls("all-conversations");
   static Uri loadMessages = setUrls("load-messages");
+
+  // Pusher
+  static Uri broadcastAuth = setUrls("broadcasting/auth");
 }
