@@ -30,4 +30,18 @@ class ChatWithProRepo {
     }
   }
 
+
+  // Send Message
+    Future<ResponseType> sendMessage(MapSS body) async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.sendMessage,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
 }

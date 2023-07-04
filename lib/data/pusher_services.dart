@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:new_user_side/data/models/pro_message_model.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
@@ -47,10 +48,14 @@ class PusherService {
   }
 
   void onEvent(PusherEvent event, BuildContext context) {
-    final notifier = context.read<ChatWithProNotifier>();
-    final data = json.decode(event.data as String) as Map<String, dynamic>;
-    final message = Messages.fromJson(data['message_data']);
-    notifier.updateOrAddNewMessage(message);
+    try {
+      final notifier = context.read<ChatWithProNotifier>();
+      final data = json.decode(event.data as String) as Map<String, dynamic>;
+      final message = Messages.fromJson(data['message_data']);
+      notifier.updateOrAddNewMessage(message);
+    } catch (e) {
+      (e).log("OnEvent Error");
+    }
     print("onEvent: $event");
   }
 
