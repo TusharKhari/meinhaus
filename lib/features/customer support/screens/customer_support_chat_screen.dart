@@ -8,7 +8,6 @@ import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
@@ -117,7 +116,6 @@ class _CustomerSupportChatScreenState extends State<CustomerSupportChatScreen> {
               ),
             ),
           ),
-       
         ],
       ),
       bottomSheet: Consumer<SupportUserMessagesProvider>(
@@ -138,11 +136,13 @@ class SendMessage extends StatelessWidget {
   final String sendText;
   final String timeOfText;
   final bool? isConvoEnd;
+  final bool? isSeen;
   const SendMessage({
     Key? key,
     required this.sendText,
     required this.timeOfText,
     this.isConvoEnd = false,
+    this.isSeen = false,
   }) : super(key: key);
 
   @override
@@ -151,7 +151,11 @@ class SendMessage extends StatelessWidget {
     final w = context.screenWidth;
     return Container(
       margin: EdgeInsets.only(
-          left: w / 4, top: h / 80, bottom: h / 80, right: w / 80),
+        left: w / 4,
+        top: h / 80,
+        bottom: h / 80,
+        right: w / 80,
+      ),
       padding: EdgeInsets.symmetric(horizontal: w / 28, vertical: h / 80),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -186,6 +190,11 @@ class SendMessage extends StatelessWidget {
                 : AppColors.white.withOpacity(0.6),
             maxLines: 20,
           ),
+          Icon(
+            Icons.done_all,
+            size: w / 25,
+            color: isSeen! ? Colors.lightBlue : Colors.white,
+          )
         ],
       ),
     );

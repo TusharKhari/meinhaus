@@ -1,16 +1,16 @@
 class ProMessagesModel {
   String? status;
   int? conversationId;
-  Null endedAt;
+  int? messageCount;
   List<Messages>? messages;
 
   ProMessagesModel(
-      {this.status, this.conversationId, this.endedAt, this.messages});
+      {this.status, this.conversationId, this.messageCount, this.messages});
 
   ProMessagesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     conversationId = json['conversation_id'];
-    endedAt = json['ended_at'];
+    messageCount = json['message_count'];
     if (json['messages'] != null) {
       messages = <Messages>[];
       json['messages'].forEach((v) {
@@ -23,7 +23,7 @@ class ProMessagesModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['conversation_id'] = this.conversationId;
-    data['ended_at'] = this.endedAt;
+    data['message_count'] = this.messageCount;
     if (this.messages != null) {
       data['messages'] = this.messages!.map((v) => v.toJson()).toList();
     }
@@ -33,12 +33,11 @@ class ProMessagesModel {
 
 class Messages {
   int? id;
-  String? senderId;
+  dynamic? senderId;
   String? message;
-  String? isSeen;
-  String? forwarded;
+  dynamic? isSeen;
+  dynamic? forwarded;
   String? createdAt;
-  String? updatedAt;
   String? type;
 
   Messages(
@@ -48,7 +47,6 @@ class Messages {
       this.isSeen,
       this.forwarded,
       this.createdAt,
-      this.updatedAt,
       this.type});
 
   Messages.fromJson(Map<String, dynamic> json) {
@@ -58,7 +56,6 @@ class Messages {
     isSeen = json['is_seen'];
     forwarded = json['forwarded'];
     createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
     type = json['type'];
   }
 
@@ -70,7 +67,6 @@ class Messages {
     data['is_seen'] = this.isSeen;
     data['forwarded'] = this.forwarded;
     data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     data['type'] = this.type;
     return data;
   }

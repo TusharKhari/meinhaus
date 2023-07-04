@@ -30,63 +30,74 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
   @override
   void initState() {
     super.initState();
+    loadMessages();
     setupPusherChannel();
+  }
+
+  Future loadMessages() async {
+    final notifier = context.read<ChatWithProNotifier>();
+    MapSS body = {"to_user_id": widget.sendUserId};
+    await notifier.loadMessages(context: context, body: body);
   }
 
   Future setupPusherChannel() async {
     final notifier = context.read<ChatWithProNotifier>();
-    MapSS body = {"to_user_id": widget.sendUserId};
-    await notifier.setupPusher(context, body);
+    await notifier.setupPusher(context);
   }
 
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatWithProNotifier>();
-    final messages = notifier.proMessages.messages!;
+   // final messages = notifier.proMessages.messages!;
     final h = context.screenHeight;
     final w = context.screenWidth;
-    return ModalProgressHUD(
-      inAsyncCall: notifier.loading,
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(w, h / 14),
-          child: ProChatAppBar(),
-        ),
-        body: Column(
-          children: [
-            ProjectDetailsBlock(),
-            messages.length > 0
-                ? Expanded(
-                    child: ListView.builder(
-                      controller: notifier.scrollController,
-                      padding: EdgeInsets.only(bottom: h / 10),
-                      // shrinkWrap: true,
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        final message = messages[index];
-                        final messageTime = Utils.convertToRailwayTime(
-                            message.createdAt.toString());
-                        if (message.senderId == widget.sendUserId) {
-                          return RecivedMessage(
-                            sendText: message.message!,
-                            timeOfText: messageTime,
-                          );
-                        } else {
-                          return SendMessage(
-                            isConvoEnd: false,
-                            sendText: message.message!,
-                            timeOfText: messageTime,
-                          );
-                        }
-                      },
-                    ),
-                  )
-                : NoMessageYetWidget(),
-          ],
-        ),
-        bottomSheet: const CustomerBottomSheet(isSupportChat: false),
-      ),
-    );
+    return notifier.proMessages.messages != null
+        ? ModalProgressHUD(
+            inAsyncCall: notifier.loading,
+            child: Scaffold(
+              appBar: PreferredSize(
+                preferredSize: Size(w, h / 14),
+                child: ProChatAppBar(),
+              ),
+              body: Column(
+                children: [
+                  ProjectDetailsBlock(),
+                  notifier.proMessages.messages!.length > 0
+                      ? Expanded(
+                          child: ListView.builder(
+                            controller: notifier.scrollController,
+                            padding: EdgeInsets.only(bottom: h / 10),
+                            // shrinkWrap: true,
+                            itemCount: notifier.proMessages.messages!.length,
+                            itemBuilder: (context, index) {
+                              final message = notifier.proMessages.messages![index];
+                              final isSeen = message.isSeen == 2;
+                              final messageTime = Utils.convertToRailwayTime(
+                                  message.createdAt.toString());
+                              if (message.senderId.toString() ==
+                                  widget.sendUserId) {
+                                return RecivedMessage(
+                                  sendText: message.message!,
+                                  timeOfText: messageTime,
+                                );
+                              } else {
+                                return SendMessage(
+                                  isConvoEnd: false,
+                                  sendText: message.message!,
+                                  timeOfText: messageTime,
+                                  isSeen: isSeen,
+                                );
+                              }
+                            },
+                          ),
+                        )
+                      : NoMessageYetWidget(),
+                ],
+              ),
+              bottomSheet: const CustomerBottomSheet(isSupportChat: false),
+            ),
+          )
+        : ModalProgressHUD(inAsyncCall: true, child: Scaffold());
   }
 }
 
