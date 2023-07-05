@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:new_user_side/data/models/pro_message_model.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -30,25 +29,18 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
   @override
   void initState() {
     super.initState();
-    loadMessages();
     setupPusherChannel();
-  }
-
-  Future loadMessages() async {
-    final notifier = context.read<ChatWithProNotifier>();
-    MapSS body = {"to_user_id": widget.sendUserId};
-    await notifier.loadMessages(context: context, body: body);
   }
 
   Future setupPusherChannel() async {
     final notifier = context.read<ChatWithProNotifier>();
-    await notifier.setupPusher(context);
+    MapSS body = {"to_user_id": widget.sendUserId};
+    await notifier.setupPusher(context, body);
   }
 
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatWithProNotifier>();
-   // final messages = notifier.proMessages.messages!;
     final h = context.screenHeight;
     final w = context.screenWidth;
     return notifier.proMessages.messages != null
@@ -64,31 +56,47 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
                   ProjectDetailsBlock(),
                   notifier.proMessages.messages!.length > 0
                       ? Expanded(
-                          child: ListView.builder(
-                            controller: notifier.scrollController,
-                            padding: EdgeInsets.only(bottom: h / 10),
-                            // shrinkWrap: true,
-                            itemCount: notifier.proMessages.messages!.length,
-                            itemBuilder: (context, index) {
-                              final message = notifier.proMessages.messages![index];
-                              final isSeen = message.isSeen == 2;
-                              final messageTime = Utils.convertToRailwayTime(
-                                  message.createdAt.toString());
-                              if (message.senderId.toString() ==
-                                  widget.sendUserId) {
-                                return RecivedMessage(
-                                  sendText: message.message!,
-                                  timeOfText: messageTime,
-                                );
-                              } else {
-                                return SendMessage(
-                                  isConvoEnd: false,
-                                  sendText: message.message!,
-                                  timeOfText: messageTime,
-                                  isSeen: isSeen,
-                                );
+                          child: NotificationListener<ScrollNotification>(
+                            onNotification: (scrollNotification) {
+                              if (scrollNotification is ScrollEndNotification) {
+                                if (notifier.scrollController.position.pixels ==
+                                    notifier.scrollController.position
+                                        .minScrollExtent) {
+                                  notifier.loadMoreMessages(context);
+                                }
                               }
+                              return false;
                             },
+                            child: Scrollbar(
+                              child: ListView.builder(
+                                controller: notifier.scrollController,
+                                padding: EdgeInsets.only(bottom: h / 10),
+                                itemCount:
+                                    notifier.proMessages.messages!.length,
+                                itemBuilder: (context, index) {
+                                  final message =
+                                      notifier.proMessages.messages![index];
+                                  final messageState = message.isSeen;
+                                  final messageTime =
+                                      Utils.convertToRailwayTime(
+                                          message.createdAt.toString());
+                                  if (message.senderId.toString() ==
+                                      widget.sendUserId) {
+                                    return RecivedMessage(
+                                      sendText: message.message!,
+                                      timeOfText: messageTime,
+                                    );
+                                  } else {
+                                    return SendMessage(
+                                      isConvoEnd: false,
+                                      sendText: message.message!,
+                                      timeOfText: messageTime,
+                                      messageState: messageState,
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
                           ),
                         )
                       : NoMessageYetWidget(),

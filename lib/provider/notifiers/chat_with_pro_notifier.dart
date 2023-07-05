@@ -19,21 +19,20 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   @override
   void dispose() {
-    super.dispose();
     messageController.dispose();
     scrollController.dispose();
-    // _proMessages.messages!.clear();
+    _proMessages.messages!.clear();
+    super.dispose();
   }
 
   // VARIABLES
   bool _loading = false;
-  MessageSendState _messageSendState = MessageSendState.initial;
+  int _pageNo = 1;
   ConversationsListModal _conversationsList = ConversationsListModal();
   ProMessagesModel _proMessages = ProMessagesModel();
 
   // GETTERS
   bool get loading => _loading;
-  MessageSendState get messageSendState => _messageSendState;
   ConversationsListModal get conversationsList => _conversationsList;
   ProMessagesModel get proMessages => _proMessages;
 
@@ -45,13 +44,6 @@ class ChatWithProNotifier extends ChangeNotifier {
         notifyListeners();
       });
     }
-  }
-
-  void setMessageSendState(MessageSendState state) {
-    _messageSendState = state;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifyListeners();
-    });
   }
 
   void _scrollToBottom() {
@@ -71,24 +63,36 @@ class ChatWithProNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateOrAddNewMessage(Messages messages) {
-    final index = _proMessages.messages!.indexOf(messages);
-    if (index >= 0) {
-      _proMessages.messages![index] = messages;
+  void setPageNo({int? pageNo}) {
+    if (pageNo != null) {
+      _pageNo = pageNo;
     } else {
+      _pageNo++;
+    }
+    notifyListeners();
+  }
+
+  void updateOrAddNewMessage(Messages messages) {
+    final existingMessageIndex =
+        _proMessages.messages!.indexWhere((m) => m.id == messages.id);
+    if (existingMessageIndex >= 0) {
+      print("same message");
+      _proMessages.messages![existingMessageIndex] = messages;
+    } else {
+      print("different");
       _proMessages.messages!.add(messages);
     }
     notifyListeners();
     _scrollToBottom();
   }
 
-  // void unsubscribe(BuildContext context) {
-  //   final userNotifier = context.read<AuthNotifier>().user;
-  //   final userId = userNotifier.userId.toString();
-  //   String channelName = "private-chat.$userId";
-  //   _pusherService.pusher.unsubscribe(channelName: channelName);
-  //   ("Channel Unsunscribed").log("Pusher");
-  // }
+  void unsubscribe(BuildContext context) {
+    final userNotifier = context.read<AuthNotifier>().user;
+    final userId = userNotifier.userId.toString();
+    String channelName = "private-chat.$userId";
+    _pusherService.pusher.unsubscribe(channelName: channelName);
+    ("Channel Unsunscribed").log("Pusher");
+  }
 
   // METHODS
   /// Fetches all conversations list based on the provided `body` data.
@@ -114,8 +118,9 @@ class ChatWithProNotifier extends ChangeNotifier {
     await repo.loadMessages(body).then((response) {
       final data = ProMessagesModel.fromJson(response);
       setMessages(data);
-      setLoadingState(false, true);
       _scrollToBottom();
+      setPageNo(pageNo: 1);
+      setLoadingState(false, true);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);
       ("Erorr in Load Messages --> $error").log("Pro-Chat Notifier");
@@ -124,8 +129,9 @@ class ChatWithProNotifier extends ChangeNotifier {
   }
 
   /// Setup Pusher channel
-  Future setupPusher(BuildContext context) async {
+  Future setupPusher(BuildContext context, MapSS body) async {
     await _pusherService.setupPusherConnection(context).then((value) {
+      loadMessages(context: context, body: body);
       ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);
@@ -134,7 +140,6 @@ class ChatWithProNotifier extends ChangeNotifier {
   }
 
   Future sendMessage(BuildContext context) async {
-    setMessageSendState(MessageSendState.sending);
     sendDummyMessage(context);
     MapSS body = {
       "message": messageController.text,
@@ -142,15 +147,14 @@ class ChatWithProNotifier extends ChangeNotifier {
     };
     await repo.sendMessage(body).then(
       (response) {
-        setMessageSendState(MessageSendState.send);
-        // final data = ProMessagesModel.fromJson(response);
-        // for (var message in data.messages!) {
-        //   updateOrAddNewMessage(message);
-        // }
+        final data = ProMessagesModel.fromJson(response);
+        // if user send multiple message
+        for (var message in data.messages!) {
+          updateOrAddNewMessage(message);
+        }
         messageController.clear();
       },
     ).onError((error, stackTrace) {
-      setMessageSendState(MessageSendState.error);
       showSnakeBarr(context, error.toString(), BarState.Error);
       ("Erorr in Send Message --> $error").log("Pro-Chat Notifier");
       messageController.clear();
@@ -173,14 +177,42 @@ class ChatWithProNotifier extends ChangeNotifier {
     );
     updateOrAddNewMessage(message);
   }
+
+  Future loadMoreMessages(BuildContext context) async {
+    MapSS body = {
+      "conversation_id": _proMessages.conversationId.toString(),
+      "paginateVar": _pageNo.toString(),
+    };
+    if (_proMessages.messageCount != _proMessages.messages!.length) {
+      await repo.loadMoreMessages(body).then((response) {
+        final data = ProMessagesModel.fromJson(response);
+        _proMessages.messages!.insertAll(0, data.messages!);
+        setPageNo();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          scrollController.jumpTo(scrollController.position.extentBefore);
+        });
+      }).onError((error, stackTrace) {
+        showSnakeBarr(context, error.toString(), BarState.Error);
+        ("Erorr in Load More Message --> $error").log("Pro-Chat Notifier");
+      });
+    } else {
+      showSnakeBarr(context, "No more messages to load", BarState.Info);
+    }
+  }
+
+  Future readMessage(MapSS body) async {
+    repo.readMessage(body).then((value) {
+      print("messages readed by sender");
+    }).onError((error, stackTrace) {
+      ("Erorr in Read Message --> $error").log("Pro-Chat Notifier");
+    });
+  }
 }
-
-
 
 /// Send events using api calling [Done]
 /// Add those messages to pro message list [Done]
 /// show is seen or not [not getting message data on message-read]
-/// load more messages 
+/// load more messages
 /// show the dates block of messages like whatsapp
 /// -------------------------------------------------
 /// send files also

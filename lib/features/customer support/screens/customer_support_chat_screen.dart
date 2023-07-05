@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_screen.dart';
 import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
@@ -9,7 +11,6 @@ import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
 class CustomerSupportChatScreen extends StatefulWidget {
   static const String routeName = '/supportChat';
@@ -137,12 +138,14 @@ class SendMessage extends StatelessWidget {
   final String timeOfText;
   final bool? isConvoEnd;
   final bool? isSeen;
+  final int? messageState;
   const SendMessage({
     Key? key,
     required this.sendText,
     required this.timeOfText,
     this.isConvoEnd = false,
     this.isSeen = false,
+    this.messageState = 1,
   }) : super(key: key);
 
   @override
@@ -191,13 +194,43 @@ class SendMessage extends StatelessWidget {
             maxLines: 20,
           ),
           Icon(
-            Icons.done_all,
+           setIcon(messageState!),
             size: w / 25,
-            color: isSeen! ? Colors.lightBlue : Colors.white,
+            color: setIconColor(messageState!),
           )
         ],
       ),
     );
+  }
+
+  IconData setIcon(int messageState) {
+    switch (messageState) {
+      case 0:
+        return Icons.access_time_outlined;
+      case 1:
+        return Icons.done_all;
+      case 2:
+        return Icons.done_all;
+      case 3:
+        return Icons.error_outline;
+      default:
+        return Icons.done;
+    }
+  }
+
+  Color setIconColor(int messageState) {
+    switch (messageState) {
+      case 0:
+        return Colors.white;
+      case 1:
+        return Colors.white;
+      case 2:
+        return Colors.lightBlue;
+      case 3:
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
   }
 }
 

@@ -1,15 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class ProMessagesModel {
   String? status;
   int? conversationId;
+  String? toUserId;
   int? messageCount;
   List<Messages>? messages;
 
   ProMessagesModel(
-      {this.status, this.conversationId, this.messageCount, this.messages});
+      {this.status,
+      this.conversationId,
+      this.toUserId,
+      this.messageCount,
+      this.messages});
 
   ProMessagesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     conversationId = json['conversation_id'];
+    toUserId = json['to_user_id'];
     messageCount = json['message_count'];
     if (json['messages'] != null) {
       messages = <Messages>[];
@@ -23,20 +30,37 @@ class ProMessagesModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['conversation_id'] = this.conversationId;
+    data['to_user_id'] = this.toUserId;
     data['message_count'] = this.messageCount;
     if (this.messages != null) {
       data['messages'] = this.messages!.map((v) => v.toJson()).toList();
     }
     return data;
   }
+
+  ProMessagesModel copyWith({
+    String? status,
+    int? conversationId,
+    String? toUserId,
+    int? messageCount,
+    List<Messages>? messages,
+  }) {
+    return ProMessagesModel(
+      status: status ?? this.status,
+      conversationId: conversationId ?? this.conversationId,
+      toUserId: toUserId ?? this.toUserId,
+      messageCount: messageCount ?? this.messageCount,
+      messages: messages ?? this.messages,
+    );
+  }
 }
 
 class Messages {
   int? id;
-  dynamic? senderId;
+  int? senderId;
   String? message;
-  dynamic? isSeen;
-  dynamic? forwarded;
+  int? isSeen;
+  int? forwarded;
   String? createdAt;
   String? type;
 
@@ -69,5 +93,25 @@ class Messages {
     data['created_at'] = this.createdAt;
     data['type'] = this.type;
     return data;
+  }
+
+  Messages copyWith({
+    int? id,
+    int? senderId,
+    String? message,
+    int? isSeen,
+    int? forwarded,
+    String? createdAt,
+    String? type,
+  }) {
+    return Messages(
+      id: id ?? this.id,
+      senderId: senderId ?? this.senderId,
+      message: message ?? this.message,
+      isSeen: isSeen ?? this.isSeen,
+      forwarded: forwarded ?? this.forwarded,
+      createdAt: createdAt ?? this.createdAt,
+      type: type ?? this.type,
+    );
   }
 }

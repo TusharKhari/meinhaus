@@ -59,6 +59,9 @@ class ApiUrls {
   // Chat with pro
   static Uri allConversation = setUrls("all-conversations");
   static Uri loadMessages = setUrls("load-messages");
+  static Uri loadMoreMessages = setUrls("load-more");
+  static Uri readMessage = setUrls("trigger-read-event");
+
   static Uri sendMessage = setUrls("send-message");
 
   // Pusher
