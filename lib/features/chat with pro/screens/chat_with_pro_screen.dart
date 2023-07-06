@@ -1,18 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:new_user_side/data/models/pro_message_model.dart';
+import 'package:new_user_side/res/common/camera_view_page.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:new_user_side/utils/extensions/get_images.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/chat_with_pro_notifier.dart';
 import '../../../utils/utils.dart';
 import '../../customer support/screens/customer_support_chat_screen.dart';
-import '../../customer support/widget/customer_bottom_sheet.dart';
 
 class ChatWithProScreen extends StatefulWidget {
   static const String routeName = '/chatwithpro';
@@ -30,25 +32,18 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
   @override
   void initState() {
     super.initState();
-    loadMessages();
     setupPusherChannel();
-  }
-
-  Future loadMessages() async {
-    final notifier = context.read<ChatWithProNotifier>();
-    MapSS body = {"to_user_id": widget.sendUserId};
-    await notifier.loadMessages(context: context, body: body);
   }
 
   Future setupPusherChannel() async {
     final notifier = context.read<ChatWithProNotifier>();
-    await notifier.setupPusher(context);
+    MapSS body = {"to_user_id": widget.sendUserId};
+    await notifier.setupPusher(context, body);
   }
 
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatWithProNotifier>();
-   // final messages = notifier.proMessages.messages!;
     final h = context.screenHeight;
     final w = context.screenWidth;
     return notifier.proMessages.messages != null
@@ -64,37 +59,56 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
                   ProjectDetailsBlock(),
                   notifier.proMessages.messages!.length > 0
                       ? Expanded(
-                          child: ListView.builder(
-                            controller: notifier.scrollController,
-                            padding: EdgeInsets.only(bottom: h / 10),
-                            // shrinkWrap: true,
-                            itemCount: notifier.proMessages.messages!.length,
-                            itemBuilder: (context, index) {
-                              final message = notifier.proMessages.messages![index];
-                              final isSeen = message.isSeen == 2;
-                              final messageTime = Utils.convertToRailwayTime(
-                                  message.createdAt.toString());
-                              if (message.senderId.toString() ==
-                                  widget.sendUserId) {
-                                return RecivedMessage(
-                                  sendText: message.message!,
-                                  timeOfText: messageTime,
-                                );
-                              } else {
-                                return SendMessage(
-                                  isConvoEnd: false,
-                                  sendText: message.message!,
-                                  timeOfText: messageTime,
-                                  isSeen: isSeen,
-                                );
+                          child: NotificationListener<ScrollNotification>(
+                            onNotification: (scrollNotification) {
+                              if (scrollNotification is ScrollEndNotification) {
+                                if (notifier.scrollController.position.pixels ==
+                                    notifier.scrollController.position
+                                        .minScrollExtent) {
+                                  notifier.loadMoreMessages(context);
+                                }
                               }
+                              return false;
                             },
+                            child: Scrollbar(
+                              child: ListView.builder(
+                                controller: notifier.scrollController,
+                                padding: EdgeInsets.only(bottom: h / 10),
+                                itemCount:
+                                    notifier.proMessages.messages!.length,
+                                itemBuilder: (context, index) {
+                                  final messages = notifier.proMessages;
+                                  final message = messages.messages![index];
+                                  final messageState = message.isSeen;
+                                  final messageType = message.type;
+                                  final createdAt = message.createdAt;
+                                  final messageTime =
+                                      Utils.convertToRailwayTime("$createdAt");
+                                  if (message.senderId.toString() ==
+                                      widget.sendUserId) {
+                                    return RecivedMessage(
+                                      sendText: message.message!,
+                                      timeOfText: messageTime,
+                                      messageType: messageType,
+                                    );
+                                  } else {
+                                    return SendMessage(
+                                      isConvoEnd: false,
+                                      sendText: message.message!,
+                                      timeOfText: messageTime,
+                                      messageState: messageState,
+                                      messageType: messageType,
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
                           ),
                         )
                       : NoMessageYetWidget(),
                 ],
               ),
-              bottomSheet: const CustomerBottomSheet(isSupportChat: false),
+              bottomSheet: const ProChatButtomSheet(),
             ),
           )
         : ModalProgressHUD(inAsyncCall: true, child: Scaffold());
@@ -263,6 +277,104 @@ class ProChatAppBar extends StatelessWidget {
         ),
         SizedBox(width: w / 40),
       ],
+    );
+  }
+}
+
+class ProChatButtomSheet extends StatefulWidget {
+  const ProChatButtomSheet({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ProChatButtomSheet> createState() => _ProChatButtomSheetState();
+}
+
+class _ProChatButtomSheetState extends State<ProChatButtomSheet> {
+  GetImages getImage = GetImages();
+
+  // Send Img to Camera View
+  Future selectImg(BuildContext context) async {
+    final notifier = context.read<ChatWithProNotifier>();
+    await getImage.pickImage<ChatWithProNotifier>(context: context);
+    final imgPath = await notifier.image.path;
+    Navigator.of(context).pushScreen(
+      CameraViewPage(
+        onTap: sendImgMessage,
+        imgPath: imgPath,
+      ),
+    );
+  }
+
+  Future sendImgMessage() async {
+    final notifier = context.read<ChatWithProNotifier>();
+    await notifier.sendMessage(context: context);
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final notifier = context.watch<ChatWithProNotifier>();
+    final height = context.screenHeight;
+    final width = context.screenWidth;
+    return Container(
+      width: double.infinity,
+      height: height / 9,
+      color: AppColors.white,
+      child: Column(
+        children: [
+          const Divider(thickness: 1.0),
+          SizedBox(height: height / 90),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: width / 40),
+            child: TextFormField(
+              controller: notifier.messageController,
+              onFieldSubmitted: (value) {},
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(width / 12),
+                  borderSide: BorderSide(
+                    color: AppColors.black.withOpacity(0.2),
+                    width: 1.5,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(width / 20),
+                  borderSide: BorderSide(
+                    color: AppColors.black.withOpacity(0.15),
+                    width: 1.5,
+                  ),
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: width / 20,
+                  vertical: height / 90,
+                ),
+                hintText: "write a Meassage ",
+                hintStyle: TextStyle(
+                  fontSize: width / 28,
+                  color: AppColors.black.withOpacity(0.4),
+                ),
+                prefixIcon: InkWell(
+                  onTap: () => selectImg(context),
+                  child: Icon(
+                    Icons.attach_file,
+                    size: width / 20,
+                    color: AppColors.black,
+                  ),
+                ),
+                suffixIcon: InkWell(
+                  onTap: () => notifier.sendMessage(context: context),
+                  child: Icon(
+                    Icons.send_sharp,
+                    color: AppColors.buttonBlue,
+                    size: width / 20,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

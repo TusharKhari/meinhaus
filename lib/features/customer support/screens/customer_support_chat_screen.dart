@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_screen.dart';
+import 'package:new_user_side/features/chat%20with%20pro/screens/download_file.dart';
 import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
@@ -137,12 +138,16 @@ class SendMessage extends StatelessWidget {
   final String timeOfText;
   final bool? isConvoEnd;
   final bool? isSeen;
+  final int? messageState;
+  final String? messageType;
   const SendMessage({
     Key? key,
     required this.sendText,
     required this.timeOfText,
     this.isConvoEnd = false,
     this.isSeen = false,
+    this.messageState = 1,
+    this.messageType,
   }) : super(key: key);
 
   @override
@@ -171,16 +176,7 @@ class SendMessage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: w / 1.9,
-            child: MyTextPoppines(
-              text: sendText,
-              fontSize: w / 32,
-              fontWeight: FontWeight.w500,
-              color: isConvoEnd! ? AppColors.black : AppColors.white,
-              maxLines: 100,
-            ),
-          ),
+          mType(messageType!, context),
           MyTextPoppines(
             text: timeOfText,
             fontSize: w / 32,
@@ -191,13 +187,121 @@ class SendMessage extends StatelessWidget {
             maxLines: 20,
           ),
           Icon(
-            Icons.done_all,
+            setIcon(messageState!),
             size: w / 25,
-            color: isSeen! ? Colors.lightBlue : Colors.white,
+            color: setIconColor(messageState!),
           )
         ],
       ),
     );
+  }
+
+  Widget mType(String type, BuildContext context) {
+    final w = context.screenWidth;
+    final textMessage = SizedBox(
+      width: w / 1.9,
+      child: MyTextPoppines(
+        text: sendText,
+        fontSize: w / 32,
+        fontWeight: FontWeight.w500,
+        color: isConvoEnd! ? AppColors.black : AppColors.white,
+        maxLines: 100,
+      ),
+    );
+    final pdfMessage = SizedBox(
+      width: w / 1.9,
+      child: Container(
+        margin: EdgeInsets.all(w / 100),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(w / 40),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.picture_as_pdf,
+              size: w / 20,
+              color: Colors.red.shade600,
+            ),
+            SizedBox(width: w / 60),
+            SizedBox(
+              width: w / 3.5,
+              child: MyTextPoppines(
+                text: sendText.split("/").last,
+                fontSize: w / 38,
+                fontWeight: FontWeight.w500,
+                color: AppColors.golden,
+                height: 1.4,
+                maxLines: 5,
+              ),
+            ),
+            SizedBox(width: w / 20),
+            CircleAvatar(
+              radius: w / 20,
+              backgroundColor: Colors.blue.shade100,
+              child: Icon(
+                Icons.download,
+                size: w / 17,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+    final imgMessage = SizedBox(
+      width: w / 1.9,
+      child: Image.network(
+        sendText,
+        // loadingBuilder: (context, child, loadingProgress) =>
+        //     LoadingAnimationWidget.inkDrop(
+        //   color: Colors.white,
+        //   size: w / 40,
+        // ),
+      ),
+    );
+    switch (type) {
+      case "text":
+        return textMessage;
+      case "pdf":
+        return pdfMessage;
+      case "png":
+        return imgMessage;
+      case "jpg":
+        return imgMessage;
+      case "webp":
+        return imgMessage;
+      default:
+        return textMessage;
+    }
+  }
+
+  IconData setIcon(int messageState) {
+    switch (messageState) {
+      case 0:
+        return Icons.access_time_outlined;
+      case 1:
+        return Icons.done_all;
+      case 2:
+        return Icons.done_all;
+      case 3:
+        return Icons.error_outline;
+      default:
+        return Icons.done;
+    }
+  }
+
+  Color setIconColor(int messageState) {
+    switch (messageState) {
+      case 0:
+        return Colors.white;
+      case 1:
+        return Colors.white;
+      case 2:
+        return Colors.lightBlue;
+      case 3:
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
   }
 }
 
@@ -205,10 +309,12 @@ class SendMessage extends StatelessWidget {
 class RecivedMessage extends StatelessWidget {
   final String sendText;
   final String timeOfText;
+  final String? messageType;
   const RecivedMessage({
     Key? key,
     required this.sendText,
     required this.timeOfText,
+    this.messageType,
   }) : super(key: key);
 
   @override
@@ -218,15 +324,21 @@ class RecivedMessage extends StatelessWidget {
     return Row(
       children: [
         SizedBox(width: w / 38),
+        // Sender Img
         Image.asset(
           "assets/icons/support_2.png",
           height: h / 30,
           width: w / 15,
         ),
         SizedBox(width: w / 80),
+        // Message
         Container(
           margin: EdgeInsets.only(
-              left: w / 38, top: h / 80, bottom: h / 80, right: w / 6),
+            left: w / 38,
+            top: h / 80,
+            bottom: h / 80,
+            right: w / 6,
+          ),
           padding: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 80),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -240,17 +352,7 @@ class RecivedMessage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                width: w / 1.9,
-                child: MyTextPoppines(
-                  text: sendText,
-                  fontSize: w / 32,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                  maxLines: 20,
-                  height: 1.4,
-                ),
-              ),
+              mType(messageType!, context),
               MyTextPoppines(
                 text: timeOfText,
                 fontSize: w / 32,
@@ -263,6 +365,88 @@ class RecivedMessage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget mType(String type, BuildContext context) {
+    DownLoadFiles loadFiles = DownLoadFiles();
+
+    Future downloadFile() async {
+      print("downding file 1");
+      await loadFiles.openFile(
+        url: sendText,
+        fileNmae: "meinHaus.pdf",
+      );
+    }
+
+    final w = context.screenWidth;
+    final textMessage = SizedBox(
+      width: w / 1.9,
+      child: MyTextPoppines(
+        text: sendText,
+        fontSize: w / 32,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+        maxLines: 100,
+      ),
+    );
+    final pdfMessage = SizedBox(
+      width: w / 1.9,
+      child: Container(
+        margin: EdgeInsets.all(w / 100),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(w / 40),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.picture_as_pdf,
+              size: w / 20,
+              color: Colors.red.shade600,
+            ),
+            SizedBox(width: w / 60),
+            SizedBox(
+              width: w / 3.5,
+              child: MyTextPoppines(
+                text: sendText.split("/").last,
+                fontSize: w / 38,
+                fontWeight: FontWeight.w500,
+                color: AppColors.golden,
+                height: 1.4,
+                maxLines: 5,
+              ),
+            ),
+            SizedBox(width: w / 20),
+            InkWell(
+              onTap: () => downloadFile(),
+              child: CircleAvatar(
+                radius: w / 20,
+                backgroundColor: Colors.blue.shade100,
+                child: Icon(
+                  Icons.download,
+                  size: w / 17,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+    final imgMessage = SizedBox(
+      width: w / 1.9,
+      child: Image.network(sendText),
+    );
+    switch (type) {
+      case "text":
+        return textMessage;
+      case "pdf":
+        return pdfMessage;
+      case "png":
+        return imgMessage;
+      case "jpg":
+        return imgMessage;
+      default:
+        return textMessage;
+    }
   }
 }
 

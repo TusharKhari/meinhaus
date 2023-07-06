@@ -49,7 +49,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future getImagess() async {
-    await getImages.pickImage(context: context);
+    await getImages.pickImage<EditProfileNotifier>(context: context);
   }
 
   _editProfileHandler() async {

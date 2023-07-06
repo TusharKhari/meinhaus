@@ -30,11 +30,23 @@ class ChatWithProRepo {
     }
   }
 
-
-  // Send Message
-    Future<ResponseType> sendMessage(MapSS body) async {
+  // Load Messages
+  Future<ResponseType> loadMoreMessages(MapSS body) async {
     try {
       return await services.sendHttpRequest(
+        url: ApiUrls.loadMoreMessages,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Send Message
+  Future<ResponseType> sendMessage(Map<String, dynamic> body) async {
+    try {
+      return await services.sendDioRequest(
         url: ApiUrls.sendMessage,
         method: HttpMethod.post,
         body: body,
@@ -44,4 +56,16 @@ class ChatWithProRepo {
     }
   }
 
+  // Read Message
+  Future<ResponseType> readMessage(MapSS body) async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.readMessage,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
 }

@@ -21,7 +21,7 @@ class _CustomerBottomSheetState extends State<CustomerBottomSheet> {
   Future sendMessage() async {
     final notifier = context.read<ChatWithProNotifier>();
     if (notifier.messageController.text.isNotEmpty) {
-      await notifier.sendMessage(context);
+      await notifier.sendMessage(context: context);
     }
   }
 

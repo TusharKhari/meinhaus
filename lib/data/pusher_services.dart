@@ -9,6 +9,8 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
+import 'network/network_api_servcies.dart';
+
 class PusherService {
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
   final apiKey = "823f246fdf95c1ff3f95";
@@ -51,8 +53,31 @@ class PusherService {
     try {
       final notifier = context.read<ChatWithProNotifier>();
       final data = json.decode(event.data as String) as Map<String, dynamic>;
-      final message = Messages.fromJson(data['message_data']);
-      notifier.updateOrAddNewMessage(message);
+
+      if (event.eventName == "message-sent") {
+        // Handle "message-sent" event
+        final body = {
+          "conversation_id": data["conversation_id"].toString(),
+          "to_user_id": data["message_data"]["sender_id"].toString(),
+          "message_id": data["message_data"]["id"].toString(),
+        };
+        notifier.readMessage(body);
+        final message = Messages.fromJson(data['message_data']);
+        notifier.updateOrAddNewMessage(message);
+      } else if (event.eventName == "message-read") {
+        // Handle "message-read" event
+        final messages = notifier.proMessages.messages!;
+        final updatedMessages = messages.map(
+          (message) {
+            if (message.senderId == 2) {
+              return message.copyWith(isSeen: 2);
+            }
+            return message;
+          },
+        ).toList();
+        notifier.setMessages(
+            notifier.proMessages.copyWith(messages: updatedMessages));
+      }
     } catch (e) {
       (e).log("OnEvent Error");
     }

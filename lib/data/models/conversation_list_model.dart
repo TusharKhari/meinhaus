@@ -26,6 +26,9 @@ class ConversationsListModal {
 }
 
 class Conversations {
+  String? estimateServiceId;
+  String? projectName;
+  String? projectStartedOn;
   String? toUserName;
   String? profilePicture;
   String? lastMessageType;
@@ -38,7 +41,10 @@ class Conversations {
   String? toUserId;
 
   Conversations(
-      {this.toUserName,
+      {this.estimateServiceId,
+      this.projectName,
+      this.projectStartedOn,
+      this.toUserName,
       this.profilePicture,
       this.lastMessageType,
       this.lastMessage,
@@ -50,6 +56,9 @@ class Conversations {
       this.toUserId});
 
   Conversations.fromJson(Map<String, dynamic> json) {
+    estimateServiceId = json['estimate_service_id'];
+    projectName = json['project_name'];
+    projectStartedOn = json['project_started_on'];
     toUserName = json['to_user_name'];
     profilePicture = json['profile_picture'];
     lastMessageType = json['last_message_type'];
@@ -64,6 +73,9 @@ class Conversations {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['estimate_service_id'] = this.estimateServiceId;
+    data['project_name'] = this.projectName;
+    data['project_started_on'] = this.projectStartedOn;
     data['to_user_name'] = this.toUserName;
     data['profile_picture'] = this.profilePicture;
     data['last_message_type'] = this.lastMessageType;
