@@ -44,6 +44,20 @@ class Utils {
     return await imageFiles;
   }
 
+  static Future<MultipartFile?> convertToMultipartFile(XFile? image) async {
+    if (image!.path.isNotEmpty) {
+      final fileBytes = await image.readAsBytes();
+      final fileName = image.name;
+      final imageFile = await MultipartFile.fromBytes(
+        fileBytes,
+        filename: fileName,
+      );
+      return await imageFile;
+    } else {
+      return null;
+    }
+  }
+
 // Getting the lat and long form address
   static Future<List<Location>> getCordinates(String address) async {
     return await locationFromAddress(address);

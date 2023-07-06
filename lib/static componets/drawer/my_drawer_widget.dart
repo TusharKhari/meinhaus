@@ -130,17 +130,19 @@ class _ProfileCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(width: w / 30),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // User first name
-              MyTextPoppines(
-                text: user.firstname.toString(),
-                fontSize: w / 20,
-                fontWeight: FontWeight.w600,
-                height: 1.5,
-                maxLines: 1,
+              SizedBox(
+                width: w / 4,
+                child: MyTextPoppines(
+                  text: user.firstname.toString(),
+                  fontSize: w / 20,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  maxLines: 1,
+                ),
               ),
               // User last name
               SizedBox(

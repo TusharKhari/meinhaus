@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/provider/notifiers/additional_work_notifier.dart';
+import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/provider/notifiers/customer_support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/saved_notes_notifier.dart';
 import 'package:new_user_side/provider/notifiers/upload_image_notifier.dart';
@@ -33,20 +34,29 @@ class GetImages {
       } else if (notifier is UploadImgNotifier) {
         notifier.setImagesInList(pickedFiles);
         print(notifier.images.length);
+      } else if (notifier is ChatWithProNotifier) {
+        notifier.setImagesInList(pickedFiles);
+        print(notifier.images.length);
       }
     } else {
       print("No images picked");
     }
   }
 
-  Future pickImage({
+  Future pickImage<T>({
     required BuildContext context,
   }) async {
-    final image = context.read<EditProfileNotifier>();
+    final notifier = context.read<T>();
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      image.setProfileImg(pickedFile);
-      print(image.image.path);
+      if (notifier is EditProfileNotifier) {
+        notifier.setProfileImg(pickedFile);
+        print(notifier.image.path);
+      }
+      if (notifier is ChatWithProNotifier) {
+        notifier.setImage(pickedFile);
+        print(notifier.image.path);
+      }
     } else {
       print("No image picked");
     }

@@ -214,10 +214,10 @@ class NetworkApiServices {
           break;
       }
       (response.statusCode)!.log(response.realUri.path);
-      if (response.statusCode == 200)
+      if (response.statusCode == 200 || response.statusCode == 201)
         return response.data;
       else
-        ('API call failed').log("Estimate Creation");
+        ('API call failed').log("${url.path}");
     } on DioException catch (e) {
       if (e.type == DioException.connectionTimeout ||
           e.type == DioException.sendTimeout ||

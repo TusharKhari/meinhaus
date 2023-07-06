@@ -44,9 +44,9 @@ class ChatWithProRepo {
   }
 
   // Send Message
-  Future<ResponseType> sendMessage(MapSS body) async {
+  Future<ResponseType> sendMessage(Map<String, dynamic> body) async {
     try {
-      return await services.sendHttpRequest(
+      return await services.sendDioRequest(
         url: ApiUrls.sendMessage,
         method: HttpMethod.post,
         body: body,
