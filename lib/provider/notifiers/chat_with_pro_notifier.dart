@@ -4,6 +4,7 @@ import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/data/models/pro_message_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/pusher_services.dart';
+import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/repository/chat_with_pro_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
@@ -28,6 +29,7 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   // VARIABLES
   bool _loading = false;
+  bool _loadMoreLoading = false;
   int _pageNo = 1;
   double _scrollPostion = 0;
   String _lastMessage = '';
@@ -38,6 +40,7 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   // GETTERS
   bool get loading => _loading;
+  bool get loadMoreLoading => _loadMoreLoading;
   List<XFile> get images => _images;
   XFile get image => _image;
   ConversationsListModal get conversationsList => _conversationsList;
@@ -45,6 +48,15 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   void setLoadingState(bool state, bool notify) {
     _loading = state;
+    if (notify) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
+    }
+  }
+
+  void setLoadMoreLoading(bool state, bool notify) {
+    _loadMoreLoading = state;
     if (notify) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifyListeners();
@@ -120,9 +132,8 @@ class ChatWithProNotifier extends ChangeNotifier {
     _scrollToBottom();
   }
 
-  void unsubscribe(BuildContext context) {
-    final userNotifier = context.read<AuthNotifier>().user;
-    final userId = userNotifier.userId.toString();
+  void unsubscribe() async {
+    final userId = await UserPrefrences().getUserId();
     String channelName = "private-chat.$userId";
     _pusherService.pusher.unsubscribe(channelName: channelName);
     ("Channel Unsunscribed").log("Pusher");
@@ -163,9 +174,8 @@ class ChatWithProNotifier extends ChangeNotifier {
   }
 
   /// Setup Pusher channel
-  Future setupPusher(BuildContext context, MapSS body) async {
+  Future setupPusher(BuildContext context) async {
     await _pusherService.setupPusherConnection(context).then((value) {
-      loadMessages(context: context, body: body);
       ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);
@@ -223,6 +233,7 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   /// Load 20 more messages every time we hit this api
   Future loadMoreMessages(BuildContext context) async {
+    setLoadMoreLoading(true, true);
     MapSS body = {
       "conversation_id": _proMessages.conversationId.toString(),
       "paginateVar": _pageNo.toString(),
@@ -234,7 +245,9 @@ class ChatWithProNotifier extends ChangeNotifier {
         setPageNo();
         setScrollPostion(scrollController.position.maxScrollExtent);
         _loadMoreScroll();
+        setLoadMoreLoading(false, true);
       }).onError((error, stackTrace) {
+        setLoadMoreLoading(false, true);
         showSnakeBarr(context, error.toString(), BarState.Error);
         ("Erorr in Load More Message --> $error").log("Pro-Chat Notifier");
       });
@@ -245,14 +258,13 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   /// Read messages
   Future readMessage(MapSS body) async {
-    repo.readMessage(body).then((value) {
-      print("messages readed by sender");
-    }).onError((error, stackTrace) {
-      ("Erorr in Read Message --> $error").log("Pro-Chat Notifier");
-    });
+    if (proMessages.messages!.isNotEmpty)
+      repo.readMessage(body).then((value) {
+        print("messages readed by sender");
+      }).onError((error, stackTrace) {
+        ("Erorr in Read Message --> $error").log("Pro-Chat Notifier");
+      });
   }
-
- 
 }
 
 /// Send events using api calling [Done]

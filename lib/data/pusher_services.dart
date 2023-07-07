@@ -9,8 +9,6 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
-import 'network/network_api_servcies.dart';
-
 class PusherService {
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
   final apiKey = "823f246fdf95c1ff3f95";
@@ -62,8 +60,11 @@ class PusherService {
           "message_id": data["message_data"]["id"].toString(),
         };
         notifier.readMessage(body);
-        final message = Messages.fromJson(data['message_data']);
-        notifier.updateOrAddNewMessage(message);
+        notifier.allConversation(context);
+        if (notifier.proMessages.messages!.isNotEmpty) {
+          final message = Messages.fromJson(data['message_data']);
+          notifier.updateOrAddNewMessage(message);
+        }
       } else if (event.eventName == "message-read") {
         // Handle "message-read" event
         final messages = notifier.proMessages.messages!;
