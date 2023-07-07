@@ -70,4 +70,33 @@ class Utils {
     final minute = dateTime.minute.toString().padLeft(2, '0');
     return '$hour:$minute';
   }
+
+  static String getTimeAgo(String timestamp) {
+    final DateTime now = DateTime.now();
+    final DateTime time = DateTime.parse(timestamp);
+
+    final int seconds = now.difference(time).inSeconds;
+    final int minutes = now.difference(time).inMinutes;
+    final int hours = now.difference(time).inHours;
+    final int days = now.difference(time).inDays;
+    final int weeks = (days / 7).floor();
+    final int months = (days / 30).floor();
+    final int years = (days / 365).floor();
+
+    if (seconds < 60) {
+      return 'just now';
+    } else if (minutes < 60) {
+      return '${minutes} mins ago';
+    } else if (hours < 24) {
+      return '${hours} hours ago';
+    } else if (days < 7) {
+      return '${days} days ago';
+    } else if (weeks < 4) {
+      return '${weeks} weeks ago';
+    } else if (months < 12) {
+      return '${months} months ago';
+    } else {
+      return '${years} years ago';
+    }
+  }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
+import 'package:new_user_side/features/chat%20with%20pro/screens/download_file.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_service_card.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
@@ -105,7 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
           customDivider,
           10.vs,
           InkWell(
-            onTap: () {},
+            onTap: () {
+              DownLoadFiles().openFile();
+            },
             child: const HomeOfferBanner(),
           ),
           10.vs,

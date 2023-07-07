@@ -5,12 +5,20 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DownLoadFiles {
-  Future openFile({required String url, String? fileNmae}) async {
-    print(url);
-    final file = await downloadFile(url, fileNmae!);
+  Future openFile({String? url, String? fileNmae}) async {
+    final file = await downloadFile(
+      "https://www.irs.gov/pub/irs-pdf/p463.pdf",
+      "Newx.pdf",
+    );
     if (file == null) return;
     print('Path: ${file.path}');
-    OpenFile.open(file.path);
+    try {
+      print("in try block");
+      OpenFile.open(
+          "/data/user/0/com.example.new_user_side/app_flutter/meinHaus.pdf");
+    } catch (e) {
+      print("error in opne file $e");
+    }
   }
 
   Future<File?> downloadFile(String url, String name) async {
@@ -30,7 +38,7 @@ class DownLoadFiles {
       final raf = file.openSync(mode: FileMode.write);
       raf.writeFromSync(response.data);
       await raf.close();
-      print(response.data);
+      print("file ==== $file");
       return file;
     } catch (e) {
       return null;
