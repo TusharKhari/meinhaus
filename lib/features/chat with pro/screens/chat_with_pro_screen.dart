@@ -78,7 +78,7 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
             inAsyncCall: notifier.loading,
             child: Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size(w, h / 14,),
+                preferredSize: Size(w, h / 14),
                 child: ProChatAppBar(
                   senderImg: widget.conversations.profilePicture!,
                   senderName: widget.conversations.toUserName!,
