@@ -51,7 +51,6 @@ class PusherService {
     try {
       final notifier = context.read<ChatWithProNotifier>();
       final data = json.decode(event.data as String) as Map<String, dynamic>;
-
       if (event.eventName == "message-sent") {
         // Handle "message-sent" event
         final body = {

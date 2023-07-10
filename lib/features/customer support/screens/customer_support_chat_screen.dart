@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:isolate';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_screen.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/download_file.dart';
+import 'package:provider/provider.dart';
+
 import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
@@ -10,7 +12,10 @@ import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
+
+import '../../../utils/download_files/download_file.dart';
+import '../../chat with pro/widget/chat_no_message_yet.dart';
+import '../../chat with pro/widget/chat_project_details_block.dart';
 
 class CustomerSupportChatScreen extends StatefulWidget {
   static const String routeName = '/supportChat';
@@ -208,56 +213,20 @@ class SendMessage extends StatelessWidget {
         maxLines: 100,
       ),
     );
-    final pdfMessage = SizedBox(
-      width: w / 1.9,
-      child: Container(
-        margin: EdgeInsets.all(w / 100),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(w / 40),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.picture_as_pdf,
-              size: w / 20,
-              color: Colors.red.shade600,
-            ),
-            SizedBox(width: w / 60),
-            SizedBox(
-              width: w / 3.5,
-              child: MyTextPoppines(
-                text: sendText.split("/").last,
-                fontSize: w / 38,
-                fontWeight: FontWeight.w500,
-                color: AppColors.golden,
-                height: 1.4,
-                maxLines: 5,
-              ),
-            ),
-            SizedBox(width: w / 20),
-            CircleAvatar(
-              radius: w / 20,
-              backgroundColor: Colors.blue.shade100,
-              child: Icon(
-                Icons.download,
-                size: w / 17,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+    final pdfMessage = DownloadFile(fileNmae: sendText);
     final imgMessage = SizedBox(
       width: w / 1.9,
-      child: Image.network(
-        sendText,
-        // loadingBuilder: (context, child, loadingProgress) =>
-        //     LoadingAnimationWidget.inkDrop(
-        //   color: Colors.white,
-        //   size: w / 40,
-        // ),
+      child: InkWell(
+        onTap: () => Navigator.of(context).pushScreen(
+          PreviewChatImages(imgPath: sendText),
+        ),
+        child: Hero(
+          tag: sendText,
+          child: Image.network(sendText),
+        ),
       ),
     );
+
     switch (type) {
       case "text":
         return textMessage;
@@ -353,6 +322,7 @@ class RecivedMessage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               mType(messageType!, context),
+              SizedBox(width: w / 60),
               MyTextPoppines(
                 text: timeOfText,
                 fontSize: w / 32,
@@ -368,16 +338,6 @@ class RecivedMessage extends StatelessWidget {
   }
 
   Widget mType(String type, BuildContext context) {
-    DownLoadFiles loadFiles = DownLoadFiles();
-
-    Future downloadFile() async {
-      print("downding file 1");
-      await loadFiles.openFile(
-        url: sendText,
-        fileNmae: "meinHaus.pdf",
-      );
-    }
-
     final w = context.screenWidth;
     final textMessage = SizedBox(
       width: w / 1.9,
@@ -389,51 +349,18 @@ class RecivedMessage extends StatelessWidget {
         maxLines: 100,
       ),
     );
-    final pdfMessage = SizedBox(
-      width: w / 1.9,
-      child: Container(
-        margin: EdgeInsets.all(w / 100),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(w / 40),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.picture_as_pdf,
-              size: w / 20,
-              color: Colors.red.shade600,
-            ),
-            SizedBox(width: w / 60),
-            SizedBox(
-              width: w / 3.5,
-              child: MyTextPoppines(
-                text: sendText.split("/").last,
-                fontSize: w / 38,
-                fontWeight: FontWeight.w500,
-                color: AppColors.golden,
-                height: 1.4,
-                maxLines: 5,
-              ),
-            ),
-            SizedBox(width: w / 20),
-            InkWell(
-              onTap: () => downloadFile(),
-              child: CircleAvatar(
-                radius: w / 20,
-                backgroundColor: Colors.blue.shade100,
-                child: Icon(
-                  Icons.download,
-                  size: w / 17,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+    final pdfMessage = DownloadFile(fileNmae: sendText);
     final imgMessage = SizedBox(
       width: w / 1.9,
-      child: Image.network(sendText),
+      child: InkWell(
+        onTap: () => Navigator.of(context).pushScreen(
+          PreviewChatImages(imgPath: sendText),
+        ),
+        child: Hero(
+          tag: sendText,
+          child: Image.network(sendText),
+        ),
+      ),
     );
     switch (type) {
       case "text":
@@ -489,6 +416,53 @@ class CustomerEndConvoBottomSheet extends StatelessWidget {
             vPadding: h / 60,
           )
         ],
+      ),
+    );
+  }
+}
+
+class PreviewChatImages extends StatelessWidget {
+  final String imgPath;
+  const PreviewChatImages({
+    Key? key,
+    required this.imgPath,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final w = context.screenWidth;
+    return Scaffold(
+      backgroundColor: AppColors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            size: w / 22,
+          ),
+        ),
+        title: MyTextPoppines(
+          text: "Preview Image",
+          color: AppColors.white,
+          fontSize: w / 22,
+        ),
+      ),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: InteractiveViewer(
+            child: Hero(
+              tag: imgPath,
+              child: Image.network(
+                imgPath,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

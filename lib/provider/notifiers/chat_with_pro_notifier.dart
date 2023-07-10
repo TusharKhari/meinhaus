@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
@@ -183,7 +184,7 @@ class ChatWithProNotifier extends ChangeNotifier {
     });
   }
 
-  /// Send Messages [ Texts/Images/Pdf's ]
+  /// Send Messages [ Texts/Images ]
   Future sendMessage({required BuildContext context}) async {
     if (image.path.isEmpty) {
       sendDummyMessage(context);
@@ -198,7 +199,6 @@ class ChatWithProNotifier extends ChangeNotifier {
       "conversation_id": _proMessages.conversationId.toString(),
       "files[]": imgPath,
     };
-    // calling api
     await repo.sendMessage(body).then((response) {
       final data = ProMessagesModel.fromJson(response);
       for (var message in data.messages!) {
@@ -208,6 +208,26 @@ class ChatWithProNotifier extends ChangeNotifier {
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);
       ("Erorr in Send Message --> $error $stackTrace").log("Pro-Chat Notifier");
+    });
+  }
+
+  /// Send Pdf
+  Future sendPdf({
+    required BuildContext context,
+    required MultipartFile file,
+  }) async {
+    Map<String, dynamic> body = {
+      "conversation_id": _proMessages.conversationId.toString(),
+      "files[]": file,
+    };
+    await repo.sendMessage(body).then((response) {
+      final data = ProMessagesModel.fromJson(response);
+      for (var message in data.messages!) {
+        updateOrAddNewMessage(message);
+      }
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, error.toString(), BarState.Error);
+      ("Erorr in Send Pdf --> $error $stackTrace").log("Pro-Chat Notifier");
     });
   }
 
@@ -266,12 +286,3 @@ class ChatWithProNotifier extends ChangeNotifier {
       });
   }
 }
-
-/// Send events using api calling [Done]
-/// Add those messages to pro message list [Done]
-/// show is seen or not [Done]
-/// load more messages  [Done]
-/// show the dates block of messages like whatsapp
-/// -------------------------------------------------
-/// send files also [Done Imgs]
-/// download pdfs/show pictures send by pro []

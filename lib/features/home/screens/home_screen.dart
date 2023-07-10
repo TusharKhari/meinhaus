@@ -106,9 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
           customDivider,
           10.vs,
           InkWell(
-            onTap: () {
-              DownLoadFiles().openFile();
-            },
+            onTap: () {},
             child: const HomeOfferBanner(),
           ),
           10.vs,
