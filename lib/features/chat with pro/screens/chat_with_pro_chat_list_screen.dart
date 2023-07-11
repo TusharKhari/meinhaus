@@ -10,7 +10,6 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
-
 import 'chat_with_pro_screen.dart';
 
 class ChatWIthProChatListScreen extends StatefulWidget {

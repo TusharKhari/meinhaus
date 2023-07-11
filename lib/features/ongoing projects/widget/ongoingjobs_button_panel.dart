@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
+import 'package:new_user_side/features/customer%20support/screens/customer_support_chat_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
+import 'package:new_user_side/provider/notifiers/chat_with_suport_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/static%20componets/dialogs/pro_work_details_dialog.dart';
 import 'package:new_user_side/static%20componets/dialogs/projects_notes_dialog.dart';
@@ -26,8 +28,14 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final supportNotifier = context.watch<ChatWithSupportNotifier>();
+    final isSupportActive = supportNotifier.supportStatus == 1;
     final estimateNotifer = context.read<EstimateNotifier>();
     final bookingId = estimateNotifer.projectDetails.services!.estimateNo;
+    final h = context.screenHeight;
+    final w = context.screenWidth;
+
+    // get invoice data
     Future _getInvoiceHandler() async {
       final estimateNotifer = context.read<EstimateNotifier>();
       await estimateNotifer.progressInvoice(
@@ -41,34 +49,95 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildIconButtonWithText(
-            firstButtonText: "Customer Support",
-            firstButtonTextColor: AppColors.black,
-            firstButtonImgUrl: "assets/icons/support.png",
-            firstButtonColor: const Color(0xFFEAEAEA),
-            firstButtonOnTap: () {
-              Navigator.pushNamed(context, SendQueryScreen.routeName);
-              // showDialog(
-              //   context: context,
-              //   builder: (context) {
-              //     return const CustomerSupportDialog();
-              //   },
-              // );
-            },
-            secondButtonext: "Project Notes",
-            secondtButtonTextColor: AppColors.yellow,
-            secondButtonImgUrl: "assets/icons/writing.png",
-            secondButtonColor: const Color(0xFFFFF8EC),
-            secondButtonOnTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return ProjectNotesDialog(
-                    serviceId: projectId,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: [
+                  // Customer Support Button
+                  InkWell(
+                    onTap: () {
+                      isSupportActive
+                          ? Navigator.of(context)
+                              .pushScreen(CustomerSupportChatScreen())
+                          : Navigator.pushNamed(
+                              context, SendQueryScreen.routeName);
+                    },
+                    child: Container(
+                      width: w / 2.15,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEAEAEA),
+                        borderRadius: BorderRadius.circular(w / 12),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: w / 35,
+                        vertical: h / 80,
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset("assets/icons/support.png"),
+                          SizedBox(width: w / 40),
+                          MyTextPoppines(
+                            text: "Customer Support",
+                            height: 1.8,
+                            fontSize: w / 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // WWhen support is active we will show a active status
+                  isSupportActive
+                      ? Positioned(
+                          right: w / 200000,
+                          child: CircleAvatar(
+                            radius: w / 60,
+                            backgroundColor:
+                                const Color.fromARGB(255, 0, 255, 106),
+                          ),
+                        )
+                      : SizedBox(),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ProjectNotesDialog(
+                        serviceId: projectId,
+                      );
+                    },
                   );
                 },
-              );
-            },
+                child: Container(
+                  width: w / 2.5,
+                  height: h / 16,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF8EC),
+                    borderRadius: BorderRadius.circular(w / 12),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: w / 35,
+                    vertical: h / 80,
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset("assets/icons/writing.png"),
+                      SizedBox(width: w / 40),
+                      MyTextPoppines(
+                        text: "Project Notes",
+                        fontSize: w / 28,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.yellow,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           15.vs,
           _buildIconButtonWithText(
@@ -97,6 +166,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           15.vs,
           Row(
             children: [
+              // Invoice button
               InkWell(
                 onTap: () => _getInvoiceHandler(),
                 child: Container(
@@ -114,11 +184,13 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                         size: 18.sp,
                         color: Color(0xFF934600),
                       ),
-                      10.hs,
+                      SizedBox(
+                        width: w / 40,
+                      ),
                       MyTextPoppines(
                         text: "Inovice",
                         height: 1.8,
-                        fontSize: context.screenHeight / MyFontSize.font14,
+                        fontSize: w / 30,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF934600),
                       ),
@@ -126,7 +198,8 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                   ),
                 ),
               ),
-              10.hspacing(context),
+              SizedBox(width: w / 40),
+              // Horuly Work details button
               !isNormalProject
                   ? InkWell(
                       onTap: () {
@@ -152,12 +225,13 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                               size: 18.sp,
                               color: Color(0xFF004D1E),
                             ),
-                            10.hs,
+                            SizedBox(
+                              width: w / 40,
+                            ),
                             MyTextPoppines(
                               text: "Work Details",
                               height: 1.8,
-                              fontSize:
-                                  context.screenHeight / MyFontSize.font14,
+                              fontSize: w / 30,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF004D1E),
                             ),

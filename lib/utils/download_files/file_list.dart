@@ -19,6 +19,7 @@ class _FileListState extends State<FileList> {
   bool isPermission = false;
   var checkAllPermissions = CheckPermission();
 
+  // checking for permission
   checkPermission() async {
     var permission = await checkAllPermissions.isStoragePermission();
     if (permission) {
@@ -97,24 +98,26 @@ class _FileListState extends State<FileList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: isPermission
-            ? ListView.builder(
-                itemCount: dataList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var data = dataList[index];
-                  return TileList(
-                    fileUrl: data['url']!,
-                    title: data['title']!,
-                  );
-                })
-            : Center(
-                child: TextButton(
-                  onPressed: () {
-                    checkPermission();
-                  },
-                  child: const Text("Permission issue"),
-                ),
-              ));
+      body: isPermission
+          ? ListView.builder(
+              itemCount: dataList.length,
+              itemBuilder: (BuildContext context, int index) {
+                var data = dataList[index];
+                return TileList(
+                  fileUrl: data['url']!,
+                  title: data['title']!,
+                );
+              },
+            )
+          : Center(
+              child: TextButton(
+                onPressed: () {
+                  checkPermission();
+                },
+                child: const Text("Permission issue"),
+              ),
+            ),
+    );
   }
 }
 
@@ -146,12 +149,16 @@ class _TileListState extends State<TileList> {
     });
 
     try {
-      await Dio().download(widget.fileUrl, filePath,
-          onReceiveProgress: (count, total) {
-        setState(() {
-          progress = (count / total);
-        });
-      }, cancelToken: cancelToken);
+      await Dio().download(
+        widget.fileUrl,
+        filePath,
+        onReceiveProgress: (count, total) {
+          setState(() {
+            progress = (count / total);
+          });
+        },
+        cancelToken: cancelToken,
+      );
       setState(() {
         dowloading = false;
         fileExists = true;
@@ -200,48 +207,46 @@ class _TileListState extends State<TileList> {
       elevation: 10,
       shadowColor: Colors.grey.shade100,
       child: ListTile(
-          title: Text(widget.title),
-          leading: IconButton(
-              onPressed: () {
-                fileExists && dowloading == false
-                    ? openfile()
-                    : cancelDownload();
-              },
-              icon: fileExists && dowloading == false
-                  ? const Icon(
-                      Icons.window,
-                      color: Colors.green,
-                    )
-                  : const Icon(Icons.close)),
-          trailing: IconButton(
-              onPressed: () {
-                fileExists && dowloading == false
-                    ? openfile()
-                    : startDownload();
-              },
-              icon: fileExists
-                  ? const Icon(
-                      Icons.save,
-                      color: Colors.green,
-                    )
-                  : dowloading
-                      ? Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              value: progress,
-                              strokeWidth: 3,
-                              backgroundColor: Colors.grey,
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                  Colors.blue),
-                            ),
-                            Text(
-                              "${(progress * 100).toStringAsFixed(2)}",
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
+        title: Text(widget.title),
+        leading: IconButton(
+            onPressed: () {
+              fileExists && dowloading == false ? openfile() : cancelDownload();
+            },
+            icon: fileExists && dowloading == false
+                ? const Icon(
+                    Icons.window,
+                    color: Colors.green,
+                  )
+                : const Icon(Icons.close)),
+        trailing: IconButton(
+          onPressed: () {
+            fileExists && dowloading == false ? openfile() : startDownload();
+          },
+          icon: fileExists
+              ? const Icon(
+                  Icons.save,
+                  color: Colors.green,
+                )
+              : dowloading
+                  ? Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          value: progress,
+                          strokeWidth: 3,
+                          backgroundColor: Colors.grey,
+                          valueColor:
+                              const AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                        Text(
+                          "${(progress * 100).toStringAsFixed(2)}",
+                          style: TextStyle(fontSize: 12),
                         )
-                      : const Icon(Icons.download))),
+                      ],
+                    )
+                  : const Icon(Icons.download),
+        ),
+      ),
     );
   }
 }
