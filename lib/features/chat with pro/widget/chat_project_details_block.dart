@@ -30,10 +30,13 @@ class ProjectDetailsBlock extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyTextPoppines(
-                text: projectNmae ?? "Furniture Fixing",
-                fontSize: w / 28,
-                fontWeight: FontWeight.w600,
+              SizedBox(
+                width: w / 2.5,
+                child: MyTextPoppines(
+                  text: projectNmae ?? "Furniture Fixing",
+                  fontSize: w / 28,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               SizedBox(height: h / 200),
               MyTextPoppines(

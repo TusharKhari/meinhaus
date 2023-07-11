@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_widget.dart';
 import 'package:new_user_side/features/review/widgets/show_review_card.dart';
+import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/provider/notifiers/chat_with_suport_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -11,13 +14,14 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+import '../../../provider/notifiers/auth_notifier.dart';
 import '../../estimate/widget/download_pdf_card_widget.dart';
 import '../widget/ongoing_project_bill_card_widget.dart';
 import '../widget/ongoing_project_desc_card_widget.dart';
 import '../widget/ongoing_project_photos_card_widget.dart';
 import '../widget/ongoingjobs_button_panel.dart';
 
-class OngoingProjectDetailScreen extends StatelessWidget {
+class OngoingProjectDetailScreen extends StatefulWidget {
   final String id;
   final bool isNormalProject;
   static const String routeName = '/ongoingProjectDeatils';
@@ -28,22 +32,60 @@ class OngoingProjectDetailScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<OngoingProjectDetailScreen> createState() =>
+      _OngoingProjectDetailScreenState();
+}
+
+class _OngoingProjectDetailScreenState
+    extends State<OngoingProjectDetailScreen> {
+  late ChatWithSupportNotifier notifier;
+  late EstimateNotifier estimateNotifier;
+
+  @override
+  void didChangeDependencies() {
+    notifier = context.read<ChatWithSupportNotifier>();
+    estimateNotifier = context.read<EstimateNotifier>();
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setupPusher();
+   
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    notifier.unsubscribe(widget.id);
+  }
+
+  Future setupPusher() async {
+    notifier = context.read<ChatWithSupportNotifier>();
+    final userNotifier = context.read<AuthNotifier>().user;
+    final userId = userNotifier.userId.toString();
+    final channelName = "private-query.${widget.id}.$userId";
+    await notifier.setupPusher(context, channelName);
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>();
-    final services = notifier.projectDetails.services;
-    final String projectName =
-        notifier.projectDetails.responseMessage.toString();
+    final projectDetails = notifier.projectDetails;
+    final services = projectDetails.services;
+    final String projectName = projectDetails.responseMessage.toString();
     final bool isProjetCompleted = projectName == "Hourly Project";
 
-    return notifier.projectDetails.services != null &&
-            notifier.proDetails.prodata != null
+    return services != null && notifier.proDetails.prodata != null
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
             child: Scaffold(
               appBar: MyAppBar(text: projectName),
               body: Column(
                 children: [
-                  DownloadPdfCard(workName: services!.projectName.toString()),
+                  DownloadPdfCard(workName: services.projectName.toString()),
                   6.vs,
                   Divider(thickness: 1.8.h, height: 0.0),
                   10.vs,
@@ -82,8 +124,8 @@ class OngoingProjectDetailScreen extends StatelessWidget {
                           20.vs,
                           Divider(thickness: 1.8.h),
                           OngoingJobsButtonsPanel(
-                            isNormalProject: isNormalProject,
-                            projectId: id,
+                            isNormalProject: widget.isNormalProject,
+                            projectId: widget.id,
                           ),
                           Visibility(
                             visible: isProjetCompleted,

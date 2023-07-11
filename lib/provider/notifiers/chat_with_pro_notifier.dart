@@ -176,7 +176,12 @@ class ChatWithProNotifier extends ChangeNotifier {
 
   /// Setup Pusher channel
   Future setupPusher(BuildContext context) async {
-    await _pusherService.setupPusherConnection(context).then((value) {
+    final userNotifier = context.read<AuthNotifier>().user;
+    final userId = userNotifier.userId.toString();
+    final channelName = "private-chat.$userId";
+    await _pusherService
+        .setupPusherConnection(context, channelName)
+        .then((value) {
       ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);

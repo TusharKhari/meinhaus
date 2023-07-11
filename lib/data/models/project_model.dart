@@ -36,6 +36,7 @@ class Services {
   List<ProfessionalWorkHistory>? professionalWorkHistory;
   String? proId;
   List<Reviews>? reviews;
+  String? supportStatus;
 
   Services(
       {this.projectId,
@@ -48,7 +49,8 @@ class Services {
       this.projectImages,
       this.professionalWorkHistory,
       this.proId,
-      this.reviews});
+      this.reviews,
+      this.supportStatus});
 
   Services.fromJson(Map<String, dynamic> json) {
     projectId = json['project_id'];
@@ -72,6 +74,7 @@ class Services {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
+    supportStatus = json['support_button_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -92,6 +95,7 @@ class Services {
     if (this.reviews != null) {
       data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
+    data['support_button_status'] = this.supportStatus;
     return data;
   }
 }

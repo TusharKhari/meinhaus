@@ -56,11 +56,6 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
     notifier.proMessages.messages!.clear();
   }
 
-  Future setupPusherChannel() async {
-    final notifier = context.read<ChatWithProNotifier>();
-    await notifier.setupPusher(context);
-  }
-
   Future loadMessages() async {
     final notifier = context.read<ChatWithProNotifier>();
     MapSS body = {"to_user_id": widget.sendUserId};
@@ -149,6 +144,7 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
                           : NoMessageYetWidget(),
                     ],
                   ),
+                  // load more message loading indicator
                   Positioned(
                     left: w / 2.2,
                     top: h / 12,
@@ -159,6 +155,7 @@ class _ChatWithProScreenState extends State<ChatWithProScreen> {
                           )
                         : SizedBox(),
                   ),
+                  // message text field
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: ProChatTextField(),
