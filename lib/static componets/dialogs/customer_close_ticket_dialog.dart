@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
+import 'package:new_user_side/features/chat/widgets/customer_bottom_sheet.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
-import 'package:new_user_side/features/customer%20support/screens/customer_support_chat_screen.dart';
-import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
-import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_keep_open_dialog.dart';
+import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
@@ -89,8 +88,9 @@ class CustosmerCloseTicketDialog extends StatelessWidget {
                           fontSize: height > 800 ? 12.sp : 14.sp,
                           text: "Accept & Close",
                           onTap: () {
-                            context.pushNamedRoute(
-                                CustomerSupportChatScreen.routeName);
+                            Navigator.of(context).pushScreen(
+                              ChattingScreen(isChatWithPro: false),
+                            );
                             value.conversationEnd();
                           },
                         );

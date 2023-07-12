@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class CustomerBottomSheet extends StatefulWidget {
 
 class _CustomerBottomSheetState extends State<CustomerBottomSheet> {
   Future sendMessage() async {
-    final notifier = context.read<ChatWithProNotifier>();
+    final notifier = context.read<ChatNotifier>();
     if (notifier.messageController.text.isNotEmpty) {
       await notifier.sendMessage(context: context);
     }
@@ -27,7 +28,7 @@ class _CustomerBottomSheetState extends State<CustomerBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<ChatWithProNotifier>();
+    final notifier = context.watch<ChatNotifier>();
     final height = context.screenHeight;
     final width = context.screenWidth;
     return Container(

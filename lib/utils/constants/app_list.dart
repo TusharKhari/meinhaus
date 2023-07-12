@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:new_user_side/features/customer%20support/screens/customer_support_chat_screen.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
@@ -56,7 +55,7 @@ List drawerList = [
   [
     Icons.contact_support_outlined,
     "Customer Support",
-    CustomerSupportChatScreen.routeName,
+    HomeScreen.routeName,
   ],
 ];
 

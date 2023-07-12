@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
+import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -10,7 +12,6 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'chat_with_pro_screen.dart';
 
 class ChatWIthProChatListScreen extends StatefulWidget {
   static const String routeName = '/chatList';
@@ -22,8 +23,7 @@ class ChatWIthProChatListScreen extends StatefulWidget {
 }
 
 class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
-  late ChatWithProNotifier notifier;
-  late var unSub;
+  late ChatNotifier notifier;
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,7 @@ class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
 
   @override
   void didChangeDependencies() {
-    notifier = context.read<ChatWithProNotifier>();
+    notifier = context.read<ChatNotifier>();
     super.didChangeDependencies();
   }
 
@@ -43,7 +43,7 @@ class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
   }
 
   Future setupPusherChannel() async {
-    final notifier = context.read<ChatWithProNotifier>();
+    final notifier = context.read<ChatNotifier>();
     await notifier.setupPusher(context);
   }
 
@@ -99,7 +99,8 @@ class ChatCardWidget extends StatelessWidget {
 
     void onTap() {
       Navigator.of(context).pushScreen(
-        ChatWithProScreen(
+        ChattingScreen(
+          isChatWithPro: true,
           sendUserId: toUserId!,
           conversations: conversations,
         ),

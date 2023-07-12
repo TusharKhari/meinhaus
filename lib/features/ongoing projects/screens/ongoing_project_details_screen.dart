@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_widget.dart';
 import 'package:new_user_side/features/review/widgets/show_review_card.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
-import 'package:new_user_side/provider/notifiers/chat_with_suport_notifier.dart';
+import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -38,12 +37,12 @@ class OngoingProjectDetailScreen extends StatefulWidget {
 
 class _OngoingProjectDetailScreenState
     extends State<OngoingProjectDetailScreen> {
-  late ChatWithSupportNotifier notifier;
+  late SupportNotifier notifier;
   late EstimateNotifier estimateNotifier;
 
   @override
   void didChangeDependencies() {
-    notifier = context.read<ChatWithSupportNotifier>();
+    notifier = context.read<SupportNotifier>();
     estimateNotifier = context.read<EstimateNotifier>();
     super.didChangeDependencies();
   }
@@ -52,7 +51,6 @@ class _OngoingProjectDetailScreenState
   void initState() {
     super.initState();
     setupPusher();
-   
   }
 
   @override
@@ -62,7 +60,7 @@ class _OngoingProjectDetailScreenState
   }
 
   Future setupPusher() async {
-    notifier = context.read<ChatWithSupportNotifier>();
+    notifier = context.read<SupportNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId.toString();
     final channelName = "private-query.${widget.id}.$userId";

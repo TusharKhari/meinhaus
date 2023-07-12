@@ -6,7 +6,7 @@ import 'package:new_user_side/data/models/pro_model.dart';
 import 'package:new_user_side/data/models/progress_invoice_model.dart';
 import 'package:new_user_side/data/models/project_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
-import 'package:new_user_side/provider/notifiers/chat_with_suport_notifier.dart';
+import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/repository/estimate_repository.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -143,7 +143,7 @@ class EstimateNotifier extends ChangeNotifier {
     required String id,
     required String proId,
   }) async {
-    final supportNotifier = context.read<ChatWithSupportNotifier>();
+    final supportNotifier = context.read<SupportNotifier>();
     final bool hasProData = proDetails.prodata != null;
     final bool hasProjects = projectDetails.services != null;
     if ((hasProData && hasProjects) &&
@@ -155,8 +155,14 @@ class EstimateNotifier extends ChangeNotifier {
       await estimateRepository.getProjectDetails(id).then((response) {
         var data = ProjectDetailsModel.fromJson(response);
         setProjectDetails(data);
-        // final support = int.parse(data.services!.supportStatus.toString());
-        // supportNotifier.setSupportStatus(support);
+        // checking the support query is active or not
+        var query = data.services!.query;
+        if (query != null && query.status == "1" && query.resolved == "0") {
+          supportNotifier.setSupportStatus(1);
+          supportNotifier.setTicketId(query.ticket!);
+        } else {
+          supportNotifier.setSupportStatus(0);
+        }
       }).onError((error, stackTrace) {
         setLoadingState(false, true);
         showSnakeBarr(context, error.toString(), BarState.Error);

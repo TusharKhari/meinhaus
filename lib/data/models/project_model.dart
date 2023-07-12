@@ -36,7 +36,7 @@ class Services {
   List<ProfessionalWorkHistory>? professionalWorkHistory;
   String? proId;
   List<Reviews>? reviews;
-  String? supportStatus;
+  Query? query;
 
   Services(
       {this.projectId,
@@ -50,7 +50,7 @@ class Services {
       this.professionalWorkHistory,
       this.proId,
       this.reviews,
-      this.supportStatus});
+      this.query});
 
   Services.fromJson(Map<String, dynamic> json) {
     projectId = json['project_id'];
@@ -74,7 +74,7 @@ class Services {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
-    supportStatus = json['support_button_status'];
+    query = json['query'] != null ? new Query.fromJson(json['query']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -95,7 +95,9 @@ class Services {
     if (this.reviews != null) {
       data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
-    data['support_button_status'] = this.supportStatus;
+    if (this.query != null) {
+      data['query'] = this.query!.toJson();
+    }
     return data;
   }
 }
@@ -169,6 +171,67 @@ class Reviews {
     data['punctuality'] = this.punctuality;
     data['responsiveness'] = this.responsiveness;
     data['quality'] = this.quality;
+    return data;
+  }
+}
+
+class Query {
+  int? id;
+  String? estimateServiceId;
+  String? userId;
+  String? query;
+  String? status;
+  String? acceptedBy;
+  String? ticket;
+  String? endStatus;
+  String? resolved;
+  String? createdAt;
+  String? updatedAt;
+  String? flagged;
+
+  Query(
+      {this.id,
+      this.estimateServiceId,
+      this.userId,
+      this.query,
+      this.status,
+      this.acceptedBy,
+      this.ticket,
+      this.endStatus,
+      this.resolved,
+      this.createdAt,
+      this.updatedAt,
+      this.flagged});
+
+  Query.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    estimateServiceId = json['estimate_service_id'];
+    userId = json['user_id'];
+    query = json['query'];
+    status = json['status'];
+    acceptedBy = json['accepted_by'];
+    ticket = json['ticket'];
+    endStatus = json['end_status'];
+    resolved = json['resolved'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    flagged = json['flagged'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['estimate_service_id'] = this.estimateServiceId;
+    data['user_id'] = this.userId;
+    data['query'] = this.query;
+    data['status'] = this.status;
+    data['accepted_by'] = this.acceptedBy;
+    data['ticket'] = this.ticket;
+    data['end_status'] = this.endStatus;
+    data['resolved'] = this.resolved;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['flagged'] = this.flagged;
     return data;
   }
 }
