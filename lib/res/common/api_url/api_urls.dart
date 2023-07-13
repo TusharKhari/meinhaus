@@ -52,6 +52,8 @@ class ApiUrls {
   // Customer support
   static Uri sendQuery = setUrls("send-query-to-support");
   static String getRaisedQuery = baseUrl + "raised-query?project_id=";
+  static Uri keepOpen = setUrls("send-deny-response");
+  static Uri acceptAndClose = setUrls("accept-close-request");
 
   // Upload Img
   static Uri uploadImg = setUrls("upload-img");

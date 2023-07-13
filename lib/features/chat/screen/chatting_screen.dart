@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -7,6 +9,7 @@ import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/features/chat/widgets/chat_textfield.dart';
 import 'package:new_user_side/features/chat/widgets/support_chat_appbar.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
+import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +30,8 @@ class ChattingScreen extends StatefulWidget {
   const ChattingScreen({
     Key? key,
     required this.isChatWithPro,
-     this.sendUserId,
-     this.conversations,
+    this.sendUserId,
+    this.conversations,
   }) : super(key: key);
   final bool isChatWithPro;
   final String? sendUserId;
@@ -44,7 +47,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
   void initState() {
     super.initState();
     loadMessages();
-    widget.isChatWithPro ? null : setupPusherChannel();
+    setupPusherChannel();
+    showQueryCloseDailog();
   }
 
   @override
@@ -60,11 +64,12 @@ class _ChattingScreenState extends State<ChattingScreen> {
     widget.isChatWithPro ? null : notifier.unsubscribe();
   }
 
-
 // pusher channel setup
   Future setupPusherChannel() async {
     final notifier = context.read<ChatNotifier>();
-    await notifier.setupPusher(context);
+    if (!widget.isChatWithPro) {
+      await notifier.setupPusher(context);
+    }
   }
 
 // clearing the saved messages
@@ -83,6 +88,24 @@ class _ChattingScreenState extends State<ChattingScreen> {
     await notifier.loadMessages(context: context, body: body);
   }
 
+  // show close query dialog
+  void showQueryCloseDailog() {
+    final supportNotifier = context.read<SupportNotifier>();
+    if (!widget.isChatWithPro && supportNotifier.showClosingDialog) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return const CustosmerCloseTicketDialog();
+            },
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatNotifier>();
@@ -91,6 +114,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
     final projectDeatils = projectNotifier.projectDetails.services;
     final h = context.screenHeight;
     final w = context.screenWidth;
+
     return notifier.myMessaage.messages != null
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
@@ -113,7 +137,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
                       widget.isChatWithPro
                           ? ProjectDetailsBlock(
                               projectNmae: widget.conversations!.projectName,
-                              projectId: widget.conversations!.estimateBookingId,
+                              projectId:
+                                  widget.conversations!.estimateBookingId,
                               projectStartedDate:
                                   widget.conversations!.projectStartedOn,
                             )
@@ -123,7 +148,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
                               projectStartedDate:
                                   projectDeatils.projectStartDate,
                             ),
-                    // Showing all the message below
+                      // Showing all the message below
                       notifier.myMessaage.messages!.length > 0
                           ? Expanded(
                               child: NotificationListener<ScrollNotification>(

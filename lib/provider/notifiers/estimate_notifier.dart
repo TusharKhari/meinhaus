@@ -144,40 +144,44 @@ class EstimateNotifier extends ChangeNotifier {
     required String proId,
   }) async {
     final supportNotifier = context.read<SupportNotifier>();
-    final bool hasProData = proDetails.prodata != null;
-    final bool hasProjects = projectDetails.services != null;
-    if ((hasProData && hasProjects) &&
-        (id == projectDetails.services!.projectId.toString() &&
-            proId == proDetails.prodata!.proId.toString())) {
-      ("Same project").log("Ongoing jobs");
-    } else {
-      setLoadingState(true, true);
-      await estimateRepository.getProjectDetails(id).then((response) {
-        var data = ProjectDetailsModel.fromJson(response);
-        setProjectDetails(data);
-        // checking the support query is active or not
-        var query = data.services!.query;
-        if (query != null && query.status == "1" && query.resolved == "0") {
-          supportNotifier.setSupportStatus(1);
-          supportNotifier.setTicketId(query.ticket!);
-        } else {
-          supportNotifier.setSupportStatus(0);
-        }
-      }).onError((error, stackTrace) {
-        setLoadingState(false, true);
-        showSnakeBarr(context, error.toString(), BarState.Error);
-        ("${error} $stackTrace").log("Get Prokject Details Estimate notifier");
-      });
-      await estimateRepository.getProDetails(proId).then((response) {
-        var data = ProModel.fromJson(response);
-        setProDetails(data);
-      }).onError((error, stackTrace) {
-        setLoadingState(false, true);
-        showSnakeBarr(context, error.toString(), BarState.Error);
-        ("${error} $stackTrace").log("Get Pro Details Estimate notifier");
-      });
+    // final bool hasProData = proDetails.prodata != null;
+    // final bool hasProjects = projectDetails.services != null;
+    // if ((hasProData && hasProjects) &&
+    //     (id == projectDetails.services!.projectId.toString() &&
+    //         proId == proDetails.prodata!.proId.toString())) {
+    //   ("Same project").log("Ongoing jobs");
+    // } else {
+    setLoadingState(true, true);
+    await estimateRepository.getProjectDetails(id).then((response) {
+      var data = ProjectDetailsModel.fromJson(response);
+      setProjectDetails(data);
+      // checking the support query is active or not
+      var query = data.services!.query;
+      if (query != null && query.status == "1" && query.resolved == "0") {
+        supportNotifier.setSupportStatus(1);
+        supportNotifier.setTicketId(query.ticket!);
+      } else if (query!.status == "1" &&
+          query.endStatus == "1" &&
+          query.resolved == "0") {
+        supportNotifier.setShowClosingDialog(true);
+      } else {
+        supportNotifier.setSupportStatus(0);
+      }
+    }).onError((error, stackTrace) {
       setLoadingState(false, true);
-    }
+      showSnakeBarr(context, error.toString(), BarState.Error);
+      ("${error} $stackTrace").log("Get Prokject Details Estimate notifier");
+    });
+    await estimateRepository.getProDetails(proId).then((response) {
+      var data = ProModel.fromJson(response);
+      setProDetails(data);
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
+      showSnakeBarr(context, error.toString(), BarState.Error);
+      ("${error} $stackTrace").log("Get Pro Details Estimate notifier");
+    });
+    setLoadingState(false, true);
+    //}
   }
 
   // PROGESS INVOICE

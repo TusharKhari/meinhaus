@@ -138,7 +138,7 @@ class ChatNotifier extends ChangeNotifier {
   Future setupPusher(BuildContext context) async {
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId.toString();
-    final channelName = "private-chat.$userId";
+    final channelName = ["private-chat.$userId"];
     await _pusherService
         .setupPusherConnection(context, channelName)
         .then((value) {
@@ -170,11 +170,7 @@ class ChatNotifier extends ChangeNotifier {
 
   /// Send Messages [ Texts/Images ]
   Future sendMessage({required BuildContext context}) async {
-    if (image.path.isEmpty) {
-      sendDummyMessage(context);
-    } else {
-      setLastMessage("");
-    }
+    image.path.isEmpty ? sendDummyMessage(context) : setLastMessage("");
     // getting img if there is any
     final imgPath = await Utils.convertToMultipartFile(image);
     // setting up body

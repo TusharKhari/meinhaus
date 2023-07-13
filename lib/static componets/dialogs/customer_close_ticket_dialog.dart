@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
-import 'package:new_user_side/features/chat/widgets/customer_bottom_sheet.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_keep_open_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+
+import '../../provider/notifiers/support_notifier.dart';
 
 class CustosmerCloseTicketDialog extends StatelessWidget {
   const CustosmerCloseTicketDialog({
@@ -16,90 +16,87 @@ class CustosmerCloseTicketDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final notifier = context.watch<SupportNotifier>();
+    final h = context.screenHeight;
+    final w = context.screenWidth;
+
+    // Accept and close query
+    Future _acceptAndCloseHandler() async {
+      final notifier = context.read<SupportNotifier>();
+      await notifier.acceptAndClose(context);
+    }
 
     return Dialog(
       backgroundColor: Colors.white,
       child: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 85),
           child: Column(
             children: [
-              5.vs,
-              SizedBox(
-                width: 98.w,
-                height: 98.h,
-                child: Image.asset("assets/icons/question.png"),
+              Image.asset(
+                "assets/icons/question.png",
+                width: w / 1.3,
+                height: h / 8,
               ),
-              20.vs,
+              SizedBox(height: h / 40),
               SizedBox(
-                width: 300.w,
+                width: w / 1.1,
                 child: MyTextPoppines(
                   text:
-                      "Support is requesting to close the ticket. Are you satisfied ?",
-                  fontSize: 16.sp,
+                      "Support is requesting to close the ticket. Are you satisfied?",
+                  fontSize: w / 28,
                   height: 1.4,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                 ),
               ),
-              20.vs,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const CustomerSupportKeepOpenDialog();
-                          },
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.r),
-                          border: Border.all(color: AppColors.grey),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 9.h),
-                        child: Center(
-                          child: MyTextPoppines(
-                            text: "Keep Open",
-                            fontWeight: FontWeight.w500,
-                            fontSize: height > 800 ? 12.sp : 14.sp,
-                            color: AppColors.grey,
-                          ),
+              SizedBox(height: h / 40),
+              // buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const CustomerSupportKeepOpenDialog();
+                        },
+                      );
+                    },
+                    // keep open button
+                    child: Container(
+                      width: w / 3,
+                      height: h / 19,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(w / 12),
+                        border: Border.all(color: AppColors.grey),
+                      ),
+                      child: Center(
+                        child: MyTextPoppines(
+                          text: "Keep Open",
+                          fontWeight: FontWeight.w500,
+                          fontSize: w / 28,
+                          color: AppColors.grey,
                         ),
                       ),
                     ),
-                    Consumer<SupportUserMessagesProvider>(
-                      builder: (context, value, child) {
-                        return MyBlueButton(
-                          hPadding: 15.w,
-                          vPadding: height > 700
-                              ? 10.h
-                              : height > 650
-                                  ? 13.h
-                                  : 18.h,
-                          fontSize: height > 800 ? 12.sp : 14.sp,
+                  ),
+                  // accept and close button
+                  notifier.loading
+                      ? LoadingAnimationWidget.inkDrop(
+                          color: AppColors.buttonBlue, size: w / 30)
+                      : MyBlueButton(
+                          hPadding: w / 25,
+                          vPadding: h / 74,
+                          fontSize: w / 28,
                           text: "Accept & Close",
-                          onTap: () {
-                            Navigator.of(context).pushScreen(
-                              ChattingScreen(isChatWithPro: false),
-                            );
-                            value.conversationEnd();
-                          },
-                        );
-                      },
-                    )
-                  ],
-                ),
+                          onTap: () => _acceptAndCloseHandler(),
+                        ),
+                ],
               ),
-              10.vs,
+              SizedBox(height: h / 40),
             ],
           ),
         ),

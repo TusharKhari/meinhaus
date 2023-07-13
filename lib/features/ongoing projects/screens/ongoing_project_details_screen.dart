@@ -63,10 +63,12 @@ class _OngoingProjectDetailScreenState
     notifier = context.read<SupportNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId.toString();
-    final channelName = "private-query.${widget.id}.$userId";
+    final channelName = [
+      "private-query.${widget.id}.$userId",
+      "private-chat.$userId",
+    ];
     await notifier.setupPusher(context, channelName);
   }
-
 
   @override
   Widget build(BuildContext context) {
