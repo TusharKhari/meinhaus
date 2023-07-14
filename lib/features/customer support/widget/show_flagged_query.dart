@@ -6,8 +6,8 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 // BACK TO HOME BUTTON
-class CustomerEndConvoBottomSheet extends StatelessWidget {
-  const CustomerEndConvoBottomSheet({
+class ShowQueryIsFlagged extends StatelessWidget {
+  const ShowQueryIsFlagged({
     Key? key,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class CustomerEndConvoBottomSheet extends StatelessWidget {
     final w = context.screenWidth;
     return Container(
       width: double.infinity,
-      height: h / 5,
+      height: h / 4.6,
       margin: EdgeInsets.symmetric(horizontal: w / 12, vertical: h / 25),
       padding: EdgeInsets.symmetric(horizontal: w / 10, vertical: h / 80),
       decoration: BoxDecoration(
@@ -28,10 +28,12 @@ class CustomerEndConvoBottomSheet extends StatelessWidget {
         children: [
           SizedBox(height: 18),
           MyTextPoppines(
-            text: "Ticket has been closed succesfully.",
+            text:
+                "Your ticket has been flagged for our escalation team. They will contact you shortly!",
             fontSize: w / 26,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
+            maxLines: 3,
           ),
           SizedBox(height: 18),
           MyBlueButton(

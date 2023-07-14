@@ -137,41 +137,59 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-// GET PROJECT AND PRO DETAILS
+// GET PROJECT DETAILS
   Future getProjectDetails({
     required BuildContext context,
     required String id,
     required String proId,
   }) async {
-    final supportNotifier = context.read<SupportNotifier>();
-    // final bool hasProData = proDetails.prodata != null;
-    // final bool hasProjects = projectDetails.services != null;
-    // if ((hasProData && hasProjects) &&
-    //     (id == projectDetails.services!.projectId.toString() &&
-    //         proId == proDetails.prodata!.proId.toString())) {
-    //   ("Same project").log("Ongoing jobs");
-    // } else {
     setLoadingState(true, true);
+    // getting project details
     await estimateRepository.getProjectDetails(id).then((response) {
       var data = ProjectDetailsModel.fromJson(response);
       setProjectDetails(data);
-      // checking the support query is active or not
+      // checking the support query status
       var query = data.services!.query;
-      if (query != null && query.status == "1" && query.resolved == "0") {
-        supportNotifier.setSupportStatus(1);
-        supportNotifier.setTicketId(query.ticket!);
-      } else if (query!.status == "1" &&
-          query.endStatus == "1" &&
-          query.resolved == "0") {
-        supportNotifier.setShowClosingDialog(true);
-      } else {
-        supportNotifier.setSupportStatus(0);
-      }
+      supportStatusChecker(query, context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       showSnakeBarr(context, error.toString(), BarState.Error);
       ("${error} $stackTrace").log("Get Prokject Details Estimate notifier");
     });
+    // getting pro details
+    await getProDetails(proId, context);
+    setLoadingState(false, true);
+  }
+
+  supportStatusChecker(Query? query, BuildContext context) {
+    // Setting the inital values
+    final supportNotifier = context.read<SupportNotifier>();
+    supportNotifier.setShowClosingDialog(false);
+    supportNotifier.setIsQuerySoved(false);
+    supportNotifier.setIsQueryFlagged(false);
+    // Support is not null && active and query is not solved yet.
+    // Support has flaged your query
+    if (query != null && query.flagged == "1") {
+      supportNotifier.setIsQueryFlagged(true);
+    }
+    if (query != null && query.status == "1" && query.resolved == "0") {
+      supportNotifier.setSupportStatus(1);
+      supportNotifier.setTicketId(query.ticket!);
+    }
+    // Support request to close the query
+    else if (query!.status == "1" &&
+        query.endStatus == "1" &&
+        query.resolved == "0") {
+      supportNotifier.setShowClosingDialog(true);
+    }
+    // If no condition match we will set support status to inactive
+    else {
+      supportNotifier.setSupportStatus(0);
+    }
+  }
+
+// GET PRO DETAILS
+  Future getProDetails(String proId, BuildContext context) async {
     await estimateRepository.getProDetails(proId).then((response) {
       var data = ProModel.fromJson(response);
       setProDetails(data);
@@ -180,8 +198,6 @@ class EstimateNotifier extends ChangeNotifier {
       showSnakeBarr(context, error.toString(), BarState.Error);
       ("${error} $stackTrace").log("Get Pro Details Estimate notifier");
     });
-    setLoadingState(false, true);
-    //}
   }
 
   // PROGESS INVOICE

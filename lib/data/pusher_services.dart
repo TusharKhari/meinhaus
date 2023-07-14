@@ -12,10 +12,31 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
+import '../static componets/dialogs/customer_close_ticket_dialog.dart';
+
 class PusherService {
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
   final apiKey = "823f246fdf95c1ff3f95";
   final cluster = "ap2";
+
+  // List of all the channelsName
+  List _channelName = [];
+
+  List get channelName => _channelName;
+
+  // Add new channels in exting channelNames List
+  Future<void> addChannel(String channelName) async {
+    if (!_channelName.contains(channelName)) {
+      _channelName.add(channelName);
+    }
+  }
+
+  // Remove  channel in exting channelNames List
+  Future<void> removeChannel(String channelName) async {
+    if (_channelName.contains(channelName)) {
+      _channelName.remove(channelName);
+    }
+  }
 
   Future<void> setupPusherConnection(
     BuildContext context,
@@ -128,13 +149,23 @@ class PusherService {
       // Handle "ticket-accepted" evetns
       else if (event.eventName == "ticket-accepted") {
         await supportNotifier.setSupportStatus(1);
+        await supportNotifier.setTicketId(data['ticket_id']);
       }
       // Handle "ticket-close-request" evetns
       else if (event.eventName == "ticket-close-request") {
         supportNotifier.setShowClosingDialog(true);
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return const CustosmerCloseTicketDialog();
+          },
+        );
       }
       // Handle "ticket-flagged" evetns
-      else if (event.eventName == "ticket-flagged") {}
+      else if (event.eventName == "ticket-flagged") {
+        supportNotifier.setIsQueryFlagged(true);
+      }
     } catch (e) {
       (e).log("OnEvent Error");
     }

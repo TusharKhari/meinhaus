@@ -7,7 +7,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/features/chat/widgets/chat_textfield.dart';
+import 'package:new_user_side/features/chat/widgets/customer_end_conversation_bottom_sheet.dart';
 import 'package:new_user_side/features/chat/widgets/support_chat_appbar.dart';
+import 'package:new_user_side/features/customer%20support/widget/show_flagged_query.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -47,13 +49,13 @@ class _ChattingScreenState extends State<ChattingScreen> {
   void initState() {
     super.initState();
     loadMessages();
-    setupPusherChannel();
     showQueryCloseDailog();
   }
 
   @override
   void didChangeDependencies() {
     notifier = context.read<ChatNotifier>();
+
     super.didChangeDependencies();
   }
 
@@ -97,6 +99,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
         () {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
               return const CustosmerCloseTicketDialog();
             },
@@ -111,6 +114,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
     final notifier = context.watch<ChatNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
     final projectNotifier = context.read<EstimateNotifier>();
+    final supportNotifier = context.watch<SupportNotifier>();
     final projectDeatils = projectNotifier.projectDetails.services;
     final h = context.screenHeight;
     final w = context.screenWidth;
@@ -222,7 +226,11 @@ class _ChattingScreenState extends State<ChattingScreen> {
                   // message text field
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: ChatTextField(),
+                    child: supportNotifier.isQueryFlagged
+                        ? ShowQueryIsFlagged()
+                        : supportNotifier.isQuerySolved
+                            ? CustomerEndConvoBottomSheet()
+                            : ChatTextField(),
                   ),
                 ],
               ),

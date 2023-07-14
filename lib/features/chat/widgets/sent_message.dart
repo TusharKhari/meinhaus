@@ -6,7 +6,6 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../../utils/download_files/download_file.dart';
 import 'preview_chat_images.dart';
 
-
 // SEND MESSAGES
 class SendMessage extends StatelessWidget {
   final String sendText;
@@ -51,7 +50,32 @@ class SendMessage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          mType(messageType!, context),
+          if (sendText.contains("Reason for denying"))
+            SizedBox(
+              width: w / 1.9,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyTextPoppines(
+                    text: "Reason for denying : ",
+                    fontSize: w / 32,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.black,
+                    maxLines: 100,
+                  ),
+                  SizedBox(height: h / 200),
+                  MyTextPoppines(
+                    text: sendText,
+                    fontSize: w / 32,
+                    fontWeight: FontWeight.w500,
+                    color: isConvoEnd! ? AppColors.black : AppColors.white,
+                    maxLines: 100,
+                  ),
+                ],
+              ),
+            )
+          else
+            mType(messageType!, context),
           MyTextPoppines(
             text: timeOfText,
             fontSize: w / 32,
@@ -143,4 +167,3 @@ class SendMessage extends StatelessWidget {
     }
   }
 }
-

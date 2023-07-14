@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/pusher_services.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
@@ -9,6 +10,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/models/message_model.dart';
+import '../../data/models/raised_query_model.dart';
 import '../../local/user_prefrences.dart';
 import '../../res/common/my_snake_bar.dart';
 
@@ -19,17 +21,23 @@ class SupportNotifier extends ChangeNotifier {
 
   // VARIABLES
   bool _loading = false;
+  List<XFile> _images = [];
+  RaisedQueryModel _queryModel = RaisedQueryModel();
   int _supportStatus = 0;
   String _ticketId = "";
   bool _showClosingDialog = false;
-  List _pusherChannels = [];
-
+  bool _isQuerySolved = false;
+  bool _isQueryFlagged = false;
 
   // GETTERS
   bool get loading => _loading;
+  List<XFile> get images => _images;
+  RaisedQueryModel get queryModel => _queryModel;
   int get supportStatus => _supportStatus;
   String get ticketId => _ticketId;
   bool get showClosingDialog => _showClosingDialog;
+  bool get isQuerySolved => _isQuerySolved;
+  bool get isQueryFlagged => _isQueryFlagged;
 
   void setLoadingState(bool state, bool notify) {
     _loading = state;
@@ -38,6 +46,21 @@ class SupportNotifier extends ChangeNotifier {
         notifyListeners();
       });
     }
+  }
+
+  void setImagesInList(List<XFile> images) {
+    _images = images;
+    notifyListeners();
+  }
+
+  void removeImageFromList(XFile pickedFile) {
+    _images.remove(pickedFile);
+    notifyListeners();
+  }
+
+  void setQueryModel(RaisedQueryModel query) {
+    _queryModel = query;
+    notifyListeners();
   }
 
   setSupportStatus(int status) {
@@ -50,8 +73,18 @@ class SupportNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTicketId(String ticketId) {
+  setTicketId(String ticketId) {
     _ticketId = ticketId;
+    notifyListeners();
+  }
+
+  void setIsQuerySoved(bool state) {
+    _isQuerySolved = state;
+    notifyListeners();
+  }
+
+  void setIsQueryFlagged(bool state) {
+    _isQueryFlagged = state;
     notifyListeners();
   }
 
@@ -75,6 +108,39 @@ class SupportNotifier extends ChangeNotifier {
     ("Channel Unsunscribed $channelName").log("Pusher");
   }
 
+  // Send Query to support
+  Future sendQuery({
+    required BuildContext context,
+    required Map<String, dynamic> body,
+  }) async {
+    setLoadingState(true, true);
+    await repo.sendQuery(body).then((response) {
+      setLoadingState(false, true);
+      setImagesInList([]);
+      showSnakeBarr(context, response["response_message"], BarState.Success);
+      Navigator.pop(context);
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
+      ("${error} $stackTrace").log("Send Query notifier");
+      showSnakeBarr(context, error.toString(), BarState.Error);
+    });
+  }
+
+  // Get Raised Query
+  Future getRaisedQuery({
+    required BuildContext context,
+    required String id,
+  }) async {
+    repo.getRaisedQuery(id).then((response) {
+      var data = RaisedQueryModel.fromJson(response);
+      setQueryModel(data);
+      ('Get Raised Query ✅').log();
+    }).onError((error, stackTrace) {
+      ("${error} $stackTrace").log("Get Raised Query notifier");
+      showSnakeBarr(context, error.toString(), BarState.Error);
+    });
+  }
+
   // Keep open support chat
   Future keepOpen(BuildContext context) async {
     final chatNotifier = context.read<ChatNotifier>();
@@ -87,7 +153,7 @@ class SupportNotifier extends ChangeNotifier {
       "message": messageController.text,
     };
     setLoadingState(true, true);
-    await repo.sendQuery(body).then((response) {
+    await repo.keepOpen(body).then((response) {
       setLoadingState(false, true);
       final data = MessageModel.fromJson(response);
       for (var message in data.messages!) {
@@ -114,7 +180,9 @@ class SupportNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     await repo.acceptAndClose(body).then((response) {
       setLoadingState(false, true);
-      Navigator.of(context).pushScreen(HomeScreen());
+      setIsQuerySoved(true);
+      setSupportStatus(0);
+      Navigator.pop(context);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);
       ("Erorr in accept and close --> $error").log("Support Notifier");
