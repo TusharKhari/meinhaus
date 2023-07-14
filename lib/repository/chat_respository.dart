@@ -2,8 +2,20 @@ import 'package:new_user_side/data/network/network_api_servcies.dart';
 import '../res/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
 
-class ChatWithSupportRepo {
+class ChatRepository {
   NetworkApiServices services = NetworkApiServices();
+
+// Get Conversation List
+  Future<ResponseType> allConversation() async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.allConversation,
+        method: HttpMethod.get,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
 
 // Load Messages
   Future<ResponseType> loadMessages(MapSS body) async {
@@ -18,7 +30,7 @@ class ChatWithSupportRepo {
     }
   }
 
-  // Load More Messages
+  // Load Messages
   Future<ResponseType> loadMoreMessages(MapSS body) async {
     try {
       return await services.sendHttpRequest(

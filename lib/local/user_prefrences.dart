@@ -77,30 +77,30 @@ class UserPrefrences {
     }
   }
 
-  // set support status
-  Future<void> setSupportStatus(int status) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setInt("support_status", status);
-  }
+//   // set support status
+//   Future<void> setSupportStatus(int status) async {
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     await preferences.setInt("support_status", status);
+//   }
 
-// get support status
-  Future<int> getSupportStatus() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    final int supportStatus = await preferences.getInt("support_status") ?? 0;
-    return supportStatus;
-  }
+// // get support status
+//   Future<int> getSupportStatus() async {
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     final int supportStatus = await preferences.getInt("support_status") ?? 0;
+//     return supportStatus;
+//   }
 
-  // set support ticket id
-  Future<void> setSupportTicketid(String id) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString("support_ticket_id", id);
-  }
+//   // set support ticket id
+//   Future<void> setSupportTicketid(String id) async {
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     await preferences.setString("support_ticket_id", id);
+//   }
 
-// get support ticket id
-  Future<String> getSupportTicketId() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String ticketId =
-        await preferences.getString("support_ticket_id") ?? "";
-    return ticketId;
-  }
+// // get support ticket id
+//   Future<String> getSupportTicketId() async {
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     final String ticketId =
+//         await preferences.getString("support_ticket_id") ?? "";
+//     return ticketId;
+//   }
 }

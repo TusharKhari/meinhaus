@@ -33,7 +33,6 @@ class ProChatAppBar extends StatelessWidget {
       titleSpacing: 0,
       elevation: 0.0,
       title: Row(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [

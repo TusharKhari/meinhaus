@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/res/common/camera_view_page.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -10,24 +11,23 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/get_images.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/notifiers/chat_with_pro_notifier.dart';
-
-class ProChatTextField extends StatefulWidget {
-  const ProChatTextField({
+class ChatTextField extends StatefulWidget {
+  const ChatTextField({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProChatTextField> createState() => _ProChatTextFieldState();
+  State<ChatTextField> createState() => _ChatTextFieldState();
 }
 
-class _ProChatTextFieldState extends State<ProChatTextField> {
+class _ChatTextFieldState extends State<ChatTextField> {
   GetImages getImage = GetImages();
 
   // Send Img to Camera View
   Future selectImg(BuildContext context) async {
-    final notifier = context.read<ChatWithProNotifier>();
-    await getImage.pickImage<ChatWithProNotifier>(context: context);
+    final notifier = context.read<ChatNotifier>();
+    await getImage.pickImage<ChatNotifier>(context: context);
+    Navigator.pop(context);
     final imgPath = await notifier.image.path;
     Navigator.of(context).pushScreen(
       CameraViewPage(
@@ -39,16 +39,15 @@ class _ProChatTextFieldState extends State<ProChatTextField> {
 
   // Send Img as Message
   Future sendImgMessage() async {
-    final notifier = context.read<ChatWithProNotifier>();
+    final notifier = context.read<ChatNotifier>();
     await notifier.sendMessage(context: context);
     Navigator.pop(context);
   }
 
   // Pick Files function
   Future pickPdf(BuildContext context) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.any);
     if (result != null && result.files.isNotEmpty) {
       String filePath = result.files.first.path!;
       print("filepath $filePath");
@@ -60,7 +59,8 @@ class _ProChatTextFieldState extends State<ProChatTextField> {
 
   // Send Pdf as Message
   Future uploadPdf() async {
-    final notifier = context.read<ChatWithProNotifier>();
+    Navigator.pop(context);
+    final notifier = context.read<ChatNotifier>();
     String filePath = await pickPdf(context);
     final multipartFile = await MultipartFile.fromFile(filePath);
     if (filePath.isNotEmpty) {
@@ -73,7 +73,7 @@ class _ProChatTextFieldState extends State<ProChatTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<ChatWithProNotifier>();
+    final notifier = context.watch<ChatNotifier>();
     final height = context.screenHeight;
     final width = context.screenWidth;
     return Container(
@@ -113,6 +113,7 @@ class _ProChatTextFieldState extends State<ProChatTextField> {
                   fontSize: width / 28,
                   color: AppColors.black.withOpacity(0.4),
                 ),
+                // show attachment options
                 prefixIcon: InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -121,8 +122,8 @@ class _ProChatTextFieldState extends State<ProChatTextField> {
                       builder: (context) {
                         return _bottomSheet(
                           onTapDoc: () => uploadPdf(),
-                          onTapCamera: () {},
-                          onTapGallery: () => sendImgMessage(),
+                          onTapGallery: () => selectImg(context),
+                           onTapCamera: () {},
                         );
                       },
                     );
@@ -133,6 +134,7 @@ class _ProChatTextFieldState extends State<ProChatTextField> {
                     color: AppColors.black,
                   ),
                 ),
+                // send message
                 suffixIcon: InkWell(
                   onTap: () => notifier.sendMessage(context: context),
                   child: Icon(

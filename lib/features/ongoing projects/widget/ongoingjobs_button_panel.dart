@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
-import 'package:new_user_side/features/customer%20support/screens/customer_support_chat_screen.dart';
+import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
-import 'package:new_user_side/provider/notifiers/chat_with_suport_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
+import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/static%20componets/dialogs/pro_work_details_dialog.dart';
 import 'package:new_user_side/static%20componets/dialogs/projects_notes_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -13,7 +13,6 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../res/common/my_text.dart';
-import '../../../utils/sizer.dart';
 import '../../additional work/screens/add_addition_work_screen.dart';
 import '../../additional work/widget/icon_button_with_text.dart';
 
@@ -28,7 +27,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final supportNotifier = context.watch<ChatWithSupportNotifier>();
+    final supportNotifier = context.watch<SupportNotifier>();
     final isSupportActive = supportNotifier.supportStatus == 1;
     final estimateNotifer = context.read<EstimateNotifier>();
     final bookingId = estimateNotifer.projectDetails.services!.estimateNo;
@@ -58,10 +57,13 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       isSupportActive
-                          ? Navigator.of(context)
-                              .pushScreen(CustomerSupportChatScreen())
+                          ? Navigator.of(context).pushScreen(
+                              ChattingScreen(isChatWithPro: false),
+                            )
                           : Navigator.pushNamed(
-                              context, SendQueryScreen.routeName);
+                              context,
+                              SendQueryScreen.routeName,
+                            );
                     },
                     child: Container(
                       width: w / 2.15,

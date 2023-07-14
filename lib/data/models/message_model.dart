@@ -1,19 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class ProMessagesModel {
+class MessageModel {
   String? status;
   int? conversationId;
   String? toUserId;
   int? messageCount;
   List<Messages>? messages;
 
-  ProMessagesModel(
+  MessageModel(
       {this.status,
       this.conversationId,
       this.toUserId,
       this.messageCount,
       this.messages});
 
-  ProMessagesModel.fromJson(Map<String, dynamic> json) {
+  MessageModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     conversationId = json['conversation_id'];
     toUserId = json['to_user_id'];
@@ -38,14 +38,14 @@ class ProMessagesModel {
     return data;
   }
 
-  ProMessagesModel copyWith({
+  MessageModel copyWith({
     String? status,
     int? conversationId,
     String? toUserId,
     int? messageCount,
     List<Messages>? messages,
   }) {
-    return ProMessagesModel(
+    return MessageModel(
       status: status ?? this.status,
       conversationId: conversationId ?? this.conversationId,
       toUserId: toUserId ?? this.toUserId,

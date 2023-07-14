@@ -2,24 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
-import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
-import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
-import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
-class PusherService {
+class QueryPusherService {
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
   final apiKey = "823f246fdf95c1ff3f95";
   final cluster = "ap2";
 
   Future<void> setupPusherConnection(
     BuildContext context,
-    List channelNames,
+    String channelName,
   ) async {
     try {
       await pusher.init(
@@ -28,16 +24,13 @@ class PusherService {
         onConnectionStateChange: onConnectionStateChange,
         onError: onError,
         onSubscriptionSucceeded: onSubscriptionSucceeded,
-        onEvent: (event) => onChatEvent(event, context),
+        onEvent: (event) => onEvent(event, context),
         onSubscriptionError: onSubscriptionError,
         onSubscriptionCount: onSubscriptionCount,
         onAuthorizer: onAuthorizer,
       );
-      // await pusher.subscribe(channelName: channelName);
+      await pusher.subscribe(channelName: channelName);
       await pusher.connect();
-      for (final channelName in channelNames) {
-        await pusher.subscribe(channelName: channelName);
-      }
     } catch (e) {
       print("ERROR: $e");
     }
@@ -60,7 +53,7 @@ class PusherService {
   void onSubscriptionError(String message, dynamic e) {
     print("onSubscriptionError: $message Exception: $e");
   }
-
+  
   void onSubscriptionCount(String channelName, int subscriptionCount) {
     print(
         "onSubscriptionCount: $channelName subscriptionCount: $subscriptionCount");
@@ -89,55 +82,18 @@ class PusherService {
     }
   }
 
-  void onChatEvent(PusherEvent event, BuildContext context) async {
+  void onEvent(PusherEvent event, BuildContext context) async {
     try {
-      final notifier = context.read<ChatNotifier>();
-      final proChatNotifier = context.read<ChatWithProNotifier>();
-      final supportNotifier = context.read<SupportNotifier>();
-      final userNotifier = context.read<AuthNotifier>().user;
+      final notifier = context.read<SupportNotifier>();
       final data = json.decode(event.data as String) as Map<String, dynamic>;
-      // Handle "message-sent" event
-      if (event.eventName == "message-sent") {
-        final body = {
-          "conversation_id": data["conversation_id"].toString(),
-          "to_user_id": data["message_data"]["sender_id"].toString(),
-          "message_id": data["message_data"]["id"].toString(),
-        };
-        notifier.readMessage(body);
-        proChatNotifier.allConversation(context);
-        if (notifier.myMessaage.messages!.isNotEmpty) {
-          final message = Messages.fromJson(data['message_data']);
-          notifier.updateOrAddNewMessage(message);
-        }
-      }
-      // Handle "message-read" event
-      else if (event.eventName == "message-read") {
-        final messages = notifier.myMessaage.messages!;
-        final updatedMessages = messages.map(
-          (message) {
-            if (message.senderId == userNotifier.userId) {
-              return message.copyWith(isSeen: 2);
-            }
-            return message;
-          },
-        ).toList();
-        notifier.setMessages(
-          notifier.myMessaage.copyWith(messages: updatedMessages),
-        );
-      }
-      // Handle "ticket-accepted" evetns
-      else if (event.eventName == "ticket-accepted") {
-        await supportNotifier.setSupportStatus(1);
-      }
-      // Handle "ticket-close-request" evetns
-      else if (event.eventName == "ticket-close-request") {
-        supportNotifier.setShowClosingDialog(true);
-      }
-      // Handle "ticket-flagged" evetns
-      else if (event.eventName == "ticket-flagged") {}
-    } catch (e) {
-      (e).log("OnEvent Error");
+      if (event.eventName == "ticket-accepted") {
+        await notifier.setSupportStatus(1);
+      } else if (event.eventName == "ticket-close-request") {
+        notifier.setShowClosingDialog(true);
+      } else if (event.eventName == "ticket-flagged") {}
+    } catch (err) {
+      (err).log("OnSupportEvent Error");
     }
-    print("onEvent: $event");
+    print("onSupportEvent: $event");
   }
 }

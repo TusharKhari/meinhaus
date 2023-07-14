@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/download_file.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_service_card.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -41,6 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    showStartingDailog();
+    animateEstimateButton();
+    getEstimate();
+    getOngoingProjects();
+    getOurServices();
+  }
+
+  void showStartingDailog() {
     Timer(const Duration(seconds: 1), () {
       showDialog(
         context: context,
@@ -49,6 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       );
     });
+  }
+
+  void animateEstimateButton() {
     Timer(const Duration(seconds: 2), () {
       setState(() {
         _isExpanded = true;
@@ -59,9 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       });
     });
-    getEstimate();
-    getOngoingProjects();
-    getOurServices();
   }
 
   Future<void> getEstimate() async {

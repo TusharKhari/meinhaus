@@ -1,10 +1,11 @@
-import 'package:new_user_side/features/customer%20support/widget/customer_bottom_sheet.dart';
+import 'package:new_user_side/features/chat/widgets/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/provider/notifiers/additional_work_notifier.dart';
 import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
-import 'package:new_user_side/provider/notifiers/chat_with_suport_notifier.dart';
+import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/customer_support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/our_services_notifier.dart';
 import 'package:new_user_side/provider/notifiers/saved_notes_notifier.dart';
@@ -26,8 +27,9 @@ List<SingleChildWidget> provider = [
   ChangeNotifierProvider(create: (context) => OurServicesNotifier()),
   ChangeNotifierProvider(create: (context) => CustomerSupportNotifier()),
   ChangeNotifierProvider(create: (context) => UploadImgNotifier()),
+  ChangeNotifierProvider(create: (context) => ChatNotifier()),
   ChangeNotifierProvider(create: (context) => ChatWithProNotifier()),
-  ChangeNotifierProvider(create: (context) => ChatWithSupportNotifier()),
+  ChangeNotifierProvider(create: (context) => SupportNotifier()),
 
 
 ];
