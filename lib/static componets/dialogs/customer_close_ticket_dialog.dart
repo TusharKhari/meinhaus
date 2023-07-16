@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/static%20componets/dialogs/customer_keep_open_dialog.dart';
@@ -16,7 +15,6 @@ class CustosmerCloseTicketDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<SupportNotifier>();
     final h = context.screenHeight;
     final w = context.screenWidth;
 

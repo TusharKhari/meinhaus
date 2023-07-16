@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/pusher_services.dart';
-import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/repository/customer_support_repo.dart';
