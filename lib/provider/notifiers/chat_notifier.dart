@@ -22,7 +22,6 @@ class ChatNotifier extends ChangeNotifier {
   @override
   void dispose() {
     messageController.dispose();
-    scrollController.dispose();
     _message.messages!.clear();
     super.dispose();
   }
@@ -180,10 +179,9 @@ class ChatNotifier extends ChangeNotifier {
       "files[]": imgPath,
     };
     await repo.sendMessage(body).then((response) {
+      print(response);
       final data = MessageModel.fromJson(response);
-      for (var message in data.messages!) {
-        updateOrAddNewMessage(message);
-      }
+      updateOrAddNewMessage(data.messages!.first);
       setImage(XFile(""));
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), BarState.Error);
@@ -216,9 +214,16 @@ class ChatNotifier extends ChangeNotifier {
     // Add a new message
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId;
-    final messageId = myMessaage.messages!.last.id;
+    int largestId = 0;
+    for (var message in myMessaage.messages!) {
+      int messageId = message.id!;
+      if (messageId > largestId) {
+        largestId = messageId;
+      }
+    }
+    print(largestId);
     final message = Messages(
-      id: messageId! + 1,
+      id: largestId + 1,
       senderId: userId,
       isSeen: 0,
       forwarded: 0,
@@ -226,6 +231,7 @@ class ChatNotifier extends ChangeNotifier {
       createdAt: DateTime.now().toString(),
       type: "text",
     );
+    print(message.id);
     updateOrAddNewMessage(message);
     setLastMessage(messageController.text);
     messageController.clear();

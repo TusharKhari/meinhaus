@@ -22,7 +22,7 @@ class ProjectDetailsBlock extends StatelessWidget {
     final h = context.screenHeight;
     final w = context.screenWidth;
     return Container(
-      color: AppColors.yellow.withOpacity(0.15),
+      color: Color(0xFFF7A71E).withOpacity(0.15),
       padding: EdgeInsets.symmetric(horizontal: w / 20, vertical: h / 70),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

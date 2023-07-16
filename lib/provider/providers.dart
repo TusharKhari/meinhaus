@@ -1,3 +1,4 @@
+import 'package:new_user_side/data/pusher_services.dart';
 import 'package:new_user_side/features/chat/widgets/customer_bottom_sheet.dart';
 import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/provider/notifiers/additional_work_notifier.dart';
@@ -30,6 +31,4 @@ List<SingleChildWidget> provider = [
   ChangeNotifierProvider(create: (context) => ChatNotifier()),
   ChangeNotifierProvider(create: (context) => ChatWithProNotifier()),
   ChangeNotifierProvider(create: (context) => SupportNotifier()),
-
-
 ];
