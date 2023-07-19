@@ -31,7 +31,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-/lib/res/api_url
+/lib/res/common/api_url
+/lib/res/.env
 
 
 # Symbolication related
