@@ -1,5 +1,7 @@
 class ApiUrls {
   static String baseUrl = "https://meinhaus.ca/api/";
+  static String newBaseUrl = "https://meinhaus.ca/meinhaus/api/";
+
 
   static Uri setUrls(String uri) {
     return Uri.parse(baseUrl + uri);
