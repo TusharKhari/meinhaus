@@ -8,6 +8,7 @@ import 'constants/app_colors.dart';
 class Utils {
   final dio = Dio();
   Utils._();
+
   // function to change the focus from the current textfield to another with keyboard
   static void fieldFocusChange(
     BuildContext context,
@@ -18,7 +19,7 @@ class Utils {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-  //snack bar with getX
+  // snack bar with getX
   static snackBar(String title, String message) {
     Get.snackbar(
       title,
@@ -29,7 +30,7 @@ class Utils {
     );
   }
 
-// Collect images selected by user
+// This Function collect List of all the images selected by user and convert them into multipart files
   static Future<List<MultipartFile>> collectImages(List<XFile>? images) async {
     List<MultipartFile> imageFiles = [];
     for (int i = 0; i < images!.length; i++) {
@@ -44,6 +45,7 @@ class Utils {
     return await imageFiles;
   }
 
+// This Function collect the single image selected by user and convert it into multipart file
   static Future<MultipartFile?> convertToMultipartFile(XFile? image) async {
     if (image!.path.isNotEmpty) {
       final fileBytes = await image.readAsBytes();
@@ -71,6 +73,9 @@ class Utils {
     return '$hour:$minute';
   }
 
+
+// This function matches the current time to given time and give results just like this 
+// [ 2sec, 1 hours, 1 week, 1 year] ago
   static String getTimeAgo(String timestamp) {
     final DateTime now = DateTime.now();
     final DateTime time = DateTime.parse(timestamp);
