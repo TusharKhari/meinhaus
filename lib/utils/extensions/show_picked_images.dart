@@ -2,8 +2,10 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:new_user_side/provider/notifiers/customer_support_notifier.dart';
+import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/saved_notes_notifier.dart';
 import 'package:new_user_side/provider/notifiers/upload_image_notifier.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -26,7 +28,7 @@ class ShowPickedImages<T> extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: width / 50, vertical: height / 90),
       color: AppColors.black.withOpacity(0.5),
       child: SizedBox(
-        height: height / 8,
+        height: height / 7,
         width: double.infinity,
         child: Column(
           children: [
@@ -50,6 +52,7 @@ class ShowPickedImages<T> extends StatelessWidget {
             if (notifer is CustomerSupportNotifier) _ShowImg(notifer),
             if (notifer is UploadImgNotifier) _ShowImg(notifer),
             if (notifer is SavedNotesNotifier) _ShowImg(notifer),
+            if (notifer is EstimateNotifier) _ShowImg(notifer),
           ],
         ),
       ),
@@ -65,19 +68,40 @@ class _ShowImg extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = context.screenWidth;
     return Expanded(
-      child: ListView.builder(
-        itemCount: notifer.images.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final image = notifer.images[index];
-          return InkWell(
-            onDoubleTap: () => notifer.removeImageFromList(image),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: width / 60),
-              child: Image.file(File(image.path).absolute),
+      child: Row(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: notifer.images.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final image = notifer.images[index];
+                return InkWell(
+                  onDoubleTap: () => notifer.removeImageFromList(image),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width / 60),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(width / 200),
+                        border: Border.all(color: AppColors.grey, width: 1),
+                      ),
+                      padding: EdgeInsets.all(width / 200),
+                      child: Image.file(File(image.path).absolute),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+          InkWell(
+            onTap: () => notifer.getImagess(context),
+            child: Icon(
+              Icons.add_circle,
+              size: width / 10,
+              color: AppColors.textBlue,
+            ),
+          ),
+        ],
       ),
     );
   }

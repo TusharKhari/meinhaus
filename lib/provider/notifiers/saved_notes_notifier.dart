@@ -4,9 +4,12 @@ import 'package:new_user_side/data/models/saved_notes_model.dart';
 import 'package:new_user_side/repository/saved_notes_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../res/common/my_snake_bar.dart';
+import '../../utils/extensions/get_images.dart';
 
 class SavedNotesNotifier extends ChangeNotifier {
   SavedNotesRepo savedNotesRepo = SavedNotesRepo();
+  GetImages getImages = GetImages();
+
   //variables
   bool _loading = false;
   bool _loadingForMe = false;
@@ -52,7 +55,9 @@ class SavedNotesNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  //methods
+  Future getImagess(BuildContext context) async {
+    await getImages.pickImages<SavedNotesNotifier>(context: context);
+  }
 
   // Save note for me
   Future savedNoteForMe({

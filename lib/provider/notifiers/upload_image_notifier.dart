@@ -4,9 +4,12 @@ import 'package:new_user_side/repository/upload_img_repo.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../res/common/my_snake_bar.dart';
+import '../../utils/extensions/get_images.dart';
 
 class UploadImgNotifier extends ChangeNotifier {
   UploadImgRepo uploadImgRepo = UploadImgRepo();
+  GetImages getImages = GetImages();
+
   //variables
   bool _loading = false;
   List<XFile> _images = [];
@@ -29,6 +32,10 @@ class UploadImgNotifier extends ChangeNotifier {
   void removeImageFromList(XFile pickedFile) {
     _images.remove(pickedFile);
     notifyListeners();
+  }
+
+    Future getImagess(BuildContext context) async {
+    await getImages.pickImages<UploadImgNotifier>(context: context);
   }
 
   // upload img

@@ -5,8 +5,11 @@ import 'package:new_user_side/repository/customer_support_repo.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../utils/extensions/get_images.dart';
+
 class CustomerSupportNotifier extends ChangeNotifier {
   CustomerSupportRepo supportRepo = CustomerSupportRepo();
+  GetImages getImages = GetImages();
   //variables
   bool _loading = false;
   List<XFile> _images = [];
@@ -36,6 +39,11 @@ class CustomerSupportNotifier extends ChangeNotifier {
   void setQueryModel(RaisedQueryModel query) {
     _queryModel = query;
     notifyListeners();
+  }
+
+  
+  Future getImagess(BuildContext context) async {
+    await getImages.pickImages<CustomerSupportNotifier>(context: context);
   }
 
   // Send Query to support

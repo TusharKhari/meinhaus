@@ -109,12 +109,13 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                     controller: nameController,
                     focusNode: nameNode,
                     onSubmit: (value) {
-                       Utils.fieldFocusChange(context, nameNode, descNode);
+                      Utils.fieldFocusChange(context, nameNode, descNode);
                     },
                     validator: Validator().nullValidator,
                   ),
                   10.vs,
                   GenerateEstimateDropdown(),
+                  10.vs,
                   MyTextField(
                     text: "Description of project",
                     maxLines: 5,
@@ -127,6 +128,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                   20.vs,
                   // Upload image colunm
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyTextPoppines(
                         text: " Upload pictures of the project",
@@ -134,55 +136,59 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                         fontSize: 14.sp,
                       ),
                       15.vs,
-                      Padding(
-                        padding: EdgeInsets.only(left: 25.w),
-                        child: DottedBorder(
-                          dashPattern: const [4, 6],
-                          strokeCap: StrokeCap.round,
-                          borderType: BorderType.RRect,
-                          radius: Radius.circular(12.r),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.w, vertical: 10.h),
-                          color: AppColors.black.withOpacity(0.5),
-                          child: SizedBox(
-                            height: 90.h,
-                            width: double.infinity,
-                            child: Consumer<EstimateNotifier>(
-                              builder: (context, images, child) {
-                                final image = images.images;
-                                return Row(
-                                  children: [
-                                    image.isEmpty
-                                        ? Image.asset(
-                                            "assets/icons/imgs.png",
-                                            fit: BoxFit.fitWidth,
-                                            width: 230.w,
-                                          )
-                                        : Expanded(
-                                            child: ListView.builder(
-                                              itemCount: image.length,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (context, index) {
-                                                return Image.file(
-                                                  File(image[index].path)
-                                                      .absolute,
-                                                );
-                                              },
-                                            ),
+                      DottedBorder(
+                        dashPattern: const [4, 6],
+                        strokeCap: StrokeCap.round,
+                        borderType: BorderType.RRect,
+                        radius: Radius.circular(12.r),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 10.h),
+                        color: AppColors.black.withOpacity(0.5),
+                        child: SizedBox(
+                          height: 90.h,
+                          width: double.infinity,
+                          child: Consumer<EstimateNotifier>(
+                            builder: (context, images, child) {
+                              final image = images.images;
+                              return Row(
+                                children: [
+                                  image.isEmpty
+                                      ? Image.asset(
+                                          "assets/icons/imgs.png",
+                                          fit: BoxFit.fitWidth,
+                                          width: 230.w,
+                                        )
+                                      : Expanded(
+                                          child: ListView.builder(
+                                            itemCount: image.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              return InkWell(
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 10),
+                                                  child: Image.file(
+                                                    File(image[index].path)
+                                                        .absolute,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           ),
-                                    20.hs,
-                                    InkWell(
-                                      onTap: () => getImagess(),
-                                      child: Icon(
-                                        Icons.add_circle,
-                                        size: 35.sp,
-                                        color: AppColors.textBlue,
-                                      ),
-                                    )
-                                  ],
-                                );
-                              },
-                            ),
+                                        ),
+                                  20.hs,
+                                  InkWell(
+                                    onTap: () => getImagess(),
+                                    child: Icon(
+                                      Icons.add_circle,
+                                      size: 35.sp,
+                                      color: AppColors.textBlue,
+                                    ),
+                                  ),
+                                  10.hs,
+                                ],
+                              );
+                            },
                           ),
                         ),
                       )
@@ -219,31 +225,34 @@ class GenerateEstimateDropdown extends StatefulWidget {
 
 class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
   List<String> options = [
-    'Less than one week',
+    'ASAP',
     'Less than two weeks',
     'Less than a month',
   ];
   @override
   Widget build(BuildContext context) {
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyTextPoppines(
-          text: "When would you like to have this tasks to be done? ",
-          fontWeight: FontWeight.w600,
-          fontSize: 14.sp,
-          maxLines: 1,
-        ),
-        10.vs,
+        // MyTextPoppines(
+        //   text: "When would you like to have this tasks to be done? ",
+        //   fontWeight: FontWeight.w600,
+        //   fontSize: w / 30,
+        //   maxLines: 1,
+        // ),
+        // SizedBox(height: h / 90),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 14.w),
+          padding: EdgeInsets.symmetric(horizontal: w / 28),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(w / 30),
             color: const Color.fromARGB(194, 240, 240, 240),
           ),
           child: DropdownButton<String>(
             value: selectedOption,
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(w / 28),
             isExpanded: true,
             underline: SizedBox(),
             items: options.map((String option) {
@@ -258,15 +267,15 @@ class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
               });
             },
             hint: MyTextPoppines(
-              text: "select the options",
-              color: AppColors.black.withOpacity(0.8),
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
+              text: "When would you like to have this tasks to be done?",
+              color: AppColors.black,
+              fontSize: w / 34,
+              fontWeight: FontWeight.w500,
             ),
             style: GoogleFonts.poppins(
-              color: AppColors.black.withOpacity(0.8),
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
+              color: AppColors.black,
+              fontSize: w / 32,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

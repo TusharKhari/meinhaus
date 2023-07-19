@@ -33,9 +33,8 @@ class UserModel {
 }
 
 class User {
-  String? email;
-  String? phone;
   int? userId;
+  String? email;
   String? firstname;
   String? lastname;
   String? profilePic;
@@ -44,11 +43,12 @@ class User {
   List<SavedCards>? savedCards;
   String? token;
   bool? isSocialLogin;
+  bool? phoneVerified;
+  bool? emailVerified;
 
   User({
-    this.email,
-    this.phone,
     this.userId,
+    this.email,
     this.firstname,
     this.lastname,
     this.profilePic,
@@ -57,12 +57,13 @@ class User {
     this.savedCards,
     this.token,
     this.isSocialLogin,
+    this.phoneVerified,
+    this.emailVerified,
   });
 
   User.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    phone = json['phone'];
     userId = json['user_id'];
+    email = json['email'];
     firstname = json['firstname'];
     lastname = json['lastname'];
     profilePic = json['profile_pic'];
@@ -81,13 +82,14 @@ class User {
     }
     token = json['token'];
     isSocialLogin = json['is_social_login'];
+    phoneVerified = json['phone_verified_at'];
+    emailVerified = json['email_verified_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['phone'] = this.phone;
     data['user_id'] = this.userId;
+    data['email'] = this.email;
     data['firstname'] = this.firstname;
     data['lastname'] = this.lastname;
     data['profile_pic'] = this.profilePic;
@@ -101,13 +103,14 @@ class User {
     }
     data['token'] = this.token;
     data['is_social_login'] = this.isSocialLogin;
+    data['phone_verified_at'] = this.phoneVerified;
+    data['email_verified_at'] = this.emailVerified;
     return data;
   }
 
   User copyWith({
-    String? email,
-    String? phone,
     int? userId,
+    String? email,
     String? firstname,
     String? lastname,
     String? profilePic,
@@ -116,11 +119,12 @@ class User {
     List<SavedCards>? savedCards,
     String? token,
     bool? isSocialLogin,
+    bool? phoneVerified,
+    bool? emailVerified,
   }) {
     return User(
-      email: email ?? this.email,
-      phone: phone ?? this.phone,
       userId: userId ?? this.userId,
+      email: email ?? this.email,
       firstname: firstname ?? this.firstname,
       lastname: lastname ?? this.lastname,
       profilePic: profilePic ?? this.profilePic,
@@ -129,6 +133,8 @@ class User {
       savedCards: savedCards ?? this.savedCards,
       token: token ?? this.token,
       isSocialLogin: isSocialLogin ?? this.isSocialLogin,
+      phoneVerified: phoneVerified ?? this.phoneVerified,
+      emailVerified: emailVerified ?? this.emailVerified,
     );
   }
 }

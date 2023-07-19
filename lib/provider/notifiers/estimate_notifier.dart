@@ -14,10 +14,12 @@ import 'package:provider/provider.dart';
 import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/invoice/screens/progess_invoice_screen.dart';
+import '../../utils/extensions/get_images.dart';
 import '../../utils/utils.dart';
 
 class EstimateNotifier extends ChangeNotifier {
   EstimateRepository estimateRepository = EstimateRepository();
+  GetImages getImages = GetImages();
   // variables
   List<XFile> _images = [];
   bool _loading = false;
@@ -41,7 +43,12 @@ class EstimateNotifier extends ChangeNotifier {
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
 
   void setImagesInList(List<XFile> images) {
-    _images = images;
+    _images.addAll(images);
+    notifyListeners();
+  }
+
+  void removeImageFromList(XFile pickedFile) {
+    _images.remove(pickedFile);
     notifyListeners();
   }
 
@@ -85,6 +92,32 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future getImagess(BuildContext context) async {
+    await getImages.pickImages<EstimateNotifier>(context: context);
+  }
+
+  // CREATE STARTING ESTIMATE
+  Future createStartingEstimate({
+    required BuildContext context,
+    required Map<String, Object?> data,
+  }) async {
+    setLoadingState(true, true);
+    estimateRepository.createStartingEstimate(data).then((response) {
+      setLoadingState(false, true);
+      ('Estimate Succesfully Created ✅').log("Estimate Creation");
+      setImagesInList([]);
+      // Get.to(() => HomeScreen());
+      showSnakeBarr(
+          context,
+          "Your estimate has been created successfully..! we will contact you shortly",
+          BarState.Success);
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("${error} $stackTrace").log("Create Estimate notifier");
+    });
+  }
+
 // CREATE ESTIMATE
   Future createEstimate({
     required BuildContext context,
@@ -96,10 +129,10 @@ class EstimateNotifier extends ChangeNotifier {
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
       setImagesInList([]);
       Get.to(() => HomeScreen());
-      Utils.snackBar(
-        "Estimate Succesfully Created.",
-        "Your estimate has been created successfully..! we will contact you shortly",
-      );
+      showSnakeBarr(
+          context,
+          "Your estimate has been created successfully..! we will contact you shortly",
+          BarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       showSnakeBarr(context, "$error", BarState.Error);

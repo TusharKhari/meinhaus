@@ -16,10 +16,10 @@ class OtpValidateScreen extends StatefulWidget {
   static const String routeName = '/otp';
   const OtpValidateScreen({
     Key? key,
-    required this.email,
+    required this.userId,
     required this.contactNo,
   }) : super(key: key);
-  final String email;
+  final int userId;
   final String contactNo;
 
   @override
@@ -69,13 +69,16 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
   // verify email handler
   Future _verifyEmailHandler(String OTP) async {
     final notifer = context.read<AuthNotifier>();
-    final body = {"email": widget.email, "otp": OTP};
+    final body = {"user_id": widget.userId.toString(), "otp": OTP};
     if (isOtpEnterd) await notifer.verifyEmail(body: body, context: context);
   }
 
   // resend otp handler
   void _resendOtpHandler() {
+    final notifer = context.read<AuthNotifier>();
     if (showResendButton) {
+      final body = {"user_id": widget.userId.toString()};
+      notifer.resendOtp(body: body, context: context);
       startTimer();
       setState(() {
         startTime = 60;
@@ -147,7 +150,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                     SizedBox(height: h / 30),
                     MyTextPoppines(
                       text:
-                          "We’ve sent an text message with an activation code to your contact number +1 ${widget.email}",
+                          "We’ve sent an text message with an activation code to your contact number +1 ${widget.contactNo}",
                       fontSize: w / 30,
                       color: AppColors.black.withOpacity(0.7),
                       textAlign: TextAlign.center,
@@ -155,24 +158,25 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                     SizedBox(height: h / 25),
                     // OTP TEXT FIELD
                     OTPTextField(
-                      length: 4,
-                      width: MediaQuery.of(context).size.width,
-                      fieldWidth: w / 6.5,
+                      length: 6,
+                      width: w,
+                      fieldWidth: w / 8,
                       otpFieldStyle: OtpFieldStyle(
                         focusBorderColor: AppColors.black,
                       ),
                       outlineBorderRadius: w / 28,
                       fieldStyle: FieldStyle.box,
                       textFieldAlignment: MainAxisAlignment.spaceAround,
-                      contentPadding: EdgeInsets.symmetric(vertical: h / 50),
+                      keyboardType: TextInputType.number,
+                      contentPadding: EdgeInsets.symmetric(vertical: h / 75),
                       style: TextStyle(
-                        fontSize: w / 16,
+                        fontSize: w / 20,
                         fontWeight: FontWeight.bold,
                       ),
                       onChanged: (value) {
                         setState(() {
                           buttonColor = AppColors.buttonBlue.withOpacity(
-                              (value.isNotEmpty && value.length <= 4)
+                              (value.isNotEmpty && value.length <= 6)
                                   ? 0.2 * value.length
                                   : 1.0);
                         });

@@ -48,7 +48,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
     final MapSS data = {
       "email": widget.email,
       "password": widget.password,
-      "name": _nameController.text,
+      "fullname": _nameController.text,
       "phone": phone,
     };
     final notifier = context.read<AuthNotifier>();

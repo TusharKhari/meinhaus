@@ -1,3 +1,5 @@
+import 'package:new_user_side/res/common/api_url/new_api_url.dart';
+
 import '../data/network/network_api_servcies.dart';
 import '../res/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
@@ -5,6 +7,19 @@ import '../utils/enum.dart';
 class EstimateRepository {
   NetworkApiServices services = NetworkApiServices();
 
+
+  // create starting estimate
+  Future<ResponseType> createStartingEstimate(ResponseType body) async {
+    try {
+      return await services.sendDioRequest(
+        url: NewApiUrls.registerProject,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
   // create estimate
   Future<ResponseType> createEstimate(ResponseType body) async {
     try {
