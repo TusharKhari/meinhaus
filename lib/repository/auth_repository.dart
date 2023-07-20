@@ -73,6 +73,19 @@ class AuthRepositorys {
     }
   }
 
+  // Add Phone number
+  Future<ResponseType> addPhoneNo(MapSS data) async {
+    try {
+      return await services.sendHttpRequest(
+        url: NewApiUrls.addMobileNo,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
 // User Details
   Future<ResponseType> userDetails(MapSS data) async {
     try {
@@ -90,7 +103,7 @@ class AuthRepositorys {
   Future<ResponseType> googleLogin(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.google,
+        url: NewApiUrls.google,
         method: HttpMethod.post,
         body: data,
       );

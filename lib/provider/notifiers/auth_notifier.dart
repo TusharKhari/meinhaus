@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:new_user_side/data/models/UserModel.dart';
+import 'package:new_user_side/features/auth/screens/add_phone_number_screen.dart';
 import 'package:new_user_side/features/auth/screens/create_starting_project_screen.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
@@ -66,7 +67,7 @@ class AuthNotifier extends ChangeNotifier {
 
 // Auth
   Future authentication(BuildContext context) async {
-    repository.auth().then((response) {
+    await repository.auth().then((response) {
       ("Token Verified!🔥").log("Auth-Auth_Notifier");
       prefs.printToken();
       final user = UserModel.fromJson(response).user!;
@@ -150,7 +151,7 @@ class AuthNotifier extends ChangeNotifier {
     });
   }
 
-  // Resend OTP
+  // Resend OTP For Verification
   Future resendOtp({
     required MapSS body,
     required BuildContext context,
@@ -160,6 +161,28 @@ class AuthNotifier extends ChangeNotifier {
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
       ("$error  $stackTrace").log(" Resend OTP  notifier");
+    });
+  }
+
+  // Add phone-number if user don't have any
+  Future<void> addPhoneNo({
+    required MapSS body,
+    required BuildContext context,
+  }) async {
+    setLoadingState(true, true);
+    await repository.addPhoneNo(body).then((response) {
+      showSnakeBarr(context, "Let's verify your phone number", BarState.Info);
+      Navigator.of(context).pushScreen(
+        OtpValidateScreen(
+          userId: int.parse(body['user_id']!),
+          contactNo: body['phone']!,
+        ),
+      );
+      setLoadingState(false, true);
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log(" Add PhoneNo notifier");
+      setLoadingState(false, true);
     });
   }
 
@@ -205,19 +228,26 @@ class AuthNotifier extends ChangeNotifier {
     }
   }
 
-  // Google Authentication
+  // Google Authentication Login/Signup
   Future googleSignIn(BuildContext context) async {
     MapSS data = {"provider": "google", "access_token": accessToken};
     await repository.googleLogin(data).then((response) async {
+      print(response);
+      showSnakeBarr(context, response['response_message'], BarState.Success);
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
       setGoogleLoadingState(false, true);
-      showSnakeBarr(context, response['response_message'], BarState.Success);
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        HomeScreen.routeName,
-        (route) => false,
-      );
+      if (user.contact == null || user.phoneVerified == false) {
+        Navigator.of(context).pushScreen(
+          AddPhoneNumberScreen(userId: user.userId.toString()),
+        );
+      } else {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeScreen.routeName,
+          (route) => false,
+        );
+      }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
       showSnakeBarr(context, "$error", BarState.Error);

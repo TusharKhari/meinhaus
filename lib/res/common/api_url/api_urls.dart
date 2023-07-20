@@ -1,7 +1,6 @@
 class ApiUrls {
-  static String baseUrl = "https://meinhaus.ca/api/";
-  static String newBaseUrl = "https://meinhaus.ca/meinhaus/api/";
-
+  //static String baseUrl = "https://meinhaus.ca/api/";
+  static String baseUrl = "https://meinhaus.ca/meinhaus/api/";
 
   static Uri setUrls(String uri) {
     return Uri.parse(baseUrl + uri);
@@ -11,7 +10,7 @@ class ApiUrls {
   static Uri signIn = setUrls("login");
   static Uri signUp = setUrls("signup");
   static Uri verifyEmail = setUrls("verify-email");
-  static Uri auth = setUrls("authenticate");
+  static Uri auth = setUrls("customer/authenticate");
   static Uri userDetails = setUrls("user-details");
   static Uri google = setUrls("customer-social-login");
 

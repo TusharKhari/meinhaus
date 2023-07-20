@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -64,18 +65,20 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(6.0),
                     child: InkWell(
                       onTap: () {
-                        final imgs = services.projectImages;
+                        final imgs = services.projectImages!;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => FullScreenImageView(
-                              images: imgs!,
+                              images: imgs,
                               currentIndex: index,
                             ),
                           ),
                         );
                       },
-                      child: Image.network(services.projectImages![index]),
+                      child: Image.network(
+                        services.projectImages![index].thumbnailUrl!,
+                      ),
                     ),
                   ),
                 ),

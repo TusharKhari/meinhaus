@@ -95,7 +95,7 @@ class PusherService {
     try {
       final token = await UserPrefrences().getToken();
       var result = await http.post(
-        Uri.parse("https://meinhaus.ca/broadcasting/auth"),
+        Uri.parse("https://meinhaus.ca/meinhaus/broadcasting/auth"),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer $token',

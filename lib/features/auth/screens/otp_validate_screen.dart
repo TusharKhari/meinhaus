@@ -66,7 +66,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
     });
   }
 
-  // verify email handler
+  // verify phone no handler
   Future _verifyEmailHandler(String OTP) async {
     final notifer = context.read<AuthNotifier>();
     final body = {"user_id": widget.userId.toString(), "otp": OTP};

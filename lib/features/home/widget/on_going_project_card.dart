@@ -180,7 +180,8 @@ class OngoingWorkCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       )
                     : DecorationImage(
-                        image: NetworkImage(project.projectImages!.first),
+                        image: NetworkImage(
+                            project.projectImages!.first.thumbnailUrl!),
                         fit: BoxFit.cover,
                       ),
               ),

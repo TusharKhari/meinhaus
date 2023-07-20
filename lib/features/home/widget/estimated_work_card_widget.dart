@@ -93,7 +93,8 @@ class EstimatedWorkCard extends StatelessWidget {
               ),
               image: projectDetails.uploadedImgs!.isNotEmpty
                   ? DecorationImage(
-                      image: NetworkImage(projectDetails.uploadedImgs![0]),
+                      image: NetworkImage(
+                          projectDetails.uploadedImgs![0].thumbnailUrl!),
                       fit: BoxFit.fill,
                     )
                   : DecorationImage(

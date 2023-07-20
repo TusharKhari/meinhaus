@@ -197,7 +197,7 @@ class AllOPPPHCard extends StatelessWidget {
                                 color: AppColors.golden,
                               ),
                               image: DecorationImage(
-                                image: NetworkImage(images),
+                                image: NetworkImage(images.thumbnailUrl!),
                                 fit: BoxFit.cover,
                               ),
                             ),
