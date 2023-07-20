@@ -1,5 +1,6 @@
 import 'package:new_user_side/data/network/base_api_services.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/res/common/api_url/new_api_url.dart';
 import '../res/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
 
@@ -11,7 +12,7 @@ class AuthRepositorys {
   Future<ResponseType> login(MapSS body) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.signIn,
+        url: NewApiUrls.login,
         method: HttpMethod.post,
         body: body,
         allowUnauthorizedResponse: true,
@@ -37,7 +38,7 @@ class AuthRepositorys {
   Future<ResponseType> signUp(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.signUp,
+        url: NewApiUrls.register,
         method: HttpMethod.post,
         body: data,
       );
@@ -50,7 +51,33 @@ class AuthRepositorys {
   Future<ResponseType> verifyEmail(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.verifyEmail,
+        url: NewApiUrls.verifyMobile,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Resend Otp
+  Future<ResponseType> resendOtp(MapSS data) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: NewApiUrls.resendOtp,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Add Phone number
+  Future<ResponseType> addPhoneNo(MapSS data) async {
+    try {
+      return await services.sendHttpRequest(
+        url: NewApiUrls.addMobileNo,
         method: HttpMethod.post,
         body: data,
       );
@@ -76,7 +103,7 @@ class AuthRepositorys {
   Future<ResponseType> googleLogin(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.google,
+        url: NewApiUrls.google,
         method: HttpMethod.post,
         body: data,
       );

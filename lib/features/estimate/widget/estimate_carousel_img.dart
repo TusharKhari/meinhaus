@@ -2,6 +2,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -61,7 +62,8 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
   }
 
   //Carousle Container
-  Widget buildImg(String workImg, int index, List<String> imgs) => InkWell(
+  Widget buildImg(UploadedImgs workImg, int index, List<UploadedImgs> imgs) =>
+      InkWell(
         onTap: () {
           Navigator.push(
             context,
@@ -78,7 +80,7 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
             color: Colors.white,
             //? Network Imgs
             image: DecorationImage(
-              image: NetworkImage(workImg),
+              image: NetworkImage(workImg.thumbnailUrl!),
               fit: BoxFit.cover,
             ),
           ),
@@ -86,7 +88,7 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
       );
 
   //Dot indicator
-  Widget buildIndicator(List<String> projectImgs) => Row(
+  Widget buildIndicator(List<UploadedImgs> projectImgs) => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           AnimatedSmoothIndicator(

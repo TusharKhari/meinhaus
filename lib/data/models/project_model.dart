@@ -1,3 +1,5 @@
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
+
 class ProjectDetailsModel {
   String? responseCode;
   String? responseMessage;
@@ -32,7 +34,7 @@ class Services {
   String? projectCost;
   String? discription;
   String? address;
-  List<String>? projectImages;
+  List<UploadedImgs>? projectImages;
   List<ProfessionalWorkHistory>? professionalWorkHistory;
   String? proId;
   List<Reviews>? reviews;
@@ -60,7 +62,12 @@ class Services {
     projectCost = json['project_cost'];
     discription = json['discription'];
     address = json['address'];
-    projectImages = json['project_images'].cast<String>();
+    if (json['project_images'] != null) {
+      projectImages = <UploadedImgs>[];
+      json['project_images'].forEach((v) {
+        projectImages!.add(new UploadedImgs.fromJson(v));
+      });
+    }
     if (json['professional_work_history'] != null) {
       professionalWorkHistory = <ProfessionalWorkHistory>[];
       json['professional_work_history'].forEach((v) {
@@ -86,7 +93,10 @@ class Services {
     data['project_cost'] = this.projectCost;
     data['discription'] = this.discription;
     data['address'] = this.address;
-    data['project_images'] = this.projectImages;
+    if (this.projectImages != null) {
+      data['project_images'] =
+          this.projectImages!.map((v) => v.toJson()).toList();
+    }
     if (this.professionalWorkHistory != null) {
       data['professional_work_history'] =
           this.professionalWorkHistory!.map((v) => v.toJson()).toList();

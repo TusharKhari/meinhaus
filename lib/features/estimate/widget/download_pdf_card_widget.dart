@@ -23,65 +23,66 @@ class DownloadPdfCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: w / 28, vertical: h / 85),
       color: AppColors.black,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Padding(
-          padding: EdgeInsets.only(top: 4.h),
-          child: isAddonWork!
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyTextPoppines(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: h / 300),
+            child: isAddonWork!
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyTextPoppines(
+                        text: workName,
+                        fontSize: w / 28,
+                        color: AppColors.white,
+                      ),
+                      3.vs,
+                      MyTextPoppines(
+                        text: projectId!,
+                        fontSize: height / MyFontSize.font11,
+                        color: AppColors.yellow,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  )
+                : SizedBox(
+                    width: w / 1.8,
+                    child: MyTextPoppines(
                       text: workName,
-                      fontSize: height < 800
-                          ? height / MyFontSize.font16
-                          : height / MyFontSize.font14,
+                      fontSize: w / 26,
                       color: AppColors.white,
                     ),
-                    3.vs,
-                    MyTextPoppines(
-                      text: projectId!,
-                      fontSize: height / MyFontSize.font11,
-                      color: AppColors.yellow,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ],
-                )
-              : MyTextPoppines(
-                  text: workName,
-                  fontSize: height < 800
-                      ? height / MyFontSize.font16
-                      : height / MyFontSize.font14,
-                  color: AppColors.white,
+                  ),
+          ),
+          Row(
+            children: [
+              Text(
+                "Download as PDF",
+                style: GoogleFonts.poppins(
+                  fontSize: w / 34,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: AppColors.yellow,
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 2.0,
+                  // height: 2,
                 ),
-        ),
-        Row(
-          children: [
-            Text(
-              "Download as PDF",
-              style: GoogleFonts.poppins(
-                fontSize: height < 800
-                    ? height / MyFontSize.font10
-                    : height / MyFontSize.font8,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: AppColors.yellow,
-                decoration: TextDecoration.underline,
-                decorationThickness: 2.0,
-                // height: 2,
               ),
-            ),
-            Icon(
-              Icons.file_download_outlined,
-              color: AppColors.yellow,
-              size: 24.sp,
-            ),
-          ],
-        )
-      ]),
+              Icon(
+                Icons.file_download_outlined,
+                color: AppColors.yellow,
+                size: 24.sp,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

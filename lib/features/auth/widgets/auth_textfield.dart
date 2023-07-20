@@ -12,6 +12,7 @@ class AuthTextField extends StatefulWidget {
   final String hintText;
   final bool? isEmailField;
   final bool? showSuffix;
+  final bool? isHs20;
   final String? Function(String?)? validator;
   const AuthTextField({
     Key? key,
@@ -20,6 +21,7 @@ class AuthTextField extends StatefulWidget {
     required this.hintText,
     this.isEmailField = true,
     this.showSuffix = true,
+    this.isHs20 = true,
     required this.validator,
   }) : super(key: key);
 
@@ -34,7 +36,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
     final h = context.screenHeight;
     final w = context.screenWidth;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: w / 16),
+      padding: EdgeInsets.symmetric(horizontal: widget.isHs20! ? w / 16 : 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

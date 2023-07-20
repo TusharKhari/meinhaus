@@ -50,13 +50,13 @@ class MakePayment {
     final headers = await UserPrefrences().getHeader();
     try {
       var response = await http.get(
-        Uri.parse('https://meinhaus.ca/api/book-project?booking_id=$bookingId'),
+        Uri.parse(
+            'https://meinhaus.ca/meinhaus/api/book-project?booking_id=$bookingId'),
         headers: headers,
       );
       ("Status Code at intentcreation : ${response.statusCode}")
           .log("Create Payment Intent");
       if (response.statusCode == 200) {
-        print("Intent Create");
         var data = json.decode(response.body);
         print(data['data']['payment_intent']['client_secret']);
         print(data['data']['payment_intent']['customer']);

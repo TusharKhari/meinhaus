@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:new_user_side/data/models/UserModel.dart';
+import 'package:new_user_side/features/auth/screens/add_phone_number_screen.dart';
+import 'package:new_user_side/features/auth/screens/create_starting_project_screen.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -65,7 +67,7 @@ class AuthNotifier extends ChangeNotifier {
 
 // Auth
   Future authentication(BuildContext context) async {
-    repository.auth().then((response) {
+    await repository.auth().then((response) {
       ("Token Verified!🔥").log("Auth-Auth_Notifier");
       prefs.printToken();
       final user = UserModel.fromJson(response).user!;
@@ -81,15 +83,8 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     repository.login(data).then((response) async {
       User user = UserModel.fromJson(response).user!;
-      if (response['response_message'] == "Unverified User.") {
-        showSnakeBarr(context, response['response_message'], BarState.Warning);
-        Navigator.of(context).pushScreen(
-          OtpValidateScreen(
-            email: "${user.email}",
-            contactNo: "${user.contact}",
-          ),
-        );
-      } else {
+      // if (response['response_message'] == "Unverified User.") {
+      if (user.phoneVerified!) {
         ("User Logged in Successfully ✨").log("Login Notifier");
         showSnakeBarr(context, response['response_message'], BarState.Success);
         setUser(user);
@@ -97,6 +92,15 @@ class AuthNotifier extends ChangeNotifier {
         Navigator.of(context).pushNamedAndRemoveUntil(
           HomeScreen.routeName,
           (route) => false,
+        );
+      } else {
+        showSnakeBarr(
+            context, "Please verify you details first", BarState.Warning);
+        Navigator.of(context).pushScreen(
+          OtpValidateScreen(
+            userId: user.userId!,
+            contactNo: user.contact!,
+          ),
         );
       }
       setLoadingState(false, true);
@@ -116,7 +120,7 @@ class AuthNotifier extends ChangeNotifier {
       showSnakeBarr(context, response['response_message'], BarState.Success);
       Navigator.of(context).pushScreen(
         OtpValidateScreen(
-          email: data["email"]!,
+          userId: response["user_id"],
           contactNo: data["phone"]!,
         ),
       );
@@ -138,14 +142,46 @@ class AuthNotifier extends ChangeNotifier {
       final user = UserModel.fromJson(response).user!;
       UserPrefrences().setToken(user.token.toString());
       setUser(user);
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        HomeScreen.routeName,
-        (route) => false,
-      );
+      Navigator.of(context).pushScreen(CreateStartingProject());
       showSnakeBarr(context, response['response_message'], BarState.Success);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
       ("$error  $stackTrace").log(" Verify email notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Resend OTP For Verification
+  Future resendOtp({
+    required MapSS body,
+    required BuildContext context,
+  }) async {
+    repository.resendOtp(body).then((value) {
+      showSnakeBarr(context, value['response_message'], BarState.Success);
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log(" Resend OTP  notifier");
+    });
+  }
+
+  // Add phone-number if user don't have any
+  Future<void> addPhoneNo({
+    required MapSS body,
+    required BuildContext context,
+  }) async {
+    setLoadingState(true, true);
+    await repository.addPhoneNo(body).then((response) {
+      showSnakeBarr(context, "Let's verify your phone number", BarState.Info);
+      Navigator.of(context).pushScreen(
+        OtpValidateScreen(
+          userId: int.parse(body['user_id']!),
+          contactNo: body['phone']!,
+        ),
+      );
+      setLoadingState(false, true);
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log(" Add PhoneNo notifier");
       setLoadingState(false, true);
     });
   }
@@ -192,19 +228,26 @@ class AuthNotifier extends ChangeNotifier {
     }
   }
 
-  // Google Authentication
+  // Google Authentication Login/Signup
   Future googleSignIn(BuildContext context) async {
     MapSS data = {"provider": "google", "access_token": accessToken};
     await repository.googleLogin(data).then((response) async {
+      print(response);
+      showSnakeBarr(context, response['response_message'], BarState.Success);
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
       setGoogleLoadingState(false, true);
-      showSnakeBarr(context, response['response_message'], BarState.Success);
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        HomeScreen.routeName,
-        (route) => false,
-      );
+      if (user.contact == null || user.phoneVerified == false) {
+        Navigator.of(context).pushScreen(
+          AddPhoneNumberScreen(userId: user.userId.toString()),
+        );
+      } else {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeScreen.routeName,
+          (route) => false,
+        );
+      }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
       showSnakeBarr(context, "$error", BarState.Error);

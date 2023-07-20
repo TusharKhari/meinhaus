@@ -69,10 +69,14 @@ class SubOngoingProjectScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          MyTextPoppines(
-            text: heading,
-            fontSize: h / 48.8,
-            fontWeight: FontWeight.w600,
+          SizedBox(
+            width: w / 1.4,
+            child: MyTextPoppines(
+              text: heading,
+              fontSize: h / 48.8,
+              fontWeight: FontWeight.w600,
+              maxLines: 2,
+            ),
           ),
           MyTextPoppines(
             text: "$totalServices Services",
@@ -131,10 +135,13 @@ class _MainCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyTextPoppines(
-                      text: project.projectName.toString(),
-                      fontSize: width / 25,
-                      fontWeight: FontWeight.w600,
+                    SizedBox(
+                      width: width / 2.3,
+                      child: MyTextPoppines(
+                        text: project.projectName.toString(),
+                        fontSize: width / 25,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     2.vspacing(context),
                     MyTextPoppines(
@@ -265,7 +272,7 @@ class _MainCard extends StatelessWidget {
                                   color: AppColors.golden,
                                 ),
                                 image: DecorationImage(
-                                  image: NetworkImage(images),
+                                  image: NetworkImage(images.thumbnailUrl!),
                                   fit: BoxFit.cover,
                                 ),
                               ),
