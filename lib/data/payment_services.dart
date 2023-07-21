@@ -7,6 +7,8 @@ import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../res/common/api_url/api_urls.dart';
+
 class MakePayment {
   Map<String, dynamic>? paymentIntent;
   Future<bool> makePayment({
@@ -18,26 +20,14 @@ class MakePayment {
       final clientSecret = (paymentIntent!['payment_intent']['client_secret']);
       final customerId = (paymentIntent!['payment_intent']['customer']);
       final ephemeralKey = (paymentIntent!['ephemeralKey']['secret']);
-      // final setupintent = await Stripe.instance.confirmSetupIntent(
-      //   paymentIntentClientSecret: clientSecret,
-      //   params: PaymentMethodParams.card(
-      //     paymentMethodData: PaymentMethodData(),
-      //   ),
-      // );
-      // // Check the status of the returned SetupIntent
-      // if (setupintent.status.toLowerCase() == 'succeeded') {
-      //   return setupintent.paymentMethodId;
-      // }
-      await Stripe.instance
-          .initPaymentSheet(
-            paymentSheetParameters: SetupPaymentSheetParameters(
-              paymentIntentClientSecret: clientSecret,
-              customerId: customerId,
-              customerEphemeralKeySecret: ephemeralKey,
-              merchantDisplayName: 'Mein Haus',
-            ),
-          )
-          .then((value) {});
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: clientSecret,
+          customerId: customerId,
+          customerEphemeralKeySecret: ephemeralKey,
+          merchantDisplayName: 'Mein Haus',
+        ),
+      );
       final res = await displayPaymentSheet(context);
       return res;
     } catch (err) {
@@ -50,8 +40,7 @@ class MakePayment {
     final headers = await UserPrefrences().getHeader();
     try {
       var response = await http.get(
-        Uri.parse(
-            'https://meinhaus.ca/meinhaus/api/book-project?booking_id=$bookingId'),
+        Uri.parse('${ApiUrls.createIntent}$bookingId'),
         headers: headers,
       );
       ("Status Code at intentcreation : ${response.statusCode}")
@@ -77,7 +66,7 @@ class MakePayment {
         paymentIntent = null;
         isValueTrue = true;
       }).onError((error, stackTrace) {
-        showSnakeBarr(context, "Transcation Declined By User", BarState.Info);
+        showSnakeBarr(context, "Transcation Declined", BarState.Info);
         print("onError in payment sheet ->>> $error");
         isValueTrue = false;
         throw Exception(error);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,9 @@ import 'package:provider/provider.dart';
 import 'provider/providers.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = "pk_test_dMedZ8RG75Z6EwiJlqr1ZY3O";
+  Stripe.publishableKey = dotenv.env['stripePublishableKey']!;
   runApp(
     MultiProvider(
       providers: provider,

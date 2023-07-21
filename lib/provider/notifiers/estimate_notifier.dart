@@ -210,7 +210,8 @@ class EstimateNotifier extends ChangeNotifier {
       supportNotifier.setTicketId(query.ticket!);
     }
     // Support request to close the query
-    else if (query!.status == "1" &&
+    else if (query != null &&
+        query.status == "1" &&
         query.endStatus == "1" &&
         query.resolved == "0") {
       supportNotifier.setShowClosingDialog(true);
