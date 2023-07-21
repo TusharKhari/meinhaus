@@ -1,5 +1,4 @@
-class ApiUrls {
-  //static String baseUrl = "https://meinhaus.ca/api/";
+class NewApiUrls {
   static String baseUrl = "https://meinhaus.ca/meinhaus/api/";
 
   static Uri setUrls(String uri) {
@@ -7,11 +6,14 @@ class ApiUrls {
   }
 
   // Auth
-  static Uri signIn = setUrls("login");
-  static Uri signUp = setUrls("signup");
+  static Uri auth = setUrls("authenticate");
+  static Uri login = setUrls("customer/login");
+  static Uri register = setUrls("register");
   static Uri verifyEmail = setUrls("verify-email");
-  static Uri auth = setUrls("customer/authenticate");
-  static Uri userDetails = setUrls("user-details");
+  static Uri verifyMobile = setUrls("mobile-verification");
+  static Uri resendOtp = setUrls("resend-otp");
+  static Uri registerProject = setUrls("project-details");
+  static Uri addMobileNo = setUrls("customer/add-mobile");
   static Uri google = setUrls("customer-social-login");
 
   // Estimate
@@ -59,14 +61,14 @@ class ApiUrls {
   // Upload Img
   static Uri uploadImg = setUrls("upload-img");
 
-  // Stripe
-  static String createIntent = baseUrl + "book-project?booking_id=";
-
-  // Pusher-Chat
-  static Uri broadcastAuth = setUrls("broadcasting/auth");
+  // Chat with pro
   static Uri allConversation = setUrls("all-conversations");
   static Uri loadMessages = setUrls("load-messages");
   static Uri loadMoreMessages = setUrls("load-more");
   static Uri readMessage = setUrls("trigger-read-event");
+
   static Uri sendMessage = setUrls("send-message");
+
+  // Pusher
+  static Uri broadcastAuth = setUrls("broadcasting/auth");
 }
