@@ -54,7 +54,7 @@ dependencies:
   geocoding: ^2.1.0
   shimmer: ^2.0.0
   tuple: ^2.0.1
-  flutter_stripe: ^9.2.0
+  flutter_stripe: ^9.3.0
   get: ^4.6.5
   flutter_svg: ^2.0.6
   loading_animation_widget: ^1.2.0+4
