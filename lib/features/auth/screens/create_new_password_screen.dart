@@ -1,17 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:new_user_side/features/auth/screens/user_details.dart';
+import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/validator.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../widgets/auth_textfield.dart';
-import '../widgets/phone_number_textfield.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget {
-  const CreateNewPasswordScreen({super.key});
+  final String passwordToken;
+  const CreateNewPasswordScreen({
+    Key? key,
+    required this.passwordToken,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +25,18 @@ class CreateNewPasswordScreen extends StatelessWidget {
     TextEditingController _confrimPassController = TextEditingController();
     final h = context.screenHeight;
     final w = context.screenWidth;
+
+    // Creating a new password after forgetting the pervious one
+    Future<void> createNewPassword() async {
+      final notifier = context.read<AuthNotifier>();
+      MapSS body = {
+        "token": passwordToken,
+        "password": _passwordController.text,
+        "password_confirmation": _confrimPassController.text
+      };
+      await notifier.createNewPasswordViaFP(context: context, body: body);
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -96,7 +114,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
               MyBlueButton(
                 hPadding: w / 6,
                 text: "Reset Password",
-                onTap: () {},
+                onTap: () => createNewPassword(),
               )
             ],
           ),

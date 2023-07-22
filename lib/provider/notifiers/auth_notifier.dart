@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:new_user_side/data/models/UserModel.dart';
 import 'package:new_user_side/features/auth/screens/add_phone_number_screen.dart';
+import 'package:new_user_side/features/auth/screens/create_new_password_screen.dart';
 import 'package:new_user_side/features/auth/screens/create_starting_project_screen.dart';
+import 'package:new_user_side/features/auth/screens/forget_password_otp_verifation_screen.dart';
+import 'package:new_user_side/features/auth/screens/signin_screen.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -252,6 +255,81 @@ class AuthNotifier extends ChangeNotifier {
       setGoogleLoadingState(false, true);
       showSnakeBarr(context, "$error", BarState.Error);
       ("$error  $stackTrace").log("Google Auth notifier");
+    });
+  }
+
+  // Forget password will send and otp to given email
+  Future<void> forgetPassword({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setLoadingState(true, true);
+    await repository.forgetPassword(body).then((value) {
+      showSnakeBarr(context, "OTP SENT", BarState.Success);
+      setLoadingState(false, true);
+      Navigator.of(context).pushScreen(
+        ForgetPasswordOtpValidateScreen(email: body['email']!),
+      );
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Forget password notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Verify forget password otp
+  Future<void> verifyForgetPassOTP({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setLoadingState(true, true);
+    await repository.verifyForgetPassOTP(body).then((response) {
+      showSnakeBarr(context, "OTP Verified", BarState.Success);
+      setLoadingState(false, true);
+      Navigator.of(context).pushScreen(
+        CreateNewPasswordScreen(passwordToken: response['token']),
+      );
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Verify forgetpassword OTP notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Resend forget password otp
+  Future<void> resendForgetPassOTP({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setGoogleLoadingState(true, true);
+    await repository.resendFOrgetPassOTP(body).then((response) {
+      showSnakeBarr(context, "OTP Sent Again!", BarState.Success);
+      setGoogleLoadingState(false, true);
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Resend forgetpassword OTP notifier");
+      setGoogleLoadingState(false, true);
+    });
+  }
+
+  // Create new password
+  Future<void> createNewPasswordViaFP({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setLoadingState(true, true);
+    await repository.createNewPasswordViaFP(body).then((response) {
+      showSnakeBarr(
+        context,
+        "New Password has been created login with same credentials!",
+        BarState.Success,
+      );
+      setLoadingState(false, true);
+      Navigator.of(context).pushScreen(SignInScreen());
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Create-new-password notifier");
+      setLoadingState(false, true);
     });
   }
 

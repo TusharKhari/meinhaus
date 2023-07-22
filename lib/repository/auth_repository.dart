@@ -103,9 +103,62 @@ class AuthRepositorys {
   Future<ResponseType> googleLogin(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: NewApiUrls.google,
+        url: ApiUrls.google,
         method: HttpMethod.post,
         body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Forget Password
+  Future<ResponseType> forgetPassword(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.forgetPassword,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Verify Forget Password OTP
+  Future<ResponseType> verifyForgetPassOTP(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.verifyForgetPasswordOTP,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Create New password via Forget Password
+  Future<ResponseType> createNewPasswordViaFP(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.createNewPasswordViaFP,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Resend Forget Password OTP
+  Future<ResponseType> resendFOrgetPassOTP(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.resendForgetPasswordOTP,
+        method: HttpMethod.post,
+        body: body,
+        allowUnauthorizedResponse: true,
       );
     } catch (e) {
       throw e;
