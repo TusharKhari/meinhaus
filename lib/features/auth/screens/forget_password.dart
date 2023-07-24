@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -10,23 +11,31 @@ import '../../../utils/constants/app_colors.dart';
 import '../../../utils/extensions/validator.dart';
 import '../widgets/auth_textfield.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
+class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController _emailController = TextEditingController();
-    final h = context.screenHeight;
-    final w = context.screenWidth;
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+}
 
-    // Making the request for forgetpassword will are sharing email so that 
-    // i can share otp on email and we can verify it for genrate new password
-    Future<void> forgetPassword() async {
-      final notifier = context.read<AuthNotifier>();
-      MapSS body = {"email": _emailController.text};
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  final _emailFormKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
+
+  // Making the request for forgetpassword will are sharing email so that
+  // i can share otp on email and we can verify it for genrate new password
+  Future<void> forgetPassword() async {
+    final notifier = context.read<AuthNotifier>();
+    MapSS body = {"email": _emailController.text};
+    if (_emailFormKey.currentState!.validate()) {
       await notifier.forgetPassword(context: context, body: body);
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -76,13 +85,16 @@ class ForgetPasswordScreen extends StatelessWidget {
                 maxLines: 3,
               ),
               SizedBox(height: h / 40),
-              AuthTextField(
-                controller: _emailController,
-                headingText: 'Email',
-                hintText: "email",
-                validator: Validator().validateEmail,
-                isEmailField: false,
-                isHs20: false,
+              Form(
+                key: _emailFormKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: AuthTextField(
+                  controller: _emailController,
+                  headingText: 'Email',
+                  hintText: "email",
+                  validator: Validator().validateEmail,
+                  isHs20: false,
+                ),
               ),
               SizedBox(height: h / 40),
               Divider(thickness: 1.0),

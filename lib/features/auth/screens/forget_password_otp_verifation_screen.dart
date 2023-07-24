@@ -21,13 +21,15 @@ class ForgetPasswordOtpValidateScreen extends StatefulWidget {
   final String email;
 
   @override
-  State<ForgetPasswordOtpValidateScreen> createState() => _ForgetPasswordOtpValidateScreenState();
+  State<ForgetPasswordOtpValidateScreen> createState() =>
+      _ForgetPasswordOtpValidateScreenState();
 }
 
-class _ForgetPasswordOtpValidateScreenState extends State<ForgetPasswordOtpValidateScreen> {
+class _ForgetPasswordOtpValidateScreenState
+    extends State<ForgetPasswordOtpValidateScreen> {
   // Initial otp is blank
   bool isOtpEnterd = false;
-  // Storing otp 
+  // Storing otp
   late String otp;
   // Initial time for resending otp
   int startTime = 60;
@@ -70,7 +72,8 @@ class _ForgetPasswordOtpValidateScreenState extends State<ForgetPasswordOtpValid
   Future _verifyForgetPasswordOTP(String OTP) async {
     final notifer = context.read<AuthNotifier>();
     final body = {"email": widget.email, "otp": OTP};
-    if (isOtpEnterd) await notifer.verifyForgetPassOTP(body: body, context: context);
+    if (isOtpEnterd)
+      await notifer.verifyForgetPassOTP(body: body, context: context);
   }
 
   // resend otp handler
@@ -141,7 +144,7 @@ class _ForgetPasswordOtpValidateScreenState extends State<ForgetPasswordOtpValid
                     Align(
                       alignment: Alignment.center,
                       child: MyTextPoppines(
-                        text: "Let's Verify your Email..!",
+                        text: "Let's Verify your Email",
                         fontSize: w / 18,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center,
@@ -150,7 +153,7 @@ class _ForgetPasswordOtpValidateScreenState extends State<ForgetPasswordOtpValid
                     SizedBox(height: h / 30),
                     MyTextPoppines(
                       text:
-                          "We’ve sent an text message with an activation code on your email +1 ${widget.email}",
+                          "We’ve sent an text message with an activation code on your email ${widget.email}",
                       fontSize: w / 30,
                       color: AppColors.black.withOpacity(0.7),
                       textAlign: TextAlign.center,
