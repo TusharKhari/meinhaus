@@ -15,7 +15,6 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../notificationservice/local_notification_service.dart';
 import '../../../provider/notifiers/chat_with_pro_notifier.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../provider/notifiers/our_services_notifier.dart';
@@ -47,55 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     getEstimate();
     getOngoingProjects();
     getOurServices();
-    notificationSetup();
-  }
-
-  void notificationSetup() {
-    // 1. This method call when app in terminated state and you get a notification
-    // when you click on notification app open from terminated state and you can get notification data in this method
-
-    FirebaseMessaging.instance.getInitialMessage().then(
-      (message) {
-        print("FirebaseMessaging.instance.getInitialMessage");
-        if (message != null) {
-          print("New Notification");
-          // if (message.data['_id'] != null) {
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (context) => DemoScreen(
-          //         id: message.data['_id'],
-          //       ),
-          //     ),
-          //   );
-          // }
-        }
-      },
-    );
-
-    // 2. This method only call when App in forground it mean app must be opened
-    FirebaseMessaging.onMessage.listen(
-      (message) {
-        print("FirebaseMessaging.onMessage.listen");
-        if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data11 ${message.data}");
-          LocalNotificationService.createanddisplaynotification(message);
-        }
-      },
-    );
-
-    // 3. This method only call when App in background and not terminated(not closed)
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (message) {
-        print("FirebaseMessaging.onMessageOpenedApp.listen");
-        if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data22 ${message.data['_id']}");
-        }
-      },
-    );
   }
 
   void showStartingDailog() {
@@ -147,7 +97,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getDeviceTokenToSendNotification();
     final height = context.screenHeight;
     final estimateNotifier = context.watch<EstimateNotifier>();
     final ourServicesNotifier = context.watch<OurServicesNotifier>();
