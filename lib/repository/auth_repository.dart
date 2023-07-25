@@ -12,7 +12,7 @@ class AuthRepositorys {
   Future<ResponseType> login(MapSS body) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: NewApiUrls.login,
+        url: ApiUrls.login,
         method: HttpMethod.post,
         body: body,
         allowUnauthorizedResponse: true,
@@ -38,7 +38,7 @@ class AuthRepositorys {
   Future<ResponseType> signUp(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: NewApiUrls.register,
+        url: ApiUrls.register,
         method: HttpMethod.post,
         body: data,
       );
@@ -47,11 +47,36 @@ class AuthRepositorys {
     }
   }
 
-// Verify Otp
-  Future<ResponseType> verifyEmail(MapSS data) async {
+// Verify Mobile Number
+  Future<ResponseType> verifyPhone(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: NewApiUrls.verifyMobile,
+        url: ApiUrls.verifyMobile,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Verify Email
+  Future<ResponseType> verifyEmai() async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.verifyEmail,
+        method: HttpMethod.get,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Send OTP Mobile
+  Future<ResponseType> sendOTPMobile(MapSS data) async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.sendOTPMobile,
         method: HttpMethod.post,
         body: data,
       );

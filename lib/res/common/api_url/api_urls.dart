@@ -10,8 +10,9 @@ class ApiUrls {
   static Uri auth = setUrls("authenticate");
   static Uri login = setUrls("customer/login");
   static Uri register = setUrls("register");
-  static Uri verifyEmail = setUrls("verify-email");
+  static Uri verifyEmail = setUrls("email-verification");
   static Uri verifyMobile = setUrls("mobile-verification");
+  static Uri sendOTPMobile = setUrls("send-mobile-otp");
   static Uri resendOtp = setUrls("resend-otp");
   static Uri registerProject = setUrls("project-details");
   static Uri addMobileNo = setUrls("customer/add-mobile");

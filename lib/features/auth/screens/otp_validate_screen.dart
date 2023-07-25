@@ -2,25 +2,31 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
-import 'package:new_user_side/res/common/my_text.dart';
-import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
+import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:new_user_side/res/common/my_text.dart';
+import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
+
+import '../../home/screens/home_screen.dart';
+
 class OtpValidateScreen extends StatefulWidget {
   static const String routeName = '/otp';
+  final int userId;
+  final String contactNo;
+  final bool isSkippAble;
   const OtpValidateScreen({
     Key? key,
     required this.userId,
     required this.contactNo,
+    required this.isSkippAble,
   }) : super(key: key);
-  final int userId;
-  final String contactNo;
 
   @override
   State<OtpValidateScreen> createState() => _OtpValidateScreenState();
@@ -70,7 +76,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
   Future _verifyEmailHandler(String OTP) async {
     final notifer = context.read<AuthNotifier>();
     final body = {"user_id": widget.userId.toString(), "otp": OTP};
-    if (isOtpEnterd) await notifer.verifyEmail(body: body, context: context);
+    if (isOtpEnterd) await notifer.verifyPhone(body: body, context: context);
   }
 
   // resend otp handler
@@ -131,6 +137,28 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                       height: h / 13,
                     ),
                   ),
+                  widget.isSkippAble
+                      ? Padding(
+                          padding: EdgeInsets.only(left: w / 5),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                HomeScreen.routeName,
+                                (route) => false,
+                              );
+                            },
+                            child: Text(
+                              "Skip",
+                              style: GoogleFonts.poppins(
+                                fontSize: w / 28,
+                                color: AppColors.buttonBlue,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
                 ],
               ),
               Padding(

@@ -35,14 +35,14 @@ class FirebaseApi {
     const settings = InitializationSettings(android: android, iOS: iOS);
     await _localNotifications.initialize(
       settings,
-      onDidReceiveNotificationResponse: (payload) {
-        final message = RemoteMessage.fromMap(jsonDecode(payload.toString()));
-        handleMessage(message);
-      },
-      onDidReceiveBackgroundNotificationResponse: (payload) {
-        final message = RemoteMessage.fromMap(jsonDecode(payload.toString()));
-        handleMessage(message);
-      },
+      // onDidReceiveNotificationResponse: (payload) {
+      //   final message = RemoteMessage.fromMap(jsonDecode(payload.payload!));
+      //   handleMessage(message);
+      // },
+      // onDidReceiveBackgroundNotificationResponse: (payload) {
+      //   final message = RemoteMessage.fromMap(jsonDecode(payload.toString()));
+      //   handleMessage(message);
+      // },
     );
 
     final platform = _localNotifications.resolvePlatformSpecificImplementation<
