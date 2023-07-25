@@ -108,13 +108,13 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyTextPoppines(
-                          text: "Before we procced",
+                          text: "Start you project",
                           fontSize: w / 24,
                           fontWeight: FontWeight.w700,
                         ),
                         SizedBox(height: h / 130),
                         MyTextPoppines(
-                          text: "You have to fill some details",
+                          text: "We will provide you an estimate right away",
                           fontSize: w / 34,
                           fontWeight: FontWeight.w500,
                           color: AppColors.grey,
@@ -179,7 +179,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                             validator: Validator().nullValidator,
                           ),
                           SizedBox(height: h / 130),
-                          // [Dropdwon] When would you like to have this task to be done? 
+                          // [Dropdwon] When would you like to have this task to be done?
                           GenerateEstimateDropdown(),
                           SizedBox(height: h / 130),
                           // Address textfield with auto suggestion
@@ -271,7 +271,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                       child: Text.rich(
                         TextSpan(
                           text:
-                              'By Signing Up with MeinHause you agree with our ',
+                              'By Signing Up with MeinHaus you agree with our ',
                           style: TextStyle(fontSize: h / 55),
                           children: [
                             TextSpan(
@@ -316,7 +316,8 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
           text: "Submit",
           onTap: () {
             if (_estimateFormKey.currentState!.validate()) {
-              authNotifer.isToggle ? createStartingProject() : null;
+              authNotifer.isToggle ? createStartingProject() : print("working");
+              ;
             }
           },
         ),

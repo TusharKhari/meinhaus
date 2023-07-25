@@ -1,9 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:new_user_side/data/models/UserModel.dart';
 import 'package:new_user_side/features/auth/screens/add_phone_number_screen.dart';
+import 'package:new_user_side/features/auth/screens/create_new_password_screen.dart';
 import 'package:new_user_side/features/auth/screens/create_starting_project_screen.dart';
+import 'package:new_user_side/features/auth/screens/forget_password_otp_verifation_screen.dart';
+import 'package:new_user_side/features/auth/screens/signin_screen.dart';
+import 'package:new_user_side/features/edit%20profile/screens/edit_profile_screen.dart';
 import 'package:new_user_side/local/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -21,6 +24,7 @@ class AuthNotifier extends ChangeNotifier {
   bool _isToggle = false;
   bool _isWaiting = false;
   bool _loading = false;
+  bool _loading2 = false;
   bool _gloading = false;
   User _user = User();
   bool _isAuthenticated = false;
@@ -31,12 +35,18 @@ class AuthNotifier extends ChangeNotifier {
   bool get isWaiting => _isWaiting;
   User get user => _user;
   bool get loading => _loading;
+  bool get loading2 => _loading2;
   bool get gLoading => _gloading;
   bool get isAuthenticated => _isAuthenticated;
 
   // setters
   void setLoadingState(bool state, bool notify) {
     _loading = state;
+    if (notify) notifyListeners();
+  }
+
+  void setLoading2State(bool state, bool notify) {
+    _loading2 = state;
     if (notify) notifyListeners();
   }
 
@@ -83,12 +93,12 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     repository.login(data).then((response) async {
       User user = UserModel.fromJson(response).user!;
+      setUser(user);
+      await prefs.setToken(user.token!);
       // if (response['response_message'] == "Unverified User.") {
       if (user.phoneVerified!) {
         ("User Logged in Successfully ✨").log("Login Notifier");
         showSnakeBarr(context, response['response_message'], BarState.Success);
-        setUser(user);
-        await prefs.setToken(user.token!);
         Navigator.of(context).pushNamedAndRemoveUntil(
           HomeScreen.routeName,
           (route) => false,
@@ -100,6 +110,7 @@ class AuthNotifier extends ChangeNotifier {
           OtpValidateScreen(
             userId: user.userId!,
             contactNo: user.contact!,
+            isSkippAble: true,
           ),
         );
       }
@@ -122,6 +133,7 @@ class AuthNotifier extends ChangeNotifier {
         OtpValidateScreen(
           userId: response["user_id"],
           contactNo: data["phone"]!,
+          isSkippAble: false,
         ),
       );
     }).onError((error, stackTrace) {
@@ -131,22 +143,60 @@ class AuthNotifier extends ChangeNotifier {
     });
   }
 
-// Verify email
-  Future verifyEmail({
+// Verify Phone
+  Future verifyPhone({
     required MapSS body,
     required BuildContext context,
+    bool isFromSetting = false,
   }) async {
     setLoadingState(true, true);
-    repository.verifyEmail(body).then((response) async {
+    repository.verifyPhone(body).then((response) async {
       setLoadingState(false, true);
       final user = UserModel.fromJson(response).user!;
       UserPrefrences().setToken(user.token.toString());
       setUser(user);
-      Navigator.of(context).pushScreen(CreateStartingProject());
+      isFromSetting
+          ? Navigator.pop(context)
+          : Navigator.of(context).pushScreen(CreateStartingProject());
       showSnakeBarr(context, response['response_message'], BarState.Success);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", BarState.Error);
-      ("$error  $stackTrace").log(" Verify email notifier");
+      ("$error  $stackTrace").log(" Verify phone notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Verify Email
+  Future verifyEmail(BuildContext context) async {
+    setLoadingState(true, true);
+    await repository.verifyEmai().then((response) async {
+      setLoadingState(false, true);
+      showSnakeBarr(context, "Verification link sent", BarState.Success);
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Verify email notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Send OTP On Mobile Number
+  Future sendOTPOnMobile({
+    required MapSS body,
+    required BuildContext context,
+  }) async {
+    setLoadingState(true, true);
+    await repository.sendOTPMobile(body).then((response) async {
+      setLoadingState(false, true);
+      showSnakeBarr(context, "OTP Sent", BarState.Success);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return VerifyPhoneNoDialog();
+        },
+      );
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Send OTP Mobile notifier");
       setLoadingState(false, true);
     });
   }
@@ -176,6 +226,7 @@ class AuthNotifier extends ChangeNotifier {
         OtpValidateScreen(
           userId: int.parse(body['user_id']!),
           contactNo: body['phone']!,
+          isSkippAble: true,
         ),
       );
       setLoadingState(false, true);
@@ -252,6 +303,81 @@ class AuthNotifier extends ChangeNotifier {
       setGoogleLoadingState(false, true);
       showSnakeBarr(context, "$error", BarState.Error);
       ("$error  $stackTrace").log("Google Auth notifier");
+    });
+  }
+
+  // Forget password will send and otp to given email
+  Future<void> forgetPassword({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setLoadingState(true, true);
+    await repository.forgetPassword(body).then((value) {
+      showSnakeBarr(context, "OTP SENT", BarState.Success);
+      setLoadingState(false, true);
+      Navigator.of(context).pushScreen(
+        ForgetPasswordOtpValidateScreen(email: body['email']!),
+      );
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Forget password notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Verify forget password otp
+  Future<void> verifyForgetPassOTP({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setLoadingState(true, true);
+    await repository.verifyForgetPassOTP(body).then((response) {
+      showSnakeBarr(context, "OTP Verified", BarState.Success);
+      setLoadingState(false, true);
+      Navigator.of(context).pushScreen(
+        CreateNewPasswordScreen(passwordToken: response['token']),
+      );
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Verify forgetpassword OTP notifier");
+      setLoadingState(false, true);
+    });
+  }
+
+  // Resend forget password otp
+  Future<void> resendForgetPassOTP({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setGoogleLoadingState(true, true);
+    await repository.resendFOrgetPassOTP(body).then((response) {
+      showSnakeBarr(context, "OTP Sent Again!", BarState.Success);
+      setGoogleLoadingState(false, true);
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Resend forgetpassword OTP notifier");
+      setGoogleLoadingState(false, true);
+    });
+  }
+
+  // Create new password
+  Future<void> createNewPasswordViaFP({
+    required BuildContext context,
+    required MapSS body,
+  }) async {
+    setLoadingState(true, true);
+    await repository.createNewPasswordViaFP(body).then((response) {
+      showSnakeBarr(
+        context,
+        "New Password has been created login with same credentials!",
+        BarState.Success,
+      );
+      setLoadingState(false, true);
+      Navigator.of(context).pushScreen(SignInScreen());
+    }).onError((error, stackTrace) {
+      showSnakeBarr(context, "$error", BarState.Error);
+      ("$error  $stackTrace").log("Create-new-password notifier");
+      setLoadingState(false, true);
     });
   }
 

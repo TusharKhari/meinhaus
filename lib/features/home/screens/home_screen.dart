@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,6 +37,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isExpanded = true;
+  String deviceTokenToSendPushNotification = '';
   @override
   void initState() {
     super.initState();
@@ -83,6 +85,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getOurServices() async {
     final notifer = context.read<OurServicesNotifier>();
     await notifer.getOurServices();
+  }
+
+  Future<void> getDeviceTokenToSendNotification() async {
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    final token = await _fcm.getToken();
+    deviceTokenToSendPushNotification = token.toString();
+    print(
+        "Token Value for push Notification $deviceTokenToSendPushNotification");
   }
 
   @override

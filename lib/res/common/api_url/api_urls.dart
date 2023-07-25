@@ -7,12 +7,23 @@ class ApiUrls {
   }
 
   // Auth
-  static Uri signIn = setUrls("login");
-  static Uri signUp = setUrls("signup");
-  static Uri verifyEmail = setUrls("verify-email");
-  static Uri auth = setUrls("customer/authenticate");
-  static Uri userDetails = setUrls("user-details");
+  static Uri auth = setUrls("authenticate");
+  static Uri login = setUrls("customer/login");
+  static Uri register = setUrls("register");
+  static Uri verifyEmail = setUrls("email-verification");
+  static Uri verifyMobile = setUrls("mobile-verification");
+  static Uri sendOTPMobile = setUrls("send-mobile-otp");
+  static Uri resendOtp = setUrls("resend-otp");
+  static Uri registerProject = setUrls("project-details");
+  static Uri addMobileNo = setUrls("customer/add-mobile");
   static Uri google = setUrls("customer-social-login");
+  static Uri userDetails = setUrls("user-details");
+
+  // Forget Password
+  static Uri forgetPassword = setUrls("send-forgot-password-otp");
+  static Uri verifyForgetPasswordOTP = setUrls("verify-forgot-password-otp");
+  static Uri createNewPasswordViaFP = setUrls("new-password-with-token");
+  static Uri resendForgetPasswordOTP = setUrls("resend-forgot-password-otp");
 
   // Estimate
   static Uri estimateGeneration = setUrls("estimate-generation");

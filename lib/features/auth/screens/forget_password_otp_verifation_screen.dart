@@ -2,38 +2,34 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:new_user_side/res/common/my_text.dart';
+import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
-import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
-import 'package:new_user_side/res/common/my_text.dart';
-import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-
-import '../../home/screens/home_screen.dart';
-
-class OtpValidateScreen extends StatefulWidget {
-  static const String routeName = '/otp';
-  final int userId;
-  final String contactNo;
-  final bool isSkippAble;
-  const OtpValidateScreen({
+class ForgetPasswordOtpValidateScreen extends StatefulWidget {
+  static const String routeName = '/forget-password-otp';
+  const ForgetPasswordOtpValidateScreen({
     Key? key,
-    required this.userId,
-    required this.contactNo,
-    required this.isSkippAble,
+    required this.email,
   }) : super(key: key);
+  final String email;
 
   @override
-  State<OtpValidateScreen> createState() => _OtpValidateScreenState();
+  State<ForgetPasswordOtpValidateScreen> createState() =>
+      _ForgetPasswordOtpValidateScreenState();
 }
 
-class _OtpValidateScreenState extends State<OtpValidateScreen> {
+class _ForgetPasswordOtpValidateScreenState
+    extends State<ForgetPasswordOtpValidateScreen> {
+  // Initial otp is blank
   bool isOtpEnterd = false;
+  // Storing otp
   late String otp;
   // Initial time for resending otp
   int startTime = 60;
@@ -72,19 +68,20 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
     });
   }
 
-  // verify phone no handler
-  Future _verifyEmailHandler(String OTP) async {
+  // verify forget password otp
+  Future _verifyForgetPasswordOTP(String OTP) async {
     final notifer = context.read<AuthNotifier>();
-    final body = {"user_id": widget.userId.toString(), "otp": OTP};
-    if (isOtpEnterd) await notifer.verifyPhone(body: body, context: context);
+    final body = {"email": widget.email, "otp": OTP};
+    if (isOtpEnterd)
+      await notifer.verifyForgetPassOTP(body: body, context: context);
   }
 
   // resend otp handler
   void _resendOtpHandler() {
     final notifer = context.read<AuthNotifier>();
     if (showResendButton) {
-      final body = {"user_id": widget.userId.toString()};
-      notifer.resendOtp(body: body, context: context);
+      final body = {"email": widget.email};
+      notifer.resendForgetPassOTP(body: body, context: context);
       startTimer();
       setState(() {
         startTime = 60;
@@ -137,28 +134,6 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                       height: h / 13,
                     ),
                   ),
-                  widget.isSkippAble
-                      ? Padding(
-                          padding: EdgeInsets.only(left: w / 5),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                HomeScreen.routeName,
-                                (route) => false,
-                              );
-                            },
-                            child: Text(
-                              "Skip",
-                              style: GoogleFonts.poppins(
-                                fontSize: w / 28,
-                                color: AppColors.buttonBlue,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        )
-                      : SizedBox(),
                 ],
               ),
               Padding(
@@ -169,7 +144,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                     Align(
                       alignment: Alignment.center,
                       child: MyTextPoppines(
-                        text: "Let's Verify your contact number..!",
+                        text: "Let's Verify your Email",
                         fontSize: w / 18,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center,
@@ -178,7 +153,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                     SizedBox(height: h / 30),
                     MyTextPoppines(
                       text:
-                          "We’ve sent an text message with an activation code to your contact number +1 ${widget.contactNo}",
+                          "We’ve sent an text message with an activation code on your email ${widget.email}",
                       fontSize: w / 30,
                       color: AppColors.black.withOpacity(0.7),
                       textAlign: TextAlign.center,
@@ -273,7 +248,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                         : SizedBox(height: h / 3.4),
                     // Verify otp button
                     InkWell(
-                      onTap: () => _verifyEmailHandler(otp),
+                      onTap: () => _verifyForgetPasswordOTP(otp),
                       child: Container(
                         width: w / 2,
                         height: h / 15,

@@ -1,17 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:new_user_side/firebase_options.dart';
+import 'package:new_user_side/notificationservice/firebase_api.dart';
 import 'package:new_user_side/res/routing/router.dart';
 import 'package:new_user_side/static%20componets/splash/screens/intro_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/providers.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifications();
   Stripe.publishableKey = dotenv.env['stripePublishableKey']!;
   runApp(
     MultiProvider(
@@ -39,6 +46,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+          navigatorKey: navigatorKey,
           home: const IntroScreen(),
           onGenerateRoute: (settings) => generateRoute(settings),
         );

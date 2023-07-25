@@ -21,9 +21,11 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(text: "Setting"),
-      body: Column(children: [
-        SettingCardWidget(),
-      ]),
+      body: Column(
+        children: [
+          SettingCardWidget(),
+        ],
+      ),
     );
   }
 }

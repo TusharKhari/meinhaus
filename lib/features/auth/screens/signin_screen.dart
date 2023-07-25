@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/features/auth/screens/forget_password.dart';
 import 'package:new_user_side/features/auth/screens/otp_validate_screen.dart';
 import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
 import 'package:new_user_side/features/auth/widgets/auth_banner_widget.dart';
@@ -86,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
               alignment: const Alignment(0.8, 0.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, OtpValidateScreen.routeName);
+                  Navigator.of(context).pushScreen(ForgetPasswordScreen());
                 },
                 child: MyTextPoppines(
                   text: "Forget Password ?",
