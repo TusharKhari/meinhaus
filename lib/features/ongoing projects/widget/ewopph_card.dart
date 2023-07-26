@@ -41,8 +41,10 @@ class AllOPPPHCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      margin:
-          EdgeInsets.symmetric(horizontal: width / 25, vertical: height / 80),
+      margin: EdgeInsets.symmetric(
+        horizontal: width / 25,
+        vertical: height / 80,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppColors.white,
@@ -264,6 +266,8 @@ class AllOPPPHCard extends StatelessWidget {
                                     return OngoingProjectDetailScreen(
                                       id: projectId,
                                       isNormalProject: isHourlyBooking,
+                                      isProjectCompleted:
+                                          ongoingJobs.isCompleted!,
                                     );
                                   },
                                 ),

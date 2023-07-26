@@ -122,6 +122,7 @@ class NetworkApiServices {
       request.headers.addAll(header);
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
+      // print(response.body);
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;

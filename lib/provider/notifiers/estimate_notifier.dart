@@ -176,6 +176,7 @@ class EstimateNotifier extends ChangeNotifier {
     required String id,
     required String proId,
   }) async {
+    print(id);
     setLoadingState(true, true);
     // getting project details
     await estimateRepository.getProjectDetails(id).then((response) {

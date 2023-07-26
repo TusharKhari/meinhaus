@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/repository/upload_img_repo.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
@@ -34,7 +35,7 @@ class UploadImgNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-    Future getImagess(BuildContext context) async {
+  Future getImagess(BuildContext context) async {
     await getImages.pickImages<UploadImgNotifier>(context: context);
   }
 
@@ -48,7 +49,7 @@ class UploadImgNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       setImagesInList([]);
       ('Img Uploaded Succesfully ✅').log();
-      Navigator.pop(context);
+      Navigator.of(context).pushScreen(HomeScreen());
       showSnakeBarr(context, "Images Uploaded Succesfully", BarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);

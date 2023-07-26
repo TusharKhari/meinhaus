@@ -40,7 +40,6 @@ class OngoingWorkCard extends StatelessWidget {
     final project = projects[index];
     final isImgNull = project.projectImages!.length == 0;
     final projectId = project.services![0].projectId.toString();
-
     final proId = project.services![0].proId.toString();
     final isNormalProject = project.normal;
 
@@ -59,17 +58,20 @@ class OngoingWorkCard extends StatelessWidget {
         color: AppColors.white,
       ),
       margin: EdgeInsets.only(right: width / 30),
-      padding:
-          EdgeInsets.symmetric(horizontal: width / 70, vertical: height / 200),
+      padding: EdgeInsets.symmetric(
+        horizontal: width / 70,
+        vertical: height / 200,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: width / 35, vertical: height / 130),
+                horizontal: width / 35, vertical: height / 130,),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // PROJECT NAME
                 MyTextPoppines(
                   text: project.projectName.toString(),
                   fontWeight: FontWeight.w500,
@@ -79,6 +81,7 @@ class OngoingWorkCard extends StatelessWidget {
                   visible: isMultiProjects,
                   child: 2.vspacing(context),
                 ),
+                // TOTAL SERVICES
                 Visibility(
                   visible: isMultiProjects,
                   child: MyTextPoppines(
@@ -98,7 +101,7 @@ class OngoingWorkCard extends StatelessWidget {
                   height: height / 150,
                 ),
                 1.4.vspacing(context),
-                // Estimated Date
+                // ESTIMSTE BOOKING ID
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
@@ -127,6 +130,7 @@ class OngoingWorkCard extends StatelessWidget {
                   color: AppColors.grey.withOpacity(0.2),
                   height: height / 50,
                 ),
+                // PROJECT COST
                 Visibility(
                   visible: !isMultiProjects,
                   child: Row(
@@ -230,6 +234,7 @@ class OngoingWorkCard extends StatelessWidget {
                     ],
                   ),
                   Expanded(flex: 1, child: 6.vspacing(context)),
+                  // View Estimate Button
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
@@ -259,6 +264,8 @@ class OngoingWorkCard extends StatelessWidget {
                                       return OngoingProjectDetailScreen(
                                         id: projectId,
                                         isNormalProject: isNormalProject!,
+                                        isProjectCompleted:
+                                            project.isCompleted!,
                                       );
                                     },
                                   ),

@@ -1,12 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
 import '../../../data/models/ongoing_project_model.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
@@ -25,6 +26,7 @@ class SubOngoingProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final project = projects[index];
+    final projectIndex = index;
     final projectServices = project.services!;
     return Scaffold(
       appBar: MyAppBar(text: "Ongoing projects"),
@@ -48,6 +50,7 @@ class SubOngoingProjectScreen extends StatelessWidget {
                   index: index,
                   services: projectServices,
                   projects: projects,
+                  projectIndex: projectIndex,
                 );
               },
             ),
@@ -294,20 +297,22 @@ class _ServicesCard extends StatelessWidget {
   final int index;
   final List<Services> services;
   final List<Projects> projects;
+  final int projectIndex;
   const _ServicesCard({
     Key? key,
     required this.index,
     required this.services,
     required this.projects,
+    required this.projectIndex,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final height = context.screenHeight;
     final width = context.screenWidth;
-    final service = services[index];
     final headline1 = width / 35;
-
+    final project = projects[projectIndex];
+    final service = services[index];
     final projectId = service.projectId.toString();
     final proId = service.proId.toString();
     final isProAssigned = proId != "null";
@@ -447,7 +452,8 @@ class _ServicesCard extends StatelessWidget {
                               builder: (context) {
                                 return OngoingProjectDetailScreen(
                                   id: projectId,
-                                  isNormalProject: false,
+                                  isNormalProject: project.normal!,
+                                  isProjectCompleted: service.isCompleted!,
                                 );
                               },
                             ),

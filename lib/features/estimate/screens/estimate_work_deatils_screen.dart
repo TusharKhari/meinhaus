@@ -87,9 +87,12 @@ class EstimatedWorkDetailScreen extends StatelessWidget {
                     ),
                   ),
                   15.vs,
-                  isImgPresent
-                      ? EstimateCarouselImg(index: index)
-                      : ShowImgUploadOption(bookingId: bookingId!),
+                  Visibility(
+                    visible: isImgPresent,
+                    child: EstimateCarouselImg(index: index),
+                  ),
+                  SizedBox(height: h / 30),
+                  ShowImgUploadOption(bookingId: bookingId!),
                   20.vs,
                   _buildSubHeadlines(
                     context: context,

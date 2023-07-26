@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
+
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_widget.dart';
 import 'package:new_user_side/features/review/widgets/show_review_card.dart';
-import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
+import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/auth_notifier.dart';
 import '../../estimate/widget/download_pdf_card_widget.dart';
@@ -22,12 +23,14 @@ import '../widget/ongoingjobs_button_panel.dart';
 
 class OngoingProjectDetailScreen extends StatefulWidget {
   final String id;
-  final bool isNormalProject;
+  final bool isNormalProject; // Ture Ongoing Project False Hourly Job
+  final bool isProjectCompleted;
   static const String routeName = '/ongoingProjectDeatils';
   const OngoingProjectDetailScreen({
     Key? key,
     required this.id,
     required this.isNormalProject,
+    required this.isProjectCompleted,
   }) : super(key: key);
 
   @override
@@ -56,9 +59,10 @@ class _OngoingProjectDetailScreenState
   @override
   void dispose() {
     super.dispose();
-    notifier.unsubscribe(widget.id);
+    notifier.unsubscribe(widget.id); // Unsubscribing Pusher Channel
   }
 
+  // Subscribing Customer-Proffessinal Chat Channels
   Future setupPusher() async {
     notifier = context.read<SupportNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
@@ -94,6 +98,7 @@ class _OngoingProjectDetailScreenState
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // ESTIMATE NUMBER
                           Row(
                             children: [
                               30.hs,
@@ -123,9 +128,11 @@ class _OngoingProjectDetailScreenState
                           const OngoingProjectPhotoCardWidget(),
                           20.vs,
                           Divider(thickness: 1.8.h),
+                          // Ongoing Buttons
                           OngoingJobsButtonsPanel(
                             isNormalProject: widget.isNormalProject,
                             projectId: widget.id,
+                            isProjectCompleted : widget.isProjectCompleted,
                           ),
                           Visibility(
                             visible: isProjetCompleted,

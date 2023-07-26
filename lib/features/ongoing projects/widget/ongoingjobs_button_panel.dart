@@ -19,14 +19,17 @@ import '../../additional work/widget/icon_button_with_text.dart';
 class OngoingJobsButtonsPanel extends StatelessWidget {
   final bool isNormalProject;
   final String projectId;
+  final bool isProjectCompleted;
   const OngoingJobsButtonsPanel({
     Key? key,
     required this.isNormalProject,
     required this.projectId,
+    required this.isProjectCompleted,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(isNormalProject);
     final supportNotifier = context.watch<SupportNotifier>();
     final isSupportActive = supportNotifier.supportStatus == 1;
     final estimateNotifer = context.read<EstimateNotifier>();
@@ -148,8 +151,10 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
               firstButtonImgUrl: "assets/icons/customer-support.png",
               firstButtonColor: const Color(0xFFE8F4FF),
               firstButtonOnTap: () => Navigator.pushNamed(
-                  context, ChatWIthProChatListScreen.routeName),
-              secondButtonext: isNormalProject
+                    context,
+                    ChatWIthProChatListScreen.routeName,
+                  ),
+              secondButtonext: !isProjectCompleted
                   ? "Req Additional Work"
                   : "   Additional Work   ",
               secondtButtonTextColor: const Color(0xFFB9B100),
@@ -164,7 +169,9 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       );
                       print("Project id For additonal work : $projectId");
                     }
-                  : () {}),
+                  : () {
+                      // Show only requested works
+                    }),
           15.vs,
           Row(
             children: [

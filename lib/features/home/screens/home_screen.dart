@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    showStartingDailog();
+   // showStartingDailog(); 
     animateEstimateButton();
     getEstimate();
     getOngoingProjects();
@@ -87,13 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await notifer.getOurServices();
   }
 
-  Future<void> getDeviceTokenToSendNotification() async {
-    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-    final token = await _fcm.getToken();
-    deviceTokenToSendPushNotification = token.toString();
-    print(
-        "Token Value for push Notification $deviceTokenToSendPushNotification");
-  }
+
 
   @override
   Widget build(BuildContext context) {
