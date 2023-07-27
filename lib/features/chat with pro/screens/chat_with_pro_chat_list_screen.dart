@@ -132,11 +132,14 @@ class ChatCardWidget extends StatelessWidget {
                   children: [
                     SizedBox(height: h / 200),
                     // projectname
-                    MyTextPoppines(
-                      text: conv.projectName!,
-                      fontSize: w / 28,
-                      color: AppColors.buttonBlue,
-                      fontWeight: FontWeight.w600,
+                    SizedBox(
+                      width: w / 1.8,
+                      child: MyTextPoppines(
+                        text: conv.projectName!,
+                        fontSize: w / 28,
+                        color: AppColors.buttonBlue,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     SizedBox(height: h / 160),
                     // username

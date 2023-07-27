@@ -19,7 +19,7 @@ import '../../estimate/widget/download_pdf_card_widget.dart';
 import '../widget/ongoing_project_bill_card_widget.dart';
 import '../widget/ongoing_project_desc_card_widget.dart';
 import '../widget/ongoing_project_photos_card_widget.dart';
-import '../widget/ongoingjobs_button_panel.dart';
+import '../widget/ongoing_project_button_panel.dart';
 
 class OngoingProjectDetailScreen extends StatefulWidget {
   final String id;

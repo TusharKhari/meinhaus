@@ -43,8 +43,8 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>();
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),

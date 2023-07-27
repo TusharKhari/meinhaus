@@ -49,8 +49,8 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
   @override
   Widget build(BuildContext context) {
     final notifer = context.watch<AuthNotifier>();
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       body: Column(
         children: [

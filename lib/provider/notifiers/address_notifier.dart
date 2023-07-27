@@ -47,12 +47,6 @@ class AddressNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<Address> getLatLong(String query) async {
-  //   var addresses = await Utils.getCordinates(query);
-  //   var first = addresses.first;
-  //   notifyListeners();
-  //   return first;
-  // }
 
   // methods
   Future<List> getAddressSuggestions(String input) async {

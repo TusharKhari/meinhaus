@@ -27,8 +27,8 @@ class _PreviewProjectNotesState extends State<PreviewProjectNotes> {
   Widget build(BuildContext context) {
     final notifer = context.read<SavedNotesNotifier>().savedNotes;
     final note = notifer.notes![widget.index];
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
 
     return Dialog(
       backgroundColor: Colors.white,

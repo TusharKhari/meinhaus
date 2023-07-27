@@ -7,7 +7,6 @@ import '../utils/enum.dart';
 class EstimateRepository {
   NetworkApiServices services = NetworkApiServices();
 
-
   // create starting estimate
   Future<ResponseType> createStartingEstimate(ResponseType body) async {
     try {
@@ -20,6 +19,7 @@ class EstimateRepository {
       throw e;
     }
   }
+
   // create estimate
   Future<ResponseType> createEstimate(ResponseType body) async {
     try {
@@ -61,7 +61,7 @@ class EstimateRepository {
   Future<ResponseType> getProjectsHistory() async {
     try {
       return await services.sendHttpRequest(
-        url: ApiUrls.projectHistory,
+        url: ApiUrls.CompletedProjectsScreen,
         method: HttpMethod.get,
       );
     } catch (e) {

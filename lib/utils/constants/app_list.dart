@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
-import 'package:new_user_side/features/ongoing%20projects/screens/project_history_screen.dart';
+import 'package:new_user_side/features/ongoing%20projects/screens/completed_projects_screen.dart';
 import 'package:new_user_side/features/settings/screens/setting_screen.dart';
 
 import '../../../features/home/screens/home_screen.dart';
@@ -35,7 +35,7 @@ List drawerList = [
   [
     CupertinoIcons.time,
     "Ongoing Projects",
-    AllOngoingJobs.routeName,
+    AllOngoingProjects.routeName,
   ],
   [
     Icons.feed_outlined,
@@ -50,7 +50,7 @@ List drawerList = [
   [
     Icons.history,
     "Project History",
-    ProjectHistory.routeName,
+    CompletedProjectsScreen.routeName,
   ],
   [
     Icons.contact_support_outlined,

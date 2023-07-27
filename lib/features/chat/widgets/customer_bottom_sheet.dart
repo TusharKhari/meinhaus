@@ -28,8 +28,8 @@ class _CustomerBottomSheetState extends State<CustomerBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatNotifier>();
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
       width: double.infinity,
       height: height / 9,

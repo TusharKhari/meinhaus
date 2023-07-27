@@ -4,9 +4,11 @@ import 'package:http/http.dart' as http;
 
 class AddressAutocomplete {
   static Future<List<dynamic>> getSuggestions(
-      String input, String sessionToken) async {
+    String input,
+    String sessionToken,
+  ) async {
     String request =
-        '$googleAddresUrl?input=$input&key=$kPLACES_API_KEY&sessiontoken=$sessionToken';
+        '$googleAddresUrl?input=$input&key=$kPLACES_API_KEY&sessiontoken=$sessionToken&components=country:ca';
     var response = await http.get(Uri.parse(request));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
@@ -16,4 +18,3 @@ class AddressAutocomplete {
     }
   }
 }
-

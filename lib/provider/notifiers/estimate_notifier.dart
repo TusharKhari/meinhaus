@@ -176,7 +176,6 @@ class EstimateNotifier extends ChangeNotifier {
     required String id,
     required String proId,
   }) async {
-    print(id);
     setLoadingState(true, true);
     // getting project details
     await estimateRepository.getProjectDetails(id).then((response) {
@@ -188,7 +187,7 @@ class EstimateNotifier extends ChangeNotifier {
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       showSnakeBarr(context, error.toString(), BarState.Error);
-      ("${error} $stackTrace").log("Get-Project Details Estimate notifier");
+      ("${error} $stackTrace").log("Get Project Details Estimate notifier");
     });
     // getting pro details
     await getProDetails(proId, context);

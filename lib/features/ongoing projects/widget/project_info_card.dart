@@ -11,13 +11,13 @@ import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-import '../screens/multiple_onprojects_screen.dart';
+import '../screens/multiple_project_services_screen.dart';
 import '../screens/ongoing_project_details_screen.dart';
 
-class AllOPPPHCard extends StatelessWidget {
+class ProjectInfoCard extends StatelessWidget {
   final int index;
   final List<Projects> projects;
-  const AllOPPPHCard({
+  const ProjectInfoCard({
     Key? key,
     required this.index,
     required this.projects,
@@ -25,8 +25,8 @@ class AllOPPPHCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final ongoingJobs = projects[index];
     final projectId = ongoingJobs.services![0].projectId.toString();
     final proId = ongoingJobs.services![0].proId.toString();
@@ -251,7 +251,7 @@ class AllOPPPHCard extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return SubOngoingProjectScreen(
+                                  return MultipleProjectServicesScreen(
                                     index: index,
                                     projects: projects,
                                   );

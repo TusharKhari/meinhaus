@@ -13,11 +13,11 @@ import '../../../data/models/ongoing_project_model.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import 'ongoing_project_details_screen.dart';
 
-class SubOngoingProjectScreen extends StatelessWidget {
-  static const String routeName = '/subOngoingProject';
+class MultipleProjectServicesScreen extends StatelessWidget {
+  static const String routeName = '/multipleProjectServices';
   final int index;
   final List<Projects> projects;
-  const SubOngoingProjectScreen({
+  const MultipleProjectServicesScreen({
     Key? key,
     required this.index,
     required this.projects,
@@ -26,7 +26,6 @@ class SubOngoingProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final project = projects[index];
-    final projectIndex = index;
     final projectServices = project.services!;
     return Scaffold(
       appBar: MyAppBar(text: "Ongoing projects"),
@@ -46,11 +45,9 @@ class SubOngoingProjectScreen extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemCount: project.services!.length,
               itemBuilder: (context, index) {
-                return _ServicesCard(
-                  index: index,
-                  services: projectServices,
-                  projects: projects,
-                  projectIndex: projectIndex,
+                return _ShowMiltipleServicesCard(
+                  service: projectServices[index],
+                  project: project,
                 );
               },
             ),
@@ -102,8 +99,8 @@ class _MainCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final projectCost = project.projectCost;
     final isImgNull = project.projectImages!.length == 0;
     final headline1 = width / 30;
@@ -293,26 +290,22 @@ class _MainCard extends StatelessWidget {
   }
 }
 
-class _ServicesCard extends StatelessWidget {
-  final int index;
-  final List<Services> services;
-  final List<Projects> projects;
-  final int projectIndex;
-  const _ServicesCard({
+class _ShowMiltipleServicesCard extends StatelessWidget {
+  final Services service;
+  final Projects project;
+  const _ShowMiltipleServicesCard({
     Key? key,
-    required this.index,
-    required this.services,
-    required this.projects,
-    required this.projectIndex,
+    required this.service,
+    required this.project,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final headline1 = width / 35;
-    final project = projects[projectIndex];
-    final service = services[index];
+    final project = this.project;
+    final service = this.service;
     final projectId = service.projectId.toString();
     final proId = service.proId.toString();
     final isProAssigned = proId != "null";
@@ -324,8 +317,10 @@ class _ServicesCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      margin:
-          EdgeInsets.symmetric(horizontal: width / 25, vertical: height / 80),
+      margin: EdgeInsets.symmetric(
+        horizontal: width / 25,
+        vertical: height / 80,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppColors.white,
@@ -337,7 +332,9 @@ class _ServicesCard extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(
-                horizontal: width / 20, vertical: height / 80),
+              horizontal: width / 20,
+              vertical: height / 80,
+            ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),

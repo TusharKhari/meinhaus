@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
 
 import '../../utils/constants/app_colors.dart';
 import 'my_text.dart';
@@ -23,7 +20,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return PreferredSize(
       preferredSize: preferredSize,
       child: Column(
@@ -31,16 +29,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
-            leadingWidth: 60.w,
+            leadingWidth: width / 6.5,
             leading: Padding(
-              padding: EdgeInsets.only(left: 20.w, top: 15.h),
+              padding: EdgeInsets.only(left: width / 20, top: height / 60),
               child: InkWell(
                 onTap: onBack ?? () => Navigator.pop(context),
                 child: Container(
-                  width: 35.w,
-                  height: 30.h,
+                  width: width / 10,
+                  // height: height / 0,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
+                    borderRadius: BorderRadius.circular(width / 40),
                     border: Border.all(
                       width: 1.5,
                       color: AppColors.grey.withOpacity(0.4),
@@ -49,18 +47,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Icon(
                     Icons.arrow_back_ios_new,
                     color: AppColors.black,
-                    size: height / MyFontSize.font16,
+                    size: width / 26,
                   ),
                 ),
               ),
             ),
             title: Padding(
-              padding: EdgeInsets.only(top: 22.h),
+              padding: EdgeInsets.only(top: height / 40),
               child: MyTextPoppines(
                 text: text,
-                fontSize: height > 800
-                    ? height / MyFontSize.font20
-                    : height / MyFontSize.font22,
+                fontSize: width / 18,
                 fontWeight: FontWeight.w500,
                 color: textColor ?? AppColors.black,
               ),
@@ -69,17 +65,17 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             actions: isLogoVis!
                 ? [
                     Padding(
-                      padding: EdgeInsets.only(top: 15.h),
+                      padding: EdgeInsets.only(top: height / 40),
                       child: Image.asset(
                         "assets/logo/home.png",
                         scale: 1.5,
                       ),
                     ),
-                    10.hs,
+                    SizedBox(width: width / 40),
                   ]
                 : [],
           ),
-          10.vs,
+          SizedBox(height: height / 90),
           const Divider(thickness: 1.8, height: 0.0)
         ],
       ),

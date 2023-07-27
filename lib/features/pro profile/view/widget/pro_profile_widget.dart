@@ -18,8 +18,8 @@ class ProProfileWidget extends StatelessWidget {
     final notifier = context.watch<EstimateNotifier>();
     final pro = notifier.proDetails.prodata!;
 
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       child: Column(

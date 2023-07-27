@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/res/common/camera_view_page.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -74,73 +75,79 @@ class _ChatTextFieldState extends State<ChatTextField> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatNotifier>();
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
       width: double.infinity,
       height: height / 9,
       color: AppColors.white,
       child: Column(
         children: [
-          const Divider(thickness: 1.0),
-          SizedBox(height: height / 90),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width / 40),
-            child: TextFormField(
-              controller: notifier.messageController,
-              onFieldSubmitted: (value) {},
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(width / 12),
-                  borderSide: BorderSide(
-                    color: AppColors.black.withOpacity(0.2),
-                    width: 1.5,
+          Divider(thickness: 1.0, height: height / 90),
+          SizedBox(height: height / 60),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width / 40),
+              child: TextFormField(
+                controller: notifier.messageController,
+                onFieldSubmitted: (value) {},
+                style: GoogleFonts.poppins(
+                  fontSize: width / 25,
+                ),
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(width / 12),
+                    borderSide: BorderSide(
+                      color: AppColors.black.withOpacity(0.2),
+                      width: width / 240,
+                    ),
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(width / 20),
-                  borderSide: BorderSide(
-                    color: AppColors.black.withOpacity(0.15),
-                    width: 1.5,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(width / 20),
+                    borderSide: BorderSide(
+                      color: AppColors.black.withOpacity(0.15),
+                      width: width / 240,
+                    ),
                   ),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: width / 20,
-                  vertical: height / 90,
-                ),
-                hintText: "write a Meassage ",
-                hintStyle: TextStyle(
-                  fontSize: width / 28,
-                  color: AppColors.black.withOpacity(0.4),
-                ),
-                // show attachment options
-                prefixIcon: InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (context) {
-                        return _bottomSheet(
-                          onTapDoc: () => uploadPdf(),
-                          onTapGallery: () => selectImg(context),
-                           onTapCamera: () {},
-                        );
-                      },
-                    );
-                  },
-                  child: Icon(
-                    Icons.attach_file,
-                    size: width / 20,
-                    color: AppColors.black,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: width / 20,
+                    vertical: height / 400,
                   ),
-                ),
-                // send message
-                suffixIcon: InkWell(
-                  onTap: () => notifier.sendMessage(context: context),
-                  child: Icon(
-                    Icons.send_sharp,
-                    color: AppColors.buttonBlue,
-                    size: width / 20,
+
+                  hintText: "write a Meassage ",
+                  hintStyle: TextStyle(
+                    fontSize: width / 28,
+                    color: AppColors.black.withOpacity(0.4),
+                  ),
+                  // show attachment options
+                  prefixIcon: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) {
+                          return _bottomSheet(
+                            onTapDoc: () => uploadPdf(),
+                            onTapGallery: () => selectImg(context),
+                            onTapCamera: () {},
+                          );
+                        },
+                      );
+                    },
+                    child: Icon(
+                      Icons.attach_file,
+                      size: width / 20,
+                      color: AppColors.black,
+                    ),
+                  ),
+                  // send message
+                  suffixIcon: InkWell(
+                    onTap: () => notifier.sendMessage(context: context),
+                    child: Icon(
+                      Icons.send_sharp,
+                      color: AppColors.buttonBlue,
+                      size: width / 20,
+                    ),
                   ),
                 ),
               ),
@@ -166,16 +173,17 @@ class _bottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final h = context.screenHeight;
-    final w = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
-      height: h / 7.6,
+      height: height / 7.6,
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 90),
-      padding: EdgeInsets.only(top: h / 50),
+      margin:
+          EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 90),
+      padding: EdgeInsets.only(top: height / 50),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(w / 30),
+        borderRadius: BorderRadius.circular(width / 30),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -213,25 +221,25 @@ class _bottomSheet extends StatelessWidget {
     required String title,
     required VoidCallback onTap,
   }) {
-    final h = context.screenHeight;
-    final w = context.screenWidth;
+    final height = context.screenHeight;
+    final width = context.screenWidth;
     return InkWell(
       onTap: onTap,
       child: Column(
         children: [
           CircleAvatar(
-            radius: w / 14,
+            radius: width / 14,
             backgroundColor: backgroundColor,
             child: Icon(
               icon,
-              size: w / 14,
+              size: width / 14,
               color: AppColors.white,
             ),
           ),
-          SizedBox(height: h / 160),
+          SizedBox(height: height / 160),
           MyTextPoppines(
             text: title,
-            fontSize: w / 34,
+            fontSize: width / 34,
             fontWeight: FontWeight.w500,
           ),
         ],

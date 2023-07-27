@@ -14,9 +14,9 @@ import '../../../res/common/my_text.dart';
 import '../../../utils/utils.dart';
 import '../widget/address_list_tile.dart';
 
-class EditAddressScreen extends StatefulWidget {
-  static const String routeName = '/edit-address';
-  const EditAddressScreen({
+class UpdateAdressScreen extends StatefulWidget {
+  static const String routeName = '/update-address';
+  const UpdateAdressScreen({
     Key? key,
     required this.perAddress,
     required this.addressId,
@@ -25,10 +25,10 @@ class EditAddressScreen extends StatefulWidget {
   final String addressId;
 
   @override
-  State<EditAddressScreen> createState() => _EditAddressScreenState();
+  State<UpdateAdressScreen> createState() => _UpdateAdressScreenState();
 }
 
-class _EditAddressScreenState extends State<EditAddressScreen> {
+class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
   TextEditingController addressController = TextEditingController();
 
   String selectedAddres = '';
@@ -57,7 +57,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
     var addresses = await Utils.getCordinates(addressController.text);
     var first = addresses.first;
     final MapSS body = {
-      "id": widget.addressId,
+      "address_id": widget.addressId,
       "address": selectedAddres,
       "longitude": first.longitude.toString(),
       "latitude": first.latitude.toString(),
