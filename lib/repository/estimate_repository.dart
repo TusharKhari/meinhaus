@@ -1,4 +1,3 @@
-import 'package:new_user_side/res/common/api_url/new_api_url.dart';
 
 import '../data/network/network_api_servcies.dart';
 import '../res/common/api_url/api_urls.dart';
@@ -11,7 +10,7 @@ class EstimateRepository {
   Future<ResponseType> createStartingEstimate(ResponseType body) async {
     try {
       return await services.sendDioRequest(
-        url: NewApiUrls.registerProject,
+        url: ApiUrls.registerProject,
         method: HttpMethod.post,
         body: body,
       );

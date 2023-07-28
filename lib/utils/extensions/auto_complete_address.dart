@@ -10,7 +10,7 @@ class AddressAutocomplete {
     String request =
         '$googleAddresUrl?input=$input&key=$kPLACES_API_KEY&sessiontoken=$sessionToken&components=country:ca';
     var response = await http.get(Uri.parse(request));
-    var data = jsonDecode(response.body.toString());
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return data['predictions'];
     } else {

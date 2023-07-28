@@ -82,7 +82,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ? MyTextPoppines(
                     text: "       No Results",
                     fontWeight: FontWeight.w600,
-                    
                   )
                 : MyTextPoppines(
                     text: "       Suggestions",

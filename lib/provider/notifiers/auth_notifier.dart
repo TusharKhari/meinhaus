@@ -70,6 +70,11 @@ class AuthNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateUser() {
+    _user;
+    notifyListeners();
+  }
+
   void setAuthentication(bool isAuth) {
     _isAuthenticated = isAuth;
     notifyListeners();

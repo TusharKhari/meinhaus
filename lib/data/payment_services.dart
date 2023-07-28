@@ -31,7 +31,7 @@ class MakePayment {
       final res = await displayPaymentSheet(context);
       return res;
     } catch (err) {
-      print(err.toString());
+      print(err);
       throw Exception(err);
     }
   }
@@ -47,9 +47,9 @@ class MakePayment {
           .log("Create Payment Intent");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        print(data['data']['payment_intent']['client_secret']);
-        print(data['data']['payment_intent']['customer']);
-        print(data['data']['ephemeralKey']['secret']);
+        (data['data']['payment_intent']['client_secret']).log('Payment Client Secret');
+        (data['data']['payment_intent']['customer']).log('Customer');
+        (data['data']['ephemeralKey']['secret']).log('Ephemeral Key Secret');
         return data['data'];
       }
     } catch (err) {
@@ -62,7 +62,6 @@ class MakePayment {
     late bool isValueTrue;
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        print("payment done");
         paymentIntent = null;
         isValueTrue = true;
       }).onError((error, stackTrace) {

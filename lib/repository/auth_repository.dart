@@ -1,6 +1,5 @@
 import 'package:new_user_side/data/network/base_api_services.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
-import 'package:new_user_side/res/common/api_url/new_api_url.dart';
 import '../res/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
 
@@ -89,7 +88,7 @@ class AuthRepositorys {
   Future<ResponseType> resendOtp(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: NewApiUrls.resendOtp,
+        url: ApiUrls.resendOtp,
         method: HttpMethod.post,
         body: data,
       );
@@ -102,7 +101,7 @@ class AuthRepositorys {
   Future<ResponseType> addPhoneNo(MapSS data) async {
     try {
       return await services.sendHttpRequest(
-        url: NewApiUrls.addMobileNo,
+        url: ApiUrls.addMobileNo,
         method: HttpMethod.post,
         body: data,
       );
