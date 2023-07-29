@@ -8,11 +8,11 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
-import '../widget/ewopph_card.dart';
+import '../widget/project_info_card.dart';
 
-class AllOngoingJobs extends StatelessWidget {
+class AllOngoingProjects extends StatelessWidget {
   static const String routeName = '/allongoing';
-  const AllOngoingJobs({
+  const AllOngoingProjects({
     Key? key,
   }) : super(key: key);
 
@@ -44,7 +44,7 @@ class AllOngoingJobs extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: ongoingProjects.length,
                 itemBuilder: (context, index) {
-                  return AllOPPPHCard(
+                  return ProjectInfoCard(
                     index: index,
                     projects: ongoingProjects,
                   );

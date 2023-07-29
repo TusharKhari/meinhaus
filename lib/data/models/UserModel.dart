@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserModel {
-  String? responseCode;
+  dynamic? responseCode;
   String? responseMessage;
   User? user;
 
@@ -40,7 +40,6 @@ class User {
   String? profilePic;
   String? contact;
   List<SavedAddress>? savedAddress;
-  List<SavedCards>? savedCards;
   String? token;
   bool? isSocialLogin;
   bool? phoneVerified;
@@ -54,7 +53,6 @@ class User {
     this.profilePic,
     this.contact,
     this.savedAddress,
-    this.savedCards,
     this.token,
     this.isSocialLogin,
     this.phoneVerified,
@@ -72,12 +70,6 @@ class User {
       savedAddress = <SavedAddress>[];
       json['saved_address'].forEach((v) {
         savedAddress!.add(new SavedAddress.fromJson(v));
-      });
-    }
-    if (json['saved_cards'] != null) {
-      savedCards = <SavedCards>[];
-      json['saved_cards'].forEach((v) {
-        savedCards!.add(new SavedCards.fromJson(v));
       });
     }
     token = json['token'];
@@ -98,9 +90,6 @@ class User {
       data['saved_address'] =
           this.savedAddress!.map((v) => v.toJson()).toList();
     }
-    if (this.savedCards != null) {
-      data['saved_cards'] = this.savedCards!.map((v) => v.toJson()).toList();
-    }
     data['token'] = this.token;
     data['is_social_login'] = this.isSocialLogin;
     data['phone_verified_at'] = this.phoneVerified;
@@ -116,7 +105,6 @@ class User {
     String? profilePic,
     String? contact,
     List<SavedAddress>? savedAddress,
-    List<SavedCards>? savedCards,
     String? token,
     bool? isSocialLogin,
     bool? phoneVerified,
@@ -130,7 +118,6 @@ class User {
       profilePic: profilePic ?? this.profilePic,
       contact: contact ?? this.contact,
       savedAddress: savedAddress ?? this.savedAddress,
-      savedCards: savedCards ?? this.savedCards,
       token: token ?? this.token,
       isSocialLogin: isSocialLogin ?? this.isSocialLogin,
       phoneVerified: phoneVerified ?? this.phoneVerified,
@@ -254,57 +241,4 @@ class SavedAddress {
   }
 }
 
-class SavedCards {
-  String? id;
-  String? brand;
-  String? lastFour;
-  int? expMonth;
-  int? expYear;
-  String? cardHolderName;
 
-  SavedCards(
-      {this.id,
-      this.brand,
-      this.lastFour,
-      this.expMonth,
-      this.expYear,
-      this.cardHolderName});
-
-  SavedCards.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    brand = json['brand'];
-    lastFour = json['last_four'];
-    expMonth = json['exp_month'];
-    expYear = json['exp_year'];
-    cardHolderName = json['card_holder_name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['brand'] = this.brand;
-    data['last_four'] = this.lastFour;
-    data['exp_month'] = this.expMonth;
-    data['exp_year'] = this.expYear;
-    data['card_holder_name'] = this.cardHolderName;
-    return data;
-  }
-
-  SavedCards copyWith({
-    String? id,
-    String? brand,
-    String? lastFour,
-    int? expMonth,
-    int? expYear,
-    String? cardHolderName,
-  }) {
-    return SavedCards(
-      id: id ?? this.id,
-      brand: brand ?? this.brand,
-      lastFour: lastFour ?? this.lastFour,
-      expMonth: expMonth ?? this.expMonth,
-      expYear: expYear ?? this.expYear,
-      cardHolderName: cardHolderName ?? this.cardHolderName,
-    );
-  }
-}

@@ -15,7 +15,9 @@ class SupportChatAppbar extends StatelessWidget {
     return AppBar(
       backgroundColor: AppColors.white,
       elevation: 0.0,
-      leading: Image.asset("assets/icons/support_2.png"),
+      leading: Image.asset(
+        "assets/icons/support_2.png",
+      ),
       titleSpacing: 4.0,
       title: MyTextPoppines(text: "Customer support", fontSize: w / 22),
       actions: [

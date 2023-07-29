@@ -14,11 +14,11 @@ import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/features/invoice/screens/progess_invoice_screen.dart';
 import 'package:new_user_side/features/notification/screens/notification_scree.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
-import 'package:new_user_side/features/ongoing%20projects/screens/project_history_screen.dart';
+import 'package:new_user_side/features/ongoing%20projects/screens/completed_projects_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_services_screen.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
 import 'package:new_user_side/features/settings/screens/setting_screen.dart';
-import 'package:new_user_side/static%20componets/splash/screens/splash_screen.dart';
+import 'package:new_user_side/features/splash/screens/splash_screen.dart';
 
 import '../../features/auth/screens/signin_screen.dart';
 import '../../features/edit profile/screens/edit_password_scree.dart';
@@ -69,10 +69,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           index: index,
         ),
       );
-    case AllOngoingJobs.routeName:
+    case AllOngoingProjects.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AllOngoingJobs(),
+        builder: (_) => const AllOngoingProjects(),
       );
     case AllEstimatedWorkScreen.routeName:
       return MaterialPageRoute(
@@ -110,10 +110,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const SettingScreen(),
       );
-    case ProjectHistory.routeName:
+    case CompletedProjectsScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const ProjectHistory(),
+        builder: (_) => const CompletedProjectsScreen(),
       );
     case AddNewCard.routeName:
       return MaterialPageRoute(

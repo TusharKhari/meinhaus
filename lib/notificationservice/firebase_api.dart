@@ -6,6 +6,8 @@ import 'package:new_user_side/features/notification/screens/notification_scree.d
 import 'package:new_user_side/main.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+
+// This fucntion help us to handle all the notifications when app was running in background
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print("Title : ${message.notification!.title}");
   print("Body : ${message.notification!.body}");
@@ -13,17 +15,20 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
 }
 
 class FirebaseApi {
+  // Getting the instamce of firebaseMessage
   final _firebaseMessaging = FirebaseMessaging.instance;
 
+  // Setup Android channel
   final _androidChannel = const AndroidNotificationChannel(
-    "pushnotificationapp",
-    "pushnotificationappchannel",
+    "pushnotificationapp", // id
+    "pushnotificationappchannel", // name
     description: "This channel is used for important notifications",
     importance: Importance.max,
   );
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
-
+ 
+ // Handling all the messages coming from firebase
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
     navigatorKey.currentState!.pushScreen(NotificationScreen());
@@ -62,12 +67,13 @@ class FirebaseApi {
     FirebaseMessaging.instance.getInitialMessage().then((handleMessage));
     // Execute [ handleMessage ] function when app is running in background
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+    // When app is running in background we will print all the notification 
+    // details on cosole [ title, name, id, etc..]
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     FirebaseMessaging.onMessage.listen(
       (message) {
         final notification = message.notification;
         if (notification == null) return;
-
         _localNotifications.show(
           notification.hashCode,
           notification.title,
@@ -86,6 +92,7 @@ class FirebaseApi {
     );
   }
 
+  // Initializing notifications 
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
     final fCMToken = await _firebaseMessaging.getToken();

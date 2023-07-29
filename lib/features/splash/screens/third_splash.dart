@@ -8,8 +8,8 @@ class ThirdSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       body: Stack(
         children: [
@@ -72,6 +72,7 @@ class ThirdSplashScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   maxLines: 4,
+                  height: height / 450,
                 ),
               ),
             ),

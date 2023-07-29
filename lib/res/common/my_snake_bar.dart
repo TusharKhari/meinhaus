@@ -78,7 +78,7 @@ void showSnakeBarr(
         child: Row(
           children: [
             Icon(icon, color: mainColor, size: width / 15),
-            5.hspacing(context),
+            SizedBox(width: width / 90),
             SizedBox(
               width: width / 1.4,
               child: MyTextPoppines(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/auth/screens/signin_screen.dart';
 import 'package:new_user_side/res/common/my_text.dart';
-import 'package:new_user_side/static%20componets/splash/screens/first_splash_screen.dart';
-import 'package:new_user_side/static%20componets/splash/screens/second_splash-screen.dart';
-import 'package:new_user_side/static%20componets/splash/screens/third_splash.dart';
+import 'package:new_user_side/features/splash/screens/first_splash_screen.dart';
+import 'package:new_user_side/features/splash/screens/second_splash-screen.dart';
+import 'package:new_user_side/features/splash/screens/third_splash.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 

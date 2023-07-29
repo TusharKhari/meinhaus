@@ -7,7 +7,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
-import '../../ongoing projects/screens/multiple_onprojects_screen.dart';
+import '../../ongoing projects/screens/multiple_project_services_screen.dart';
 import '../../ongoing projects/screens/ongoing_project_details_screen.dart';
 
 class OngoingWorkCard extends StatelessWidget {
@@ -33,19 +33,18 @@ class OngoingWorkCard extends StatelessWidget {
     required bool isMultiProjectCard,
     required int index,
   }) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final notifier = context.read<EstimateNotifier>();
     final projects = notifier.ongoingProjects.projects!;
     final project = projects[index];
     final isImgNull = project.projectImages!.length == 0;
     final projectId = project.services![0].projectId.toString();
-
     final proId = project.services![0].proId.toString();
     final isNormalProject = project.normal;
 
-    _getProjectDetails() async {
-      notifier.getProjectDetails(
+    Future<void> _getProjectDetails() async {
+      await notifier.getProjectDetails(
         context: context,
         id: projectId,
         proId: proId,
@@ -59,26 +58,33 @@ class OngoingWorkCard extends StatelessWidget {
         color: AppColors.white,
       ),
       margin: EdgeInsets.only(right: width / 30),
-      padding:
-          EdgeInsets.symmetric(horizontal: width / 70, vertical: height / 200),
+      padding: EdgeInsets.symmetric(
+        horizontal: width / 70,
+        vertical: height / 200,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: width / 35, vertical: height / 130),
+              horizontal: width / 35,
+              vertical: height / 130,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // PROJECT NAME
                 MyTextPoppines(
                   text: project.projectName.toString(),
                   fontWeight: FontWeight.w500,
                   fontSize: width / 30,
+                  maxLines: 1,
                 ),
                 Visibility(
                   visible: isMultiProjects,
-                  child: 2.vspacing(context),
+                  child: SizedBox(height: height / 100),
                 ),
+                // TOTAL SERVICES COUNT
                 Visibility(
                   visible: isMultiProjects,
                   child: MyTextPoppines(
@@ -90,15 +96,15 @@ class OngoingWorkCard extends StatelessWidget {
                 ),
                 Visibility(
                   visible: isMultiProjects,
-                  child: 1.7.vspacing(context),
+                  child: SizedBox(height: height / 120),
                 ),
                 Divider(
                   thickness: 1.0,
                   color: AppColors.grey.withOpacity(0.2),
                   height: height / 150,
                 ),
-                1.4.vspacing(context),
-                // Estimated Date
+                SizedBox(height: height / 140),
+                // ESTIMSTE BOOKING ID
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
@@ -127,6 +133,7 @@ class OngoingWorkCard extends StatelessWidget {
                   color: AppColors.grey.withOpacity(0.2),
                   height: height / 50,
                 ),
+                // PROJECT COST
                 Visibility(
                   visible: !isMultiProjects,
                   child: Row(
@@ -146,7 +153,9 @@ class OngoingWorkCard extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                    visible: !isMultiProjects, child: 4.vspacing(context)),
+                  visible: !isMultiProjects,
+                  child: SizedBox(height: height / 120),
+                ),
                 Row(
                   children: [
                     MyTextPoppines(
@@ -154,16 +163,15 @@ class OngoingWorkCard extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       fontSize: width / 38,
                     ),
-                    10.hs,
+                    SizedBox(width: width / 60),
                     MyTextPoppines(
                       text: project.projectStartDate.toString(),
                       fontWeight: FontWeight.w600,
                       fontSize: width / 38,
                     ),
-                    10.hs,
                   ],
                 ),
-                1.5.vspacing(context),
+                SizedBox(height: height / 120),
               ],
             ),
           ),
@@ -188,13 +196,13 @@ class OngoingWorkCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  3.vspacing(context),
+                  SizedBox(height: height / 80),
                   MyTextPoppines(
                     text: "Project Photos:",
                     color: AppColors.white,
                     fontSize: width / 32,
                   ),
-                  4.vspacing(context),
+                  SizedBox(height: height / 80),
                   // Project Images
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -229,7 +237,8 @@ class OngoingWorkCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Expanded(flex: 1, child: 6.vspacing(context)),
+                  Expanded(flex: 1, child: SizedBox(height: height / 80)),
+                  // View Estimate Button
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
@@ -244,7 +253,7 @@ class OngoingWorkCard extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return SubOngoingProjectScreen(
+                                    return MultipleProjectServicesScreen(
                                       index: index,
                                       projects: projects,
                                     );
@@ -252,6 +261,9 @@ class OngoingWorkCard extends StatelessWidget {
                                 ),
                               )
                             : {
+                                _getProjectDetails(),
+                                ("Project Id : $projectId || Pro Id : $proId")
+                                    .log(),
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -259,18 +271,17 @@ class OngoingWorkCard extends StatelessWidget {
                                       return OngoingProjectDetailScreen(
                                         id: projectId,
                                         isNormalProject: isNormalProject!,
+                                        isProjectCompleted:
+                                            project.isCompleted!,
                                       );
                                     },
                                   ),
                                 ),
-                                _getProjectDetails(),
-                                print(
-                                    "Project Details Id : $projectId || Pro Id : $proId"),
                               };
                       },
                     ),
                   ),
-                  3.5.vspacing(context),
+                  SizedBox(height: height / 80),
                 ],
               ),
             ),

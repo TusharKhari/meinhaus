@@ -15,8 +15,8 @@ class ShowDialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
 
     return Dialog(
       backgroundColor: Colors.transparent,

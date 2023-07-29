@@ -17,8 +17,8 @@ class ShowPickedImages<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifer = context.watch<T>();
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return DottedBorder(
       dashPattern: const [4, 2],
       strokeCap: StrokeCap.round,

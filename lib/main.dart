@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/notificationservice/firebase_api.dart';
 import 'package:new_user_side/res/routing/router.dart';
-import 'package:new_user_side/static%20componets/splash/screens/intro_screen.dart';
+import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/providers.dart';

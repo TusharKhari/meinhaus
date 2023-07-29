@@ -74,8 +74,8 @@ class PusherService {
 
   void onSubscriptionSucceeded(String channelName, dynamic data) {
     print("onSubscriptionSucceeded: $channelName data: $data");
-    final me = pusher.getChannel(channelName)?.me;
-    print("Me: $me");
+    // final me = pusher.getChannel(channelName)?.me;
+    // print("Me: $me");
   }
 
   void onSubscriptionError(String message, dynamic e) {
@@ -103,7 +103,6 @@ class PusherService {
         body: 'socket_id=' + socketId + '&channel_name=' + channelName + '',
       );
       var json = jsonDecode(result.body);
-      print(json['auth']);
       return {"auth": json['auth']};
     } catch (err) {
       (err).log("Pusher onAuth error");

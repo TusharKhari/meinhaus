@@ -47,14 +47,7 @@ class AddressNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<Address> getLatLong(String query) async {
-  //   var addresses = await Utils.getCordinates(query);
-  //   var first = addresses.first;
-  //   notifyListeners();
-  //   return first;
-  // }
-
-  // methods
+  // Auto Adreess Suggestions Only for Canada
   Future<List> getAddressSuggestions(String input) async {
     sessionToken();
     _addressList = await AddressAutocomplete.getSuggestions(
@@ -74,6 +67,9 @@ class AddressNotifier extends ChangeNotifier {
     addressRepository.addAddress(body).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
+      // Need testing Done WOrking fine
+      // userProvider.user.savedAddress!.insert(0, data.savedAddress![0]);
+      // userProvider.updateUser();
       User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
       userProvider.setUser(user);
       showSnakeBarr(context, response['response_message'], BarState.Success);

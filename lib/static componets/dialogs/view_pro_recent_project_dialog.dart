@@ -159,8 +159,8 @@ class ProRecentProjectDialog extends StatelessWidget {
     bool isBeforWorkCard = true,
     required List<String> img,
   }) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.h),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),

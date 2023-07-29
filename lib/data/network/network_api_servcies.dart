@@ -8,7 +8,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../local/user_prefrences.dart';
 import '../../utils/enum.dart';
-import '../app_exception.dart';
+import '../exception/app_exception.dart';
 import 'base_api_services.dart';
 
 typedef MapSS = Map<String, String>;
@@ -122,6 +122,7 @@ class NetworkApiServices {
       request.headers.addAll(header);
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
+      // print(response.body);
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;

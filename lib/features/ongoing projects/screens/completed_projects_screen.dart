@@ -9,20 +9,21 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
-import '../widget/ewopph_card.dart';
+import '../widget/project_info_card.dart';
 
-class ProjectHistory extends StatefulWidget {
-  static const String routeName = '/projectHistory';
+class CompletedProjectsScreen extends StatefulWidget {
+  static const String routeName = '/CompletedProjectsScreen';
 
-  const ProjectHistory({
+  const CompletedProjectsScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProjectHistory> createState() => _ProjectHistoryState();
+  State<CompletedProjectsScreen> createState() =>
+      _CompletedProjectsScreenState();
 }
 
-class _ProjectHistoryState extends State<ProjectHistory> {
+class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
   @override
   void initState() {
     super.initState();
@@ -64,7 +65,7 @@ class _ProjectHistoryState extends State<ProjectHistory> {
                       scrollDirection: Axis.vertical,
                       itemCount: project.length,
                       itemBuilder: (context, index) {
-                        return AllOPPPHCard(
+                        return ProjectInfoCard(
                           index: index,
                           projects: project,
                         );

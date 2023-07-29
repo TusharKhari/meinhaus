@@ -40,12 +40,12 @@ class EditProfileServices {
 
       var response = await http.Response.fromStream(await request.send());
       print("Status code at profile update = ${response.statusCode}");
-
+      print(response.body);
       httpErrorHandle(
         response: response,
         context: context,
         onSuccess: () {
-          var data = UserModel.fromJson(jsonDecode(response.body.toString()));
+          var data = UserModel.fromJson(jsonDecode(response.body));
           final user = data.user;
           userNotifier.setUser(user!);
           showSnakeBarr(context, "Profile Updation done", BarState.Success);

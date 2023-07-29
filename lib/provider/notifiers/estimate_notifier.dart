@@ -187,7 +187,7 @@ class EstimateNotifier extends ChangeNotifier {
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       showSnakeBarr(context, error.toString(), BarState.Error);
-      ("${error} $stackTrace").log("Get-Project Details Estimate notifier");
+      ("${error} $stackTrace").log("Get Project Details Estimate notifier");
     });
     // getting pro details
     await getProDetails(proId, context);

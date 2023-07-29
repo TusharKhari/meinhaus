@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    showStartingDailog();
+    // showStartingDailog();
     animateEstimateButton();
     getEstimate();
     getOngoingProjects();
@@ -85,14 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getOurServices() async {
     final notifer = context.read<OurServicesNotifier>();
     await notifer.getOurServices();
-  }
-
-  Future<void> getDeviceTokenToSendNotification() async {
-    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-    final token = await _fcm.getToken();
-    deviceTokenToSendPushNotification = token.toString();
-    print(
-        "Token Value for push Notification $deviceTokenToSendPushNotification");
   }
 
   @override
@@ -203,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             InkWell(
                               onTap: () => context
-                                  .pushNamedRoute(AllOngoingJobs.routeName),
+                                  .pushNamedRoute(AllOngoingProjects.routeName),
                               child: MyTextPoppines(
                                 text: "View All",
                                 fontWeight: FontWeight.w500,
@@ -369,6 +359,8 @@ class HomePageAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     // AllConversation
     Future allConversation() async {
       final notifier = context.read<ChatWithProNotifier>();
@@ -386,11 +378,21 @@ class HomePageAppBar extends StatelessWidget {
           Builder(
             builder: (context) => InkWell(
               onTap: () => Scaffold.of(context).openDrawer(),
-              child: Image.asset("assets/icons/menu.png"),
+              child: Image.asset(
+                "assets/icons/menu.png",
+                width: width / 20,
+                height: height / 30,
+              ),
             ),
           ),
           15.hs,
-          Image.asset("assets/logo/home.png", scale: 1.8),
+          Image.asset(
+            "assets/logo/home.png",
+            scale: 1.8,
+            width: width / 10,
+            height: height / 25,
+            fit: BoxFit.cover,
+          ),
         ],
       ),
       actions: [

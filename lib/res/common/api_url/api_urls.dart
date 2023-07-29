@@ -29,7 +29,7 @@ class ApiUrls {
   static Uri estimateGeneration = setUrls("estimate-generation");
   static Uri getestimate = setUrls("estimated-work");
   static Uri ongoingProject = setUrls("ongoing-projects");
-  static Uri projectHistory = setUrls("projectHistory");
+  static Uri CompletedProjectsScreen = setUrls("CompletedProjectsScreen");
   static String getProjectDetails = "${baseUrl}ongoing-projects/show";
   static String getProDetails = "${baseUrl}show/professional";
   static String progressInvoice = "${baseUrl}progress-invoice";
@@ -56,7 +56,7 @@ class ApiUrls {
   // Saved notes
   static Uri savedNoteForMe = setUrls("add-project-notes-for-me");
   static Uri savedNoteForMeAndPro = setUrls("add-project-notes-for-me-pro");
-  static String getSavedNotes = "${baseUrl}add-project-notes-for-me-pro";
+  static String getSavedNotes = "${baseUrl}get-saved-notes?estimate_service_id=";
 
   // Our servies
   static Uri ourServices = setUrls("get-services");

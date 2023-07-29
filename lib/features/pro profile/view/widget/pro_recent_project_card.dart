@@ -21,8 +21,8 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
     final notifier = context.watch<EstimateNotifier>();
     final pro = notifier.proDetails.prodata!.proRecentProjects!;
 
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 90),

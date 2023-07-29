@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:new_user_side/features/address/screens/edit_address.dart';
+import 'package:new_user_side/features/address/screens/update_address_screen.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
@@ -26,7 +26,6 @@ class AddressCardWidget extends StatefulWidget {
 }
 
 class _AddressCardWidgetState extends State<AddressCardWidget> {
-
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<AuthNotifier>(context, listen: true);
@@ -64,7 +63,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return EditAddressScreen(
+                        return UpdateAdressScreen(
                           perAddress: fullAddres,
                           addressId: widget.addressId.toString(),
                         );

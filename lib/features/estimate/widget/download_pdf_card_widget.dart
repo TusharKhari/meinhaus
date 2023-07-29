@@ -37,10 +37,13 @@ class DownloadPdfCard extends StatelessWidget {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyTextPoppines(
-                        text: workName,
-                        fontSize: w / 28,
-                        color: AppColors.white,
+                      SizedBox(
+                        width: w / 1.8,
+                        child: MyTextPoppines(
+                          text: workName,
+                          fontSize: w / 28,
+                          color: AppColors.white,
+                        ),
                       ),
                       3.vs,
                       MyTextPoppines(

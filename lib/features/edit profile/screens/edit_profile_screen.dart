@@ -56,10 +56,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     lastNameController.dispose();
   }
 
+  // Pick Images from gallary
   Future getImagess() async {
     await getImages.pickImage<EditProfileNotifier>(context: context);
   }
 
+  // Editing the User Profile [Name, Pic]
   _editProfileHandler() async {
     final notifier = context.read<EditProfileNotifier>();
     await notifier.editProfile(
@@ -68,7 +70,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       lastName: lastNameController.text,
     );
   }
-
+  
+  // This function sent an otp to there registered mobile no 
   Future<void> _verifyPhoneNoHandler(String phoneNo) async {
     final notifier = context.read<AuthNotifier>();
     final phone = phoneNo.replaceAll("-", "");
@@ -76,6 +79,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     await notifier.sendOTPOnMobile(body: body, context: context);
   }
 
+  // This function will send an email with verfication link
   Future<void> _verifyEmailHandler() async {
     final notifier = context.read<AuthNotifier>();
     await notifier.verifyEmail(context);
@@ -90,6 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return ModalProgressHUD(
       inAsyncCall: notifier.loading,
       child: Scaffold(
+        // App bar
         appBar: MyAppBar(
           text: "Edit Profile",
           onBack: () {
@@ -185,7 +190,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       20.vs,
-                      // Basic info edit card
+                      // BASIC INFO 
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
