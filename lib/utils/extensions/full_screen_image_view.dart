@@ -58,9 +58,9 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
         itemBuilder: (context, index, realIndex) {
           final image = widget.images[index];
           return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(image.imageUrl!),
+            child: InteractiveViewer(
+              child: Image.network(
+                image.imageUrl!,
                 fit: BoxFit.contain,
               ),
             ),

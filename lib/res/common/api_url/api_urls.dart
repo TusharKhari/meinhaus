@@ -29,7 +29,7 @@ class ApiUrls {
   static Uri estimateGeneration = setUrls("estimate-generation");
   static Uri getestimate = setUrls("estimated-work");
   static Uri ongoingProject = setUrls("ongoing-projects");
-  static Uri CompletedProjectsScreen = setUrls("CompletedProjectsScreen");
+  static Uri projectHistory = setUrls("projectHistory");
   static String getProjectDetails = "${baseUrl}ongoing-projects/show";
   static String getProDetails = "${baseUrl}show/professional";
   static String progressInvoice = "${baseUrl}progress-invoice";

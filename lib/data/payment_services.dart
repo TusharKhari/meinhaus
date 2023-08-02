@@ -43,13 +43,13 @@ class MakePayment {
         Uri.parse('${ApiUrls.createIntent}$bookingId'),
         headers: headers,
       );
-      ("Status Code at intentcreation : ${response.statusCode}")
+      ("Status Code at intent creation : ${response.statusCode}")
           .log("Create Payment Intent");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        (data['data']['payment_intent']['client_secret']).log('Payment Client Secret');
-        (data['data']['payment_intent']['customer']).log('Customer');
-        (data['data']['ephemeralKey']['secret']).log('Ephemeral Key Secret');
+        print(data['data']['payment_intent']['client_secret']);
+        print(data['data']['payment_intent']['customer']);
+        print(data['data']['ephemeralKey']['secret']);
         return data['data'];
       }
     } catch (err) {

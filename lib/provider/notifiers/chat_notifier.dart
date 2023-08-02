@@ -15,7 +15,7 @@ import 'auth_notifier.dart';
 
 class ChatNotifier extends ChangeNotifier {
   ChatRepository repo = ChatRepository();
-  PusherService _pusherService = PusherService();
+  PusherService _pusherService = PusherService.instance;
   TextEditingController messageController = TextEditingController();
   final scrollController = ScrollController();
 
@@ -272,3 +272,6 @@ class ChatNotifier extends ChangeNotifier {
       });
   }
 }
+
+
+

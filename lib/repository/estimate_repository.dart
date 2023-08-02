@@ -60,7 +60,7 @@ class EstimateRepository {
   Future<ResponseType> getProjectsHistory() async {
     try {
       return await services.sendHttpRequest(
-        url: ApiUrls.CompletedProjectsScreen,
+        url: ApiUrls.projectHistory,
         method: HttpMethod.get,
       );
     } catch (e) {
