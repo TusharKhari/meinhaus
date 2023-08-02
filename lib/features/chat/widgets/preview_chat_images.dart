@@ -3,7 +3,6 @@ import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-
 class PreviewChatImages extends StatelessWidget {
   final String imgPath;
   const PreviewChatImages({
@@ -37,6 +36,7 @@ class PreviewChatImages extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           child: InteractiveViewer(
+            minScale: 0.3,
             child: Hero(
               tag: imgPath,
               child: Image.network(

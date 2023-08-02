@@ -14,7 +14,7 @@ import '../../local/user_prefrences.dart';
 import '../../res/common/my_snake_bar.dart';
 
 class SupportNotifier extends ChangeNotifier {
-  PusherService _pusherService = PusherService();
+  PusherService _pusherService = PusherService.instance;
   TextEditingController messageController = TextEditingController();
   CustomerSupportRepo repo = CustomerSupportRepo();
 
@@ -189,3 +189,5 @@ class SupportNotifier extends ChangeNotifier {
     });
   }
 }
+
+
