@@ -48,12 +48,17 @@ class EditProfileServices {
           var data = UserModel.fromJson(jsonDecode(response.body));
           final user = data.user;
           userNotifier.setUser(user!);
-          showSnakeBarr(context, "Profile Updation done", BarState.Success);
+          showSnakeBarr(
+            context,
+            "Profile Updation done",
+            SnackBarState.Success,
+          );
           print("Profile Updated ✅");
         },
       );
     } catch (e) {
-      showSnakeBarr(context, "Catch in Edit Profile --> $e 🐛", BarState.Error);
+      showSnakeBarr(
+          context, "Catch in Edit Profile --> $e 🐛", SnackBarState.Error);
       print("Catch in Edit Profile --> $e 🐛");
     }
   }

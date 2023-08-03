@@ -22,7 +22,7 @@ class CustomerSupportKeepOpenDialog extends StatelessWidget {
       if (notifier.messageController.text.isNotEmpty) {
         await notifier.keepOpen(context);
       } else {
-        showSnakeBarr(context, "Please enter a reason", BarState.Warning);
+        showSnakeBarr(context, "Please enter a reason", SnackBarState.Warning);
       }
     }
 
@@ -45,13 +45,13 @@ class CustomerSupportKeepOpenDialog extends StatelessWidget {
               validator: Validator().nullValidator,
             ),
             SizedBox(height: h / 85),
-           MyBlueButton(
-                    hPadding: w / 20,
-                    vPadding: h / 70,
-                    text: "Submit it",
-                    fontSize: w / 30,
-                    onTap: () => _keepOpenHandler(),
-                  ),
+            MyBlueButton(
+              hPadding: w / 20,
+              vPadding: h / 70,
+              text: "Submit it",
+              fontSize: w / 30,
+              onTap: () => _keepOpenHandler(),
+            ),
             SizedBox(height: h / 85),
           ],
         ),

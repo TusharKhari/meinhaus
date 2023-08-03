@@ -122,7 +122,7 @@ class NetworkApiServices {
       request.headers.addAll(header);
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      // print(response.body);
+      //print(response.body);
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
@@ -235,7 +235,8 @@ class NetworkApiServices {
   }
 
   // ERROR HANDLING
-  dynamic errorHandling(http.Response response, allowUnauthorizedResponse) {
+  dynamic errorHandling(
+      http.Response response, bool? allowUnauthorizedResponse) {
     dynamic responseJson =
         response.statusCode != 500 ? jsonDecode(response.body) : null;
     switch (response.statusCode) {
@@ -247,7 +248,7 @@ class NetworkApiServices {
         throw FetchDataException(
             " ${responseJson['response_message']}  ${response.statusCode}");
       case 401:
-        if (allowUnauthorizedResponse) {
+        if (allowUnauthorizedResponse!) {
           return responseJson;
         } else {
           throw UnauthorizedException(

@@ -123,16 +123,23 @@ class _OngoingProjectDetailScreenState
                           Divider(thickness: 1.8.h),
                           10.vs,
                           const OngoingProjectDescCardWidget(),
-                          Divider(thickness: 1.8.h),
-                          10.vs,
-                          const OngoingProjectPhotoCardWidget(),
+                          Visibility(
+                            visible: services.projectImages!.length > 0,
+                            child: Column(
+                              children: [
+                                Divider(thickness: 1.8.h),
+                                10.vs,
+                                const OngoingProjectPhotoCardWidget(),
+                              ],
+                            ),
+                          ),
                           20.vs,
                           Divider(thickness: 1.8.h),
                           // Ongoing Buttons
                           OngoingJobsButtonsPanel(
                             isNormalProject: widget.isNormalProject,
                             projectId: widget.id,
-                            isProjectCompleted : widget.isProjectCompleted,
+                            isProjectCompleted: widget.isProjectCompleted,
                           ),
                           Visibility(
                             visible: isProjetCompleted,

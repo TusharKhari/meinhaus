@@ -215,11 +215,11 @@ class UploadedImgs {
 }
 
 class ProjectBilling {
-  dynamic? projectAmount;
-  dynamic? grandAmountToPay;
-  dynamic? amountToPay;
-  dynamic? amountPaid;
-  dynamic? amountToBePaidInFuture;
+  dynamic projectAmount;
+  dynamic grandAmountToPay;
+  dynamic amountToPay;
+  dynamic amountPaid;
+  dynamic amountToBePaidInFuture;
   String? subTotal;
   String? hstForSubtotal;
   String? total;

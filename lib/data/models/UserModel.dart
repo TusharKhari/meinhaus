@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserModel {
-  dynamic? responseCode;
+  String? responseCode;
   String? responseMessage;
   User? user;
 
@@ -30,6 +30,9 @@ class UserModel {
       user: user ?? this.user,
     );
   }
+
+  @override
+  String toString() => "User = $user";
 }
 
 class User {
@@ -124,11 +127,16 @@ class User {
       emailVerified: emailVerified ?? this.emailVerified,
     );
   }
+
+  @override
+  String toString() {
+    return "UserId = $userId, UserName = $firstname $lastname,Token = $token";
+  }
 }
 
 class SavedAddress {
   int? id;
-  String? userId;
+  dynamic userId;
   String? line1;
   String? line2;
   String? city;
@@ -137,12 +145,12 @@ class SavedAddress {
   String? zip;
   String? phone;
   String? type;
-  String? isDefault;
+  int? isDefault;
   String? latitude;
   String? longitude;
   String? createdAt;
   String? updatedAt;
-  Null? deletedAt;
+  Null deletedAt;
 
   SavedAddress(
       {this.id,
@@ -204,7 +212,7 @@ class SavedAddress {
 
   SavedAddress copyWith({
     int? id,
-    String? userId,
+    dynamic userId,
     String? line1,
     String? line2,
     String? city,
@@ -213,12 +221,12 @@ class SavedAddress {
     String? zip,
     String? phone,
     String? type,
-    String? isDefault,
+    int? isDefault,
     String? latitude,
     String? longitude,
     String? createdAt,
     String? updatedAt,
-    Null? deletedAt,
+    Null deletedAt,
   }) {
     return SavedAddress(
       id: id ?? this.id,
@@ -240,5 +248,3 @@ class SavedAddress {
     );
   }
 }
-
-

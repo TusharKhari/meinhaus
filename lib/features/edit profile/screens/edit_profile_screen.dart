@@ -123,11 +123,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 CircleAvatar(
                   radius: 40.r,
                   backgroundImage: img.path.isNotEmpty
-                      ? Image.file(File(img.path)).image
+                      ? Image.file(File(img.path)).image // Show picked img
                       : user.profilePic!.length > 0
-                          ? NetworkImage(user.profilePic!.toString())
+                          ? NetworkImage(user.profilePic!) // Show Sever img
                               as ImageProvider<Object>?
-                          : AssetImage("assets/images/man.png"),
+                          : AssetImage("assets/images/man.png"), // Default
                 ),
                 20.hs,
                 Column(

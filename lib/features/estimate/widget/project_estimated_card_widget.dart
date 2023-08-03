@@ -49,10 +49,12 @@ class _BuildServiceCard extends StatefulWidget {
 class __BuildServiceCardState extends State<_BuildServiceCard> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.sizeOf(context).height;
     final getEstProvider = context.watch<EstimateNotifier>().estimated;
+    final servicesLength = getEstProvider.estimatedWorks!.length;
     final projectEstimate = getEstProvider.estimatedWorks![widget.index];
     final service = projectEstimate.projectEstimate![widget.index2];
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -130,7 +132,10 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             ],
           ),
           20.vs,
-          _BuildButton(index: widget.index, index2: widget.index2)
+          Visibility(
+            visible: servicesLength > 1,
+            child: _BuildButton(index: widget.index, index2: widget.index2),
+          )
         ],
       ),
     );

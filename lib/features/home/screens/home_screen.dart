@@ -35,7 +35,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isExpanded = true;
-  String deviceTokenToSendPushNotification = '';
   @override
   void initState() {
     super.initState();

@@ -36,7 +36,7 @@ class Services {
   String? address;
   List<UploadedImgs>? projectImages;
   List<ProfessionalWorkHistory>? professionalWorkHistory;
-  String? proId;
+  dynamic proId;
   List<Reviews>? reviews;
   Query? query;
 

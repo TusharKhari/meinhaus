@@ -50,10 +50,11 @@ class UploadImgNotifier extends ChangeNotifier {
       setImagesInList([]);
       ('Img Uploaded Succesfully ✅').log();
       Navigator.of(context).pushScreen(HomeScreen());
-      showSnakeBarr(context, "Images Uploaded Succesfully", BarState.Success);
+      showSnakeBarr(
+          context, "Images Uploaded Succesfully", SnackBarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Saved note notifier");
     });
   }

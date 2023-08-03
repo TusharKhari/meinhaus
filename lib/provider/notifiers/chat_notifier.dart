@@ -143,7 +143,7 @@ class ChatNotifier extends ChangeNotifier {
         .then((value) {
       ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in setup pusher --> $error").log("Pro-Chat Notifier");
     });
   }
@@ -161,7 +161,7 @@ class ChatNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       _scrollToBottom();
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in Load Messages --> $error").log("Chat Notifier");
       setLoadingState(false, true);
     });
@@ -184,7 +184,7 @@ class ChatNotifier extends ChangeNotifier {
       updateOrAddNewMessage(data.messages!.first);
       setImage(XFile(""));
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in Send Message --> $error $stackTrace").log("Pro-Chat Notifier");
     });
   }
@@ -204,7 +204,7 @@ class ChatNotifier extends ChangeNotifier {
         updateOrAddNewMessage(message);
       }
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in Send Pdf --> $error $stackTrace").log("Pro-Chat Notifier");
     });
   }
@@ -254,11 +254,11 @@ class ChatNotifier extends ChangeNotifier {
         setLoadMoreLoading(false, true);
       }).onError((error, stackTrace) {
         setLoadMoreLoading(false, true);
-        showSnakeBarr(context, error.toString(), BarState.Error);
+        showSnakeBarr(context, error.toString(), SnackBarState.Error);
         ("Erorr in Load More Message --> $error").log("Pro-Chat Notifier");
       });
     } else {
-      showSnakeBarr(context, "No more messages to load", BarState.Info);
+      showSnakeBarr(context, "No more messages to load", SnackBarState.Info);
     }
   }
 
@@ -272,6 +272,3 @@ class ChatNotifier extends ChangeNotifier {
       });
   }
 }
-
-
-
