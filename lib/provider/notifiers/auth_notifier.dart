@@ -103,14 +103,15 @@ class AuthNotifier extends ChangeNotifier {
       // if (response['response_message'] == "Unverified User.") {
       if (user.phoneVerified!) {
         ("User Logged in Successfully ✨").log("Login Notifier");
-        showSnakeBarr(context, response['response_message'], BarState.Success);
+        showSnakeBarr(
+            context, response['response_message'], SnackBarState.Success);
         Navigator.of(context).pushNamedAndRemoveUntil(
           HomeScreen.routeName,
           (route) => false,
         );
       } else {
         showSnakeBarr(
-            context, "Please verify you details first", BarState.Warning);
+            context, "Please verify you details first", SnackBarState.Warning);
         Navigator.of(context).pushScreen(
           OtpValidateScreen(
             userId: user.userId!,
@@ -121,7 +122,7 @@ class AuthNotifier extends ChangeNotifier {
       }
       setLoadingState(false, true);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("Erorr in Login notifier --> $error").log("Auth-Login Notifier");
       setLoadingState(false, true);
     });
@@ -133,7 +134,8 @@ class AuthNotifier extends ChangeNotifier {
     repository.signUp(data).then((response) async {
       setLoadingState(false, true);
       (response).log("SignUp Response");
-      showSnakeBarr(context, response['response_message'], BarState.Success);
+      showSnakeBarr(
+          context, response['response_message'], SnackBarState.Success);
       Navigator.of(context).pushScreen(
         OtpValidateScreen(
           userId: response["user_id"],
@@ -142,7 +144,7 @@ class AuthNotifier extends ChangeNotifier {
         ),
       );
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log(" SignUp notifier");
       setLoadingState(false, true);
     });
@@ -163,9 +165,10 @@ class AuthNotifier extends ChangeNotifier {
       isFromSetting
           ? Navigator.pop(context)
           : Navigator.of(context).pushScreen(CreateStartingProject());
-      showSnakeBarr(context, response['response_message'], BarState.Success);
+      showSnakeBarr(
+          context, response['response_message'], SnackBarState.Success);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log(" Verify phone notifier");
       setLoadingState(false, true);
     });
@@ -176,9 +179,9 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     await repository.verifyEmai().then((response) async {
       setLoadingState(false, true);
-      showSnakeBarr(context, "Verification link sent", BarState.Success);
+      showSnakeBarr(context, "Verification link sent", SnackBarState.Success);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Verify email notifier");
       setLoadingState(false, true);
     });
@@ -192,7 +195,7 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     await repository.sendOTPMobile(body).then((response) async {
       setLoadingState(false, true);
-      showSnakeBarr(context, "OTP Sent", BarState.Success);
+      showSnakeBarr(context, "OTP Sent", SnackBarState.Success);
       showDialog(
         context: context,
         builder: (context) {
@@ -200,7 +203,7 @@ class AuthNotifier extends ChangeNotifier {
         },
       );
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Send OTP Mobile notifier");
       setLoadingState(false, true);
     });
@@ -212,9 +215,9 @@ class AuthNotifier extends ChangeNotifier {
     required BuildContext context,
   }) async {
     repository.resendOtp(body).then((value) {
-      showSnakeBarr(context, value['response_message'], BarState.Success);
+      showSnakeBarr(context, value['response_message'], SnackBarState.Success);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log(" Resend OTP  notifier");
     });
   }
@@ -226,7 +229,8 @@ class AuthNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true, true);
     await repository.addPhoneNo(body).then((response) {
-      showSnakeBarr(context, "Let's verify your phone number", BarState.Info);
+      showSnakeBarr(
+          context, "Let's verify your phone number", SnackBarState.Info);
       Navigator.of(context).pushScreen(
         OtpValidateScreen(
           userId: int.parse(body['user_id']!),
@@ -236,7 +240,7 @@ class AuthNotifier extends ChangeNotifier {
       );
       setLoadingState(false, true);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log(" Add PhoneNo notifier");
       setLoadingState(false, true);
     });
@@ -257,12 +261,12 @@ class AuthNotifier extends ChangeNotifier {
         setUser(user);
         Navigator.pushNamed(context, HomeScreen.routeName);
       }).onError((error, stackTrace) {
-        showSnakeBarr(context, "$error", BarState.Error);
+        showSnakeBarr(context, "$error", SnackBarState.Error);
         ("$error  $stackTrace").log(" Verify email notifier");
         setLoadingState(false, true);
       });
     } else
-      showSnakeBarr(context, "Please Accept T&C..", BarState.Warning);
+      showSnakeBarr(context, "Please Accept T&C..", SnackBarState.Warning);
   }
 
   // Google Authentication
@@ -278,7 +282,7 @@ class AuthNotifier extends ChangeNotifier {
       showSnakeBarr(
         context,
         "Something went wrong try again",
-        BarState.Warning,
+        SnackBarState.Warning,
       );
       setGoogleLoadingState(false, true);
     }
@@ -289,7 +293,8 @@ class AuthNotifier extends ChangeNotifier {
     MapSS data = {"provider": "google", "access_token": accessToken};
     await repository.googleLogin(data).then((response) async {
       print(response);
-      showSnakeBarr(context, response['response_message'], BarState.Success);
+      showSnakeBarr(
+          context, response['response_message'], SnackBarState.Success);
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
@@ -306,7 +311,7 @@ class AuthNotifier extends ChangeNotifier {
       }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Google Auth notifier");
     });
   }
@@ -318,13 +323,13 @@ class AuthNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true, true);
     await repository.forgetPassword(body).then((value) {
-      showSnakeBarr(context, "OTP SENT", BarState.Success);
+      showSnakeBarr(context, "OTP SENT", SnackBarState.Success);
       setLoadingState(false, true);
       Navigator.of(context).pushScreen(
         ForgetPasswordOtpValidateScreen(email: body['email']!),
       );
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Forget password notifier");
       setLoadingState(false, true);
     });
@@ -337,13 +342,13 @@ class AuthNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true, true);
     await repository.verifyForgetPassOTP(body).then((response) {
-      showSnakeBarr(context, "OTP Verified", BarState.Success);
+      showSnakeBarr(context, "OTP Verified", SnackBarState.Success);
       setLoadingState(false, true);
       Navigator.of(context).pushScreen(
         CreateNewPasswordScreen(passwordToken: response['token']),
       );
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Verify forgetpassword OTP notifier");
       setLoadingState(false, true);
     });
@@ -356,10 +361,10 @@ class AuthNotifier extends ChangeNotifier {
   }) async {
     setGoogleLoadingState(true, true);
     await repository.resendFOrgetPassOTP(body).then((response) {
-      showSnakeBarr(context, "OTP Sent Again!", BarState.Success);
+      showSnakeBarr(context, "OTP Sent Again!", SnackBarState.Success);
       setGoogleLoadingState(false, true);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Resend forgetpassword OTP notifier");
       setGoogleLoadingState(false, true);
     });
@@ -375,12 +380,12 @@ class AuthNotifier extends ChangeNotifier {
       showSnakeBarr(
         context,
         "New Password has been created login with same credentials!",
-        BarState.Success,
+        SnackBarState.Success,
       );
       setLoadingState(false, true);
       Navigator.of(context).pushScreen(SignInScreen());
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error  $stackTrace").log("Create-new-password notifier");
       setLoadingState(false, true);
     });

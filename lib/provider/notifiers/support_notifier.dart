@@ -94,7 +94,7 @@ class SupportNotifier extends ChangeNotifier {
         .then((value) {
       ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in setup pusher --> $error").log("Pro-Chat Notifier");
     });
   }
@@ -116,12 +116,13 @@ class SupportNotifier extends ChangeNotifier {
     await repo.sendQuery(body).then((response) {
       setLoadingState(false, true);
       setImagesInList([]);
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       ("${error} $stackTrace").log("Send Query notifier");
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
     });
   }
 
@@ -136,7 +137,7 @@ class SupportNotifier extends ChangeNotifier {
       ('Get Raised Query ✅').log();
     }).onError((error, stackTrace) {
       ("${error} $stackTrace").log("Get Raised Query notifier");
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
     });
   }
 
@@ -160,7 +161,7 @@ class SupportNotifier extends ChangeNotifier {
       }
       Navigator.pop(context);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in keep open --> $error").log("Support Notifier");
       setLoadingState(false, true);
     });
@@ -183,11 +184,9 @@ class SupportNotifier extends ChangeNotifier {
       setSupportStatus(0);
       Navigator.pop(context);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in accept and close --> $error").log("Support Notifier");
       setLoadingState(false, true);
     });
   }
 }
-
-

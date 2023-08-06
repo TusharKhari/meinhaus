@@ -41,7 +41,6 @@ class CustomerSupportNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  
   Future getImagess(BuildContext context) async {
     await getImages.pickImages<CustomerSupportNotifier>(context: context);
   }
@@ -55,12 +54,13 @@ class CustomerSupportNotifier extends ChangeNotifier {
     await supportRepo.sendQuery(body).then((response) {
       setLoadingState(false, true);
       setImagesInList([]);
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       ("${error} $stackTrace").log("Send Query notifier");
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
     });
   }
 
@@ -75,7 +75,7 @@ class CustomerSupportNotifier extends ChangeNotifier {
       ('Get Raised Query ✅').log();
     }).onError((error, stackTrace) {
       ("${error} $stackTrace").log("Get Raised Query notifier");
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
     });
   }
 }

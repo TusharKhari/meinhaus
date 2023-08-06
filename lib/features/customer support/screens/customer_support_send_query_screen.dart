@@ -66,7 +66,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
       showSnakeBarr(
         context,
         "Please selecte an image to make request",
-        BarState.Warning,
+        SnackBarState.Warning,
       );
     }
   }

@@ -59,7 +59,7 @@ class SettingCardWidget extends StatelessWidget {
                       ? showSnakeBarr(
                           context,
                           "Google User can't change password",
-                          BarState.Warning,
+                          SnackBarState.Warning,
                         )
                       : context.pushNamedRoute(list[3]);
                 } else {

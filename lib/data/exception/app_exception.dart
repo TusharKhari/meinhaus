@@ -31,5 +31,12 @@ class InvalidInputException extends AppException {
 
 class InternalSeverException extends AppException {
   InternalSeverException([String? message])
-      : super(message, "Internal Sever Error ..!");
+      : super(message, "Internal Sever Error");
+
+
+    
+}
+
+class ErrorException {
+  
 }

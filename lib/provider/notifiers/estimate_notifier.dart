@@ -6,6 +6,7 @@ import 'package:new_user_side/data/models/pro_model.dart';
 import 'package:new_user_side/data/models/progress_invoice_model.dart';
 import 'package:new_user_side/data/models/project_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/error_screens.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/repository/estimate_repository.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
@@ -15,7 +16,6 @@ import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/invoice/screens/progess_invoice_screen.dart';
 import '../../utils/extensions/get_images.dart';
-import '../../utils/utils.dart';
 
 class EstimateNotifier extends ChangeNotifier {
   EstimateRepository estimateRepository = EstimateRepository();
@@ -110,10 +110,10 @@ class EstimateNotifier extends ChangeNotifier {
       showSnakeBarr(
           context,
           "Your estimate has been created successfully..! we will contact you shortly",
-          BarState.Success);
+          SnackBarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Create Estimate notifier");
     });
   }
@@ -132,15 +132,15 @@ class EstimateNotifier extends ChangeNotifier {
       showSnakeBarr(
           context,
           "Your estimate has been created successfully..! we will contact you shortly",
-          BarState.Success);
+          SnackBarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Create Estimate notifier");
     });
   }
 
-// GET ESTIMATE
+// GET ESTIMATED WORK
   Future getEstimateWork() async {
     estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
@@ -185,9 +185,10 @@ class EstimateNotifier extends ChangeNotifier {
       var query = data.services!.query;
       supportStatusChecker(query, context);
     }).onError((error, stackTrace) {
+      Navigator.of(context).pushScreen(ShowError(error: error.toString()));
       setLoadingState(false, true);
-      showSnakeBarr(context, error.toString(), BarState.Error);
-      ("${error} $stackTrace").log("Get Project Details Estimate notifier");
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
+      // ("${error} $stackTrace").log("Get Project Details Estimate notifier");
     });
     // getting pro details
     await getProDetails(proId, context);
@@ -229,7 +230,7 @@ class EstimateNotifier extends ChangeNotifier {
       setProDetails(data);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("${error} $stackTrace").log("Get Pro Details Estimate notifier");
     });
   }
@@ -247,7 +248,7 @@ class EstimateNotifier extends ChangeNotifier {
       setProgressInvoice(data);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Progress-Invocie Estimate notifier");
     });
   }
@@ -258,10 +259,11 @@ class EstimateNotifier extends ChangeNotifier {
     required MapSS body,
   }) async {
     await estimateRepository.toggleServices(body).then((response) {
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       getEstimateWork();
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Toggle Service Estimate notifier");
     });
   }
@@ -273,11 +275,12 @@ class EstimateNotifier extends ChangeNotifier {
   }) async {
     setReviewLoadingState(true, true);
     await estimateRepository.writeReview(body).then((response) {
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       Navigator.pop(context);
       setReviewLoadingState(false, true);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Toggle Service Estimate notifier");
       setReviewLoadingState(false, true);
     });

@@ -21,10 +21,10 @@ class CheckOutBottomBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CheckOutBottomBar> createState() => _CheckOutBottomBarState();
+  State<CheckOutBottomBar> createState() => _CheckOutBottomSnackBarState();
 }
 
-class _CheckOutBottomBarState extends State<CheckOutBottomBar> {
+class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

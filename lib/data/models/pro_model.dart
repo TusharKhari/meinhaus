@@ -89,7 +89,7 @@ class Prodata {
 }
 
 class ProRating {
-  dynamic? avgRating;
+  dynamic avgRating;
   int? totalRating;
   int? punctuality;
   int? quality;
@@ -124,7 +124,7 @@ class ProRating {
 class ProRecentProjects {
   int? projectId;
   String? projectName;
-  dynamic? avgRating;
+  dynamic avgRating;
   String? review;
   List<String>? beforeWorkImages;
   List<String>? afterWorkImages;

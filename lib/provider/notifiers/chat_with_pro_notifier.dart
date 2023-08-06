@@ -39,7 +39,7 @@ class ChatWithProNotifier extends ChangeNotifier {
       setAllConversationList(data);
       setLoadingState(false, true);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in getting All Conversation --> $error $stackTrace")
           .log("Pro-Chat Notifier");
       setLoadingState(false, true);
