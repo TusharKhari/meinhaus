@@ -132,7 +132,6 @@ class ChatNotifier extends ChangeNotifier {
     ("Channel Unsunscribed $channelName").log("Pusher");
   }
 
-  // METHODS
   /// Setup Pusher channel
   Future setupPusher(BuildContext context) async {
     final userNotifier = context.read<AuthNotifier>().user;

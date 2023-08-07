@@ -5,7 +5,7 @@ import 'package:new_user_side/features/additional%20work/screens/additional_work
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
+import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
@@ -79,10 +79,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const AllEstimatedWorkScreen(),
       );
-    case ChatWIthProChatListScreen.routeName:
+    case AllConversationScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const ChatWIthProChatListScreen(),
+        builder: (_) => const AllConversationScreen(),
       );
     case NotificationScreen.routeName:
       return MaterialPageRoute(

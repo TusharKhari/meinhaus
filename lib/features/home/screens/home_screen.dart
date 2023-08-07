@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
+import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_service_card.dart';
 import 'package:new_user_side/res/common/my_text.dart';
@@ -38,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // showStartingDailog();
     animateEstimateButton();
     getEstimate();
     getOngoingProjects();
@@ -48,11 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void showStartingDailog() {
     Timer(const Duration(seconds: 1), () {
       showDialog(
-        context: context,
-        builder: (context) {
-          return const ShowDialogBox();
-        },
-      );
+          context: context,
+          builder: (context) {
+            return const ShowDialogBox();
+          });
     });
   }
 
@@ -110,10 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           customDivider,
           10.vs,
-          InkWell(
-            onTap: () {},
-            child: const HomeOfferBanner(),
-          ),
+          const HomeOfferBanner(),
           10.vs,
           customDivider,
           10.vs,
@@ -173,7 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Icon(Icons.add),
                                     ),
                                   )
-                            //: MyTextPoppines(text: "Shimmer effect here"),
                             : _buildShimmerEffect(),
                       ],
                     ),
@@ -191,8 +185,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: height / MyFontSize.font18,
                             ),
                             InkWell(
-                              onTap: () => context
-                                  .pushNamedRoute(AllOngoingProjects.routeName),
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed(AllOngoingProjects.routeName);
+                              },
                               child: MyTextPoppines(
                                 text: "View All",
                                 fontWeight: FontWeight.w500,
@@ -225,7 +221,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   )
                                 : MyTextPoppines(text: "No Ongoing Projects")
-                            // : MyTextPoppines(text: "Shimmer effect here"),
                             : _buildShimmerEffect(),
                       ],
                     ),
@@ -364,7 +359,7 @@ class HomePageAppBar extends StatelessWidget {
     Future allConversation() async {
       final notifier = context.read<ChatWithProNotifier>();
       await notifier.allConversation(context);
-      context.pushNamedRoute(ChatWIthProChatListScreen.routeName);
+      Navigator.of(context).pushNamed(AllConversationScreen.routeName);
     }
 
     return AppBar(
@@ -406,7 +401,9 @@ class HomePageAppBar extends StatelessWidget {
         ),
         20.hs,
         InkWell(
-          onTap: () => context.pushNamedRoute(NotificationScreen.routeName),
+          onTap: () {
+            Navigator.of(context).pushNamed(NotificationScreen.routeName);
+          },
           child: Icon(
             CupertinoIcons.bell,
             color: AppColors.black.withOpacity(0.8),

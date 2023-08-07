@@ -51,6 +51,24 @@ class OngoingWorkCard extends StatelessWidget {
       );
     }
 
+    void onViewEstTapped() {
+      isMultiProjects
+          ? Navigator.of(context).pushScreen(
+              MultipleProjectServicesScreen(index: index, projects: projects),
+            )
+          : {
+              _getProjectDetails(),
+              Navigator.of(context).pushScreen(
+                OngoingProjectDetailScreen(
+                  id: projectId,
+                  isNormalProject: isNormalProject!,
+                  isProjectCompleted: project.isCompleted!,
+                ),
+              ),
+            };
+      ("Project Id : $projectId || Pro Id : $proId").log();
+    }
+
     return Container(
       width: context.screenWidth / 1.95,
       decoration: BoxDecoration(
@@ -75,7 +93,7 @@ class OngoingWorkCard extends StatelessWidget {
               children: [
                 // PROJECT NAME
                 MyTextPoppines(
-                  text: project.projectName.toString(),
+                  text: project.projectName ?? "",
                   fontWeight: FontWeight.w500,
                   fontSize: width / 30,
                   maxLines: 1,
@@ -165,7 +183,7 @@ class OngoingWorkCard extends StatelessWidget {
                     ),
                     SizedBox(width: width / 60),
                     MyTextPoppines(
-                      text: project.projectStartDate.toString(),
+                      text: project.projectStartDate ?? "",
                       fontWeight: FontWeight.w600,
                       fontSize: width / 38,
                     ),
@@ -180,8 +198,9 @@ class OngoingWorkCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: width / 34),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12)),
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
                 image: isImgNull
                     ? DecorationImage(
                         image: AssetImage("assets/images/room/2(1).png"),
@@ -189,7 +208,8 @@ class OngoingWorkCard extends StatelessWidget {
                       )
                     : DecorationImage(
                         image: NetworkImage(
-                            project.projectImages!.first.thumbnailUrl!),
+                          project.projectImages!.first.thumbnailUrl!,
+                        ),
                         fit: BoxFit.cover,
                       ),
               ),
@@ -237,7 +257,10 @@ class OngoingWorkCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Expanded(flex: 1, child: SizedBox(height: height / 80)),
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(height: height / 80),
+                  ),
                   // View Estimate Button
                   Align(
                     alignment: Alignment.center,
@@ -247,38 +270,7 @@ class OngoingWorkCard extends StatelessWidget {
                       text: "View Est",
                       fontSize: width / 30,
                       fontWeight: FontWeight.w600,
-                      onTap: () {
-                        isMultiProjects
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return MultipleProjectServicesScreen(
-                                      index: index,
-                                      projects: projects,
-                                    );
-                                  },
-                                ),
-                              )
-                            : {
-                                _getProjectDetails(),
-                                ("Project Id : $projectId || Pro Id : $proId")
-                                    .log(),
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return OngoingProjectDetailScreen(
-                                        id: projectId,
-                                        isNormalProject: isNormalProject!,
-                                        isProjectCompleted:
-                                            project.isCompleted!,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              };
-                      },
+                      onTap: onViewEstTapped,
                     ),
                   ),
                   SizedBox(height: height / 80),

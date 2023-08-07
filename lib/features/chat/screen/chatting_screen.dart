@@ -36,7 +36,7 @@ class ChattingScreen extends StatefulWidget {
     this.conversations,
   }) : super(key: key);
   final bool isChatWithPro;
-  final String? sendUserId;
+  final int? sendUserId;
   final Conversations? conversations;
 
   @override
@@ -85,7 +85,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
     final notifier = context.read<ChatNotifier>();
     final ticketId = context.read<SupportNotifier>().ticketId;
     MapSS body = widget.isChatWithPro
-        ? {"to_user_id": widget.sendUserId!}
+        ? {"to_user_id": widget.sendUserId.toString()}
         : {"ticket_id": ticketId};
     await notifier.loadMessages(context: context, body: body);
   }
