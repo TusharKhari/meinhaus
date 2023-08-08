@@ -15,17 +15,14 @@ import 'ongoing_project_details_screen.dart';
 
 class MultipleProjectServicesScreen extends StatelessWidget {
   static const String routeName = '/multipleProjectServices';
-  final int index;
-  final List<Projects> projects;
+  final Projects project;
   const MultipleProjectServicesScreen({
     Key? key,
-    required this.index,
-    required this.projects,
+    required this.project,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final project = projects[index];
     final projectServices = project.services!;
     return Scaffold(
       appBar: MyAppBar(text: "Ongoing projects"),
@@ -448,9 +445,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) {
                                 return OngoingProjectDetailScreen(
-                                  id: projectId,
-                                  isNormalProject: project.normal!,
-                                  isProjectCompleted: service.isCompleted!,
+                                  project: project,
                                 );
                               },
                             ),

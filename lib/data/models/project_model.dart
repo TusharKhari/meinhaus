@@ -36,7 +36,7 @@ class Services {
   String? address;
   List<UploadedImgs>? projectImages;
   List<ProfessionalWorkHistory>? professionalWorkHistory;
-  dynamic proId;
+  int? proId;
   List<Reviews>? reviews;
   Query? query;
 
@@ -187,17 +187,17 @@ class Reviews {
 
 class Query {
   int? id;
-  String? estimateServiceId;
-  String? userId;
+  int? estimateServiceId;
+  int? userId;
   String? query;
-  String? status;
-  String? acceptedBy;
+  int? status;
+  int? acceptedBy;
   String? ticket;
-  String? endStatus;
-  String? resolved;
+  int? endStatus;
+  int? resolved;
   String? createdAt;
   String? updatedAt;
-  String? flagged;
+  int? flagged;
 
   Query(
       {this.id,

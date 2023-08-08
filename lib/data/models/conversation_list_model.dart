@@ -26,7 +26,7 @@ class ConversationsListModal {
 }
 
 class Conversations {
-  String? estimateServiceId;
+  int? estimateServiceId;
   String? estimateBookingId;
   String? projectName;
   String? projectStartedOn;
@@ -34,12 +34,12 @@ class Conversations {
   String? profilePicture;
   String? lastMessageType;
   String? lastMessage;
-  String? lastMessageSenderId;
+  int? lastMessageSenderId;
   String? lastMessageCreatedAt;
   int? unreadCount;
   int? conversationId;
-  String? fromUserId;
-  String? toUserId;
+  int? fromUserId;
+  int? toUserId;
 
   Conversations(
       {this.estimateServiceId,

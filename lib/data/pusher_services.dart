@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_user_side/data/models/message_model.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
@@ -13,7 +13,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
-import '../static componets/dialogs/customer_close_ticket_dialog.dart';
+import '../static components/dialogs/customer_close_ticket_dialog.dart';
 
 class PusherService {
   //*  Singleton Design Pattern

@@ -1,14 +1,82 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../ongoing projects/screens/all_ongoing_projects_screen.dart';
 import '../../ongoing projects/screens/multiple_project_services_screen.dart';
 import '../../ongoing projects/screens/ongoing_project_details_screen.dart';
+
+class OngoingCardHomeScreenView extends StatelessWidget {
+  final Function(BuildContext context) effect;
+  const OngoingCardHomeScreenView({super.key, required this.effect});
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+
+    final estimateNotifier = context.watch<EstimateNotifier>();
+    final ongoingProjects = estimateNotifier.ongoingProjects.projects;
+    final project = ongoingProjects ?? OngoingProjectsModel().projects;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MyTextPoppines(
+              text: "Ongoing Projects",
+              fontWeight: FontWeight.w600,
+              fontSize: width / 23,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(AllOngoingProjects.routeName);
+              },
+              child: MyTextPoppines(
+                text: "View All",
+                fontWeight: FontWeight.w500,
+                fontSize: width / 30,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: height / 80),
+        ongoingProjects != null
+            ? ongoingProjects.length != 0
+                ? SizedBox(
+                    height: height / 2.90,
+                    child: ListView.builder(
+                      shrinkWrap: false,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: project!.length,
+                      itemBuilder: (context, index) {
+                        final bool isMultipleProjects =
+                            ongoingProjects[index].services!.length > 1;
+                        return OngoingWorkCard(
+                          isMultiProjects: isMultipleProjects,
+                          index: index,
+                        );
+                      },
+                    ),
+                  )
+                : MyTextPoppines(text: "No Ongoing Projects")
+            : effect(context),
+      ],
+    );
+  }
+}
 
 class OngoingWorkCard extends StatelessWidget {
   final bool isMultiProjects;
@@ -51,6 +119,25 @@ class OngoingWorkCard extends StatelessWidget {
       );
     }
 
+    void onViewEstTapped() {
+      isMultiProjects
+          ? Navigator.of(context).pushScreen(
+              MultipleProjectServicesScreen(project: projects[index]),
+            )
+          : {
+              _getProjectDetails(),
+              Navigator.of(context).pushScreen(
+                OngoingProjectDetailScreen(
+                  // id: projectId,
+                  // isNormalProject: isNormalProject!,
+                  // isProjectCompleted: project.isCompleted!,
+                  project: project,
+                ),
+              ),
+            };
+      ("Project Id : $projectId || Pro Id : $proId").log();
+    }
+
     return Container(
       width: context.screenWidth / 1.95,
       decoration: BoxDecoration(
@@ -75,7 +162,7 @@ class OngoingWorkCard extends StatelessWidget {
               children: [
                 // PROJECT NAME
                 MyTextPoppines(
-                  text: project.projectName.toString(),
+                  text: project.projectName ?? "",
                   fontWeight: FontWeight.w500,
                   fontSize: width / 30,
                   maxLines: 1,
@@ -165,7 +252,7 @@ class OngoingWorkCard extends StatelessWidget {
                     ),
                     SizedBox(width: width / 60),
                     MyTextPoppines(
-                      text: project.projectStartDate.toString(),
+                      text: project.projectStartDate ?? "",
                       fontWeight: FontWeight.w600,
                       fontSize: width / 38,
                     ),
@@ -180,8 +267,9 @@ class OngoingWorkCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: width / 34),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12)),
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
                 image: isImgNull
                     ? DecorationImage(
                         image: AssetImage("assets/images/room/2(1).png"),
@@ -189,7 +277,8 @@ class OngoingWorkCard extends StatelessWidget {
                       )
                     : DecorationImage(
                         image: NetworkImage(
-                            project.projectImages!.first.thumbnailUrl!),
+                          project.projectImages!.first.thumbnailUrl!,
+                        ),
                         fit: BoxFit.cover,
                       ),
               ),
@@ -237,7 +326,10 @@ class OngoingWorkCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Expanded(flex: 1, child: SizedBox(height: height / 80)),
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(height: height / 80),
+                  ),
                   // View Estimate Button
                   Align(
                     alignment: Alignment.center,
@@ -247,38 +339,7 @@ class OngoingWorkCard extends StatelessWidget {
                       text: "View Est",
                       fontSize: width / 30,
                       fontWeight: FontWeight.w600,
-                      onTap: () {
-                        isMultiProjects
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return MultipleProjectServicesScreen(
-                                      index: index,
-                                      projects: projects,
-                                    );
-                                  },
-                                ),
-                              )
-                            : {
-                                _getProjectDetails(),
-                                ("Project Id : $projectId || Pro Id : $proId")
-                                    .log(),
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return OngoingProjectDetailScreen(
-                                        id: projectId,
-                                        isNormalProject: isNormalProject!,
-                                        isProjectCompleted:
-                                            project.isCompleted!,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              };
-                      },
+                      onTap: onViewEstTapped,
                     ),
                   ),
                   SizedBox(height: height / 80),

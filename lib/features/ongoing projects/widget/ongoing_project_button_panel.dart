@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
+import 'package:new_user_side/data/models/ongoing_project_model.dart';
+import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
-import 'package:new_user_side/static%20componets/dialogs/pro_work_details_dialog.dart';
-import 'package:new_user_side/static%20componets/dialogs/projects_notes_dialog.dart';
+import 'package:new_user_side/static%20components/dialogs/pro_work_details_dialog.dart';
+import 'package:new_user_side/static%20components/dialogs/projects_notes_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
@@ -17,25 +18,24 @@ import '../../additional work/screens/add_addition_work_screen.dart';
 import '../../additional work/widget/icon_button_with_text.dart';
 
 class OngoingJobsButtonsPanel extends StatelessWidget {
-  final bool isNormalProject;
-  final String projectId;
-  final bool isProjectCompleted;
+  final Projects project;
   const OngoingJobsButtonsPanel({
     Key? key,
-    required this.isNormalProject,
-    required this.projectId,
-    required this.isProjectCompleted,
+    required this.project,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(isNormalProject);
-    final supportNotifier = context.watch<SupportNotifier>();
-    final isSupportActive = supportNotifier.supportStatus == 1;
-    final estimateNotifer = context.read<EstimateNotifier>();
-    final bookingId = estimateNotifer.projectDetails.services!.estimateNo;
     final h = context.screenHeight;
     final w = context.screenWidth;
+
+    final supportNotifier = context.watch<SupportNotifier>();
+    final estimateNotifer = context.read<EstimateNotifier>();
+    final isSupportActive = supportNotifier.supportStatus == 1;
+    final bookingId = estimateNotifer.projectDetails.services!.estimateNo;
+    final bool isNormalProject = project.normal!;
+    final String projectId = project.id.toString();
+    final bool isProjectCompleted = project.isCompleted!;
 
     // get invoice data
     Future _getInvoiceHandler() async {
@@ -63,8 +63,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                           ? Navigator.of(context).pushScreen(
                               ChattingScreen(isChatWithPro: false),
                             )
-                          : Navigator.pushNamed(
-                              context,
+                          : Navigator.of(context).pushNamed(
                               SendQueryScreen.routeName,
                             );
                     },
@@ -146,32 +145,33 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           ),
           15.vs,
           _buildIconButtonWithText(
-              firstButtonText: "Message pro",
-              firstButtonTextColor: AppColors.buttonBlue,
-              firstButtonImgUrl: "assets/icons/customer-support.png",
-              firstButtonColor: const Color(0xFFE8F4FF),
-              firstButtonOnTap: () => Navigator.pushNamed(
-                    context,
-                    ChatWIthProChatListScreen.routeName,
-                  ),
-              secondButtonext: !isProjectCompleted
-                  ? "Req Additional Work"
-                  : "   Additional Work   ",
-              secondtButtonTextColor: const Color(0xFFB9B100),
-              secondButtonImgUrl: "assets/icons/add-photo.png",
-              secondButtonColor: const Color(0xFFF7F6E0),
-              secondButtonOnTap: isNormalProject
-                  ? () {
-                      Navigator.pushNamed(
-                        context,
-                        AddAdditionalWorkScreen.routeName,
-                        arguments: projectId,
-                      );
-                      print("Project id For additonal work : $projectId");
-                    }
-                  : () {
-                      // Show only requested works
-                    }),
+            firstButtonText: "Message pro",
+            firstButtonTextColor: AppColors.buttonBlue,
+            firstButtonImgUrl: "assets/icons/customer-support.png",
+            firstButtonColor: const Color(0xFFE8F4FF),
+            firstButtonOnTap: () => Navigator.pushNamed(
+              context,
+              AllConversationScreen.routeName,
+            ),
+            secondButtonext: !isProjectCompleted
+                ? "Req Additional Work"
+                : "   Additional Work   ",
+            secondtButtonTextColor: const Color(0xFFB9B100),
+            secondButtonImgUrl: "assets/icons/add-photo.png",
+            secondButtonColor: const Color(0xFFF7F6E0),
+            secondButtonOnTap: isNormalProject
+                ? () {
+                    Navigator.pushNamed(
+                      context,
+                      AddAdditionalWorkScreen.routeName,
+                      arguments: projectId,
+                    );
+                    print("Project id For additonal work : $projectId");
+                  }
+                : () {
+                    // Show only requested works
+                  },
+          ),
           15.vs,
           Row(
             children: [

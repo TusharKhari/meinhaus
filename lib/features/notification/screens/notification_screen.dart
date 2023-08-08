@@ -1,9 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/notifiers/notification_notifier.dart';
 import '../widget/early_notifications_widget.dart';
 import '../widget/today_notification_widget.dart';
 
@@ -13,10 +17,12 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(text: "Notifications"),
-      body: SingleChildScrollView(
-        child: Column(
+    final notifier = context.watch<NotificationNotifier>();
+    return ModalProgressHUD(
+      inAsyncCall: notifier.isLoading,
+      child: Scaffold(
+        appBar: MyAppBar(text: "Notifications"),
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(

@@ -1,13 +1,83 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
 import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
+
+class EstimateCardHomeScreenView extends StatelessWidget {
+  final Function(BuildContext context) effect;
+  const EstimateCardHomeScreenView({super.key, required this.effect});
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+
+    final estimateNotifier = context.watch<EstimateNotifier>();
+    final estimateWork = estimateNotifier.estimated.estimatedWorks;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MyTextPoppines(
+          text: "Estimated Work",
+          fontWeight: FontWeight.w600,
+          fontSize: width / 23,
+        ),
+        SizedBox(height: height / 70),
+        estimateWork != null
+            ? Visibility(
+                visible: estimateWork.length != 0,
+                child: SizedBox(
+                  height: height / 3,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: estimateWork.length,
+                    itemBuilder: (context, index) {
+                      return EstimatedWorkCard(index: index);
+                    },
+                  ),
+                ),
+              )
+            : effect(context),
+        Visibility(
+          visible: estimateWork != null && estimateWork.length == 0,
+          child: Container(
+            height: height / 12,
+            width: context.screenWidth / 2.4,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(width / 30),
+              color: AppColors.white,
+              border: Border.all(),
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: height / 70,
+              horizontal: width / 40,
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  EstimateGenerationScreen.routeName,
+                  arguments: true,
+                );
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class EstimatedWorkCard extends StatelessWidget {
   final int index;
@@ -62,7 +132,7 @@ class EstimatedWorkCard extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                        text: projectDetails.estimateDate.toString(),
+                        text: projectDetails.estimateDate ?? "",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:provider/provider.dart';
 
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_widget.dart';
@@ -22,15 +23,11 @@ import '../widget/ongoing_project_photos_card_widget.dart';
 import '../widget/ongoing_project_button_panel.dart';
 
 class OngoingProjectDetailScreen extends StatefulWidget {
-  final String id;
-  final bool isNormalProject; // Ture Ongoing Project False Hourly Job
-  final bool isProjectCompleted;
+  final Projects project;
   static const String routeName = '/ongoingProjectDeatils';
   const OngoingProjectDetailScreen({
     Key? key,
-    required this.id,
-    required this.isNormalProject,
-    required this.isProjectCompleted,
+    required this.project,
   }) : super(key: key);
 
   @override
@@ -59,7 +56,8 @@ class _OngoingProjectDetailScreenState
   @override
   void dispose() {
     super.dispose();
-    notifier.unsubscribe(widget.id); // Unsubscribing Pusher Channel
+    notifier.unsubscribe(
+        widget.project.id.toString()); // Unsubscribing Pusher Channel
   }
 
   // Subscribing Customer-Proffessinal Chat Channels
@@ -68,7 +66,7 @@ class _OngoingProjectDetailScreenState
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId.toString();
     final channelName = [
-      "private-query.${widget.id}.$userId",
+      "private-query.${widget.project.id}.$userId",
       "private-chat.$userId",
     ];
     await notifier.setupPusher(context, channelName);
@@ -118,10 +116,12 @@ class _OngoingProjectDetailScreenState
                           ),
                           Divider(thickness: 1.8.h),
                           10.vs,
+                          // BILL CARD
                           const OngoingProjectBillCardWidget(),
                           10.vs,
                           Divider(thickness: 1.8.h),
                           10.vs,
+                          // DESCRIPTION
                           const OngoingProjectDescCardWidget(),
                           Visibility(
                             visible: services.projectImages!.length > 0,
@@ -135,12 +135,8 @@ class _OngoingProjectDetailScreenState
                           ),
                           20.vs,
                           Divider(thickness: 1.8.h),
-                          // Ongoing Buttons
-                          OngoingJobsButtonsPanel(
-                            isNormalProject: widget.isNormalProject,
-                            projectId: widget.id,
-                            isProjectCompleted: widget.isProjectCompleted,
-                          ),
+                          // BUTTONS
+                          OngoingJobsButtonsPanel(project: widget.project),
                           Visibility(
                             visible: isProjetCompleted,
                             child: Divider(thickness: 1.8.h),

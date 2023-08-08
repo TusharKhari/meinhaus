@@ -6,7 +6,7 @@ import 'package:new_user_side/utils/extensions/validator.dart';
 import 'package:provider/provider.dart';
 
 import 'package:new_user_side/data/network/network_api_servcies.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';

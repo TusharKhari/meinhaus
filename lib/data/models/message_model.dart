@@ -2,7 +2,7 @@
 class MessageModel {
   String? status;
   int? conversationId;
-  String? toUserId;
+  int? toUserId;
   int? messageCount;
   List<Messages>? messages;
 
@@ -41,7 +41,7 @@ class MessageModel {
   MessageModel copyWith({
     String? status,
     int? conversationId,
-    String? toUserId,
+    int? toUserId,
     int? messageCount,
     List<Messages>? messages,
   }) {

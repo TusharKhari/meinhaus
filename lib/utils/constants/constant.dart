@@ -9,7 +9,6 @@ final String googleAddresUrl =
 final String kPLACES_API_KEY = "AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU";
 
 // Card box shadow
-
 final List<BoxShadow> boxShadow = [
   BoxShadow(
     color: const Color.fromARGB(20, 0, 0, 0),

@@ -34,7 +34,7 @@ class AdditionalWork {
   String? description;
   List<String>? images;
   String? amount;
-  String? status;
+  int? status;
 
   AdditionalWork(
       {this.id,

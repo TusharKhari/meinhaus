@@ -1,3 +1,5 @@
+//! Ignore this file
+
 class MyFontSize {
   static const double font2 = 781 / 2;
   static const double font1 = 781 / 1;

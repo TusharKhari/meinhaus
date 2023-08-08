@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:new_user_side/features/notification/screens/notification_scree.dart';
+import 'package:new_user_side/features/notification/screens/notification_screen.dart';
 import 'package:new_user_side/main.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-
 
 // This fucntion help us to handle all the notifications when app was running in background
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
@@ -14,7 +13,7 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print("Payload : ${message.data}");
 }
 
-class FirebaseApi {
+class PushNotificationServices {
   // Getting the instamce of firebaseMessage
   final _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -27,8 +26,8 @@ class FirebaseApi {
   );
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
- 
- // Handling all the messages coming from firebase
+
+  // Handling all the messages coming from firebase
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
     navigatorKey.currentState!.pushScreen(NotificationScreen());
@@ -57,17 +56,16 @@ class FirebaseApi {
 
 // Very important for ios foreground notifications
   Future initPushNotifications() async {
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
+    _firebaseMessaging.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
     // When app is opend for terminated state
-    FirebaseMessaging.instance.getInitialMessage().then((handleMessage));
+    _firebaseMessaging.getInitialMessage().then((handleMessage));
     // Execute [ handleMessage ] function when app is running in background
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
-    // When app is running in background we will print all the notification 
+    // When app is running in background we will print all the notification
     // details on cosole [ title, name, id, etc..]
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     FirebaseMessaging.onMessage.listen(
@@ -92,11 +90,11 @@ class FirebaseApi {
     );
   }
 
-  // Initializing notifications 
+  // Initializing notifications
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
     final fCMToken = await _firebaseMessaging.getToken();
-    print("Token : $fCMToken");
+    ("$fCMToken").log("FCM Token");
     initPushNotifications();
     initLocalNotifications();
   }

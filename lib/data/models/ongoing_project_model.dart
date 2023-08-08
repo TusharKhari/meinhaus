@@ -102,7 +102,7 @@ class Services {
   String? bookingId;
   String? projectCost;
   String? dateAssigned;
-  dynamic proId;
+  int? proId;
   List<ProjectImages>? images;
   bool? isCompleted;
 

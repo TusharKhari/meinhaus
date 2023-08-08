@@ -7,7 +7,7 @@ import 'package:new_user_side/features/auth/screens/create_starting_project_scre
 import 'package:new_user_side/features/auth/screens/forget_password_otp_verifation_screen.dart';
 import 'package:new_user_side/features/auth/screens/signin_screen.dart';
 import 'package:new_user_side/features/edit%20profile/screens/edit_profile_screen.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 

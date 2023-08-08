@@ -13,16 +13,15 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class ChatWIthProChatListScreen extends StatefulWidget {
+class AllConversationScreen extends StatefulWidget {
   static const String routeName = '/chatList';
-  const ChatWIthProChatListScreen({super.key});
+  const AllConversationScreen({super.key});
 
   @override
-  State<ChatWIthProChatListScreen> createState() =>
-      _ChatWIthProChatListScreenState();
+  State<AllConversationScreen> createState() => _AllConversationScreenState();
 }
 
-class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
+class _AllConversationScreenState extends State<AllConversationScreen> {
   late ChatNotifier notifier;
   @override
   void initState() {
@@ -61,9 +60,8 @@ class _ChatWIthProChatListScreenState extends State<ChatWIthProChatListScreen> {
               child: ListView.builder(
                 itemCount: conversationList.conversations!.length,
                 itemBuilder: (context, index) {
-                  final newList = conversationList.conversations![index];
                   return ChatCardWidget(
-                    conversations: newList,
+                    conversations: conversationList.conversations![index],
                   );
                 },
               ),
@@ -89,15 +87,15 @@ class ChatCardWidget extends StatelessWidget {
     final h = context.screenHeight;
     final w = context.screenWidth;
     final conv = conversations;
-    String? toUserId = conv.toUserId;
+    int? toUserId = conv.toUserId;
     bool? isSend = true;
 
-    if (userNotifier.userId.toString() == conv.toUserId) {
+    if (userNotifier.userId == conv.toUserId) {
       toUserId = conv.fromUserId;
       isSend = false;
     }
 
-    void onTap() {
+    void loadMessages() {
       Navigator.of(context).pushScreen(
         ChattingScreen(
           isChatWithPro: true,
@@ -108,7 +106,7 @@ class ChatCardWidget extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () => onTap(),
+      onTap: () => loadMessages(),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: w / 40, vertical: h / 60),
         child: Row(
@@ -163,7 +161,10 @@ class ChatCardWidget extends StatelessWidget {
                             : const SizedBox(),
                         SizedBox(
                           width: isSend ? w / 1.9 : w / 1.6,
-                          child: mType(conv.lastMessageType!, context),
+                          child: mType(
+                            conv.lastMessageType!,
+                            context,
+                          ),
                         ),
                       ],
                     ),

@@ -23,7 +23,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 
 import '../../../res/common/buttons/my_buttons.dart';
-import '../../../static componets/dialogs/edit_profile_dialog.dart';
+import '../../../static components/dialogs/edit_profile_dialog.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
 
@@ -70,8 +70,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       lastName: lastNameController.text,
     );
   }
-  
-  // This function sent an otp to there registered mobile no 
+
+  // This function sent an otp to there registered mobile no
   Future<void> _verifyPhoneNoHandler(String phoneNo) async {
     final notifier = context.read<AuthNotifier>();
     final phone = phoneNo.replaceAll("-", "");
@@ -85,12 +85,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     await notifier.verifyEmail(context);
   }
 
+  ImageProvider<Object> _showProfileImage({
+    required String notifierImg,
+    required String newtworkImg,
+  }) {
+    if (notifierImg.isNotEmpty) {
+      return Image.file(File(notifierImg)).image;
+    } else if (newtworkImg.length != 0) {
+      return NetworkImage(newtworkImg);
+    } else {
+      return AssetImage("assets/images/man.png");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
     String userName = "${user.firstname} ${user.lastname}";
     final img = notifier.image;
+
     return ModalProgressHUD(
       inAsyncCall: notifier.loading,
       child: Scaffold(
@@ -105,8 +121,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return EditProfilePicDialog(
                         onTapAtOk: () async {
                           notifier.setProfileImg(XFile(""));
-                          Navigator.pop(context);
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         },
                       );
                     },
@@ -120,14 +136,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Row(
               children: [
                 30.hs,
-                CircleAvatar(
-                  radius: 40.r,
-                  backgroundImage: img.path.isNotEmpty
-                      ? Image.file(File(img.path)).image // Show picked img
-                      : user.profilePic!.length > 0
-                          ? NetworkImage(user.profilePic!) // Show Sever img
-                              as ImageProvider<Object>?
-                          : AssetImage("assets/images/man.png"), // Default
+                Container(
+                  width: width / 4.5,
+                  height: height / 9,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                      image: _showProfileImage(
+                        notifierImg: img.path,
+                        newtworkImg: user.profilePic!,
+                      ),
+                    ),
+                    border: Border.all(
+                      color: AppColors.black,
+                      width: width / 200,
+                    ),
+                  ),
                 ),
                 20.hs,
                 Column(
@@ -190,7 +215,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       20.vs,
-                      // BASIC INFO 
+                      // BASIC INFO
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
@@ -495,8 +520,6 @@ class VerifyPhoneNoDialogState extends State<VerifyPhoneNoDialog> {
 }
 
 class _VerifyEmailDialog extends StatelessWidget {
-  const _VerifyEmailDialog({super.key});
-
   @override
   Widget build(BuildContext context) {
     final authNotifier = context.watch<AuthNotifier>();
