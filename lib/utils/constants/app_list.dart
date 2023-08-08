@@ -8,17 +8,6 @@ import 'package:new_user_side/features/settings/screens/setting_screen.dart';
 
 import '../../../features/home/screens/home_screen.dart';
 
-// Ongoing Project
-List<String> ongoingProjectDesList = [
-  "Need to fix the furniture in manner it can’t break again.",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "Need to fix the furniture in manner it can’t break again.",
-  "Need to fix the furniture in manner it can’t break again.",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "Need to fix the furniture in manner it can’t break again.",
-];
 
 // Drawer
 List drawerList = [

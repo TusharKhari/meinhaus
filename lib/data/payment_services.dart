@@ -1,14 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../res/common/api_url/api_urls.dart';
-
+ 
 class MakePayment {
   Map<String, dynamic>? paymentIntent;
   Future<bool> makePayment({
@@ -31,7 +32,6 @@ class MakePayment {
       final res = await displayPaymentSheet(context);
       return res;
     } catch (err) {
-      print(err);
       throw Exception(err);
     }
   }
@@ -43,18 +43,20 @@ class MakePayment {
         Uri.parse('${ApiUrls.createIntent}$bookingId'),
         headers: headers,
       );
-      ("Status Code at intent creation : ${response.statusCode}")
-          .log("Create Payment Intent");
+      ("Status at Intent Creation : ${response.statusCode}")
+          .log("Payment Intent");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        print(data['data']['payment_intent']['client_secret']);
-        print(data['data']['payment_intent']['customer']);
-        print(data['data']['ephemeralKey']['secret']);
+        if (kDebugMode) {
+          // help dev to see the output
+          print(data['data']['payment_intent']['client_secret']);
+          print(data['data']['payment_intent']['customer']);
+          print(data['data']['ephemeralKey']['secret']);
+        }
         return data['data'];
       }
     } catch (err) {
-      print("error charging user : $err");
-      throw Exception(err.toString());
+      throw Exception(err);
     }
   }
 
@@ -66,9 +68,8 @@ class MakePayment {
         isValueTrue = true;
       }).onError((error, stackTrace) {
         showSnakeBarr(context, "Transcation Declined", SnackBarState.Info);
-        print("onError in payment sheet ->>> $error");
         isValueTrue = false;
-        throw Exception(error);
+        throw Exception("$error $stackTrace");
       });
     } on StripeException catch (e) {
       print('Error is:---> $e');

@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/pusher_services.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/repository/chat_respository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';

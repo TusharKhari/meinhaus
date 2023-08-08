@@ -80,4 +80,8 @@ class ApiUrls {
   static Uri loadMoreMessages = setUrls("load-more");
   static Uri readMessage = setUrls("trigger-read-event");
   static Uri sendMessage = setUrls("send-message");
+
+  // Notification
+  static Uri notification = setUrls("read-notifications");
+
 }

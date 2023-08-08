@@ -12,7 +12,7 @@ import 'package:new_user_side/features/estimate/screens/estimate_generation_scre
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/features/invoice/screens/progess_invoice_screen.dart';
-import 'package:new_user_side/features/notification/screens/notification_scree.dart';
+import 'package:new_user_side/features/notification/screens/notification_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/completed_projects_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_services_screen.dart';

@@ -39,6 +39,21 @@ class ProjectInfoCard extends StatelessWidget {
       notifier.getProjectDetails(context: context, id: projectId, proId: proId);
     }
 
+    void onViewDetailsTapped() {
+      final project = projects[index];
+      isMultipleServices
+          ? Navigator.of(context).pushScreen(
+              MultipleProjectServicesScreen(project: project),
+            )
+          : {
+              Navigator.of(context).pushScreen(
+                OngoingProjectDetailScreen(project: project),
+              ),
+              _getProjectDetails(),
+            };
+      ("Project Id:$projectId : Pro Id:$proId").log();
+    }
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(
@@ -246,35 +261,7 @@ class ProjectInfoCard extends StatelessWidget {
                     ),
                     // View details button
                     InkWell(
-                      onTap: () => isMultipleServices
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return MultipleProjectServicesScreen(
-                                    index: index,
-                                    projects: projects,
-                                  );
-                                },
-                              ),
-                            )
-                          : {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return OngoingProjectDetailScreen(
-                                      id: projectId,
-                                      isNormalProject: isHourlyBooking,
-                                      isProjectCompleted:
-                                          ongoingJobs.isCompleted!,
-                                    );
-                                  },
-                                ),
-                              ),
-                              _getProjectDetails(),
-                              ("Project Id:$projectId : Pro Id:$proId").log()
-                            },
+                      onTap: () => onViewDetailsTapped(),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),

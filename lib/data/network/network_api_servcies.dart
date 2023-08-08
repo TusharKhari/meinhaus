@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-import '../../local/user_prefrences.dart';
+import '../../local db/user_prefrences.dart';
 import '../../utils/enum.dart';
 import '../exception/app_exception.dart';
 import 'base_api_services.dart';

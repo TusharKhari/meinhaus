@@ -23,7 +23,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 
 import '../../../res/common/buttons/my_buttons.dart';
-import '../../../static componets/dialogs/edit_profile_dialog.dart';
+import '../../../static components/dialogs/edit_profile_dialog.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
 

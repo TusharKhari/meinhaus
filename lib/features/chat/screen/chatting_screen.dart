@@ -11,7 +11,7 @@ import 'package:new_user_side/features/chat/widgets/customer_end_conversation_bo
 import 'package:new_user_side/features/chat/widgets/support_chat_appbar.dart';
 import 'package:new_user_side/features/customer%20support/widget/show_flagged_query.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
-import 'package:new_user_side/static%20componets/dialogs/customer_close_ticket_dialog.dart';
+import 'package:new_user_side/static%20components/dialogs/customer_close_ticket_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';

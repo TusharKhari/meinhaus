@@ -8,7 +8,7 @@ import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/res/common/api_url/api_urls.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:provider/provider.dart';
-import '../../../../local/user_prefrences.dart';
+import '../../../../local db/user_prefrences.dart';
 import '../../../../utils/constants/error_handling.dart';
 
 typedef RequestBody = Map<String, String>;
