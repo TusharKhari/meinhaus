@@ -92,17 +92,17 @@ class ShowReviewCard extends StatelessWidget {
                 _buildRatingTypes(
                   context: context,
                   title: "Punctualty :",
-                  rating: double.parse(review.first.punctuality!),
+                  rating: double.parse(review.first.punctuality!.toString()),
                 ),
                 _buildRatingTypes(
                   context: context,
                   title: "Responsivness :",
-                  rating: double.parse(review.first.responsiveness!),
+                  rating: double.parse(review.first.responsiveness!.toString()),
                 ),
                 _buildRatingTypes(
                   context: context,
                   title: "Quality :",
-                  rating: double.parse(review.first.quality!),
+                  rating: double.parse(review.first.quality!.toString()),
                 ),
                 2.vspacing(context),
               ],

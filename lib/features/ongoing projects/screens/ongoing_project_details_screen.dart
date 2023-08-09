@@ -142,7 +142,7 @@ class _OngoingProjectDetailScreenState
                             child: Divider(thickness: 1.8.h),
                           ),
                           Visibility(
-                            visible: isProjetCompleted,
+                            visible: widget.project.isCompleted!,
                             child: ShowReviewCard(),
                           ),
                           Divider(thickness: 1.8.h),

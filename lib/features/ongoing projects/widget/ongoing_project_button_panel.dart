@@ -35,7 +35,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     final bookingId = estimateNotifer.projectDetails.services!.estimateNo;
     final bool isNormalProject = project.normal!;
     final String projectId = project.id.toString();
-    final bool isProjectCompleted = project.isCompleted!;
+    final bool isProjectCompleted = project.isCompleted ?? true;
 
     // get invoice data
     Future _getInvoiceHandler() async {
@@ -54,9 +54,9 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Customer Support Button
               Stack(
                 children: [
-                  // Customer Support Button
                   InkWell(
                     onTap: () {
                       isSupportActive
@@ -105,6 +105,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       : SizedBox(),
                 ],
               ),
+              // Project Notes Button
               InkWell(
                 onTap: () {
                   showDialog(
@@ -144,18 +145,18 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
             ],
           ),
           15.vs,
+          // Message pro and Request additional work
           _buildIconButtonWithText(
             firstButtonText: "Message pro",
             firstButtonTextColor: AppColors.buttonBlue,
             firstButtonImgUrl: "assets/icons/customer-support.png",
             firstButtonColor: const Color(0xFFE8F4FF),
-            firstButtonOnTap: () => Navigator.pushNamed(
-              context,
+            firstButtonOnTap: () => Navigator.of(context).pushNamed(
               AllConversationScreen.routeName,
             ),
-            secondButtonext: !isProjectCompleted
-                ? "Req Additional Work"
-                : "   Additional Work   ",
+            secondButtonext: isProjectCompleted
+                ? "   Additional Work   "
+                : "Req Additional Work",
             secondtButtonTextColor: const Color(0xFFB9B100),
             secondButtonImgUrl: "assets/icons/add-photo.png",
             secondButtonColor: const Color(0xFFF7F6E0),
@@ -193,11 +194,9 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                         size: 18.sp,
                         color: Color(0xFF934600),
                       ),
-                      SizedBox(
-                        width: w / 40,
-                      ),
+                      SizedBox(width: w / 40),
                       MyTextPoppines(
-                        text: "Inovice",
+                        text: "Invoice",
                         height: 1.8,
                         fontSize: w / 30,
                         fontWeight: FontWeight.bold,
@@ -209,8 +208,9 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
               ),
               SizedBox(width: w / 40),
               // Horuly Work details button
-              !isNormalProject
-                  ? InkWell(
+              isNormalProject
+                  ? SizedBox()
+                  : InkWell(
                       onTap: () {
                         showDialog(
                           context: context,
@@ -248,7 +248,6 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                         ),
                       ),
                     )
-                  : SizedBox()
             ],
           ),
         ],

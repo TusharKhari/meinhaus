@@ -119,7 +119,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                   MyTextField(
                     text: "Description of project",
                     maxLines: 5,
-                    hintText: "Describe you project here ..!",
+                    hintText: "Describe you project here .",
                     isHs20: false,
                     controller: descController,
                     focusNode: descNode,

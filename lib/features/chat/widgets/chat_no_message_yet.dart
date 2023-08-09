@@ -6,8 +6,6 @@ import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-
-
 class NoMessageYetWidget extends StatelessWidget {
   const NoMessageYetWidget({super.key});
   @override
@@ -35,13 +33,13 @@ class NoMessageYetWidget extends StatelessWidget {
       child: Column(
         children: [
           MyTextPoppines(
-            text: "No Messages yet..!",
+            text: "No Messages yet.",
             fontSize: w / 20,
             color: AppColors.yellow,
           ),
           SizedBox(height: h / 40),
           MyTextPoppines(
-            text: "Send a message to \n     chat with Pro..!",
+            text: "Send a message to \n     chat with Pro.",
             fontSize: w / 24,
             color: AppColors.black.withOpacity(0.4),
           ),

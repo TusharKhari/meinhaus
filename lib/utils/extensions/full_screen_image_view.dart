@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,12 +58,15 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
         itemCount: widget.images.length,
         itemBuilder: (context, index, realIndex) {
           final image = widget.images[index];
-          return Container(
-            child: InteractiveViewer(
-              child: Image.network(
-                image.imageUrl!,
-                fit: BoxFit.contain,
-              ),
+          return CachedNetworkImage(
+            imageUrl: image.imageUrl!,
+            fit: BoxFit.contain,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Icon(
+              Icons.error,
+              color: Colors.red,
             ),
           );
         },

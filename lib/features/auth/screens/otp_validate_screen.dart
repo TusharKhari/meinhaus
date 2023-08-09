@@ -169,7 +169,7 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                     Align(
                       alignment: Alignment.center,
                       child: MyTextPoppines(
-                        text: "Let's Verify your contact number..!",
+                        text: "Let's Verify your contact number.",
                         fontSize: w / 18,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center,

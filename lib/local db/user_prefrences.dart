@@ -71,7 +71,7 @@ class UserPrefrences {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.setString('x-auth-token', '');
       context.pushNamedRoute(SignInScreen.routeName);
-      ("User Log-out ..!!").log("UP Log-out");
+      ("User Log-out .").log("UP Log-out");
     } catch (e) {
       showSnakeBar(context, e.toString());
     }
