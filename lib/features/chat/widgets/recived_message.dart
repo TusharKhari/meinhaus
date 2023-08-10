@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/features/chat/widgets/preview_chat_images.dart';
+import 'package:new_user_side/features/chat/widgets/sent_message.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -54,7 +55,13 @@ class RecivedMessage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              mType(messageType!, context),
+              ChatHelper.showMessage(
+                context: context,
+                messageType: messageType ?? "text",
+                message: sendText,
+                messageColor: AppColors.black,
+              ),
+              // mType(messageType!, context),
               SizedBox(width: w / 60),
               MyTextPoppines(
                 text: timeOfText,
@@ -70,58 +77,60 @@ class RecivedMessage extends StatelessWidget {
     );
   }
 
-  Widget mType(String type, BuildContext context) {
-    final w = context.screenWidth;
-    final textMessage = SizedBox(
-      width: w / 1.9,
-      child: MyTextPoppines(
-        text: sendText,
-        fontSize: w / 32,
-        fontWeight: FontWeight.w500,
-        color: AppColors.black,
-        maxLines: 100,
-      ),
-    );
-    final pdfMessage = DownloadFile(fileNmae: sendText);
-    final imgMessage = SizedBox(
-      width: w / 1.9,
-      child: InkWell(
-        onTap: () => Navigator.of(context).pushScreen(
-          PreviewChatImages(imgPath: sendText),
-        ),
-        child: Hero(
-          tag: sendText,
-          child: CachedNetworkImage(
-            imageUrl: sendText,
-            errorWidget: (context, url, error) => Icon(
-              Icons.image_not_supported,
-              size: w / 10,
-              color: Colors.red[900],
-            ),
-            placeholder: (context, url) => Center(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: LoadingAnimationWidget.inkDrop(
-                  color: AppColors.black,
-                  size: w / 26,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-    switch (type) {
-      case "text":
-        return textMessage;
-      case "pdf":
-        return pdfMessage;
-      case "png":
-        return imgMessage;
-      case "jpg":
-        return imgMessage;
-      default:
-        return textMessage;
-    }
-  }
+// text message color
+
+  // Widget mType(String type, BuildContext context) {
+  //   final w = context.screenWidth;
+  //   final textMessage = SizedBox(
+  //     width: w / 1.9,
+  //     child: MyTextPoppines(
+  //       text: sendText,
+  //       fontSize: w / 32,
+  //       fontWeight: FontWeight.w500,
+  //       color: AppColors.black,
+  //       maxLines: 100,
+  //     ),
+  //   );
+  //   final pdfMessage = DownloadFile(fileNmae: sendText);
+  //   final imgMessage = SizedBox(
+  //     width: w / 1.9,
+  //     child: InkWell(
+  //       onTap: () => Navigator.of(context).pushScreen(
+  //         PreviewChatImages(imgPath: sendText),
+  //       ),
+  //       child: Hero(
+  //         tag: sendText,
+  //         child: CachedNetworkImage(
+  //           imageUrl: sendText,
+  //           errorWidget: (context, url, error) => Icon(
+  //             Icons.image_not_supported,
+  //             size: w / 10,
+  //             color: Colors.red[900],
+  //           ),
+  //           placeholder: (context, url) => Center(
+  //             child: Padding(
+  //               padding: const EdgeInsets.all(12.0),
+  //               child: LoadingAnimationWidget.inkDrop(
+  //                 color: AppColors.black,
+  //                 size: w / 26,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //   switch (type) {
+  //     case "text":
+  //       return textMessage;
+  //     case "pdf":
+  //       return pdfMessage;
+  //     case "png":
+  //       return imgMessage;
+  //     case "jpg":
+  //       return imgMessage;
+  //     default:
+  //       return textMessage;
+  //   }
+  // }
 }

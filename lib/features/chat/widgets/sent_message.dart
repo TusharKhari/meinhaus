@@ -77,7 +77,12 @@ class SendMessage extends StatelessWidget {
               ),
             )
           else
-            mType(messageType!, context),
+            ChatHelper.showMessage(
+              context: context,
+              messageType: messageType ?? "text",
+              message: sendText,
+              messageColor: isConvoEnd! ? AppColors.black : AppColors.white,
+            ),
           MyTextPoppines(
             text: timeOfText,
             fontSize: w / 32,
@@ -88,38 +93,46 @@ class SendMessage extends StatelessWidget {
             maxLines: 20,
           ),
           Icon(
-            setIcon(messageState!),
+            ChatHelper.setIcon(messageState!),
             size: w / 25,
-            color: setIconColor(messageState!),
+            color: ChatHelper.setIconColor(messageState!),
           )
         ],
       ),
     );
   }
+}
 
-  Widget mType(String type, BuildContext context) {
+class ChatHelper {
+  // Showing messages according to there type
+  static Widget showMessage({
+    required BuildContext context,
+    required String messageType,
+    required String message,
+    required Color messageColor,
+  }) {
     final w = context.screenWidth;
     final textMessage = SizedBox(
       width: w / 1.9,
       child: MyTextPoppines(
-        text: sendText,
+        text: message,
         fontSize: w / 32,
         fontWeight: FontWeight.w500,
-        color: isConvoEnd! ? AppColors.black : AppColors.white,
+        color: messageColor,
         maxLines: 100,
       ),
     );
-    final pdfMessage = DownloadFile(fileNmae: sendText);
+    final pdfMessage = DownloadFile(fileNmae: message);
     final imgMessage = SizedBox(
       width: w / 1.9,
       child: InkWell(
         onTap: () => Navigator.of(context).pushScreen(
-          PreviewChatImages(imgPath: sendText),
+          PreviewChatImages(imgPath: message),
         ),
         child: Hero(
-          tag: sendText,
+          tag: message,
           child: CachedNetworkImage(
-            imageUrl: sendText,
+            imageUrl: message,
             errorWidget: (context, url, error) => Icon(
               Icons.image_not_supported,
               size: w / 10,
@@ -138,8 +151,7 @@ class SendMessage extends StatelessWidget {
         ),
       ),
     );
-
-    switch (type) {
+    switch (messageType) {
       case "text":
         return textMessage;
       case "pdf":
@@ -148,14 +160,12 @@ class SendMessage extends StatelessWidget {
         return imgMessage;
       case "jpg":
         return imgMessage;
-      case "webp":
-        return imgMessage;
       default:
         return textMessage;
     }
   }
 
-  IconData setIcon(int messageState) {
+  static IconData setIcon(int messageState) {
     switch (messageState) {
       case 0:
         return Icons.access_time_outlined;
@@ -170,7 +180,7 @@ class SendMessage extends StatelessWidget {
     }
   }
 
-  Color setIconColor(int messageState) {
+  static Color setIconColor(int messageState) {
     switch (messageState) {
       case 0:
         return Colors.white;
