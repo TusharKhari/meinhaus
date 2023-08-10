@@ -292,9 +292,11 @@ class AuthNotifier extends ChangeNotifier {
   Future googleSignIn(BuildContext context) async {
     MapSS data = {"provider": "google", "access_token": accessToken};
     await repository.googleLogin(data).then((response) async {
-      print(response);
       showSnakeBarr(
-          context, response['response_message'], SnackBarState.Success);
+        context,
+        response['response_message'],
+        SnackBarState.Success,
+      );
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
