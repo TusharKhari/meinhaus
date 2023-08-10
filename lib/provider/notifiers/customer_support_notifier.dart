@@ -70,6 +70,7 @@ class CustomerSupportNotifier extends ChangeNotifier {
     required String id,
   }) async {
     supportRepo.getRaisedQuery(id).then((response) {
+      print(response);
       var data = RaisedQueryModel.fromJson(response);
       setQueryModel(data);
       ('Get Raised Query ✅').log();

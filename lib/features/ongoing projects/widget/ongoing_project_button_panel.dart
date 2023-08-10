@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
-import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
+
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/static%20components/dialogs/pro_work_details_dialog.dart';
@@ -42,7 +43,27 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
       final estimateNotifer = context.read<EstimateNotifier>();
       await estimateNotifer.progressInvoice(
         context: context,
-        bookingId: bookingId.toString(),
+        bookingId: bookingId!,
+      );
+    }
+
+    // Navigate to chatting screen
+    void onMessageProTapped() async {
+      final projectNotifer =
+          context.read<EstimateNotifier>().projectDetails.services;
+      final proNotifier = context.read<EstimateNotifier>().proDetails.prodata;
+      Navigator.of(context).pushScreen(
+        ChattingScreen(
+          isChatWithPro: true,
+          sendUserId: proNotifier!.proId,
+          conversations: Conversations(
+            profilePicture: proNotifier.proProfileUrl,
+            toUserName: proNotifier.proName,
+            projectName: projectNotifer!.projectName,
+            estimateBookingId: projectNotifer.estimateNo,
+            projectStartedOn: projectNotifer.projectStartDate,
+          ),
+        ),
       );
     }
 
@@ -151,9 +172,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
             firstButtonTextColor: AppColors.buttonBlue,
             firstButtonImgUrl: "assets/icons/customer-support.png",
             firstButtonColor: const Color(0xFFE8F4FF),
-            firstButtonOnTap: () => Navigator.of(context).pushNamed(
-              AllConversationScreen.routeName,
-            ),
+            firstButtonOnTap: () => onMessageProTapped(),
             secondButtonext: isProjectCompleted
                 ? "   Additional Work   "
                 : "Req Additional Work",

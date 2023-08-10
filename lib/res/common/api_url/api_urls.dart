@@ -74,7 +74,7 @@ class ApiUrls {
   static String createIntent = baseUrl + "book-project?booking_id=";
 
   // Pusher-Chat
-  static Uri broadcastAuth = setUrls("broadcasting/auth");
+  static Uri broadcastAuth = Uri.parse("https://meinhaus.ca/meinhaus/broadcasting/auth");
   static Uri allConversation = setUrls("all-conversations");
   static Uri loadMessages = setUrls("load-messages");
   static Uri loadMoreMessages = setUrls("load-more");

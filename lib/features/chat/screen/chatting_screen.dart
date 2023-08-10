@@ -55,7 +55,6 @@ class _ChattingScreenState extends State<ChattingScreen> {
   @override
   void didChangeDependencies() {
     notifier = context.read<ChatNotifier>();
-
     super.didChangeDependencies();
   }
 

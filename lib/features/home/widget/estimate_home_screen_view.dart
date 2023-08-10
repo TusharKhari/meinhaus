@@ -155,6 +155,7 @@ class EstimatedWorkCard extends StatelessWidget {
               vertical: height / 80,
             ),
             decoration: BoxDecoration(
+              color: AppColors.black,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(width / 40),
                 bottomRight: Radius.circular(width / 40),

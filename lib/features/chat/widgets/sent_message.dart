@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -75,7 +77,12 @@ class SendMessage extends StatelessWidget {
               ),
             )
           else
-            mType(messageType!, context),
+            ChatHelper.showMessage(
+              context: context,
+              messageType: messageType ?? "text",
+              message: sendText,
+              messageColor: isConvoEnd! ? AppColors.black : AppColors.white,
+            ),
           MyTextPoppines(
             text: timeOfText,
             fontSize: w / 32,
@@ -86,42 +93,65 @@ class SendMessage extends StatelessWidget {
             maxLines: 20,
           ),
           Icon(
-            setIcon(messageState!),
+            ChatHelper.setIcon(messageState!),
             size: w / 25,
-            color: setIconColor(messageState!),
+            color: ChatHelper.setIconColor(messageState!),
           )
         ],
       ),
     );
   }
+}
 
-  Widget mType(String type, BuildContext context) {
+class ChatHelper {
+  // Showing messages according to there type
+  static Widget showMessage({
+    required BuildContext context,
+    required String messageType,
+    required String message,
+    required Color messageColor,
+  }) {
     final w = context.screenWidth;
     final textMessage = SizedBox(
       width: w / 1.9,
       child: MyTextPoppines(
-        text: sendText,
+        text: message,
         fontSize: w / 32,
         fontWeight: FontWeight.w500,
-        color: isConvoEnd! ? AppColors.black : AppColors.white,
+        color: messageColor,
         maxLines: 100,
       ),
     );
-    final pdfMessage = DownloadFile(fileNmae: sendText);
+    final pdfMessage = DownloadFile(fileNmae: message);
     final imgMessage = SizedBox(
       width: w / 1.9,
       child: InkWell(
         onTap: () => Navigator.of(context).pushScreen(
-          PreviewChatImages(imgPath: sendText),
+          PreviewChatImages(imgPath: message),
         ),
         child: Hero(
-          tag: sendText,
-          child: Image.network(sendText),
+          tag: message,
+          child: CachedNetworkImage(
+            imageUrl: message,
+            errorWidget: (context, url, error) => Icon(
+              Icons.image_not_supported,
+              size: w / 10,
+              color: Colors.red[900],
+            ),
+            placeholder: (context, url) => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: LoadingAnimationWidget.inkDrop(
+                  color: AppColors.black,
+                  size: w / 26,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
-
-    switch (type) {
+    switch (messageType) {
       case "text":
         return textMessage;
       case "pdf":
@@ -130,14 +160,12 @@ class SendMessage extends StatelessWidget {
         return imgMessage;
       case "jpg":
         return imgMessage;
-      case "webp":
-        return imgMessage;
       default:
         return textMessage;
     }
   }
 
-  IconData setIcon(int messageState) {
+  static IconData setIcon(int messageState) {
     switch (messageState) {
       case 0:
         return Icons.access_time_outlined;
@@ -152,7 +180,7 @@ class SendMessage extends StatelessWidget {
     }
   }
 
-  Color setIconColor(int messageState) {
+  static Color setIconColor(int messageState) {
     switch (messageState) {
       case 0:
         return Colors.white;
