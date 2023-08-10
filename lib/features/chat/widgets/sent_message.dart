@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -116,7 +118,23 @@ class SendMessage extends StatelessWidget {
         ),
         child: Hero(
           tag: sendText,
-          child: Image.network(sendText),
+          child: CachedNetworkImage(
+            imageUrl: sendText,
+            errorWidget: (context, url, error) => Icon(
+              Icons.image_not_supported,
+              size: w / 10,
+              color: Colors.red[900],
+            ),
+            placeholder: (context, url) => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: LoadingAnimationWidget.inkDrop(
+                  color: AppColors.black,
+                  size: w / 26,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

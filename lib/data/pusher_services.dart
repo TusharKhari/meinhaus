@@ -9,6 +9,7 @@ import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
+import 'package:new_user_side/res/common/api_url/api_urls.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -21,7 +22,7 @@ class PusherService {
 
   // Privatised Constructor
   PusherService._internal();
-  
+
   // Getter for instance -> PusherService instance = PusherService.instance;
   static PusherService get instance {
     _instance ??= PusherService._internal();
@@ -61,7 +62,7 @@ class PusherService {
         onConnectionStateChange: onConnectionStateChange,
         onError: onError,
         onSubscriptionSucceeded: onSubscriptionSucceeded,
-        onEvent: (event) => onChatEvent(event, context),
+        onEvent: (event) => onEvent(event, context),
         onSubscriptionError: onSubscriptionError,
         onSubscriptionCount: onSubscriptionCount,
         onAuthorizer: onAuthorizer,
@@ -107,7 +108,7 @@ class PusherService {
     try {
       final token = await UserPrefrences().getToken();
       var result = await http.post(
-        Uri.parse("https://meinhaus.ca/meinhaus/broadcasting/auth"),
+        ApiUrls.broadcastAuth,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer $token',
@@ -121,15 +122,16 @@ class PusherService {
     }
   }
 
-  void onChatEvent(PusherEvent event, BuildContext context) async {
+  void onEvent(PusherEvent event, BuildContext context) async {
     try {
       final notifier = context.read<ChatNotifier>();
       final proChatNotifier = context.read<ChatWithProNotifier>();
       final supportNotifier = context.read<SupportNotifier>();
       final userNotifier = context.read<AuthNotifier>().user;
-      final data = json.decode(event.data as String) as Map<String, dynamic>;
+
       // Handle "message-sent" event
       if (event.eventName == "message-sent") {
+        final data = json.decode(event.data as String) as Map<String, dynamic>;
         final body = {
           "conversation_id": data["conversation_id"].toString(),
           "to_user_id": data["message_data"]["sender_id"].toString(),
@@ -159,6 +161,7 @@ class PusherService {
       }
       // Handle "ticket-accepted" evetns
       else if (event.eventName == "ticket-accepted") {
+        final data = json.decode(event.data as String) as Map<String, dynamic>;
         await supportNotifier.setSupportStatus(1);
         await supportNotifier.setTicketId(data['ticket_id']);
       }
@@ -180,6 +183,6 @@ class PusherService {
     } catch (e) {
       (e).log("OnEvent Error");
     }
-    print("onEvent: $event");
+    ("Event: $event").log("onEvent");
   }
 }

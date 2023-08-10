@@ -109,7 +109,6 @@ class OngoingWorkCard extends StatelessWidget {
     final isImgNull = project.projectImages!.length == 0;
     final projectId = project.services![0].projectId.toString();
     final proId = project.services![0].proId.toString();
-    final isNormalProject = project.normal;
 
     Future<void> _getProjectDetails() async {
       await notifier.getProjectDetails(
@@ -119,20 +118,15 @@ class OngoingWorkCard extends StatelessWidget {
       );
     }
 
-    void onViewEstTapped() {
+    void onViewEstTapped() async {
       isMultiProjects
           ? Navigator.of(context).pushScreen(
               MultipleProjectServicesScreen(project: projects[index]),
             )
           : {
-              _getProjectDetails(),
+              await _getProjectDetails(),
               Navigator.of(context).pushScreen(
-                OngoingProjectDetailScreen(
-                  // id: projectId,
-                  // isNormalProject: isNormalProject!,
-                  // isProjectCompleted: project.isCompleted!,
-                  project: project,
-                ),
+                OngoingProjectDetailScreen(project: project),
               ),
             };
       ("Project Id : $projectId || Pro Id : $proId").log();
@@ -169,7 +163,7 @@ class OngoingWorkCard extends StatelessWidget {
                 ),
                 Visibility(
                   visible: isMultiProjects,
-                  child: SizedBox(height: height / 100),
+                  child: SizedBox(height: height / 150),
                 ),
                 // TOTAL SERVICES COUNT
                 Visibility(
@@ -183,7 +177,7 @@ class OngoingWorkCard extends StatelessWidget {
                 ),
                 Visibility(
                   visible: isMultiProjects,
-                  child: SizedBox(height: height / 120),
+                  child: SizedBox(height: height / 150),
                 ),
                 Divider(
                   thickness: 1.0,
@@ -266,6 +260,7 @@ class OngoingWorkCard extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: width / 34),
               decoration: BoxDecoration(
+                color: AppColors.black,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
