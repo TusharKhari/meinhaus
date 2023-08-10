@@ -41,7 +41,7 @@ class AdditionalWorkAddedDialog extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: MyTextPoppines(
-                  text: "Additional Work has been requested successfully..!",
+                  text: "Additional Work has been requested successfully.",
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                   maxLines: 3,

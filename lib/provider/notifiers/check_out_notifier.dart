@@ -42,7 +42,7 @@ class CheckOutNotifier extends ChangeNotifier {
       await repository.checkOut(data).then((response) {
         print(response);
         Get.to(() => HomeScreen());
-        Utils.snackBar("CheckOut Done ..!", response['response_message']);
+        Utils.snackBar("CheckOut Done .", response['response_message']);
         setLoadingState(false);
       }).onError((error, stackTrace) {
         print("Error in Check out notifier :: $error\n $stackTrace");

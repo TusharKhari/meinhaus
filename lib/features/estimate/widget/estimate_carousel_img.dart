@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,17 +74,22 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
             ),
           );
         },
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.r),
-            color: Colors.white,
-            //? Network Imgs
-            image: DecorationImage(
-              image: NetworkImage(workImg.thumbnailUrl!),
-              fit: BoxFit.cover,
+        child: CachedNetworkImage(
+          imageUrl: workImg.thumbnailUrl!,
+          imageBuilder: (context, imageProvider) => Container(
+            margin: EdgeInsets.symmetric(horizontal: 30.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.r),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
+          placeholder: (context, url) => Center(
+            child: CircularProgressIndicator(),
+          ),
+          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       );
 

@@ -162,9 +162,9 @@ class WorkDetails {
 
 class Reviews {
   String? review;
-  String? punctuality;
-  String? responsiveness;
-  String? quality;
+  int? punctuality;
+  int? responsiveness;
+  int? quality;
 
   Reviews({this.review, this.punctuality, this.responsiveness, this.quality});
 

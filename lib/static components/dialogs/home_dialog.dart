@@ -39,7 +39,7 @@ class ShowDialogBox extends StatelessWidget {
               width: width / 2,
               child: MyTextPoppines(
                 text:
-                    "Have an estimate plan ?Let’s create an estimate for you..!",
+                    "Have an estimate plan ?Let’s create an estimate for you.",
                 fontSize: width / 26,
                 fontWeight: FontWeight.w500,
                 maxLines: 3,

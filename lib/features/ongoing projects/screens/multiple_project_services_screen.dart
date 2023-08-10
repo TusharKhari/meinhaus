@@ -387,7 +387,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                               child: MyTextPoppines(
                                 text: isProAssigned
                                     ? service.proId.toString()
-                                    : "No Pro Assigned yet..!!!",
+                                    : "No Pro Assigned yet..",
                                 fontSize: headline1,
                                 fontWeight: FontWeight.w600,
                                 color: isProAssigned

@@ -160,7 +160,7 @@ class EstimatedWorkCard extends StatelessWidget {
                 bottomRight: Radius.circular(width / 40),
               ),
               // BACKGROUND PROJECT IMAGE
-              image: projectDetails.uploadedImgs!.isNotEmpty
+              image: projectDetails.uploadedImgs != null
                   ? DecorationImage(
                       image: NetworkImage(
                         projectDetails.uploadedImgs![0].thumbnailUrl!,

@@ -44,7 +44,7 @@ class EstimateDialog extends StatelessWidget {
                 alignment: Alignment.center,
                 child: MyTextPoppines(
                   text:
-                      "Your estimate has been created successfully..! we will contact you shortly",
+                      "Your estimate has been created successfully. we will contact you shortly",
                   fontSize: height / MyFontSize.font14,
                   fontWeight: FontWeight.w500,
                   maxLines: 3,

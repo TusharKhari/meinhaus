@@ -109,7 +109,7 @@ class EstimateNotifier extends ChangeNotifier {
       // Get.to(() => HomeScreen());
       showSnakeBarr(
           context,
-          "Your estimate has been created successfully..! we will contact you shortly",
+          "Your estimate has been created successfully. we will contact you shortly",
           SnackBarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -131,7 +131,7 @@ class EstimateNotifier extends ChangeNotifier {
       Get.to(() => HomeScreen());
       showSnakeBarr(
           context,
-          "Your estimate has been created successfully..! we will contact you shortly",
+          "Your estimate has been created successfully. we will contact you shortly",
           SnackBarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -185,16 +185,17 @@ class EstimateNotifier extends ChangeNotifier {
       var query = data.services!.query;
       supportStatusChecker(query, context);
     }).onError((error, stackTrace) {
-      Navigator.of(context).pushScreen(ShowError(error: error.toString()));
+      //  Navigator.of(context).pushScreen(ShowError(error: error.toString()));
       setLoadingState(false, true);
       showSnakeBarr(context, error.toString(), SnackBarState.Error);
-      // ("${error} $stackTrace").log("Get Project Details Estimate notifier");
+      ("${error} $stackTrace").log("Get Project Details Estimate notifier");
     });
     // getting pro details
     await getProDetails(proId, context);
     setLoadingState(false, true);
   }
 
+  // Check Support status helper function
   supportStatusChecker(Query? query, BuildContext context) {
     // Setting the inital values
     final supportNotifier = context.read<SupportNotifier>();

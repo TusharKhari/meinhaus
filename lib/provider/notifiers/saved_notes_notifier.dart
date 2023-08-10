@@ -102,9 +102,9 @@ class SavedNotesNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true, true);
     savedNotesRepo.getSavedNotes(id).then((response) {
-      setLoadingState(false, true);
       var data = SavedNotesModel.fromJson(response);
       setSavedNotes(data);
+      setLoadingState(false, true);
       ('Get Saved Notes ✅').log();
     }).onError((error, stackTrace) {
       setLoadingState(false, true);

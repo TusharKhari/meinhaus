@@ -29,8 +29,7 @@ class _AdditionalWorkProProvideCardWidgetState
     final bool isWaitingCard = work.status == "0" && work.amount != null;
     final bool isApprovedCard = work.status == "1";
     final bool isPending = work.status == "0" && work.amount == null;
-    final isImgNull = work.images!.length != 0;
-
+    final isImgNull = work.images != null;
     // print(isImgNull);
     return Container(
       decoration: BoxDecoration(
@@ -65,39 +64,34 @@ class _AdditionalWorkProProvideCardWidgetState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Images
-                SizedBox(
-                  height: 100.h,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: work.images!.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 110.w,
+                isImgNull
+                    ? SizedBox(
                         height: 100.h,
-                        margin: EdgeInsets.symmetric(horizontal: 4.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14.r),
-                          // image: DecorationImage(
-                          //   image: NetworkImage(imgs[index]),
-                          //   fit: BoxFit.cover,
-                          // ),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: work.images!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                width: 110.w,
+                                height: 100.h,
+                                margin: EdgeInsets.symmetric(horizontal: 4.w),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14.r),
+                                ),
+                                child: Image.network(
+                                  work.images![index].thumbnailUrl!,
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
+                                    return Image.asset(
+                                      "assets/images/room/room_4.png",
+                                    );
+                                  },
+                                ));
+                          },
                         ),
-                        child: isImgNull
-                            ? Image.network(
-                                work.images![index],
-                                errorBuilder: (BuildContext context,
-                                    Object exception, StackTrace? stackTrace) {
-                                  return Image.asset("assets/images/room/room_4.png");
-                                },
-                              )
-                            : MyTextPoppines(
-                                text: "No Img Found",
-                                color: AppColors.black,
-                              ),
-                      );
-                    },
-                  ),
-                ),
+                      )
+                    : Image.asset("assets/images/image_not_found.png"),
                 const Divider(thickness: 1.0),
                 5.vs,
                 MyTextPoppines(

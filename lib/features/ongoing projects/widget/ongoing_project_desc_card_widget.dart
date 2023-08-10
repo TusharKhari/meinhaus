@@ -13,29 +13,43 @@ class OngoingProjectDescCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 20.w, bottom: 15.h),
+          padding: EdgeInsets.only(left: 20.w, bottom: height / 90),
           child: MyTextPoppines(
             text: "Description :",
             fontWeight: FontWeight.w600,
             fontSize: 16.sp,
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(left: 30.w, bottom: 15.h),
+        Container(
+          padding: EdgeInsets.only(left: width / 20, bottom: height / 90),
           child: MyTextPoppines(
-            text: services.discription.toString(),
+            text: services.discription ??
+                "No Project Description found for this project",
             fontSize: 12.sp,
             fontWeight: FontWeight.w500,
             height: 1.4,
             color: AppColors.black.withOpacity(0.6),
           ),
         ),
+        // Padding(
+        //   padding: EdgeInsets.only(left: 30.w, bottom: 15.h),
+        //   child: MyTextPoppines(
+        //     text: services.discription ??
+        //         "No Project Description found for this project",
+        //     fontSize: 12.sp,
+        //     fontWeight: FontWeight.w500,
+        //     height: 1.4,
+        //     color: AppColors.black.withOpacity(0.6),
+        //   ),
+        // ),
       ],
     );
   }
