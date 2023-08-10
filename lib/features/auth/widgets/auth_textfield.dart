@@ -105,6 +105,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
                   EdgeInsets.symmetric(horizontal: w / 20, vertical: h / 42),
             ),
             validator: widget.validator,
+            keyboardType:TextInputType.emailAddress,
             obscureText: widget.isEmailField! ? false : _showPasswod,
           ),
         ],

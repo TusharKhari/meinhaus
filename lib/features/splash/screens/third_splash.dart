@@ -68,11 +68,11 @@ class ThirdSplashScreen extends StatelessWidget {
                 child: MyTextPoppines(
                   text:
                       "Have your own pro? No Problem! Book through our platform for a seamless experience at no additional cost",
-                  fontSize: width / 20,
+                  fontSize: width / 22,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   maxLines: 4,
-                  height: height / 450,
+                  height: width / 300,
                 ),
               ),
             ),
