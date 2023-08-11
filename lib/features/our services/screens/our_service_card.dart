@@ -21,8 +21,8 @@ class OurServicesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final notifier = context.read<OurServicesNotifier>();
     final services = notifier.services.services![index];
     return Container(
@@ -58,6 +58,7 @@ class OurServicesCard extends StatelessWidget {
                   text: services.name.toString(),
                   fontWeight: FontWeight.w600,
                   color: AppColors.white,
+                  fontSize: width / 24,
                 ),
               ),
             ),

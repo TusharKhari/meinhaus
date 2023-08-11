@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/models/UserModel.dart';
+import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/res/common/api_url/api_urls.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:provider/provider.dart';
-import '../../../../local/user_prefrences.dart';
+import '../../../../local db/user_prefrences.dart';
 import '../../../../utils/constants/error_handling.dart';
 
 typedef RequestBody = Map<String, String>;
@@ -22,6 +23,7 @@ class EditProfileServices {
   }) async {
     final authToken = await UserPrefrences().getToken() ?? "";
     final userNotifier = context.read<AuthNotifier>();
+    final editProfileNotifier = context.read<EditProfileNotifier>();
     try {
       final request = http.MultipartRequest("POST", ApiUrls.updateProfile);
 
@@ -40,21 +42,29 @@ class EditProfileServices {
 
       var response = await http.Response.fromStream(await request.send());
       print("Status code at profile update = ${response.statusCode}");
-
       httpErrorHandle(
         response: response,
         context: context,
         onSuccess: () {
-          var data = UserModel.fromJson(jsonDecode(response.body.toString()));
+          var data = UserModel.fromJson(jsonDecode(response.body));
           final user = data.user;
           userNotifier.setUser(user!);
-          showSnakeBarr(context, "Profile Updation done", BarState.Success);
-          print("Profile Updated ✅");
+          editProfileNotifier.setProfileImg(XFile(''));
+          showSnakeBarr(
+            context,
+            "Profile Updation done",
+            SnackBarState.Success,
+          );
+          print("Profile Updated");
         },
       );
     } catch (e) {
-      showSnakeBarr(context, "Catch in Edit Profile --> $e 🐛", BarState.Error);
-      print("Catch in Edit Profile --> $e 🐛");
+      showSnakeBarr(
+        context,
+        "Catch in Edit Profile --> $e ",
+        SnackBarState.Error,
+      );
+      print("Catch in Edit Profile --> $e");
     }
   }
 }

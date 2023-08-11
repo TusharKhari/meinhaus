@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyTextPoppines extends StatelessWidget {
@@ -23,15 +22,16 @@ class MyTextPoppines extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heights = MediaQuery.of(context).size.height;
+    final heights = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Text(
       text,
       style: GoogleFonts.poppins(
-        fontSize: fontSize ?? 14.0.sp,
+        fontSize: fontSize ?? width / 28,
         fontWeight: fontWeight ?? FontWeight.normal,
         fontStyle: FontStyle.normal,
         color: color ?? Colors.black,
-        height: height ?? (heights > 800 ? 1.1.h : 1.3.h),
+        height: height ?? (heights > 650 ? heights / 600 : heights / 600),
       ),
       textAlign: textAlign,
       maxLines: maxLines ?? 2,

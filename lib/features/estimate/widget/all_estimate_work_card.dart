@@ -19,8 +19,8 @@ class AllEstimateWorkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final notifier = context.read<EstimateNotifier>();
     final estimate = notifier.estimated.estimatedWorks![index];
     final estimateCost = estimate.projectBilling!.projectAmount.toString();
@@ -156,7 +156,7 @@ class AllEstimateWorkCard extends StatelessWidget {
                                       color: AppColors.golden,
                                     ),
                                     image: DecorationImage(
-                                      image: NetworkImage(images),
+                                      image: NetworkImage(images.thumbnailUrl!),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

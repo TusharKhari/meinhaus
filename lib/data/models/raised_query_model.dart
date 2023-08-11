@@ -29,14 +29,14 @@ class RaisedQueryModel {
 
 class Queries {
   int? id;
-  String? estimateServiceId;
-  String? userId;
+  int? estimateServiceId;
+  int? userId;
   String? query;
-  String? status;
-  String? acceptedBy;
-  String? ticket;
-  String? endStatus;
-  String? resolved;
+  int? status;
+  int? acceptedBy;
+  int? ticket;
+  int? endStatus;
+  int? resolved;
   String? createdAt;
   String? updatedAt;
 

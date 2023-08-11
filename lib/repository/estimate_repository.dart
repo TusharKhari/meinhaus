@@ -1,9 +1,25 @@
+import 'package:new_user_side/utils/extensions/extensions.dart';
+
 import '../data/network/network_api_servcies.dart';
 import '../res/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
 
 class EstimateRepository {
   NetworkApiServices services = NetworkApiServices();
+
+
+  // create starting estimate
+  Future<ResponseType> createStartingEstimate(ResponseType body) async {
+    try {
+      return await services.sendDioRequest(
+        url: ApiUrls.registerProject,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
 
   // create estimate
   Future<ResponseType> createEstimate(ResponseType body) async {
@@ -80,6 +96,7 @@ class EstimateRepository {
 
   // progress invoice
   Future<ResponseType> progressInvoice(String id) async {
+    id.log();
     try {
       return await services.sendHttpRequest(
         url: Uri.parse("${ApiUrls.progressInvoice}?booking_id=$id"),

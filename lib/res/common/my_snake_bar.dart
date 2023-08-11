@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-enum BarState { Success, Error, Warning, Info }
+enum SnackBarState { Success, Error, Warning, Info }
 
-void showSnakeBar(BuildContext context, String text) {
+void showSnakeBar(
+  BuildContext context,
+  String text,
+) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: Colors.transparent,
@@ -33,25 +35,25 @@ void showSnakeBar(BuildContext context, String text) {
 void showSnakeBarr(
   BuildContext context,
   String text,
-  BarState state,
+  SnackBarState state,
 ) {
   final width = context.screenWidth;
   final mainColor;
   final IconData icon;
   switch (state) {
-    case BarState.Success:
+    case SnackBarState.Success:
       mainColor = Colors.green;
       icon = (Icons.done);
       break;
-    case BarState.Error:
+    case SnackBarState.Error:
       mainColor = Colors.red;
       icon = (Icons.error_outline);
       break;
-    case BarState.Warning:
+    case SnackBarState.Warning:
       mainColor = Colors.orange;
       icon = (Icons.warning_amber_rounded);
       break;
-    case BarState.Info:
+    case SnackBarState.Info:
       mainColor = Colors.blue;
       icon = (Icons.info_outline);
       break;
@@ -78,7 +80,7 @@ void showSnakeBarr(
         child: Row(
           children: [
             Icon(icon, color: mainColor, size: width / 15),
-            5.hspacing(context),
+            SizedBox(width: width / 90),
             SizedBox(
               width: width / 1.4,
               child: MyTextPoppines(

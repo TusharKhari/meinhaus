@@ -1,17 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 
 class FullScreenImageView extends StatefulWidget {
-  final List<String> images;
+  final List<UploadedImgs> images;
   final int currentIndex;
 
-  const FullScreenImageView(
-      {Key? key, required this.images, required this.currentIndex})
-      : super(key: key);
+  const FullScreenImageView({
+    Key? key,
+    required this.images,
+    required this.currentIndex,
+  }) : super(key: key);
 
   @override
   _FullScreenImageViewState createState() => _FullScreenImageViewState();
@@ -24,7 +28,7 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
   void initState() {
     super.initState();
     activeIndex = widget.currentIndex;
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +58,15 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
         itemCount: widget.images.length,
         itemBuilder: (context, index, realIndex) {
           final image = widget.images[index];
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(image),
-                fit: BoxFit.contain,
-              ),
+          return CachedNetworkImage(
+            imageUrl: image.imageUrl!,
+            fit: BoxFit.contain,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Icon(
+              Icons.error,
+              color: Colors.red,
             ),
           );
         },

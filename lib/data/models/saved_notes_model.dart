@@ -1,3 +1,5 @@
+import 'ongoing_project_model.dart';
+
 class SavedNotesModel {
   String? responseCode;
   String? responseMessage;
@@ -35,7 +37,7 @@ class Notes {
   int? id;
   String? note;
   bool? type;
-  List<String>? images;
+  List<ProjectImages>? images;
 
   Notes({this.id, this.note, this.type, this.images});
 
@@ -43,7 +45,12 @@ class Notes {
     id = json['id'];
     note = json['note'];
     type = json['type'];
-    images = json['images'].cast<String>();
+    if (json['project_images'] != null) {
+      images = <ProjectImages>[];
+      json['project_images'].forEach((v) {
+        images!.add(new ProjectImages.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -51,7 +58,9 @@ class Notes {
     data['id'] = this.id;
     data['note'] = this.note;
     data['type'] = this.type;
-    data['images'] = this.images;
+    if (this.images != null) {
+      data['project_images'] = this.images!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

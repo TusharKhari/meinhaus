@@ -66,7 +66,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
       showSnakeBarr(
         context,
         "Please selecte an image to make request",
-        BarState.Warning,
+        SnackBarState.Warning,
       );
     }
   }
@@ -85,8 +85,8 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
     final estimateNotifier = context.read<EstimateNotifier>();
     final project = estimateNotifier.projectDetails.services;
     final raisedQuery = notifier.queryModel.queries;
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
 
     return project != null && raisedQuery != null
         ? ModalProgressHUD(

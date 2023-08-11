@@ -15,8 +15,8 @@ class ShowReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final review = notifier.projectDetails.services!.reviews!;
 
@@ -92,17 +92,17 @@ class ShowReviewCard extends StatelessWidget {
                 _buildRatingTypes(
                   context: context,
                   title: "Punctualty :",
-                  rating: double.parse(review.first.punctuality!),
+                  rating: double.parse(review.first.punctuality!.toString()),
                 ),
                 _buildRatingTypes(
                   context: context,
                   title: "Responsivness :",
-                  rating: double.parse(review.first.responsiveness!),
+                  rating: double.parse(review.first.responsiveness!.toString()),
                 ),
                 _buildRatingTypes(
                   context: context,
                   title: "Quality :",
-                  rating: double.parse(review.first.quality!),
+                  rating: double.parse(review.first.quality!.toString()),
                 ),
                 2.vspacing(context),
               ],
@@ -183,8 +183,8 @@ class ShowNoReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: height / 70),
       child: Row(

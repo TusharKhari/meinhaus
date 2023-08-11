@@ -10,11 +10,11 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 
-class EWOProjectHistoryCardWidget extends StatelessWidget {
+class EWOCompletedProjectsScreenCardWidget extends StatelessWidget {
   final bool? isEstimatedWork;
   final bool? isOngoingProject;
   final VoidCallback onTap;
-  const EWOProjectHistoryCardWidget({
+  const EWOCompletedProjectsScreenCardWidget({
     Key? key,
     this.isEstimatedWork = true,
     this.isOngoingProject = true,
@@ -292,7 +292,7 @@ class EWOPHGridCard extends StatelessWidget {
                     ),
                   ],
                 ),
-              
+
                 isEstimatedWork! ? 15.vs : 8.vs,
                 // Project Estimated Cost
                 isEstimatedWork!

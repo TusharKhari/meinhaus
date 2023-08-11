@@ -1,3 +1,5 @@
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
+
 class ProjectDetailsModel {
   String? responseCode;
   String? responseMessage;
@@ -32,10 +34,11 @@ class Services {
   String? projectCost;
   String? discription;
   String? address;
-  List<String>? projectImages;
+  List<UploadedImgs>? projectImages;
   List<ProfessionalWorkHistory>? professionalWorkHistory;
-  String? proId;
+  int? proId;
   List<Reviews>? reviews;
+  Query? query;
 
   Services(
       {this.projectId,
@@ -48,7 +51,8 @@ class Services {
       this.projectImages,
       this.professionalWorkHistory,
       this.proId,
-      this.reviews});
+      this.reviews,
+      this.query});
 
   Services.fromJson(Map<String, dynamic> json) {
     projectId = json['project_id'];
@@ -58,7 +62,12 @@ class Services {
     projectCost = json['project_cost'];
     discription = json['discription'];
     address = json['address'];
-    projectImages = json['project_images'].cast<String>();
+    if (json['project_images'] != null) {
+      projectImages = <UploadedImgs>[];
+      json['project_images'].forEach((v) {
+        projectImages!.add(new UploadedImgs.fromJson(v));
+      });
+    }
     if (json['professional_work_history'] != null) {
       professionalWorkHistory = <ProfessionalWorkHistory>[];
       json['professional_work_history'].forEach((v) {
@@ -72,6 +81,7 @@ class Services {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
+    query = json['query'] != null ? new Query.fromJson(json['query']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -83,7 +93,10 @@ class Services {
     data['project_cost'] = this.projectCost;
     data['discription'] = this.discription;
     data['address'] = this.address;
-    data['project_images'] = this.projectImages;
+    if (this.projectImages != null) {
+      data['project_images'] =
+          this.projectImages!.map((v) => v.toJson()).toList();
+    }
     if (this.professionalWorkHistory != null) {
       data['professional_work_history'] =
           this.professionalWorkHistory!.map((v) => v.toJson()).toList();
@@ -91,6 +104,9 @@ class Services {
     data['pro_id'] = this.proId;
     if (this.reviews != null) {
       data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
+    }
+    if (this.query != null) {
+      data['query'] = this.query!.toJson();
     }
     return data;
   }
@@ -146,9 +162,9 @@ class WorkDetails {
 
 class Reviews {
   String? review;
-  String? punctuality;
-  String? responsiveness;
-  String? quality;
+  int? punctuality;
+  int? responsiveness;
+  int? quality;
 
   Reviews({this.review, this.punctuality, this.responsiveness, this.quality});
 
@@ -165,6 +181,67 @@ class Reviews {
     data['punctuality'] = this.punctuality;
     data['responsiveness'] = this.responsiveness;
     data['quality'] = this.quality;
+    return data;
+  }
+}
+
+class Query {
+  int? id;
+  int? estimateServiceId;
+  int? userId;
+  String? query;
+  int? status;
+  int? acceptedBy;
+  String? ticket;
+  int? endStatus;
+  int? resolved;
+  String? createdAt;
+  String? updatedAt;
+  int? flagged;
+
+  Query(
+      {this.id,
+      this.estimateServiceId,
+      this.userId,
+      this.query,
+      this.status,
+      this.acceptedBy,
+      this.ticket,
+      this.endStatus,
+      this.resolved,
+      this.createdAt,
+      this.updatedAt,
+      this.flagged});
+
+  Query.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    estimateServiceId = json['estimate_service_id'];
+    userId = json['user_id'];
+    query = json['query'];
+    status = json['status'];
+    acceptedBy = json['accepted_by'];
+    ticket = json['ticket'];
+    endStatus = json['end_status'];
+    resolved = json['resolved'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    flagged = json['flagged'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['estimate_service_id'] = this.estimateServiceId;
+    data['user_id'] = this.userId;
+    data['query'] = this.query;
+    data['status'] = this.status;
+    data['accepted_by'] = this.acceptedBy;
+    data['ticket'] = this.ticket;
+    data['end_status'] = this.endStatus;
+    data['resolved'] = this.resolved;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['flagged'] = this.flagged;
     return data;
   }
 }

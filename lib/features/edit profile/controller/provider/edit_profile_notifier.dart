@@ -30,7 +30,7 @@ class EditProfileNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // edit profile 
+  // edit profile
   Future editProfile({
     required BuildContext context,
     required String firstName,
@@ -49,11 +49,9 @@ class EditProfileNotifier extends ChangeNotifier {
         firstName: firstName,
         lastName: lastName,
       );
-      setProfileImg(XFile(''));
       setLoadingState(false, true);
     }
   }
-
 
 // edit password
   Future<void> editPassword({
@@ -65,6 +63,7 @@ class EditProfileNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       showSnakeBar(context, "Password Updated ✅");
       ("Password Updated ✅").log();
+     
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);

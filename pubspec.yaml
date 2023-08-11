@@ -54,13 +54,23 @@ dependencies:
   geocoding: ^2.1.0
   shimmer: ^2.0.0
   tuple: ^2.0.1
-  flutter_stripe: ^9.2.0
+  flutter_stripe: ^9.3.0
   get: ^4.6.5
   flutter_svg: ^2.0.6
   loading_animation_widget: ^1.2.0+4
   google_sign_in: ^6.1.4
   flutter_rating_bar: ^4.0.1
   device_preview: ^1.1.0
+  pusher_channels_flutter: ^2.1.2
+  permission_handler: ^10.2.0
+  path_provider: ^2.0.15
+  open_file: ^3.3.2
+  file_picker: ^5.3.2
+  flutter_dotenv: ^5.1.0
+  flutter_local_notifications: ^15.1.0+1
+  firebase_core: ^2.15.0
+  firebase_messaging: ^14.6.5
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +108,7 @@ flutter:
     - assets/images/fixing/
     - assets/icons/
     - assets/logo/
+    - .env
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

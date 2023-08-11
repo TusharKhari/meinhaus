@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -15,7 +16,7 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EdgeInsets paddingH15 = EdgeInsets.symmetric(horizontal: 15.w);
-    const String imgPath = "assets/images/fixing/fixing_";
+
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;
     return Padding(
@@ -64,18 +65,35 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(6.0),
                     child: InkWell(
                       onTap: () {
-                        final imgs = services.projectImages;
+                        final imgs = services.projectImages!;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => FullScreenImageView(
-                              images: imgs!,
+                              images: imgs,
                               currentIndex: index,
                             ),
                           ),
                         );
                       },
-                      child: Image.network(services.projectImages![index]),
+                      child: CachedNetworkImage(
+                        imageUrl: services.projectImages![index].thumbnailUrl!,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
                     ),
                   ),
                 ),

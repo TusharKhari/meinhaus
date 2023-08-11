@@ -35,7 +35,7 @@ class Projects {
   String? projectStartDate;
   String? projectCost;
   String? description;
-  List<String>? projectImages;
+  List<ProjectImages>? projectImages;
   bool? normal;
   bool? isCompleted;
   List<Services>? services;
@@ -59,7 +59,12 @@ class Projects {
     projectStartDate = json['project_start_date'];
     projectCost = json['project_cost'];
     description = json['description'];
-    projectImages = json['project_images'].cast<String>();
+    if (json['project_images'] != null) {
+      projectImages = <ProjectImages>[];
+      json['project_images'].forEach((v) {
+        projectImages!.add(new ProjectImages.fromJson(v));
+      });
+    }
     normal = json['normal'];
     isCompleted = json['is_completed'];
     if (json['services'] != null) {
@@ -78,7 +83,10 @@ class Projects {
     data['project_start_date'] = this.projectStartDate;
     data['project_cost'] = this.projectCost;
     data['description'] = this.description;
-    data['project_images'] = this.projectImages;
+    if (this.projectImages != null) {
+      data['project_images'] =
+          this.projectImages!.map((v) => v.toJson()).toList();
+    }
     data['normal'] = this.normal;
     data['is_completed'] = this.isCompleted;
     if (this.services != null) {
@@ -94,8 +102,8 @@ class Services {
   String? bookingId;
   String? projectCost;
   String? dateAssigned;
-  String? proId;
-  List<String>? images;
+  int? proId;
+  List<ProjectImages>? images;
   bool? isCompleted;
 
   Services(
@@ -115,7 +123,12 @@ class Services {
     projectCost = json['project_cost'];
     dateAssigned = json['date_assigned'];
     proId = json['pro_id'];
-    images = json['images'].cast<String>();
+    if (json['images'] != null) {
+      images = <ProjectImages>[];
+      json['images'].forEach((v) {
+        images!.add(new ProjectImages.fromJson(v));
+      });
+    }
     isCompleted = json['is_completed'];
   }
 
@@ -128,7 +141,29 @@ class Services {
     data['date_assigned'] = this.dateAssigned;
     data['pro_id'] = this.proId;
     data['images'] = this.images;
+    if (this.images != null) {
+      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    }
     data['is_completed'] = this.isCompleted;
+    return data;
+  }
+}
+
+class ProjectImages {
+  String? imageUrl;
+  String? thumbnailUrl;
+
+  ProjectImages({this.imageUrl, this.thumbnailUrl});
+
+  ProjectImages.fromJson(Map<String, dynamic> json) {
+    imageUrl = json['image_url'];
+    thumbnailUrl = json['thumbnail_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_url'] = this.imageUrl;
+    data['thumbnail_url'] = this.thumbnailUrl;
     return data;
   }
 }

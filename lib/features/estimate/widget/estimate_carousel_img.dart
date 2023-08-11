@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -61,7 +63,8 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
   }
 
   //Carousle Container
-  Widget buildImg(String workImg, int index, List<String> imgs) => InkWell(
+  Widget buildImg(UploadedImgs workImg, int index, List<UploadedImgs> imgs) =>
+      InkWell(
         onTap: () {
           Navigator.push(
             context,
@@ -71,22 +74,27 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
             ),
           );
         },
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.r),
-            color: Colors.white,
-            //? Network Imgs
-            image: DecorationImage(
-              image: NetworkImage(workImg),
-              fit: BoxFit.cover,
+        child: CachedNetworkImage(
+          imageUrl: workImg.thumbnailUrl!,
+          imageBuilder: (context, imageProvider) => Container(
+            margin: EdgeInsets.symmetric(horizontal: 30.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.r),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
+          placeholder: (context, url) => Center(
+            child: CircularProgressIndicator(),
+          ),
+          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       );
 
   //Dot indicator
-  Widget buildIndicator(List<String> projectImgs) => Row(
+  Widget buildIndicator(List<UploadedImgs> projectImgs) => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           AnimatedSmoothIndicator(

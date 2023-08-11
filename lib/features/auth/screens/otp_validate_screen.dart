@@ -1,24 +1,32 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
-import 'package:new_user_side/res/common/my_text.dart';
-import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utils/sizer.dart';
+import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:new_user_side/res/common/my_text.dart';
+import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
+
+import '../../home/screens/home_screen.dart';
 
 class OtpValidateScreen extends StatefulWidget {
   static const String routeName = '/otp';
+  final int userId;
+  final String contactNo;
+  final bool isSkippAble;
   const OtpValidateScreen({
     Key? key,
-    required this.email,
+    required this.userId,
+    required this.contactNo,
+    required this.isSkippAble,
   }) : super(key: key);
-  final String email;
 
   @override
   State<OtpValidateScreen> createState() => _OtpValidateScreenState();
@@ -26,50 +34,88 @@ class OtpValidateScreen extends StatefulWidget {
 
 class _OtpValidateScreenState extends State<OtpValidateScreen> {
   bool isOtpEnterd = false;
-  bool isWaiting = false;
   late String otp;
+  // Initial time for resending otp
+  int startTime = 60;
+  // Boolen for showing the resend button
+  bool showResendButton = false;
+  // Timer for otp
+  late Timer _timer;
+  Color buttonColor = AppColors.buttonBlue.withOpacity(0.0);
 
-  // Future<void> verifyOTP(String OTP) async {
-  //   setState(() {
-  //     isWaiting = true;
-  //   });
-  //   await authServices.verifyOtp(
-  //     context: context,
-  //     email: widget.email,
-  //     otp: OTP,
-  //   );
-  //   setState(() {
-  //     isWaiting = false;
-  //   });
-  // }
-
-  Future _verifyEmailHandler(String OTP) async {
-    final notifer = context.read<AuthNotifier>();
-    final body = {"email": widget.email, "otp": OTP};
-    await notifer.verifyEmail(body: body, context: context);
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
   }
 
-  Color buttonColor = AppColors.buttonBlue.withOpacity(0.0);
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the state is disposed
+    super.dispose();
+  }
+
+  // countdown for otp resending
+  void startTimer() {
+    final oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (timer) {
+      if (startTime == 0) {
+        setState(() {
+          timer.cancel();
+          showResendButton = true;
+        });
+      } else {
+        setState(() {
+          startTime--;
+        });
+      }
+    });
+  }
+
+  // verify phone no handler
+  Future _verifyEmailHandler(String OTP) async {
+    final notifer = context.read<AuthNotifier>();
+    final body = {"user_id": widget.userId.toString(), "otp": OTP};
+    if (isOtpEnterd) await notifer.verifyPhone(body: body, context: context);
+  }
+
+  // resend otp handler
+  void _resendOtpHandler() {
+    final notifer = context.read<AuthNotifier>();
+    if (showResendButton) {
+      final body = {"user_id": widget.userId.toString()};
+      notifer.resendOtp(body: body, context: context);
+      startTimer();
+      setState(() {
+        startTime = 60;
+        showResendButton = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final notifer = context.watch<AuthNotifier>();
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          padding: EdgeInsets.symmetric(horizontal: w / 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              10.vs,
+              SizedBox(height: h / 80),
+              // Kind of App bar
               Row(
                 children: [
                   InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Container(
-                      width: 40.w,
-                      height: 40.h,
+                      width: w / 10,
+                      height: h / 20,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: BorderRadius.circular(w / 40),
                         border: Border.all(
                           width: 1.5,
                           color: AppColors.grey.withOpacity(0.4),
@@ -78,64 +124,87 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                       child: Icon(
                         Icons.arrow_back_ios_new,
                         color: AppColors.black,
-                        size: context.screenHeight / MyFontSize.font16,
+                        size: w / 26,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 100.w, top: 10.h),
-                    child: SizedBox(
-                      width: 70.w,
-                      height: 60.h,
-                      child: Image.asset(
-                        "assets/logo/home.png",
-                        fit: BoxFit.cover,
-                      ),
+                    padding: EdgeInsets.only(left: w / 4, top: h / 80),
+                    child: Image.asset(
+                      "assets/logo/home.png",
+                      fit: BoxFit.cover,
+                      width: w / 5,
+                      height: h / 13,
                     ),
                   ),
+                  widget.isSkippAble
+                      ? Padding(
+                          padding: EdgeInsets.only(left: w / 5),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                HomeScreen.routeName,
+                                (route) => false,
+                              );
+                            },
+                            child: Text(
+                              "Skip",
+                              style: GoogleFonts.poppins(
+                                fontSize: w / 28,
+                                color: AppColors.buttonBlue,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                padding: EdgeInsets.symmetric(horizontal: w / 30),
                 child: Column(
                   children: [
-                    20.vs,
+                    SizedBox(height: h / 40),
                     Align(
                       alignment: Alignment.center,
                       child: MyTextPoppines(
-                        text: "Let's Verify your email..!",
-                        fontSize: 26.sp,
+                        text: "Let's Verify your contact number.",
+                        fontSize: w / 18,
                         fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    30.vs,
+                    SizedBox(height: h / 30),
                     MyTextPoppines(
                       text:
-                          "We’ve sent an email with an activation code to your email ${widget.email}",
-                      fontSize: 14.sp,
+                          "We’ve sent an text message with an activation code to your contact number +1 ${widget.contactNo}",
+                      fontSize: w / 30,
                       color: AppColors.black.withOpacity(0.7),
                       textAlign: TextAlign.center,
                     ),
-                    30.vs,
+                    SizedBox(height: h / 25),
+                    // OTP TEXT FIELD
                     OTPTextField(
-                      length: 4,
-                      width: MediaQuery.of(context).size.width,
-                      fieldWidth: 60.w,
+                      length: 6,
+                      width: w,
+                      fieldWidth: w / 8,
                       otpFieldStyle: OtpFieldStyle(
                         focusBorderColor: AppColors.black,
                       ),
-                      outlineBorderRadius: 12.r,
+                      outlineBorderRadius: w / 28,
                       fieldStyle: FieldStyle.box,
                       textFieldAlignment: MainAxisAlignment.spaceAround,
-                      contentPadding: EdgeInsets.symmetric(vertical: 15.h),
+                      keyboardType: TextInputType.number,
+                      contentPadding: EdgeInsets.symmetric(vertical: h / 75),
                       style: TextStyle(
-                        fontSize: 25.sp,
+                        fontSize: w / 20,
                         fontWeight: FontWeight.bold,
                       ),
                       onChanged: (value) {
                         setState(() {
                           buttonColor = AppColors.buttonBlue.withOpacity(
-                              (value.isNotEmpty && value.length <= 4)
+                              (value.isNotEmpty && value.length <= 6)
                                   ? 0.2 * value.length
                                   : 1.0);
                         });
@@ -147,58 +216,82 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                         print("Completed " + value);
                       },
                     ),
-                    30.vs,
+                    SizedBox(height: h / 60),
+                    // AUTO FETCHING OTP
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        MyTextPoppines(
+                          text: "Auto fetching",
+                          fontSize: w / 36,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.buttonBlue,
+                        ),
+                        SizedBox(width: w / 30),
+                        LoadingAnimationWidget.inkDrop(
+                          color: AppColors.buttonBlue,
+                          size: w / 40,
+                        ),
+                        SizedBox(width: w / 20),
+                      ],
+                    ),
+                    SizedBox(height: h / 20),
+                    // RESEND OTP
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MyTextPoppines(
                           text: "I didn't receive a code",
-                          fontSize: 15.sp,
+                          fontSize: w / 30,
                           color: AppColors.black.withOpacity(0.6),
                         ),
-                        5.hs,
+                        SizedBox(width: w / 60),
                         MyTextPoppines(
-                          text: "Resend",
-                          fontSize: 15.sp,
+                          text: "00:$startTime",
+                          fontSize: w / 27,
                           fontWeight: FontWeight.bold,
+                          color: AppColors.buttonBlue,
+                        ),
+                        SizedBox(width: w / 60),
+                        InkWell(
+                          onTap: _resendOtpHandler,
+                          child: MyTextPoppines(
+                            text: "Resend",
+                            fontSize: w / 27,
+                            fontWeight: FontWeight.bold,
+                            color: showResendButton
+                                ? Colors.black
+                                : Colors.grey[300],
+                          ),
                         )
                       ],
                     ),
-                    30.vs,
+                    SizedBox(height: h / 70),
                     const Divider(thickness: 1.5),
                     MediaQuery.of(context).viewInsets.bottom > 0
-                        ? 30.vs
-                        : 250.vs,
+                        ? SizedBox(height: h / 25)
+                        : SizedBox(height: h / 3.4),
+                    // Verify otp button
                     InkWell(
-                      onTap: () {
-                        isOtpEnterd ? _verifyEmailHandler(otp) : null;
-                      },
+                      onTap: () => _verifyEmailHandler(otp),
                       child: Container(
-                        width: 180.w,
-                        height: 50.h,
+                        width: w / 2,
+                        height: h / 15,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
+                          borderRadius: BorderRadius.circular(w / 8),
                           color: buttonColor,
-                          boxShadow: [
-                            isOtpEnterd
-                                ? const BoxShadow(
-                                    color: Color(0x3f000000),
-                                    offset: Offset(0, 4),
-                                    blurRadius: 4,
-                                  )
-                                : const BoxShadow(color: Colors.transparent)
-                          ],
                         ),
                         child: Center(
                           child: notifer.loading
-                              ? CircularProgressIndicator(
+                              ? LoadingAnimationWidget.inkDrop(
                                   color: AppColors.white,
+                                  size: w / 26,
                                 )
                               : MyTextPoppines(
                                   text: "Verify OTP",
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 18.sp,
+                                  fontSize: w / 22,
                                 ),
                         ),
                       ),

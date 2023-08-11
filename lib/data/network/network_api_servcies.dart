@@ -6,9 +6,9 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-import '../../local/user_prefrences.dart';
+import '../../local db/user_prefrences.dart';
 import '../../utils/enum.dart';
-import '../app_exception.dart';
+import '../exception/app_exception.dart';
 import 'base_api_services.dart';
 
 typedef MapSS = Map<String, String>;
@@ -85,12 +85,15 @@ class OldNetworkApiServices extends BaseApiServices {
 class NetworkApiServices {
   final dio = Dio();
 
+  // SEND HTTP REQUEST WITH HEADER
   Future sendHttpRequest({
     required Uri url,
     required HttpMethod method,
     MapSS? body,
+    bool? allowUnauthorizedResponse = false,
   }) async {
     final uri = url;
+    if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     final header = await UserPrefrences().getHeader();
     try {
@@ -119,19 +122,24 @@ class NetworkApiServices {
       request.headers.addAll(header);
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      responseJson = errorHandling(response);
+      //print(response.body);
+      responseJson = errorHandling(response, allowUnauthorizedResponse);
+      (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");
     }
   }
 
+  // SEND HTTP REQUEST WITHOUT HEADER
   Future sendHttpRequestWithoutHeader({
     required Uri url,
     required HttpMethod method,
     MapSS? body,
+    bool? allowUnauthorizedResponse = false,
   }) async {
     final uri = url;
+    if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     try {
       late final http.Request request;
@@ -158,13 +166,15 @@ class NetworkApiServices {
       }
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      responseJson = errorHandling(response);
+      responseJson = errorHandling(response, allowUnauthorizedResponse);
+      (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");
     }
   }
 
+  // SNED FILES WITH DIO REQUEST
   Future<dynamic> sendDioRequest({
     required Uri url,
     required HttpMethod method,
@@ -172,7 +182,7 @@ class NetworkApiServices {
   }) async {
     final dio = Dio();
     final header = await UserPrefrences().getHeader();
-    if (body != null) body.log();
+    if (body != null) (body).log("${url.path}");
     try {
       late final Response<dynamic> response;
       switch (method) {
@@ -205,16 +215,16 @@ class NetworkApiServices {
           break;
       }
       (response.statusCode)!.log(response.realUri.path);
-      if (response.statusCode == 200)
+      if (response.statusCode == 200 || response.statusCode == 201)
         return response.data;
       else
-        ('API call failed').log("Estimate Creation");
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.sendTimeout ||
-          e.type == DioErrorType.receiveTimeout) {
+        ('API call failed').log("${url.path}");
+    } on DioException catch (e) {
+      if (e.type == DioException.connectionTimeout ||
+          e.type == DioException.sendTimeout ||
+          e.type == DioException.receiveTimeout) {
         throw FetchDataException("Request Timeout");
-      } else if (e.type == DioErrorType.cancel) {
+      } else if (e.type == DioException.requestCancelled) {
         throw FetchDataException("Request Cancelled");
       } else {
         throw FetchDataException("Error occurred while making the request");
@@ -224,22 +234,29 @@ class NetworkApiServices {
     }
   }
 
-  dynamic errorHandling(http.Response response) {
-    (response.statusCode).log(response.request!.url.path.toString());
+  // ERROR HANDLING
+  dynamic errorHandling(
+      http.Response response, bool? allowUnauthorizedResponse) {
     dynamic responseJson =
         response.statusCode != 500 ? jsonDecode(response.body) : null;
     switch (response.statusCode) {
       case 200:
         return responseJson;
+      case 201:
+        return responseJson;
       case 400:
         throw FetchDataException(
-            " ${responseJson['response_message']}  ${response.statusCode}");
+            " ${responseJson['response_message']}");
       case 401:
-        throw UnauthorizedException(
-            " ${responseJson['response_message']}  ${response.statusCode}");
+        if (allowUnauthorizedResponse!) {
+          return responseJson;
+        } else {
+          throw UnauthorizedException(
+              " ${responseJson['response_message']}");
+        }
       case 404:
         throw FetchDataException(
-            " ${responseJson['response_message']}  ${response.statusCode}");
+            " ${responseJson['response_message']}");
       case 500:
         throw InternalSeverException("");
       default:

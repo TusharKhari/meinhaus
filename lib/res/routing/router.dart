@@ -3,25 +3,22 @@ import 'package:new_user_side/features/add%20card/screens/add_new_card_screen.da
 import 'package:new_user_side/features/additional%20work/screens/add_addition_work_screen.dart';
 import 'package:new_user_side/features/additional%20work/screens/additional_work_from_pro_screen.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
-import 'package:new_user_side/features/auth/screens/otp_validate_screen.dart';
-import 'package:new_user_side/features/auth/screens/signup_screen.dart';
+import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_chat_list_screen.dart';
-import 'package:new_user_side/features/chat%20with%20pro/screens/chat_with_pro_screen.dart';
-import 'package:new_user_side/features/customer%20support/screens/customer_support_chat_screen.dart';
+import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/features/invoice/screens/progess_invoice_screen.dart';
-import 'package:new_user_side/features/notification/screens/notification_scree.dart';
+import 'package:new_user_side/features/notification/screens/notification_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
-import 'package:new_user_side/features/ongoing%20projects/screens/project_history_screen.dart';
+import 'package:new_user_side/features/ongoing%20projects/screens/completed_projects_screen.dart';
 import 'package:new_user_side/features/our%20services/screens/our_services_screen.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
 import 'package:new_user_side/features/settings/screens/setting_screen.dart';
-import 'package:new_user_side/static%20componets/splash/screens/splash_screen.dart';
+import 'package:new_user_side/features/splash/screens/splash_screen.dart';
 
 import '../../features/auth/screens/signin_screen.dart';
 import '../../features/edit profile/screens/edit_password_scree.dart';
@@ -35,11 +32,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const SignInScreen(),
       );
-    case SignUpScreen.routeName:
+    case SignUpStepFirstScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const SignUpScreen(),
+        builder: (_) => const SignUpStepFirstScreen(),
       );
+    // case SignUpStepSecondScreen.routeName:
+    //   var email = routeSettings.arguments as String;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => SignUpStepSecondScreen(email: email),
+    //   );
     case SplashScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -66,25 +69,20 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           index: index,
         ),
       );
-    case AllOngoingJobs.routeName:
+    case AllOngoingProjects.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AllOngoingJobs(),
+        builder: (_) => const AllOngoingProjects(),
       );
     case AllEstimatedWorkScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AllEstimatedWorkScreen(),
       );
-    case ChatWIthProChatListScreen.routeName:
+    case AllConversationScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const ChatWIthProChatListScreen(),
-      );
-    case ChatWithProScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const ChatWithProScreen(),
+        builder: (_) => const AllConversationScreen(),
       );
     case NotificationScreen.routeName:
       return MaterialPageRoute(
@@ -96,12 +94,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const UserDetailsScreen(),
       );
-    case OtpValidateScreen.routeName:
-      var email = routeSettings.arguments as String;
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => OtpValidateScreen(email: email),
-      );
+    // case OtpValidateScreen.routeName:
+    //   var email = routeSettings.arguments as String;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => OtpValidateScreen(email: email),
+    //   );
     case EditProfileScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -112,10 +110,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const SettingScreen(),
       );
-    case ProjectHistory.routeName:
+    case CompletedProjectsScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const ProjectHistory(),
+        builder: (_) => const CompletedProjectsScreen(),
       );
     case AddNewCard.routeName:
       return MaterialPageRoute(
@@ -127,11 +125,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const EditPasswordScreen(),
       );
-    case CustomerSupportChatScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const CustomerSupportChatScreen(),
-      );
+
     case AddAdditionalWorkScreen.routeName:
       var projectId = routeSettings.arguments as String;
       return MaterialPageRoute(
@@ -155,14 +149,6 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const SavedNotesScreen(),
       );
-    // case SubOngoingProjectScreen.routeName:
-    //   var index = routeSettings.arguments as int;
-    //   return MaterialPageRoute(
-    //     settings: routeSettings,
-    //     builder: (_) => SubOngoingProjectScreen(
-    //       index: index,
-    //     ),
-    //   );
     case ProgressInvoiceScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,

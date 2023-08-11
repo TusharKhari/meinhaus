@@ -6,16 +6,20 @@ import 'package:new_user_side/data/models/pro_model.dart';
 import 'package:new_user_side/data/models/progress_invoice_model.dart';
 import 'package:new_user_side/data/models/project_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/error_screens.dart';
+import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/repository/estimate_repository.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:provider/provider.dart';
 import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/invoice/screens/progess_invoice_screen.dart';
-import '../../utils/utils.dart';
+import '../../utils/extensions/get_images.dart';
 
 class EstimateNotifier extends ChangeNotifier {
   EstimateRepository estimateRepository = EstimateRepository();
+  GetImages getImages = GetImages();
   // variables
   List<XFile> _images = [];
   bool _loading = false;
@@ -39,7 +43,12 @@ class EstimateNotifier extends ChangeNotifier {
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
 
   void setImagesInList(List<XFile> images) {
-    _images = images;
+    _images.addAll(images);
+    notifyListeners();
+  }
+
+  void removeImageFromList(XFile pickedFile) {
+    _images.remove(pickedFile);
     notifyListeners();
   }
 
@@ -83,7 +92,33 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-// Create Estimate
+  Future getImagess(BuildContext context) async {
+    await getImages.pickImages<EstimateNotifier>(context: context);
+  }
+
+  // CREATE STARTING ESTIMATE
+  Future createStartingEstimate({
+    required BuildContext context,
+    required Map<String, Object?> data,
+  }) async {
+    setLoadingState(true, true);
+    estimateRepository.createStartingEstimate(data).then((response) {
+      setLoadingState(false, true);
+      ('Estimate Succesfully Created ✅').log("Estimate Creation");
+      setImagesInList([]);
+      // Get.to(() => HomeScreen());
+      showSnakeBarr(
+          context,
+          "Your estimate has been created successfully. we will contact you shortly",
+          SnackBarState.Success);
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
+      ("${error} $stackTrace").log("Create Estimate notifier");
+    });
+  }
+
+// CREATE ESTIMATE
   Future createEstimate({
     required BuildContext context,
     required Map<String, Object?> data,
@@ -94,18 +129,18 @@ class EstimateNotifier extends ChangeNotifier {
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
       setImagesInList([]);
       Get.to(() => HomeScreen());
-      Utils.snackBar(
-        "Estimate Succesfully Created.",
-        "Your estimate has been created successfully..! we will contact you shortly",
-      );
+      showSnakeBarr(
+          context,
+          "Your estimate has been created successfully. we will contact you shortly",
+          SnackBarState.Success);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Create Estimate notifier");
     });
   }
 
-// Get Estimate
+// GET ESTIMATED WORK
   Future getEstimateWork() async {
     estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
@@ -115,7 +150,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-// Get Ongoing Projects
+// GET ONGOING PROJECTS
   Future getOngoingProjects() async {
     estimateRepository.getOngoingProjects().then((response) {
       var data = OngoingProjectsModel.fromJson(response);
@@ -125,7 +160,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-  // Get Projects History
+  // GET PROJECTS HISTORY
   Future getProjectsHistory() async {
     estimateRepository.getProjectsHistory().then((response) {
       var data = OngoingProjectsModel.fromJson(response);
@@ -135,41 +170,73 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-// Get Project and Pro Details
+// GET PROJECT DETAILS
   Future getProjectDetails({
     required BuildContext context,
     required String id,
     required String proId,
   }) async {
-    final bool hasProData = proDetails.prodata != null;
-    final bool hasProjects = projectDetails.services != null;
-    if ((hasProData && hasProjects) &&
-        (id == projectDetails.services!.projectId.toString() &&
-            proId == proDetails.prodata!.proId.toString())) {
-      ("Same project").log("Ongoing jobs");
-    } else {
-      setLoadingState(true, true);
-      await estimateRepository.getProjectDetails(id).then((response) {
-        var data = ProjectDetailsModel.fromJson(response);
-        setProjectDetails(data);
-      }).onError((error, stackTrace) {
-        setLoadingState(false, true);
-        showSnakeBarr(context, error.toString(), BarState.Error);
-        ("${error} $stackTrace").log("Get Prokject Details Estimate notifier");
-      });
-      await estimateRepository.getProDetails(proId).then((response) {
-        var data = ProModel.fromJson(response);
-        setProDetails(data);
-      }).onError((error, stackTrace) {
-        setLoadingState(false, true);
-        showSnakeBarr(context, error.toString(), BarState.Error);
-        ("${error} $stackTrace").log("Get Pro Details Estimate notifier");
-      });
+    setLoadingState(true, true);
+    // getting project details
+    await estimateRepository.getProjectDetails(id).then((response) {
+      var data = ProjectDetailsModel.fromJson(response);
+      setProjectDetails(data);
+      // checking the support query status
+      var query = data.services!.query;
+      supportStatusChecker(query, context);
+    }).onError((error, stackTrace) {
+      //  Navigator.of(context).pushScreen(ShowError(error: error.toString()));
       setLoadingState(false, true);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
+      ("${error} $stackTrace").log("Get Project Details Estimate notifier");
+    });
+    // getting pro details
+    await getProDetails(proId, context);
+    setLoadingState(false, true);
+  }
+
+  // Check Support status helper function
+  supportStatusChecker(Query? query, BuildContext context) {
+    // Setting the inital values
+    final supportNotifier = context.read<SupportNotifier>();
+    supportNotifier.setShowClosingDialog(false);
+    supportNotifier.setIsQuerySoved(false);
+    supportNotifier.setIsQueryFlagged(false);
+    // Support is not null && active and query is not solved yet.
+    // Support has flaged your query
+    if (query != null && query.flagged == "1") {
+      supportNotifier.setIsQueryFlagged(true);
+    }
+    if (query != null && query.status == "1" && query.resolved == "0") {
+      supportNotifier.setSupportStatus(1);
+      supportNotifier.setTicketId(query.ticket!);
+    }
+    // Support request to close the query
+    else if (query != null &&
+        query.status == "1" &&
+        query.endStatus == "1" &&
+        query.resolved == "0") {
+      supportNotifier.setShowClosingDialog(true);
+    }
+    // If no condition match we will set support status to inactive
+    else {
+      supportNotifier.setSupportStatus(0);
     }
   }
 
-  // Progess Invoice
+// GET PRO DETAILS
+  Future getProDetails(String proId, BuildContext context) async {
+    await estimateRepository.getProDetails(proId).then((response) {
+      var data = ProModel.fromJson(response);
+      setProDetails(data);
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
+      ("${error} $stackTrace").log("Get Pro Details Estimate notifier");
+    });
+  }
+
+  // PROGESS INVOICE
   Future progressInvoice({
     required BuildContext context,
     required String bookingId,
@@ -182,36 +249,39 @@ class EstimateNotifier extends ChangeNotifier {
       setProgressInvoice(data);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Progress-Invocie Estimate notifier");
     });
   }
 
+  // REMOVE OR ADD SERVICES
   Future toggleService({
     required BuildContext context,
     required MapSS body,
   }) async {
     await estimateRepository.toggleServices(body).then((response) {
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       getEstimateWork();
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Toggle Service Estimate notifier");
     });
   }
 
-  // write a review
+  // WRITE A REVIEW
   Future writeReview({
     required BuildContext context,
     required MapSS body,
   }) async {
     setReviewLoadingState(true, true);
     await estimateRepository.writeReview(body).then((response) {
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       Navigator.pop(context);
       setReviewLoadingState(false, true);
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, "$error", BarState.Error);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
       ("${error} $stackTrace").log("Toggle Service Estimate notifier");
       setReviewLoadingState(false, true);
     });

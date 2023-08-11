@@ -36,8 +36,7 @@ class SavedNotesRepo {
   Future<ResponseType> getSavedNotes(String id) async {
     try {
       return await service.sendHttpRequest(
-        url: Uri.parse(
-            "https://meinhaus.ca/api/get-saved-notes?estimate_service_id=$id"),
+        url: Uri.parse("${ApiUrls.getSavedNotes}$id"),
         method: HttpMethod.get,
       );
     } catch (e) {

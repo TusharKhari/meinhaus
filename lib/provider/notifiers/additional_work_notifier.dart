@@ -7,10 +7,10 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../features/additional work/screens/additional_work_from_pro_screen.dart';
 import '../../res/common/my_snake_bar.dart';
-import '../../static componets/dialogs/additional_work_added_dialog.dart';
+import '../../static components/dialogs/additional_work_added_dialog.dart';
 
 class AdditionalWorkNotifier extends ChangeNotifier {
-   AdditionalWorkRepo repo = AdditionalWorkRepo();
+  AdditionalWorkRepo repo = AdditionalWorkRepo();
   //variables
   bool _loading = false;
   List<XFile> _images = [];

@@ -43,8 +43,8 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>();
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -144,10 +144,10 @@ class _buildRatingBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<_buildRatingBar> createState() => __buildRatingBarState();
+  State<_buildRatingBar> createState() => __buildRatingSnackBarState();
 }
 
-class __buildRatingBarState extends State<_buildRatingBar> {
+class __buildRatingSnackBarState extends State<_buildRatingBar> {
   @override
   Widget build(BuildContext context) {
     final width = context.screenWidth;

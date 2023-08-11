@@ -1,21 +1,29 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
+import 'package:otp_text_field/style.dart';
+import 'package:provider/provider.dart';
+
 import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/features/edit%20profile/controller/services/edit_profile_services.dart';
+import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
+
 import '../../../res/common/buttons/my_buttons.dart';
-import '../../../static componets/dialogs/edit_profile_dialog.dart';
+import '../../../static components/dialogs/edit_profile_dialog.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
 
@@ -48,10 +56,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     lastNameController.dispose();
   }
 
+  // Pick Images from gallary
   Future getImagess() async {
-    await getImages.pickImage(context: context);
+    await getImages.pickImage<EditProfileNotifier>(context: context);
   }
 
+  // Editing the User Profile [Name, Pic]
   _editProfileHandler() async {
     final notifier = context.read<EditProfileNotifier>();
     await notifier.editProfile(
@@ -61,17 +71,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  // This function sent an otp to there registered mobile no
+  Future<void> _verifyPhoneNoHandler(String phoneNo) async {
+    final notifier = context.read<AuthNotifier>();
+    final phone = phoneNo.replaceAll("-", "");
+    MapSS body = {"phone": phone};
+    await notifier.sendOTPOnMobile(body: body, context: context);
+  }
+
+  // This function will send an email with verfication link
+  Future<void> _verifyEmailHandler() async {
+    final notifier = context.read<AuthNotifier>();
+    await notifier.verifyEmail(context);
+  }
+
+  ImageProvider<Object> _showProfileImage({
+    required String notifierImg,
+    required String newtworkImg,
+  }) {
+    if (notifierImg.isNotEmpty) {
+      return Image.file(File(notifierImg)).image;
+    } else if (newtworkImg.length != 0) {
+      return NetworkImage(newtworkImg);
+    } else {
+      return AssetImage("assets/images/man.png");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
-    print(user.profilePic);
-
     String userName = "${user.firstname} ${user.lastname}";
     final img = notifier.image;
+
     return ModalProgressHUD(
       inAsyncCall: notifier.loading,
       child: Scaffold(
+        // App bar
         appBar: MyAppBar(
           text: "Edit Profile",
           onBack: () {
@@ -82,8 +121,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return EditProfilePicDialog(
                         onTapAtOk: () async {
                           notifier.setProfileImg(XFile(""));
-                          Navigator.pop(context);
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         },
                       );
                     },
@@ -97,14 +136,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Row(
               children: [
                 30.hs,
-                CircleAvatar(
-                  radius: 40.r,
-                  backgroundImage: img.path.isNotEmpty
-                      ? Image.file(File(img.path)).image
-                      : user.profilePic != null
-                          ? NetworkImage(user.profilePic!.toString())
-                              as ImageProvider<Object>?
-                          : AssetImage("assets/images/man.png"),
+                Container(
+                  width: width / 4.5,
+                  height: height / 9,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                      image: _showProfileImage(
+                        notifierImg: img.path,
+                        newtworkImg: user.profilePic!,
+                      ),
+                    ),
+                    border: Border.all(
+                      color: AppColors.black,
+                      width: width / 200,
+                    ),
+                  ),
                 ),
                 20.hs,
                 Column(
@@ -167,7 +215,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       20.vs,
-                      // Basic info edit card
+                      // BASIC INFO
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
@@ -228,15 +276,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     controller: lastNameController,
                                     onSaved: (val) {},
                                   ),
-                                  const _TextField(
+                                  _TextField(
                                     hText: "Mobile No",
-                                    hintText: "(+1) (312) 090909",
+                                    hintText: "(+1) ${user.contact}",
                                     isEditable: false,
+                                    isAuthFields: true,
+                                    isVerified: user.phoneVerified,
+                                    onVerifyTap: () =>
+                                        _verifyPhoneNoHandler(user.contact!),
                                   ),
-                                  const _TextField(
+                                  _TextField(
                                     hText: "Email ID",
-                                    hintText: "user1meinhause@gmail.com",
+                                    hintText: user.email.toString(),
                                     isEditable: false,
+                                    isAuthFields: true,
+                                    isVerified: user.emailVerified,
+                                    onVerifyTap: () => _verifyEmailHandler(),
                                   ),
                                   10.vs,
                                 ],
@@ -267,6 +322,9 @@ class _TextField extends StatelessWidget {
   final bool? isEditable;
   final TextEditingController? controller;
   final Function(String?)? onSaved;
+  final bool? isAuthFields;
+  final bool? isVerified;
+  final VoidCallback? onVerifyTap;
   const _TextField({
     Key? key,
     required this.hText,
@@ -274,18 +332,51 @@ class _TextField extends StatelessWidget {
     this.isEditable = true,
     this.controller,
     this.onSaved,
+    this.isAuthFields = false,
+    this.isVerified = false,
+    this.onVerifyTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final authNotifier = context.watch<AuthNotifier>();
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyTextPoppines(
-            text: hText,
-            fontSize: context.screenHeight / MyFontSize.font12,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              MyTextPoppines(
+                text: hText,
+                fontSize: h / MyFontSize.font12,
+              ),
+              isAuthFields!
+                  ? isVerified!
+                      ? Icon(
+                          Icons.verified,
+                          size: w / 20,
+                          color: Colors.green,
+                        )
+                      : InkWell(
+                          onTap: onVerifyTap,
+                          child: authNotifier.loading
+                              ? LoadingAnimationWidget.inkDrop(
+                                  color: AppColors.buttonBlue, size: w / 30)
+                              : Text(
+                                  "Verify",
+                                  style: GoogleFonts.poppins(
+                                    color: AppColors.buttonBlue,
+                                    fontSize: w / 30,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                        )
+                  : SizedBox(),
+            ],
           ),
           SizedBox(
             height: 35.h,
@@ -293,7 +384,7 @@ class _TextField extends StatelessWidget {
               controller: controller,
               enabled: isEditable,
               style: GoogleFonts.poppins(
-                fontSize: context.screenHeight / MyFontSize.font12,
+                fontSize: h / MyFontSize.font12,
               ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: 10.h),
@@ -304,19 +395,177 @@ class _TextField extends StatelessWidget {
                   ),
                 ),
                 focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                  color: AppColors.textBlue1E9BD0,
-                  width: 0.7,
-                )),
-                hintText: hintText,
-                hintStyle: TextStyle(
-                  fontSize: context.screenHeight / MyFontSize.font12,
+                  borderSide: BorderSide(
+                    color: AppColors.textBlue1E9BD0,
+                    width: 0.7,
+                  ),
                 ),
+                hintText: hintText,
+                hintStyle: TextStyle(fontSize: h / MyFontSize.font12),
               ),
               onSaved: onSaved,
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class VerifyPhoneNoDialog extends StatefulWidget {
+  const VerifyPhoneNoDialog({super.key});
+
+  @override
+  State<VerifyPhoneNoDialog> createState() => VerifyPhoneNoDialogState();
+}
+
+class VerifyPhoneNoDialogState extends State<VerifyPhoneNoDialog> {
+  // Initial otp is blank
+  bool isOtpEnterd = false;
+  // Storing otp
+  late String otp;
+
+  // verify phone no handler
+  Future _verifyPhoneNoHandler(String OTP) async {
+    final notifer = context.read<AuthNotifier>();
+    final userId = notifer.user.userId.toString();
+    final body = {
+      "user_id": userId,
+      "otp": OTP,
+    };
+    if (isOtpEnterd)
+      await notifer.verifyPhone(
+        body: body,
+        context: context,
+        isFromSetting: true,
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final authNotifier = context.watch<AuthNotifier>();
+    final h = context.screenHeight;
+    final w = context.screenWidth;
+    return Dialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: w / 40),
+      child: Container(
+        width: w / 1.15,
+        height: h / 2.15,
+        padding: EdgeInsets.symmetric(vertical: h / 80, horizontal: w / 16),
+        child: Column(
+          children: [
+            SizedBox(height: h / 60),
+            MyTextPoppines(
+              text: "Let's Verify your Mobile No",
+              fontSize: w / 24,
+              fontWeight: FontWeight.bold,
+            ),
+            SizedBox(height: h / 70),
+            Image.asset('assets/icons/email.png'),
+            SizedBox(height: h / 40),
+            MyTextPoppines(
+              text: "We have sent you an OTP with your \n reiestered Mobile no",
+              fontSize: w / 32,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black.withOpacity(0.6),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: h / 60),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: MyTextPoppines(
+                text: "Verify OTP",
+                fontSize: w / 28,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: h / 80),
+            // OTP TEXT FIELD
+            OTPTextField(
+              length: 6,
+              width: w,
+              fieldWidth: w / 10,
+              otpFieldStyle: OtpFieldStyle(
+                focusBorderColor: AppColors.black,
+              ),
+              outlineBorderRadius: w / 40,
+              fieldStyle: FieldStyle.box,
+              textFieldAlignment: MainAxisAlignment.spaceAround,
+              keyboardType: TextInputType.number,
+              contentPadding: EdgeInsets.symmetric(vertical: h / 140),
+              style: TextStyle(
+                fontSize: w / 28,
+                fontWeight: FontWeight.bold,
+              ),
+              onCompleted: (value) {
+                setState(() => isOtpEnterd = true);
+                setState(() => otp = value);
+                print("otp set" + otp);
+                print("Completed " + value);
+              },
+            ),
+            SizedBox(height: h / 40),
+            MyBlueButton(
+              isWaiting: authNotifier.loading,
+              hPadding: w / 4,
+              vPadding: h / 60,
+              text: "Verify OTP",
+              onTap: () => _verifyPhoneNoHandler(otp),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _VerifyEmailDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final authNotifier = context.watch<AuthNotifier>();
+    final h = context.screenHeight;
+    final w = context.screenWidth;
+
+    // verify email handler
+    Future _verifyEmailHandler() async {
+      final notifer = context.read<AuthNotifier>();
+      await notifer.verifyEmail(context);
+    }
+
+    return Dialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: w / 40),
+      child: Container(
+        width: w / 1.15,
+        height: h / 2.4,
+        padding: EdgeInsets.symmetric(vertical: h / 80, horizontal: w / 16),
+        child: Column(
+          children: [
+            SizedBox(height: h / 60),
+            MyTextPoppines(
+              text: "Let's Verify your Email",
+              fontSize: w / 24,
+              fontWeight: FontWeight.bold,
+            ),
+            SizedBox(height: h / 70),
+            Image.asset('assets/icons/email.png'),
+            SizedBox(height: h / 40),
+            MyTextPoppines(
+              text: "We have sent you a link with your \n reiestered EMAIL",
+              fontSize: w / 32,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black.withOpacity(0.6),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: h / 80),
+            MyBlueButton(
+              isWaiting: authNotifier.loading,
+              hPadding: w / 4,
+              vPadding: h / 60,
+              text: "Get verification Lonk ",
+              onTap: () => _verifyEmailHandler(),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'dart:developer' as dev show log;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// This extension show all the logs on console
+// Use it like this -> response.log();
 extension Log on Object {
   void log([String tag = 'Log']) => dev.log(toString(), name: tag);
 }
@@ -34,4 +36,17 @@ extension NavigationExtensions on BuildContext {
 extension ScreenHeightExtension on BuildContext {
   double get screenHeight => MediaQuery.of(this).size.height;
   double get screenWidth => MediaQuery.of(this).size.width;
+}
+
+extension NavigationExtension on NavigatorState {
+  Future pushScreen(Widget screen) async {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return screen;
+        },
+      ),
+    );
+  }
 }

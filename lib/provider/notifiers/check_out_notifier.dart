@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/utils/utils.dart';
 import '../../features/home/screens/home_screen.dart';
-import '../../payment_services.dart';
+import '../../data/payment_services.dart';
 
 class CheckOutNotifier extends ChangeNotifier {
   CheckOutRepository repository = CheckOutRepository();
@@ -42,7 +42,7 @@ class CheckOutNotifier extends ChangeNotifier {
       await repository.checkOut(data).then((response) {
         print(response);
         Get.to(() => HomeScreen());
-        Utils.snackBar("CheckOut Done ..!", response['response_message']);
+        Utils.snackBar("CheckOut Done .", response['response_message']);
         setLoadingState(false);
       }).onError((error, stackTrace) {
         print("Error in Check out notifier :: $error\n $stackTrace");

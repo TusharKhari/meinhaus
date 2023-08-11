@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,8 +29,8 @@ class _PreviewProjectNotesState extends State<PreviewProjectNotes> {
   Widget build(BuildContext context) {
     final notifer = context.read<SavedNotesNotifier>().savedNotes;
     final note = notifer.notes![widget.index];
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
 
     return Dialog(
       backgroundColor: Colors.white,
@@ -74,32 +76,36 @@ class _PreviewProjectNotesState extends State<PreviewProjectNotes> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.r),
                     color: AppColors.whiteF5F5F5,
-                    image: note.images!.length == 0
+                    image: note.images == null
                         ? DecorationImage(
-                            image: AssetImage("assets/images/room/room_2.png"),
+                            image:
+                                AssetImage("assets/images/image_not_found.png"),
                             fit: BoxFit.cover,
                           )
                         : DecorationImage(
-                            image: NetworkImage(note.images![currentIndex]),
+                            image: NetworkImage(
+                                note.images![currentIndex].thumbnailUrl!),
                             fit: BoxFit.cover,
                           ),
                   ),
                 ),
                 7.hspacing(context),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (currentIndex < (note.images!.length - 1))
-                        currentIndex++;
-                    });
-                  },
-                  child: currentIndex < (note.images!.length - 1)
-                      ? Icon(
-                          CupertinoIcons.forward,
-                          color: AppColors.buttonBlue,
-                        )
-                      : SizedBox(),
-                )
+                note.images == null
+                    ? SizedBox()
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (currentIndex < (note.images!.length - 1))
+                              currentIndex++;
+                          });
+                        },
+                        child: currentIndex < (note.images!.length - 1)
+                            ? Icon(
+                                CupertinoIcons.forward,
+                                color: AppColors.buttonBlue,
+                              )
+                            : SizedBox(),
+                      )
               ],
             ),
             2.vspacing(context),

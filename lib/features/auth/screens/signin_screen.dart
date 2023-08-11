@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/features/auth/screens/forget_password.dart';
 import 'package:new_user_side/features/auth/screens/otp_validate_screen.dart';
-import 'package:new_user_side/features/auth/screens/signup_screen.dart';
+import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
 import 'package:new_user_side/features/auth/widgets/auth_banner_widget.dart';
 import 'package:new_user_side/features/auth/widgets/auth_textfield.dart';
 import 'package:new_user_side/features/auth/widgets/social_login_widget.dart';
@@ -49,6 +50,8 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<AuthNotifier>();
+    final h = context.screenHeight;
+    final w = context.screenWidth;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -84,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
               alignment: const Alignment(0.8, 0.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, OtpValidateScreen.routeName);
+                  Navigator.of(context).pushScreen(ForgetPasswordScreen());
                 },
                 child: MyTextPoppines(
                   text: "Forget Password ?",
@@ -115,8 +118,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 10.hs,
                 InkWell(
-                  onTap: () =>
-                      Navigator.pushNamed(context, SignUpScreen.routeName),
+                  onTap: () => Navigator.pushNamed(
+                      context, SignUpStepFirstScreen.routeName),
                   child: MyTextPoppines(
                     text: "Sign up",
                     fontSize: 13.sp,

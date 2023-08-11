@@ -11,9 +11,10 @@ class AuthRepositorys {
   Future<ResponseType> login(MapSS body) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.signIn,
+        url: ApiUrls.login,
         method: HttpMethod.post,
         body: body,
+        allowUnauthorizedResponse: true,
       );
     } catch (e) {
       throw e;
@@ -36,7 +37,7 @@ class AuthRepositorys {
   Future<ResponseType> signUp(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
-        url: ApiUrls.signUp,
+        url: ApiUrls.register,
         method: HttpMethod.post,
         body: data,
       );
@@ -45,11 +46,62 @@ class AuthRepositorys {
     }
   }
 
-// Verify Otp
-  Future<ResponseType> verifyEmail(MapSS data) async {
+// Verify Mobile Number
+  Future<ResponseType> verifyPhone(MapSS data) async {
     try {
       return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.verifyMobile,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Verify Email
+  Future<ResponseType> verifyEmai() async {
+    try {
+      return await services.sendHttpRequest(
         url: ApiUrls.verifyEmail,
+        method: HttpMethod.get,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Send OTP Mobile
+  Future<ResponseType> sendOTPMobile(MapSS data) async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.sendOTPMobile,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Resend Otp
+  Future<ResponseType> resendOtp(MapSS data) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.resendOtp,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Add Phone number
+  Future<ResponseType> addPhoneNo(MapSS data) async {
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.addMobileNo,
         method: HttpMethod.post,
         body: data,
       );
@@ -78,6 +130,59 @@ class AuthRepositorys {
         url: ApiUrls.google,
         method: HttpMethod.post,
         body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Forget Password
+  Future<ResponseType> forgetPassword(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.forgetPassword,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Verify Forget Password OTP
+  Future<ResponseType> verifyForgetPassOTP(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.verifyForgetPasswordOTP,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Create New password via Forget Password
+  Future<ResponseType> createNewPasswordViaFP(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.createNewPasswordViaFP,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Resend Forget Password OTP
+  Future<ResponseType> resendFOrgetPassOTP(MapSS body) async {
+    try {
+      return await services.sendHttpRequestWithoutHeader(
+        url: ApiUrls.resendForgetPasswordOTP,
+        method: HttpMethod.post,
+        body: body,
+        allowUnauthorizedResponse: true,
       );
     } catch (e) {
       throw e;

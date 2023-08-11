@@ -30,4 +30,31 @@ class CustomerSupportRepo {
       throw e;
     }
   }
+
+  // Send deny request ( Keep opne support )
+  Future<ResponseType> keepOpen(MapSS body) async {
+    try {
+      return await service.sendHttpRequest(
+        url: ApiUrls.keepOpen,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Accept and close the support chat
+  Future<ResponseType> acceptAndClose(MapSS body) async {
+    try {
+      return await service.sendHttpRequest(
+        url: ApiUrls.acceptAndClose,
+        method: HttpMethod.post,
+        body: body,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+  
 }

@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -9,37 +8,39 @@ import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/models/generated_estimate_model.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 
 class ProjectEstimatedCardWidget extends StatelessWidget {
-  final int index;
+  final EstimatedWorks project;
   const ProjectEstimatedCardWidget({
     Key? key,
-    required this.index,
+    required this.project,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.read<EstimateNotifier>().estimated;
-    final projectEstimate = notifier.estimatedWorks![index].projectEstimate;
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: projectEstimate!.length,
+      itemCount: project.projectEstimate!.length,
       physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index2) {
-        return _BuildServiceCard(index: index, index2: index2);
+      itemBuilder: (context, index) {
+        return _BuildServiceCard(
+          service: project.projectEstimate![index],
+          project: project,
+        );
       },
     );
   }
 }
 
 class _BuildServiceCard extends StatefulWidget {
-  final int index;
-  final int index2;
+  final EstimatedWorks project;
+  final ProjectEstimate service;
   const _BuildServiceCard({
     Key? key,
-    required this.index,
-    required this.index2,
+    required this.project,
+    required this.service,
   }) : super(key: key);
 
   @override
@@ -49,15 +50,19 @@ class _BuildServiceCard extends StatefulWidget {
 class __BuildServiceCardState extends State<_BuildServiceCard> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final getEstProvider = context.watch<EstimateNotifier>().estimated;
-    final projectEstimate = getEstProvider.estimatedWorks![widget.index];
-    final service = projectEstimate.projectEstimate![widget.index2];
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+    final projectEstimate = widget.project;
+    final service = widget.service;
+    final servicesLength = projectEstimate.projectEstimate!.length;
+
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      margin:
+          EdgeInsets.symmetric(horizontal: width / 14, vertical: height / 40),
+      padding:
+          EdgeInsets.symmetric(horizontal: width / 22, vertical: height / 40),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(width / 22),
         color: AppColors.white,
         boxShadow: boxShadow,
       ),
@@ -69,68 +74,71 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
               MyTextPoppines(
                 text: "Project Area :",
                 fontWeight: FontWeight.w600,
-                fontSize: height / 55.78,
+                fontSize: width / 28,
               ),
-              20.hs,
+              SizedBox(width: width / 22),
               MyTextPoppines(
-                text: service.projectArea.toString(),
-                fontSize: height / 65,
+                text: service.projectArea ?? "",
+                fontSize: width / 30,
               ),
             ],
           ),
-          10.vs,
+          SizedBox(height: height / 80),
           MyTextPoppines(
             text: "Description ",
             fontWeight: FontWeight.w600,
-            fontSize: height / 55.78,
+            fontSize: width / 28,
           ),
-          10.vs,
+          SizedBox(height: height / 80),
           Padding(
-            padding: EdgeInsets.only(left: 15.w),
+            padding: EdgeInsets.only(left: width / 30),
             child: MyTextPoppines(
-              text: service.projectDescription.toString(),
+              text: service.projectDescription ?? "No Description",
               fontSize: height / 65,
               maxLines: 100,
               height: 1.4,
               color: AppColors.black.withOpacity(0.5),
             ),
           ),
-          15.vs,
+          SizedBox(height: height / 60),
           Row(
             children: [
               MyTextPoppines(
                 text: "Desposit Amount :",
-                fontSize: height / 55.75,
+                fontSize: width / 28,
                 fontWeight: FontWeight.w600,
               ),
-              20.hs,
+              SizedBox(width: width / 22),
               MyTextPoppines(
                 text: "\$${service.depositAmount}",
-                fontSize: height / 65,
+                fontSize: width / 30,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
             ],
           ),
-          15.vs,
+          SizedBox(height: height / 60),
           Row(
             children: [
               MyTextPoppines(
                 text: "Project Cost :",
-                fontSize: height / 55.75,
+                fontSize: width / 28,
                 fontWeight: FontWeight.w600,
               ),
               20.hs,
               MyTextPoppines(
                 text: "\$${service.projectCost}",
-                fontSize: height / 65,
+                fontSize: width / 30,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
             ],
           ),
-          20.vs,
-          _BuildButton(index: widget.index, index2: widget.index2)
+          SizedBox(height: height / 40),
+          Visibility(
+            visible: servicesLength > 1,
+            child: _BuildButton(service: service),
+          )
         ],
       ),
     );
@@ -138,12 +146,11 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
 }
 
 class _BuildButton extends StatefulWidget {
-  final int index;
-  final int index2;
+  final ProjectEstimate service;
+
   const _BuildButton({
     Key? key,
-    required this.index,
-    required this.index2,
+    required this.service,
   }) : super(key: key);
 
   @override
@@ -153,10 +160,9 @@ class _BuildButton extends StatefulWidget {
 class __BuildButtonState extends State<_BuildButton> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final getEstProvider = context.watch<EstimateNotifier>().estimated;
-    final projectEstimate = getEstProvider.estimatedWorks![widget.index];
-    final service = projectEstimate.projectEstimate![widget.index2];
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+    final service = widget.service;
     int status = service.status!;
     int projectId = service.projectId!;
     return Row(
@@ -164,17 +170,18 @@ class __BuildButtonState extends State<_BuildButton> {
       children: [
         MyTextPoppines(
           text: "Action :",
-          fontSize: height / 55.78,
+          fontSize: width / 28,
           fontWeight: FontWeight.w600,
         ),
-        20.hs,
+        SizedBox(width: width / 22),
         InkWell(
           onTap: () => _handleTapAction(status, projectId),
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 7.h),
+            margin: EdgeInsets.symmetric(horizontal: width / 22),
+            padding: EdgeInsets.symmetric(
+                horizontal: width / 22, vertical: height / 120),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.r),
+              borderRadius: BorderRadius.circular(6),
               color: _getStatusColor(status),
               boxShadow: buttonShadow,
             ),
@@ -182,7 +189,7 @@ class __BuildButtonState extends State<_BuildButton> {
               text: _getStatusText(status),
               fontWeight: FontWeight.w600,
               color: AppColors.white,
-              fontSize: context.screenHeight / 65,
+              fontSize: width / 32,
             ),
           ),
         )

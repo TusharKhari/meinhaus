@@ -16,10 +16,10 @@ class ProProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>();
-    final pro = notifier.proDetails.prodata!;
+    final pro = notifier.proDetails.prodata;
 
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       child: Column(
@@ -37,14 +37,14 @@ class ProProfileWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MyTextPoppines(
-                    text: pro.proName.toString(),
+                    text: pro?.proName ?? "",
                     fontSize: context.screenHeight / MyFontSize.font12,
                     fontWeight: FontWeight.bold,
                   ),
                   5.vs,
                   MyTextPoppines(
-                    text: pro.proCompanyName.toString(),
-                    fontSize: context.screenHeight / MyFontSize.font10,
+                    text: pro?.proCompanyName ?? "",
+                    fontSize: width / 42,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                   ),
@@ -52,8 +52,8 @@ class ProProfileWidget extends StatelessWidget {
                   SizedBox(
                     width: context.screenWidth / 1.5,
                     child: MyTextPoppines(
-                      text: pro.proMotive.toString(),
-                      fontSize: context.screenHeight / MyFontSize.font10,
+                      text: pro?.proMotive ?? "",
+                      fontSize: width / 42,
                       fontWeight: FontWeight.bold,
                       color: AppColors.grey,
                       maxLines: 5,
@@ -102,7 +102,7 @@ class ProProfileWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     MyTextPoppines(
-                      text: pro.jobsDone.toString(),
+                      text: pro?.jobsDone.toString() ?? "",
                       height: 1.8,
                       fontSize: context.screenHeight / MyFontSize.font12,
                       fontWeight: FontWeight.bold,
@@ -132,9 +132,9 @@ class ProProfileWidget extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: pro.serviceOffered!.length,
+              itemCount: pro?.serviceOffered!.length,
               itemBuilder: (context, index) {
-                final String service = pro.serviceOffered![index];
+                final String? service = pro?.serviceOffered![index];
                 return Padding(
                   padding: EdgeInsets.only(bottom: 5.h),
                   child: MyTextPoppines(

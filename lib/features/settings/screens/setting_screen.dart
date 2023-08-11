@@ -5,7 +5,7 @@ import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
 import 'package:new_user_side/res/common/my_text.dart';
-import 'package:new_user_side/static%20componets/dialogs/customer_support_dialog.dart';
+import 'package:new_user_side/static%20components/dialogs/customer_support_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +21,11 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(text: "Setting"),
-      body: Column(children: [
-        SettingCardWidget(),
-      ]),
+      body: Column(
+        children: [
+          SettingCardWidget(),
+        ],
+      ),
     );
   }
 }
@@ -57,7 +59,7 @@ class SettingCardWidget extends StatelessWidget {
                       ? showSnakeBarr(
                           context,
                           "Google User can't change password",
-                          BarState.Warning,
+                          SnackBarState.Warning,
                         )
                       : context.pushNamedRoute(list[3]);
                 } else {

@@ -1,3 +1,5 @@
+import 'package:new_user_side/data/models/ongoing_project_model.dart';
+
 class AdditionalWorkModel {
   String? status;
   String? responseMessage;
@@ -32,9 +34,9 @@ class AdditionalWork {
   int? id;
   String? title;
   String? description;
-  List<String>? images;
+  List<ProjectImages>? images;
   String? amount;
-  String? status;
+  int? status;
 
   AdditionalWork(
       {this.id,
@@ -48,7 +50,12 @@ class AdditionalWork {
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    images = json['images'].cast<String>();
+    if (json['project_images'] != null) {
+      images = <ProjectImages>[];
+      json['project_images'].forEach((v) {
+        images!.add(new ProjectImages.fromJson(v));
+      });
+    }
     amount = json['amount'];
     status = json['status'];
   }
@@ -58,7 +65,9 @@ class AdditionalWork {
     data['id'] = this.id;
     data['title'] = this.title;
     data['description'] = this.description;
-    data['images'] = this.images;
+    if (this.images != null) {
+      data['project_images'] = this.images!.map((v) => v.toJson()).toList();
+    }
     data['amount'] = this.amount;
     data['status'] = this.status;
     return data;

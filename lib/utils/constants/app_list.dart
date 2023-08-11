@@ -3,22 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
-import 'package:new_user_side/features/ongoing%20projects/screens/project_history_screen.dart';
+import 'package:new_user_side/features/ongoing%20projects/screens/completed_projects_screen.dart';
 import 'package:new_user_side/features/settings/screens/setting_screen.dart';
 
 import '../../../features/home/screens/home_screen.dart';
 
-// Ongoing Project
-List<String> ongoingProjectDesList = [
-  "Need to fix the furniture in manner it can’t break again.",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "Need to fix the furniture in manner it can’t break again.",
-  "Need to fix the furniture in manner it can’t break again.",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "clean them off to remove dirt and grime, repair any chips and cracks, then apply gel stain and finish",
-  "Need to fix the furniture in manner it can’t break again.",
-];
 
 // Drawer
 List drawerList = [
@@ -35,7 +24,7 @@ List drawerList = [
   [
     CupertinoIcons.time,
     "Ongoing Projects",
-    AllOngoingJobs.routeName,
+    AllOngoingProjects.routeName,
   ],
   [
     Icons.feed_outlined,
@@ -50,7 +39,7 @@ List drawerList = [
   [
     Icons.history,
     "Project History",
-    ProjectHistory.routeName,
+    CompletedProjectsScreen.routeName,
   ],
   [
     Icons.contact_support_outlined,
@@ -58,109 +47,6 @@ List drawerList = [
     HomeScreen.routeName,
   ],
 ];
-
-// chat with pro
-List chatList = [
-  [
-    false,
-    false,
-    "assets/images/face/man_1.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "Just Now",
-    "Bathroom Renovation",
-  ],
-  [
-    false,
-    false,
-    "assets/images/face/women.png",
-    "Katherin Murphy",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago",
-    "Window Fixing",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Sandy Roy",
-    "Lorem ipsum dolor sit amet",
-    "5 min ago",
-    "Roof Fixing & Fitting"
-  ],
-  [
-    false,
-    false,
-    "assets/images/face/women.png",
-    "Katherin Murphy",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago",
-    "Furniture Fixing",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_1.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "03.04 PM","Bathroom Renovation",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Sam Kohli ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago",
-     "Window Fixing",
-  ],
-  [
-    false,
-    false,
-    "assets/images/face/women.png",
-    "Katherin Murphy",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago",
-     "Furniture Fixing",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago",
-    "Roof Fixing & Fitting"
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago", "Window Fixing",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago","Bathroom Renovation",
-  ],
-  [
-    true,
-    true,
-    "assets/images/face/man_2.png",
-    "Nate Diaz",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...",
-    "5 min ago",
-     "Furniture Fixing",
-  ],
-];
-
-
-
 
 // User Details
 Map<String, List<String>> statesCities = {

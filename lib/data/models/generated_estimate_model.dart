@@ -37,7 +37,7 @@ class EstimatedWorks {
   BillTo? billTo;
   BillFrom? billFrom;
   List<ProjectEstimate>? projectEstimate;
-  List<String>? uploadedImgs;
+  List<UploadedImgs>? uploadedImgs;
   ProjectBilling? projectBilling;
 
   EstimatedWorks(
@@ -65,7 +65,12 @@ class EstimatedWorks {
         projectEstimate!.add(new ProjectEstimate.fromJson(v));
       });
     }
-    uploadedImgs = json['uploaded_imgs'].cast<String>();
+    if (json['uploaded_imgs'] != null) {
+      uploadedImgs = <UploadedImgs>[];
+      json['uploaded_imgs'].forEach((v) {
+        uploadedImgs!.add(new UploadedImgs.fromJson(v));
+      });
+    }
     projectBilling = json['project_billing'] != null
         ? new ProjectBilling.fromJson(json['project_billing'])
         : null;
@@ -86,7 +91,10 @@ class EstimatedWorks {
       data['project_estimate'] =
           this.projectEstimate!.map((v) => v.toJson()).toList();
     }
-    data['uploaded_imgs'] = this.uploadedImgs;
+    if (this.uploadedImgs != null) {
+      data['uploaded_imgs'] =
+          this.uploadedImgs!.map((v) => v.toJson()).toList();
+    }
     if (this.projectBilling != null) {
       data['project_billing'] = this.projectBilling!.toJson();
     }
@@ -187,12 +195,31 @@ class ProjectEstimate {
   }
 }
 
+class UploadedImgs {
+  String? imageUrl;
+  String? thumbnailUrl;
+
+  UploadedImgs({this.imageUrl, this.thumbnailUrl});
+
+  UploadedImgs.fromJson(Map<String, dynamic> json) {
+    imageUrl = json['image_url'];
+    thumbnailUrl = json['thumbnail_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_url'] = this.imageUrl;
+    data['thumbnail_url'] = this.thumbnailUrl;
+    return data;
+  }
+}
+
 class ProjectBilling {
-  dynamic? projectAmount;
-  dynamic? grandAmountToPay;
-  dynamic? amountToPay;
-  dynamic? amountPaid;
-  dynamic? amountToBePaidInFuture;
+  dynamic projectAmount;
+  dynamic grandAmountToPay;
+  dynamic amountToPay;
+  dynamic amountPaid;
+  dynamic amountToBePaidInFuture;
   String? subTotal;
   String? hstForSubtotal;
   String? total;

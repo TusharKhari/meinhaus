@@ -5,8 +5,11 @@ import 'package:new_user_side/repository/customer_support_repo.dart';
 import 'package:new_user_side/res/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../utils/extensions/get_images.dart';
+
 class CustomerSupportNotifier extends ChangeNotifier {
   CustomerSupportRepo supportRepo = CustomerSupportRepo();
+  GetImages getImages = GetImages();
   //variables
   bool _loading = false;
   List<XFile> _images = [];
@@ -38,6 +41,10 @@ class CustomerSupportNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future getImagess(BuildContext context) async {
+    await getImages.pickImages<CustomerSupportNotifier>(context: context);
+  }
+
   // Send Query to support
   Future sendQuery({
     required BuildContext context,
@@ -47,12 +54,13 @@ class CustomerSupportNotifier extends ChangeNotifier {
     await supportRepo.sendQuery(body).then((response) {
       setLoadingState(false, true);
       setImagesInList([]);
-      showSnakeBarr(context, response["response_message"], BarState.Success);
+      showSnakeBarr(
+          context, response["response_message"], SnackBarState.Success);
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       ("${error} $stackTrace").log("Send Query notifier");
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
     });
   }
 
@@ -62,12 +70,13 @@ class CustomerSupportNotifier extends ChangeNotifier {
     required String id,
   }) async {
     supportRepo.getRaisedQuery(id).then((response) {
+      print(response);
       var data = RaisedQueryModel.fromJson(response);
       setQueryModel(data);
       ('Get Raised Query ✅').log();
     }).onError((error, stackTrace) {
       ("${error} $stackTrace").log("Get Raised Query notifier");
-      showSnakeBarr(context, error.toString(), BarState.Error);
+      showSnakeBarr(context, error.toString(), SnackBarState.Error);
     });
   }
 }

@@ -6,7 +6,7 @@ import 'package:new_user_side/utils/extensions/validator.dart';
 import 'package:provider/provider.dart';
 
 import 'package:new_user_side/data/network/network_api_servcies.dart';
-import 'package:new_user_side/local/user_prefrences.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/res/common/buttons/my_buttons.dart';
 import 'package:new_user_side/res/common/my_app_bar.dart';
@@ -291,8 +291,8 @@ class MyTextField extends StatefulWidget {
 class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
-    final height = context.screenHeight;
-    final width = context.screenWidth;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: widget.isHs20! ? 25.w : 0.w,
@@ -314,6 +314,7 @@ class _MyTextFieldState extends State<MyTextField> {
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: TextFormField(
+              onTapOutside: (event) => FocusScope.of(context).unfocus(),
               controller: widget.controller,
               maxLines: widget.maxLines,
               decoration: InputDecoration(
