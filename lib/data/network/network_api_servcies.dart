@@ -246,17 +246,17 @@ class NetworkApiServices {
         return responseJson;
       case 400:
         throw FetchDataException(
-            " ${responseJson['response_message']}  ${response.statusCode}");
+            " ${responseJson['response_message']}");
       case 401:
         if (allowUnauthorizedResponse!) {
           return responseJson;
         } else {
           throw UnauthorizedException(
-              "${responseJson['response_message']} ${response.statusCode}");
+              " ${responseJson['response_message']}");
         }
       case 404:
         throw FetchDataException(
-            " ${responseJson['response_message']}  ${response.statusCode}");
+            " ${responseJson['response_message']}");
       case 500:
         throw InternalSeverException("");
       default:

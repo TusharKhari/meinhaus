@@ -97,21 +97,30 @@ class AuthNotifier extends ChangeNotifier {
   Future login(MapSS data, BuildContext context) async {
     setLoadingState(true, true);
     repository.login(data).then((response) async {
+  if(response['response_message'] == "Invalid email or password"){
+      showSnakeBarr(context, "Invalid Email or Password", SnackBarState.Error,);
+       setLoadingState(false, true);
+  }
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
-      // if (response['response_message'] == "Unverified User.") {
       if (user.phoneVerified!) {
         ("User Logged in Successfully ✨").log("Login Notifier");
         showSnakeBarr(
-            context, response['response_message'], SnackBarState.Success);
+            context, 
+            response['response_message'], 
+            SnackBarState.Success,
+            );
         Navigator.of(context).pushNamedAndRemoveUntil(
           HomeScreen.routeName,
           (route) => false,
         );
       } else {
         showSnakeBarr(
-            context, "Please verify you details first", SnackBarState.Warning);
+            context,
+             "Please verify you details first", 
+            SnackBarState.Warning,
+            );
         Navigator.of(context).pushScreen(
           OtpValidateScreen(
             userId: user.userId!,
