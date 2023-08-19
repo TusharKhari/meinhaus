@@ -63,7 +63,7 @@ class Projects {
       projectImages = <ProjectImages>[];
       json['project_images'].forEach((v) {
         projectImages!.add(new ProjectImages.fromJson(v));
-      });
+      },);
     }
     normal = json['normal'];
     isCompleted = json['is_completed'];
