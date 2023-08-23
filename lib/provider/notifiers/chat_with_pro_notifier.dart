@@ -35,7 +35,6 @@ class ChatWithProNotifier extends ChangeNotifier {
   Future allConversation(BuildContext context) async {
     setLoadingState(true, true);
     await repo.allConversation().then((response) {
-     
       final data = ConversationsListModal.fromJson(response);
       setAllConversationList(data);
       setLoadingState(false, true);

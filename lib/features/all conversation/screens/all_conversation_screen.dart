@@ -13,8 +13,6 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/notifiers/estimate_notifier.dart';
-
 class AllConversationScreen extends StatefulWidget {
   static const String routeName = '/chatList';
   const AllConversationScreen({super.key});
@@ -24,30 +22,6 @@ class AllConversationScreen extends StatefulWidget {
 }
 
 class _AllConversationScreenState extends State<AllConversationScreen> {
-  late ChatNotifier notifier;
-  @override
-  void initState() {
-    super.initState();
-    setupPusherChannel();
-  }
-
-  @override
-  void didChangeDependencies() {
-    notifier = context.read<ChatNotifier>();
-    super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    notifier.unsubscribe();
-  }
-
-  Future setupPusherChannel() async {
-    final notifier = context.read<ChatNotifier>();
-    await notifier.setupPusher(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ChatWithProNotifier>();

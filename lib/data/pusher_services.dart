@@ -129,21 +129,28 @@ class PusherService {
       final supportNotifier = context.read<SupportNotifier>();
       final userNotifier = context.read<AuthNotifier>().user;
 
-      // Handle "message-sent" event
+      // Handle "message-sent" event ask nessage received
       if (event.eventName == "message-sent") {
         final data = json.decode(event.data as String) as Map<String, dynamic>;
+        final message = Messages.fromJson(data['message_data']);
+
+        // Add the new message in mymessages list
+        if (notifier.myMessaage.conversationId == data['conversation_id']) {
+          notifier.updateOrAddNewMessage(message);
+        }
+
+        // updating conversation list
+        proChatNotifier.allConversation(context);
+
+        // Whenever we see the message we will mark it as read using this api
         final body = {
           "conversation_id": data["conversation_id"].toString(),
           "to_user_id": data["message_data"]["sender_id"].toString(),
           "message_id": data["message_data"]["id"].toString(),
         };
         notifier.readMessage(body);
-        proChatNotifier.allConversation(context);
-        if (notifier.myMessaage.messages!.isNotEmpty) {
-          final message = Messages.fromJson(data['message_data']);
-          notifier.updateOrAddNewMessage(message);
-        }
       }
+
       // Handle "message-read" event
       else if (event.eventName == "message-read") {
         final messages = notifier.myMessaage.messages!;
@@ -156,7 +163,9 @@ class PusherService {
           },
         ).toList();
         notifier.setMessages(
-          notifier.myMessaage.copyWith(messages: updatedMessages),
+          notifier.myMessaage.copyWith(
+            messages: updatedMessages,
+          ),
         );
       }
       // Handle "ticket-accepted" evetns

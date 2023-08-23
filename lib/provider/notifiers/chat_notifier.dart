@@ -178,7 +178,6 @@ class ChatNotifier extends ChangeNotifier {
       "files[]": imgPath,
     };
     await repo.sendMessage(body).then((response) {
-      print(response);
       final data = MessageModel.fromJson(response);
       updateOrAddNewMessage(data.messages!.first);
       setImage(XFile(""));
@@ -220,7 +219,6 @@ class ChatNotifier extends ChangeNotifier {
         largestId = messageId;
       }
     }
-    print(largestId);
     final message = Messages(
       id: largestId + 1,
       senderId: userId,
@@ -230,7 +228,6 @@ class ChatNotifier extends ChangeNotifier {
       createdAt: DateTime.now().toString(),
       type: "text",
     );
-    print(message.id);
     updateOrAddNewMessage(message);
     setLastMessage(messageController.text);
     messageController.clear();
@@ -244,11 +241,7 @@ class ChatNotifier extends ChangeNotifier {
       "paginateVar": _pageNo.toString(),
     };
     if (_message.messageCount != _message.messages!.length) {
-      // print(_message.conversationId);
-      // print(_message.messageCount);
-      // print(_message.messages!.length);
       await repo.loadMoreMessages(body).then((response) {
-      //  print(response);
         final data = MessageModel.fromJson(response);
         _message.messages!.insertAll(0, data.messages!);
         setPageNo();
@@ -268,7 +261,7 @@ class ChatNotifier extends ChangeNotifier {
 
   /// Read messages
   Future readMessage(MapSS body) async {
-    if (myMessaage.messages!.isNotEmpty)
+    if (myMessaage.messages != null && myMessaage.messages!.isNotEmpty)
       repo.readMessage(body).then((value) {
         print("messages readed by sender");
       }).onError((error, stackTrace) {
