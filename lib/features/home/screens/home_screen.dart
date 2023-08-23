@@ -3,11 +3,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
+import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/res/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../provider/notifiers/chat_notifier.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../provider/notifiers/our_services_notifier.dart';
 import '../../../static components/drawer/my_drawer_widget.dart';
@@ -34,6 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
     getEstimate();
     getOngoingProjects();
     getOurServices();
+    getConversationList();
+    setupPusherChannel();
   }
 
   void animateEstimateButton() {
@@ -60,6 +64,16 @@ class _HomeScreenState extends State<HomeScreen> {
     await notifer.getOurServices();
   }
 
+  Future<void> getConversationList() async {
+    final notifier = context.read<ChatWithProNotifier>();
+    await notifier.allConversation(context);
+  }
+
+  Future setupPusherChannel() async {
+    final notifier = context.read<ChatNotifier>();
+    await notifier.setupPusher(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
@@ -68,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(height / 16),
-        child: HomePageAppBar(),
+        child: HomeScreenAppBar(),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

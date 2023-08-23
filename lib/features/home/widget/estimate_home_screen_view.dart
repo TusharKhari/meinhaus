@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
@@ -88,11 +89,12 @@ class EstimatedWorkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final getEstProvider = context.watch<EstimateNotifier>();
     final projectDetails = getEstProvider.estimated.estimatedWorks![index];
     final projectCost = projectDetails.projectEstimate![0].projectCost;
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+
     return Container(
       width: width / 2,
       margin: EdgeInsets.only(right: width / 35),
@@ -161,10 +163,11 @@ class EstimatedWorkCard extends StatelessWidget {
                 bottomRight: Radius.circular(width / 40),
               ),
               // BACKGROUND PROJECT IMAGE
-              image: projectDetails.uploadedImgs != null
+              image: projectDetails.uploadedImgs != null &&
+                      projectDetails.uploadedImgs!.isNotEmpty
                   ? DecorationImage(
                       image: NetworkImage(
-                        projectDetails.uploadedImgs![0].thumbnailUrl!,
+                        projectDetails.uploadedImgs!.first.thumbnailUrl!,
                       ),
                       fit: BoxFit.fill,
                     )
