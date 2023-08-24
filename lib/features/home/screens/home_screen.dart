@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
-import 'package:new_user_side/res/common/my_text.dart';
+import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -51,12 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getEstimate() async {
     final notifer = context.read<EstimateNotifier>();
-    await notifer.getEstimateWork();
+    await notifer.getEstimateWork(context);
   }
 
   Future<void> getOngoingProjects() async {
     final notifer = context.read<EstimateNotifier>();
-    await notifer.getOngoingProjects();
+    await notifer.getOngoingProjects(context);
   }
 
   Future<void> getOurServices() async {

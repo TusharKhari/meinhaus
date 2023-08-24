@@ -6,15 +6,18 @@ import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/pusher_services.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/repository/chat_respository.dart';
+import 'package:new_user_side/resources/loading/loading_screen.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../res/common/my_snake_bar.dart';
+import '../../error_screens.dart';
+import '../../resources/common/my_snake_bar.dart';
 import 'auth_notifier.dart';
 
 class ChatNotifier extends ChangeNotifier {
   ChatRepository repo = ChatRepository();
+  final loadingScreen = LoadingScreen.instance();
   PusherService _pusherService = PusherService.instance;
   TextEditingController messageController = TextEditingController();
   final scrollController = ScrollController();
@@ -132,6 +135,16 @@ class ChatNotifier extends ChangeNotifier {
     ("Channel Unsunscribed $channelName").log("Pusher");
   }
 
+  void onErrorHandler(
+    BuildContext context,
+    Object? error,
+    StackTrace stackTrace,
+  ) {
+    showSnakeBarr(context, "$error", SnackBarState.Error);
+    ("$error $stackTrace").log("Chat notifier");
+    Navigator.of(context).pushScreen(ShowError(error: error.toString()));
+  }
+
   /// Setup Pusher channel
   Future setupPusher(BuildContext context) async {
     final userNotifier = context.read<AuthNotifier>().user;
@@ -142,8 +155,7 @@ class ChatNotifier extends ChangeNotifier {
         .then((value) {
       ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), SnackBarState.Error);
-      ("Erorr in setup pusher --> $error").log("Pro-Chat Notifier");
+      onErrorHandler(context, error, stackTrace);
     });
   }
 
@@ -160,8 +172,7 @@ class ChatNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       _scrollToBottom();
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), SnackBarState.Error);
-      ("Erorr in Load Messages --> $error").log("Chat Notifier");
+      onErrorHandler(context, error, stackTrace);
       setLoadingState(false, true);
     });
   }
@@ -171,8 +182,7 @@ class ChatNotifier extends ChangeNotifier {
     image.path.isEmpty ? sendDummyMessage(context) : setLastMessage("");
     // getting img if there is any
     final imgPath = await Utils.convertToMultipartFile(image);
-    // setting up body
-    Map<String, dynamic> body = {
+    final body = {
       "message": _lastMessage,
       "conversation_id": _message.conversationId.toString(),
       "files[]": imgPath,
@@ -182,8 +192,7 @@ class ChatNotifier extends ChangeNotifier {
       updateOrAddNewMessage(data.messages!.first);
       setImage(XFile(""));
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), SnackBarState.Error);
-      ("Erorr in Send Message --> $error $stackTrace").log("Pro-Chat Notifier");
+      onErrorHandler(context, error, stackTrace);
     });
   }
 
@@ -202,8 +211,7 @@ class ChatNotifier extends ChangeNotifier {
         updateOrAddNewMessage(message);
       }
     }).onError((error, stackTrace) {
-      showSnakeBarr(context, error.toString(), SnackBarState.Error);
-      ("Erorr in Send Pdf --> $error $stackTrace").log("Pro-Chat Notifier");
+      onErrorHandler(context, error, stackTrace);
     });
   }
 
@@ -250,12 +258,10 @@ class ChatNotifier extends ChangeNotifier {
         setLoadMoreLoading(false, true);
       }).onError((error, stackTrace) {
         setLoadMoreLoading(false, true);
-        showSnakeBarr(context, error.toString(), SnackBarState.Error);
-        ("Erorr in Load More Message --> $error").log("Pro-Chat Notifier");
+        onErrorHandler(context, error, stackTrace);
       });
     } else {
       setLoadMoreLoading(false, true);
-      showSnakeBarr(context, "No more messages to load", SnackBarState.Info);
     }
   }
 

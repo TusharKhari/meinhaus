@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/provider/notifiers/notification_notifier.dart';
-import 'package:new_user_side/res/common/my_text.dart';
+import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -23,9 +23,7 @@ class HomeScreenAppBar extends StatelessWidget {
     int totalUnreadMessages = 0;
 
     // AllConversation
-    Future allConversation() async {
-      final notifier = context.read<ChatWithProNotifier>();
-      await notifier.allConversation(context);
+    void navigateToConversationList() {
       Navigator.of(context).pushNamed(AllConversationScreen.routeName);
     }
 
@@ -72,7 +70,7 @@ class HomeScreenAppBar extends StatelessWidget {
       actions: [
         SizedBox(width: width / 24),
         InkWell(
-          onTap: () => allConversation(),
+          onTap: () => navigateToConversationList(),
           child: BadgeIcon(
             icon: CupertinoIcons.text_bubble,
             text: totalUnreadMessages.toString(),

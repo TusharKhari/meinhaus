@@ -9,7 +9,7 @@ import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
-import 'package:new_user_side/res/common/api_url/api_urls.dart';
+import 'package:new_user_side/resources/common/api_url/api_urls.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -67,7 +67,6 @@ class PusherService {
         onSubscriptionCount: onSubscriptionCount,
         onAuthorizer: onAuthorizer,
       );
-      // await pusher.subscribe(channelName: channelName);
       await pusher.connect();
       for (final channelName in channelNames) {
         await pusher.subscribe(channelName: channelName);
@@ -87,7 +86,7 @@ class PusherService {
 
   void onSubscriptionSucceeded(String channelName, dynamic data) {
     print("onSubscriptionSucceeded: $channelName data: $data");
-    // final me = pusher.getChannel(channelName)?.me;
+    // final me = pusher.getChanne66l(channelName)?.me;
     // print("Me: $me");
   }
 
@@ -133,15 +132,12 @@ class PusherService {
       if (event.eventName == "message-sent") {
         final data = json.decode(event.data as String) as Map<String, dynamic>;
         final message = Messages.fromJson(data['message_data']);
-
         // Add the new message in mymessages list
         if (notifier.myMessaage.conversationId == data['conversation_id']) {
           notifier.updateOrAddNewMessage(message);
         }
-
         // updating conversation list
         proChatNotifier.allConversation(context);
-
         // Whenever we see the message we will mark it as read using this api
         final body = {
           "conversation_id": data["conversation_id"].toString(),
@@ -152,6 +148,7 @@ class PusherService {
       }
 
       // Handle "message-read" event
+      // Update messages seen status
       else if (event.eventName == "message-read") {
         final messages = notifier.myMessaage.messages!;
         final updatedMessages = messages.map(
@@ -163,17 +160,17 @@ class PusherService {
           },
         ).toList();
         notifier.setMessages(
-          notifier.myMessaage.copyWith(
-            messages: updatedMessages,
-          ),
+          notifier.myMessaage.copyWith(messages: updatedMessages),
         );
       }
+
       // Handle "ticket-accepted" evetns
       else if (event.eventName == "ticket-accepted") {
         final data = json.decode(event.data as String) as Map<String, dynamic>;
         await supportNotifier.setSupportStatus(1);
         await supportNotifier.setTicketId(data['ticket_id']);
       }
+
       // Handle "ticket-close-request" evetns
       else if (event.eventName == "ticket-close-request") {
         supportNotifier.setShowClosingDialog(true);
@@ -185,6 +182,7 @@ class PusherService {
           },
         );
       }
+
       // Handle "ticket-flagged" evetns
       else if (event.eventName == "ticket-flagged") {
         supportNotifier.setIsQueryFlagged(true);
