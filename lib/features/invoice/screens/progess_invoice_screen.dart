@@ -274,11 +274,12 @@ class _ShowTableView extends StatelessWidget {
 
   TableRow _buildRow(Services service, Data invoice) => TableRow(
         children: [
-          buildCell(service.serviceName.toString(), isBold: true),
-          buildCell(service.description.toString()),
-          buildCell("\$${invoice.invoiceSummary!.totalAmountPaid}"),
-          buildCell("\$${invoice.totalAmount}"),
-          buildCell("\$${service.amountToPay}"),
+          buildCell(service.serviceName ?? "", isBold: true),
+          buildCell(service.description ?? ""),
+          buildCell(
+              "\$${invoice.invoiceSummary!.totalAmountPaid!.split(".")[0]}"),
+          buildCell("\$${invoice.totalAmount!.split(".")[0]}"),
+          buildCell("\$${service.amountToPay!.split(".")[0]}"),
         ],
       );
 
@@ -290,6 +291,7 @@ class _ShowTableView extends StatelessWidget {
         fontSize: 10,
         fontWeight: isBold ? FontWeight.w700 : FontWeight.w500,
         textAlign: TextAlign.start,
+        maxLines: 100,
       ),
     );
   }

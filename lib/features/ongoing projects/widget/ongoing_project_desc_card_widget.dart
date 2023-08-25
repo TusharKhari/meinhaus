@@ -32,24 +32,13 @@ class OngoingProjectDescCardWidget extends StatelessWidget {
           padding: EdgeInsets.only(left: width / 20, bottom: height / 90),
           child: MyTextPoppines(
             text: services.discription ??
-                "No Project Description found for this project",
+                'No project description found. This area usually provides details about the project.',
             fontSize: 12.sp,
             fontWeight: FontWeight.w500,
             height: 1.4,
             color: AppColors.black.withOpacity(0.6),
           ),
         ),
-        // Padding(
-        //   padding: EdgeInsets.only(left: 30.w, bottom: 15.h),
-        //   child: MyTextPoppines(
-        //     text: services.discription ??
-        //         "No Project Description found for this project",
-        //     fontSize: 12.sp,
-        //     fontWeight: FontWeight.w500,
-        //     height: 1.4,
-        //     color: AppColors.black.withOpacity(0.6),
-        //   ),
-        // ),
       ],
     );
   }

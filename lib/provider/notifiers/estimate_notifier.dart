@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:new_user_side/data/models/pro_model.dart';
@@ -12,9 +11,9 @@ import 'package:new_user_side/repository/estimate_repository.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
-import '../../features/invoice/screens/progess_invoice_screen.dart';
 import '../../utils/extensions/get_images.dart';
 
 class EstimateNotifier extends ChangeNotifier {
@@ -157,7 +156,8 @@ class EstimateNotifier extends ChangeNotifier {
       var data = GeneratedEstimateModel.fromJson(response);
       setEstimate(data);
     }).onError((error, stackTrace) {
-      onErrorHandler(context, error, stackTrace);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
+      ("$error $stackTrace").log("Estimate notifier");
     });
   }
 
@@ -167,7 +167,8 @@ class EstimateNotifier extends ChangeNotifier {
       var data = OngoingProjectsModel.fromJson(response);
       setOngoingProjects(data);
     }).onError((error, stackTrace) {
-      onErrorHandler(context, error, stackTrace);
+      showSnakeBarr(context, "$error", SnackBarState.Error);
+      ("$error $stackTrace").log("Estimate notifier");
     });
   }
 
@@ -253,7 +254,8 @@ class EstimateNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     estimateRepository.progressInvoice(bookingId).then((response) {
       setLoadingState(false, true);
-      Get.to(() => ProgressInvoiceScreen());
+      // Navigator.of(context).pushScreen(ProgressInvoiceScreen());
+      //Get.to(() => ProgressInvoiceScreen());
       var data = ProgressInvoiceModel.fromJson(response);
       setProgressInvoice(data);
     }).onError((error, stackTrace) {

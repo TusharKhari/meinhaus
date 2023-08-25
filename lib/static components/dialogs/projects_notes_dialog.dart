@@ -196,7 +196,9 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                     ],
                   ),
                 ),
-                notifer.images.isNotEmpty ? ShowPickedImages<SavedNotesNotifier>() : SizedBox(),
+                notifer.images.isNotEmpty
+                    ? ShowPickedImages<SavedNotesNotifier>()
+                    : SizedBox(),
                 const Divider(thickness: 1.5),
                 10.vs,
                 Row(

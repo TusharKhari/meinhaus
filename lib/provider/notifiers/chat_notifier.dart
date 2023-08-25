@@ -179,6 +179,7 @@ class ChatNotifier extends ChangeNotifier {
 
   /// Send Messages [ Texts/Images ]
   Future sendMessage({required BuildContext context}) async {
+    // if message is type of img we dont set a dummmy message on ui
     image.path.isEmpty ? sendDummyMessage(context) : setLastMessage("");
     // getting img if there is any
     final imgPath = await Utils.convertToMultipartFile(image);

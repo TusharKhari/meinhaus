@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/static%20components/errors%20screens/generic_error_screen.dart';
 import 'package:new_user_side/utils/constants/app_string.dart';
 
@@ -11,10 +10,10 @@ class ShowError extends StatelessWidget {
   Widget build(BuildContext context) {
     late final errorScreen;
     if (error.contains("subtype")) {
-      errorScreen = Scaffold(
-        body: Center(
-          child: MyTextPoppines(text: "Json Error"),
-        ),
+      errorScreen = GenericErrorScreen(
+        svgImg: somethingWentWrongIcon,
+        errorHeading: "Json Error",
+        errorSubHeading: SubHeading500,
       );
     } else if (error.contains("Internet")) {
       errorScreen = GenericErrorScreen(

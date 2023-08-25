@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
 import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
+import 'package:new_user_side/static%20components/empty%20states/no_est_view_home_screen.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
@@ -51,28 +49,9 @@ class EstimateCardHomeScreenView extends StatelessWidget {
             : effect(context),
         Visibility(
           visible: estimateWork != null && estimateWork.length == 0,
-          child: Container(
-            height: height / 12,
-            width: context.screenWidth / 2.4,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(width / 30),
-              color: AppColors.white,
-              border: Border.all(),
-            ),
-            padding: EdgeInsets.symmetric(
-              vertical: height / 70,
-              horizontal: width / 40,
-            ),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  EstimateGenerationScreen.routeName,
-                  arguments: true,
-                );
-              },
-              child: Icon(Icons.add),
-            ),
+          child: NoEstViewHomeScreenWidget(
+            text:
+                "You Don’t have any estimated project right now. Add new project",
           ),
         ),
       ],

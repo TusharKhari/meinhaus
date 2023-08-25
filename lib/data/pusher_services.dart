@@ -37,20 +37,6 @@ class PusherService {
   List _channelName = [];
   List get channelName => _channelName;
 
-  // Add new channels in exting channelNames List
-  Future<void> addChannel(String channelName) async {
-    if (!_channelName.contains(channelName)) {
-      _channelName.add(channelName);
-    }
-  }
-
-  // Remove  channel in exting channelNames List
-  Future<void> removeChannel(String channelName) async {
-    if (_channelName.contains(channelName)) {
-      _channelName.remove(channelName);
-    }
-  }
-
   Future<void> setupPusherConnection(
     BuildContext context,
     List channelNames,
@@ -86,8 +72,6 @@ class PusherService {
 
   void onSubscriptionSucceeded(String channelName, dynamic data) {
     print("onSubscriptionSucceeded: $channelName data: $data");
-    // final me = pusher.getChanne66l(channelName)?.me;
-    // print("Me: $me");
   }
 
   void onSubscriptionError(String message, dynamic e) {
@@ -134,7 +118,7 @@ class PusherService {
         final message = Messages.fromJson(data['message_data']);
         // Add the new message in mymessages list
         if (notifier.myMessaage.conversationId == data['conversation_id']) {
-          notifier.updateOrAddNewMessage(message);
+          notifier.updateOrAddNewMessage(message); // add or update a message
         }
         // updating conversation list
         proChatNotifier.allConversation(context);
