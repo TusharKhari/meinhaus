@@ -53,7 +53,7 @@ class AllEstimatedWorkScreen extends StatelessWidget {
                     return AllEstimateWorkCard(index: index);
                   },
                 ),
-              ),
+              )
             ),
             Visibility(
               visible: estimate.length == 0,
