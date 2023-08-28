@@ -100,7 +100,7 @@ class AuthNotifier extends ChangeNotifier {
       setUser(user);
       Navigator.pushNamed(context, HomeScreen.routeName);
     }).onError((error, stackTrace) {
-      onErrorHandler(context, error, stackTrace);
+      ("$error $stackTrace").log("Auth notifier");
     });
   }
 
