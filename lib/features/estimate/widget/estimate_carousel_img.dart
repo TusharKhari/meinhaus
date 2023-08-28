@@ -30,14 +30,16 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
 
   @override
   Widget build(BuildContext context) {
-    final getEstProvider = context.read<EstimateNotifier>();
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+    final getEstProvider = context.read<EstimateNotifier>().estimated;
     final projectImgs =
-        getEstProvider.estimated.estimatedWorks![widget.index].uploadedImgs;
+        getEstProvider.estimatedWorks![widget.index].uploadedImgs;
     return Column(
       children: [
         CarouselSlider.builder(
           options: CarouselOptions(
-            height: 180.h,
+            height: height / 4.3,
             viewportFraction: 1,
             enableInfiniteScroll: false,
             // autoPlay: true,
@@ -55,75 +57,90 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
             return buildImg(workImg, index, projectImgs);
           },
         ),
-        15.vs,
+        SizedBox(height: height / 60),
         //Dots indicator
-        buildIndicator(projectImgs),
+        Visibility(
+          visible: projectImgs.length > 1 && projectImgs.isNotEmpty,
+          child: buildIndicator(projectImgs),
+        ),
       ],
     );
   }
 
   //Carousle Container
-  Widget buildImg(UploadedImgs workImg, int index, List<UploadedImgs> imgs) =>
-      InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  FullScreenImageView(images: imgs, currentIndex: index),
-            ),
-          );
-        },
-        child: CachedNetworkImage(
-          imageUrl: workImg.thumbnailUrl!,
-          imageBuilder: (context, imageProvider) => Container(
-            margin: EdgeInsets.symmetric(horizontal: 30.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.r),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
+  Widget buildImg(
+    UploadedImgs workImg,
+    int index,
+    List<UploadedImgs> imgs,
+  ) {
+    final width = MediaQuery.sizeOf(context).width;
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushScreen(
+          FullScreenImageView(
+            images: imgs,
+            currentIndex: index,
+          ),
+        );
+      },
+      child: CachedNetworkImage(
+        imageUrl: workImg.thumbnailUrl!,
+        imageBuilder: (context, imageProvider) => Container(
+          margin: EdgeInsets.symmetric(horizontal: width / 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(width / 14),
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
             ),
           ),
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-      );
+        placeholder: (context, url) => Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+    );
+  }
 
   //Dot indicator
-  Widget buildIndicator(List<UploadedImgs> projectImgs) => Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AnimatedSmoothIndicator(
-            activeIndex: activeIndex,
-            count: projectImgs.length,
-            effect: ScrollingDotsEffect(
-              dotWidth: 6.w,
-              dotHeight: 6.h,
-              activeDotScale: 1.5,
-              activeDotColor: AppColors.black,
-              spacing: 6.w,
-            ),
+  Widget buildIndicator(List<UploadedImgs> projectImgs) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        SizedBox(width: width / 6),
+        AnimatedSmoothIndicator(
+          activeIndex: activeIndex,
+          count: projectImgs.length,
+          effect: ScrollingDotsEffect(
+            dotWidth: width / 70,
+            dotHeight: width / 70,
+            activeDotScale: 1.5,
+            activeDotColor: AppColors.black,
+            spacing: width / 60,
           ),
-          90.hs,
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.r),
-              color: AppColors.black.withOpacity(0.3),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 4.h),
-            child: MyTextPoppines(
-              text: "$activeIndex/${projectImgs.length}",
-              fontSize: 10.sp,
-              color: AppColors.white,
-              height: 1.6,
-              fontWeight: FontWeight.w600,
-            ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(width / 30),
+            color: AppColors.black.withOpacity(0.3),
           ),
-          30.hs,
-        ],
-      );
+          padding: EdgeInsets.symmetric(
+            horizontal: width / 26,
+            vertical: height / 200,
+          ),
+          child: MyTextPoppines(
+            text: "${activeIndex + 1}/${projectImgs.length}",
+            fontSize: width / 38,
+            color: AppColors.white,
+            height: 1.6,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        //SizedBox(width: width / 14),
+      ],
+    );
+  }
 }
