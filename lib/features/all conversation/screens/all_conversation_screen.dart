@@ -78,7 +78,6 @@ class ChatCardWidget extends StatelessWidget {
     final conv = conversations;
     int? toUserId = conv.toUserId;
     bool? isSend = true;
-    print(userNotifier.userId);
 
     if (userNotifier.userId == conv.toUserId) {
       conv.fromUserId = toUserId;
