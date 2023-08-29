@@ -135,7 +135,8 @@ class BadgeIcon extends StatelessWidget {
                   child: MyTextPoppines(
                     text: text,
                     fontSize: width / 42,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.white,
                   ),
                 ),
               ),
