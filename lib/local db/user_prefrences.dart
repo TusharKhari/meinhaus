@@ -58,7 +58,7 @@ class UserPrefrences {
     final header = {
       'Authorization': 'Bearer $token',
       'Accept': 'application/json',
-      // 'Referer': "https://meinhaus.ca"
+      'referer': "https://meinhaus.ca",
     };
     return header;
   }
