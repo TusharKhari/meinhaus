@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
@@ -38,7 +39,7 @@ class OldNetworkApiServices extends BaseApiServices {
           .post(
             url,
             body: data,
-            headers: await UserPrefrences().getHeader(),
+            headers: await UserPrefrences().xsrfHeader(),
           )
           .timeout(Duration(seconds: 15));
       responseJson = errorHandling(res);
@@ -95,34 +96,39 @@ class NetworkApiServices {
     final uri = url;
     if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
-    final header = await UserPrefrences().getHeader();
+    final getHeader = await UserPrefrences().getHeader();
+    final xsrfHeader = await UserPrefrences().xsrfHeader();
     try {
       late final http.Request request;
       switch (method) {
         case HttpMethod.get:
           request = http.Request('GET', uri);
+          request.headers.addAll(getHeader);
           break;
         case HttpMethod.post:
           request = http.Request('POST', uri);
           if (body != null) {
             request.bodyFields = body;
           }
+          request.headers.addAll(xsrfHeader);
           break;
         case HttpMethod.put:
           request = http.Request('PUT', uri);
           request.body = json.encode(body);
+          request.headers.addAll(xsrfHeader);
           break;
         case HttpMethod.delete:
           request = http.Request('DELETE', uri);
           if (body != null) {
             request.bodyFields = body;
           }
+          request.headers.addAll(xsrfHeader);
           break;
       }
-      request.headers.addAll(header);
+
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-     // (response.body).log();
+      (response.headers).log();
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
@@ -181,7 +187,8 @@ class NetworkApiServices {
     Map<String, dynamic>? body,
   }) async {
     final dio = Dio();
-    final header = await UserPrefrences().getHeader();
+    final getHeader = await UserPrefrences().getHeader();
+    final xsrfHeader = await UserPrefrences().xsrfHeader();
     if (body != null) (body).log("${url.path}");
     try {
       late final Response<dynamic> response;
@@ -189,28 +196,28 @@ class NetworkApiServices {
         case HttpMethod.get:
           response = await dio.getUri(
             url,
-            options: Options(headers: header),
+            options: Options(headers: getHeader),
           );
           break;
         case HttpMethod.post:
           response = await dio.postUri(
             url,
             data: FormData.fromMap(body!),
-            options: Options(headers: header),
+            options: Options(headers: xsrfHeader),
           );
           break;
         case HttpMethod.put:
           response = await dio.putUri(
             url,
             data: FormData.fromMap(body!),
-            options: Options(headers: header),
+            options: Options(headers: xsrfHeader),
           );
           break;
         case HttpMethod.delete:
           response = await dio.deleteUri(
             url,
             data: FormData.fromMap(body!),
-            options: Options(headers: header),
+            options: Options(headers: xsrfHeader),
           );
           break;
       }

@@ -60,14 +60,21 @@ class UserPrefrences {
       'Accept': 'application/json',
       'referer': "https://meinhaus.ca",
     };
+
     return header;
   }
 
-  // Sessions
-  bool isUserLoggedIn() {
-    assert(prefs != null);
-    final token = prefs!.getString('x-auth-token');
-    return token != null;
+  // post header
+  Future<Map<String, String>> xsrfHeader() async {
+    prefs = await SharedPreferences.getInstance();
+    final String token = await getToken();
+    //final String xsrf = await getXsrf();
+    final header = {
+      'Authorization': 'Bearer $token',
+      'Accept': 'application/json',
+     // 'Cookie': xsrf,
+    };
+    return header;
   }
 
   void logOut(BuildContext context) async {
@@ -82,5 +89,18 @@ class UserPrefrences {
     } catch (e) {
       showSnakeBar(context, e.toString());
     }
+  }
+
+  // Set Xsrf
+  Future setXsrf(String xsrf) async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs!.setString('xsrf', xsrf);
+  }
+
+  // Get Xsrf
+  Future getXsrf() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final xsrf = await pref.getString('xsrf');
+    return xsrf;
   }
 }
