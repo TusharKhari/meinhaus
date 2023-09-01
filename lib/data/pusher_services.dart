@@ -116,19 +116,22 @@ class PusherService {
       if (event.eventName == "message-sent") {
         final data = json.decode(event.data as String) as Map<String, dynamic>;
         final message = Messages.fromJson(data['message_data']);
-        // Add the new message in mymessages list
-        if (notifier.myMessaage.conversationId == data['conversation_id']) {
-          notifier.updateOrAddNewMessage(message); // add or update a message
-        }
-        // updating conversation list
-        proChatNotifier.allConversation(context);
-        // Whenever we see the message we will mark it as read using this api
         final body = {
           "conversation_id": data["conversation_id"].toString(),
           "to_user_id": data["message_data"]["sender_id"].toString(),
           "message_id": data["message_data"]["id"].toString(),
         };
-        notifier.readMessage(body);
+        if (notifier.myMessaage.messages!.isNotEmpty) {
+          if (notifier.myMessaage.conversationId == data['conversation_id']) {
+            // Add or Update message in mymessages list
+            notifier.updateOrAddNewMessage(message);
+            // Whenever we see the message we will mark 
+            //it as-read if all the conditions using this API
+            notifier.readMessage(body);
+          }
+        }
+        // updating conversation list
+        proChatNotifier.allConversation(context);
       }
 
       // Handle "message-read" event
@@ -147,7 +150,6 @@ class PusherService {
           notifier.myMessaage.copyWith(messages: updatedMessages),
         );
       }
-
       // Handle "ticket-accepted" evetns
       else if (event.eventName == "ticket-accepted") {
         final data = json.decode(event.data as String) as Map<String, dynamic>;

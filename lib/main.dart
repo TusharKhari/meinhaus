@@ -18,7 +18,7 @@ void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await PushNotificationServices().initNotifications();
+  //await PushNotificationServices().initNotifications();
   Stripe.publishableKey = dotenv.env['stripePublishableKey']!;
   runApp(
     MultiProvider(
