@@ -128,8 +128,7 @@ class AuthNotifier extends ChangeNotifier {
       Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
     );
     final xsrf = response.headers['set-cookie'];
-    xsrf!.log();
-    await UserPrefrences().setXsrf(xsrf);
+    await UserPrefrences().setXsrf(xsrf.toString());
   }
 
 // Login
