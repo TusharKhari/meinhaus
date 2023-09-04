@@ -56,7 +56,7 @@ class EditProfileServices {
             SnackBarState.Success,
           );
           print("Profile Updated");
-        }
+        },
       );
     } catch (e) {
       showSnakeBarr(
