@@ -46,8 +46,8 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeImageFromList(XFile pickedFile) {
-    _images.remove(pickedFile);
+  void removeImageFromList() {
+    _images.clear();
     notifyListeners();
   }
 
@@ -114,7 +114,7 @@ class EstimateNotifier extends ChangeNotifier {
     estimateRepository.createStartingEstimate(data).then((response) {
       setLoadingState(false, true);
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
-      setImagesInList([]);
+      removeImageFromList();
       Navigator.of(context).pushScreen(HomeScreen());
       showSnakeBarr(
         context,
@@ -137,7 +137,7 @@ class EstimateNotifier extends ChangeNotifier {
     estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
-      setImagesInList([]);
+      removeImageFromList();
       //Get.to(() => HomeScreen());
       Navigator.of(context).pushScreen(HomeScreen());
       showSnakeBarr(
@@ -174,10 +174,13 @@ class EstimateNotifier extends ChangeNotifier {
 
   // GET PROJECTS HISTORY
   Future getProjectsHistory(BuildContext context) async {
+    // setLoadingState(true, true);
     estimateRepository.getProjectsHistory().then((response) {
+      //setLoadingState(false, true);
       var data = OngoingProjectsModel.fromJson(response);
       setProjectsHistory(data);
     }).onError((error, stackTrace) {
+      // setLoadingState(false, true);
       onErrorHandler(context, error, stackTrace);
     });
   }

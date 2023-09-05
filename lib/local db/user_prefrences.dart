@@ -55,12 +55,12 @@ class UserPrefrences {
   Future<Map<String, String>> getHeader() async {
     prefs = await SharedPreferences.getInstance();
     final String token = await getToken();
-    final String xsrf = await getXsrf();
+    // final String xsrf = await getXsrf();
     final header = {
       'Authorization': 'Bearer $token',
       'Accept': 'application/json',
-      'referer': "https://meinhaus.ca",
-      'Cookie': xsrf,
+      // 'referer': "https://meinhaus.ca",
+      // 'Cookie': xsrf,
       //'X-XSRF-TOKEN': xsrf,
     };
 
@@ -71,11 +71,11 @@ class UserPrefrences {
   Future<Map<String, String>> xsrfHeader() async {
     prefs = await SharedPreferences.getInstance();
     final String token = await getToken();
-    final String xsrf = await getXsrf();
+    //  final String xsrf = await getXsrf();
     final header = {
       'Authorization': 'Bearer $token',
       'Accept': 'application/json',
-      'Cookie': xsrf,
+      // 'Cookie': xsrf,
       // 'X-XSRF-TOKEN': xsrf,
     };
     return header;

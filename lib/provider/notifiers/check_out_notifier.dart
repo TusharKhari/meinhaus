@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/utils.dart';
-import '../../features/home/screens/home_screen.dart';
+
 import '../../data/payment_services.dart';
+import '../../features/home/screens/home_screen.dart';
 
 class CheckOutNotifier extends ChangeNotifier {
   CheckOutRepository repository = CheckOutRepository();
@@ -32,6 +31,7 @@ class CheckOutNotifier extends ChangeNotifier {
     required BuildContext context,
     required String bookingId,
   }) async {
+    setLoadingState(true);
     Map<String, String> data = {"booking_id": bookingId};
     print("Work started");
     final res = await MakePayment().makePayment(

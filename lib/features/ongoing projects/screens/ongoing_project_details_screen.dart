@@ -57,7 +57,8 @@ class _OngoingProjectDetailScreenState
   void dispose() {
     super.dispose();
     notifier.unsubscribe(
-        widget.projects.id.toString()); // Unsubscribing Pusher Channel
+      widget.projects.id.toString(),
+    ); // Unsubscribing Pusher Channel
   }
 
   // Subscribing Customer-Proffessinal Chat Channels

@@ -114,6 +114,8 @@ class PusherService {
 
       // Handle "message-sent" event ask nessage received
       if (event.eventName == "message-sent") {
+        // updating conversation list
+        proChatNotifier.allConversation(context);
         final data = json.decode(event.data as String) as Map<String, dynamic>;
         final message = Messages.fromJson(data['message_data']);
         final body = {
@@ -125,13 +127,11 @@ class PusherService {
           if (notifier.myMessaage.conversationId == data['conversation_id']) {
             // Add or Update message in mymessages list
             notifier.updateOrAddNewMessage(message);
-            // Whenever we see the message we will mark 
+            // Whenever we see the message we will mark
             //it as-read if all the conditions using this API
             notifier.readMessage(body);
           }
         }
-        // updating conversation list
-        proChatNotifier.allConversation(context);
       }
 
       // Handle "message-read" event
