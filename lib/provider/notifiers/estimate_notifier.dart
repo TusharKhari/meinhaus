@@ -274,7 +274,10 @@ class EstimateNotifier extends ChangeNotifier {
   }) async {
     await estimateRepository.toggleServices(body).then((response) {
       showSnakeBarr(
-          context, response["response_message"], SnackBarState.Success);
+        context,
+        response["response_message"],
+        SnackBarState.Success,
+      );
       getEstimateWork(context);
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);

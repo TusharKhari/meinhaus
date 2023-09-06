@@ -33,22 +33,23 @@ class CheckOutNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true);
     Map<String, String> data = {"booking_id": bookingId};
-    print("Work started");
-    final res = await MakePayment().makePayment(
-      context: context,
-      bookingId: bookingId,
-    );
-    print(res);
+    print("Payment processing");
+    final res = await MakePayment()
+        .makePayment(context: context, bookingId: bookingId)
+        .onError((error, stackTrace) {
+      print("Error in Check out notifier :: $error\n $stackTrace");
+      setLoadingState(false);
+      return false;
+    });
     if (res == true) {
       setLoadingState(true);
       await repository.checkOut(data).then((response) {
-        // Navigator.of(context).pushScreen(HomeScreen());
-        Get.to(() => HomeScreen());
         showSnakeBarr(
           context,
-          response['response_message'],
+          "Your project has been booked successfully",
           SnackBarState.Success,
         );
+        Get.to(() => HomeScreen());
         setLoadingState(false);
       }).onError((error, stackTrace) {
         print("Error in Check out notifier :: $error\n $stackTrace");

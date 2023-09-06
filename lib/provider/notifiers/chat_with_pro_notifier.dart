@@ -31,12 +31,11 @@ class ChatWithProNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // METHODS
+
   /// Fetches all conversations list based on the provided `body` data.
   Future allConversation(BuildContext context) async {
     setLoadingState(true, true);
     await repo.allConversation().then((response) {
-      print(response);
       final data = ConversationsListModal.fromJson(response);
       setAllConversationList(data);
       setLoadingState(false, true);

@@ -83,16 +83,16 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
   void _resendOtpHandler() {
     final notifer = context.read<AuthNotifier>();
     final body = {"user_id": widget.userId.toString()};
-    notifer.resendOtp(body: body, context: context);
-    // if (showResendButton) {
-    //   final body = {"user_id": widget.userId.toString()};
-    //   notifer.resendOtp(body: body, context: context);
-    //   startTimer();
-    //   setState(() {
-    //     startTime = 60;
-    //     showResendButton = false;
-    //   });
-    // }
+    // notifer.resendOtp(body: body, context: context);
+    if (showResendButton) {
+      final body = {"user_id": widget.userId.toString()};
+      notifer.resendOtp(body: body, context: context);
+      startTimer();
+      setState(() {
+        startTime = 60;
+        showResendButton = false;
+      });
+    }
   }
 
   @override
