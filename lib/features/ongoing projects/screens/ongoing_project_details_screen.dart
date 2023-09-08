@@ -55,19 +55,20 @@ class _OngoingProjectDetailScreenState
 
   @override
   void dispose() {
+    final serviceId = estimateNotifier.projectDetails.services!.projectId;
     super.dispose();
-    notifier.unsubscribe(
-      widget.projects.id.toString(),
-    ); // Unsubscribing Pusher Channel
+    notifier.unsubscribe(serviceId.toString()); // Unsubscribing Pusher Channel
   }
 
   // Subscribing Customer-Proffessinal Chat Channels
   Future setupPusher() async {
     notifier = context.read<SupportNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
+    final estimateNotifier = context.read<EstimateNotifier>();
+    final serviceId = await estimateNotifier.projectDetails.services!.projectId;
     final userId = userNotifier.userId.toString();
     final channelName = [
-      "private-query.${widget.projects.id}.$userId",
+      "private-query.$serviceId.$userId",
       "private-chat.$userId",
     ];
     await notifier.setupPusher(context, channelName);

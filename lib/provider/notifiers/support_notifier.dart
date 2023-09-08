@@ -63,7 +63,9 @@ class SupportNotifier extends ChangeNotifier {
   }
 
   setSupportStatus(int status) {
+    print("Status $status");
     _supportStatus = status;
+    print("Support $_supportStatus");
     notifyListeners();
   }
 

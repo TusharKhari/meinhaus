@@ -111,11 +111,13 @@ class AuthNotifier extends ChangeNotifier {
 
 // Auth
   Future authentication(BuildContext context) async {
+    final pref = await UserPrefrences();
     await repository.auth().then((response) {
       ("Token Verified!🔥").log("Auth-Auth_Notifier");
       prefs.printToken();
       final user = UserModel.fromJson(response).user!;
       setUser(user);
+      pref.setUserId(user.userId.toString());
       Navigator.pushNamed(context, HomeScreen.routeName);
     }).onError((error, stackTrace) {
       ("$error $stackTrace").log("Auth notifier");

@@ -271,7 +271,7 @@ class ChatNotifier extends ChangeNotifier {
   Future readMessage(MapSS body) async {
     if (myMessaage.messages != null && myMessaage.messages!.isNotEmpty)
       repo.readMessage(body).then((value) {
-        print("messages readed by sender");
+        print("messages readed my sender");
       }).onError((error, stackTrace) {
         ("Erorr in Read Message --> $error").log("Pro-Chat Notifier");
       });
