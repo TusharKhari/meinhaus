@@ -236,7 +236,7 @@ class EstimateNotifier extends ChangeNotifier {
     //   if (query.status == 0) {
     //     print("esle");
     //     supportNotifier.setSupportStatus(0);
-    //   }
+    //   };
     // }
     // TODO: Need to test this test all this validation
     if (query != null) {
