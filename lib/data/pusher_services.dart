@@ -80,7 +80,7 @@ class PusherService {
 
   void onSubscriptionCount(String channelName, int subscriptionCount) {
     print(
-        "onSubscriptionCount: $channelName subscriptionCount: $subscriptionCount");
+        "onSubscriptionCount : $channelName subscriptionCount: $subscriptionCount");
   }
 
   Future<dynamic> onAuthorizer(
