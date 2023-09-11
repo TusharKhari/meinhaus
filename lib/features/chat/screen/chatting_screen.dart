@@ -104,7 +104,6 @@ class _ChattingScreenState extends State<ChattingScreen> {
   // show close query dialog
   void showQueryCloseDailog() {
     final supportNotifier = context.read<SupportNotifier>();
-    print(supportNotifier.showClosingDialog);
     if (!widget.isChatWithPro && supportNotifier.showClosingDialog) {
       Timer(
         const Duration(seconds: 1),

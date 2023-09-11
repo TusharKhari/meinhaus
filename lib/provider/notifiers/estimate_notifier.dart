@@ -213,32 +213,11 @@ class EstimateNotifier extends ChangeNotifier {
   supportStatusChecker(Query? query, BuildContext context) {
     // Setting the inital values
     final supportNotifier = context.read<SupportNotifier>();
+    supportNotifier.setSupportStatus(0);
     supportNotifier.setShowClosingDialog(false);
     supportNotifier.setIsQuerySoved(false);
     supportNotifier.setIsQueryFlagged(false);
     // Support is not null && active and query is not solved yet.
-    // Support has flaged your query
-    // if (query != null) {
-    //   if (query.flagged == 1) {
-    //     print("hey");
-    //     supportNotifier.setIsQueryFlagged(true);
-    //   }
-    //   if (query.status == 1 && query.resolved == 0) {
-    //     supportNotifier.setSupportStatus(1);
-    //     //print(supportNotifier.supportStatus);
-    //     supportNotifier.setTicketId(query.ticket!);
-    //   }
-    //   // Support request to close the query
-    //   if (query.status == 1 && query.endStatus == 1 && query.resolved == 0) {
-    //     supportNotifier.setShowClosingDialog(true);
-    //   }
-    //   // If no condition match we will set support status to inactive
-    //   if (query.status == 0) {
-    //     print("esle");
-    //     supportNotifier.setSupportStatus(0);
-    //   };
-    // }
-    // TODO: Need to test this test all this validation
     if (query != null) {
       if (query.status == 1) {
         supportNotifier.setSupportStatus(1);
@@ -247,6 +226,8 @@ class EstimateNotifier extends ChangeNotifier {
           supportNotifier.setIsQueryFlagged(true);
         } else if (query.resolved == 0 && query.endStatus == 1) {
           supportNotifier.setShowClosingDialog(true);
+        } else if (query.resolved == 1 && query.endStatus == 3) {
+          supportNotifier.setSupportStatus(0);
         }
       } else {
         supportNotifier.setSupportStatus(0);

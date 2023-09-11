@@ -24,10 +24,11 @@ import '../widget/ongoing_project_button_panel.dart';
 
 class OngoingProjectDetailScreen extends StatefulWidget {
   final Projects projects;
+  final String serviceId;
   static const String routeName = '/ongoingProjectDeatils';
   const OngoingProjectDetailScreen({
     Key? key,
-    required this.projects,
+    required this.projects, required this.serviceId,
   }) : super(key: key);
 
   @override
@@ -65,10 +66,11 @@ class _OngoingProjectDetailScreenState
     notifier = context.read<SupportNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
     final estimateNotifier = context.read<EstimateNotifier>();
-    final serviceId = await estimateNotifier.projectDetails.services!.projectId;
+    //final serviceId = widget.projects.services;
+   // final serviceId = await estimateNotifier.projectDetails.services!.projectId;
     final userId = userNotifier.userId.toString();
     final channelName = [
-      "private-query.$serviceId.$userId",
+      "private-query.${widget.serviceId}.$userId",
       "private-chat.$userId",
     ];
     await notifier.setupPusher(context, channelName);
