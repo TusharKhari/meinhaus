@@ -156,7 +156,6 @@ class PusherService {
         await supportNotifier.setSupportStatus(1);
         await supportNotifier.setTicketId(data['ticket_id']);
       }
-
       // Handle "ticket-close-request" evetns
       else if (event.eventName == "ticket-close-request") {
         supportNotifier.setShowClosingDialog(true);
@@ -168,7 +167,6 @@ class PusherService {
           },
         );
       }
-
       // Handle "ticket-flagged" evetns
       else if (event.eventName == "ticket-flagged") {
         supportNotifier.setIsQueryFlagged(true);

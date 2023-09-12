@@ -172,9 +172,8 @@ class SupportNotifier extends ChangeNotifier {
   // Accept and close support chat
   Future acceptAndClose(BuildContext context) async {
     final chatNotifier = context.read<ChatNotifier>();
-    final project = context.read<EstimateNotifier>().projectDetails;
     final conversationId = chatNotifier.myMessaage.conversationId;
-    final ticketId = project.services!.query!.ticket!;
+   
     MapSS body = {
       "conversation_id": conversationId.toString(),
       "ticket_id": ticketId,

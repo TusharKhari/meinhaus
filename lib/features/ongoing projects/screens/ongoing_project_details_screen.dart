@@ -65,9 +65,6 @@ class _OngoingProjectDetailScreenState
   Future setupPusher() async {
     notifier = context.read<SupportNotifier>();
     final userNotifier = context.read<AuthNotifier>().user;
-    final estimateNotifier = context.read<EstimateNotifier>();
-    //final serviceId = widget.projects.services;
-   // final serviceId = await estimateNotifier.projectDetails.services!.projectId;
     final userId = userNotifier.userId.toString();
     final channelName = [
       "private-query.${widget.serviceId}.$userId",
