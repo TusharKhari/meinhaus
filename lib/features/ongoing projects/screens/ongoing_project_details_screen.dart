@@ -28,7 +28,8 @@ class OngoingProjectDetailScreen extends StatefulWidget {
   static const String routeName = '/ongoingProjectDeatils';
   const OngoingProjectDetailScreen({
     Key? key,
-    required this.projects, required this.serviceId,
+    required this.projects,
+    required this.serviceId,
   }) : super(key: key);
 
   @override
@@ -87,7 +88,7 @@ class _OngoingProjectDetailScreenState
                 text: services.isCompleted!
                     ? "Project History"
                     : services.normal!
-                        ? " Ongoing Job"
+                        ? "Ongoing Job"
                         : "Hourly Job",
               ),
               body: Column(

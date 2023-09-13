@@ -269,12 +269,7 @@ class EstimateNotifier extends ChangeNotifier {
     required BuildContext context,
     required MapSS body,
   }) async {
-    await estimateRepository.toggleServices(body).then((response) {
-      showSnakeBarr(
-        context,
-        response["response_message"],
-        SnackBarState.Success,
-      );
+    await estimateRepository.toggleServices(body).then((_) {
       getEstimateWork(context);
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);
@@ -289,7 +284,11 @@ class EstimateNotifier extends ChangeNotifier {
     setReviewLoadingState(true, true);
     await estimateRepository.writeReview(body).then((response) {
       showSnakeBarr(
-          context, response["response_message"], SnackBarState.Success);
+        context,
+        response["response_message"],
+        SnackBarState.Success,
+      );
+      getProjectsHistory(context);
       Navigator.pop(context);
       setReviewLoadingState(false, true);
     }).onError((error, stackTrace) {
