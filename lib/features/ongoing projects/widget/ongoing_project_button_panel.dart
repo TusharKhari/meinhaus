@@ -24,10 +24,8 @@ import '../../additional work/widget/icon_button_with_text.dart';
 import '../../invoice/screens/progess_invoice_screen.dart';
 
 class OngoingJobsButtonsPanel extends StatelessWidget {
-  final Projects projects;
   const OngoingJobsButtonsPanel({
     Key? key,
-    required this.projects,
   }) : super(key: key);
 
   @override

@@ -87,7 +87,7 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
                     context: context,
                     subHeadline: "Project Estimate :",
                   ),
-                  ProjectEstimatedCardWidget(project: projectDetails),
+                  EstimateServiceCardWidget(project: projectDetails),
                   SizedBox(height: height / 90),
                   // PROJECT IMAGES
                   Visibility(
@@ -97,12 +97,16 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
                       subHeadline: "Uploaded Photos :",
                     ),
                   ),
-                  SizedBox(height: height / 40),
                   Visibility(
                     visible: isImgPresent,
-                    child: EstimateCarouselImg(index: widget.index),
+                    child: Column(
+                      children: [
+                        SizedBox(height: height / 40),
+                        EstimateCarouselImg(index: widget.index),
+                        SizedBox(height: h / 30),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: h / 30),
                   // UPLOAD MORE IMAGES OPTION
                   ShowImgUploadOption(bookingId: bookingId!),
                   SizedBox(height: height / 40),
