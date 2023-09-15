@@ -50,10 +50,18 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     final notifier = context.read<AddressNotifier>();
     var addresses = await Utils.getCordinates(selectedAddres);
     var first = addresses.first;
+    var address2 = await Utils.getAddress(first.latitude, first.longitude);
+    var first2 = address2.first;
     final MapSS body = {
       "address": addressController.text,
       "longitude": first.longitude.toString(),
       "latitude": first.latitude.toString(),
+      'line1': first2.name.toString(),
+        'line2': first2.street.toString(),
+        'city': first2.locality.toString(),
+        'state': first2.administrativeArea.toString(),
+        'country': first2.country.toString(),
+        'zip': first2.postalCode.toString(),
     };
     await notifier.addAddress(context: context, body: body);
   }

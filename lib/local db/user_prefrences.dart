@@ -58,7 +58,7 @@ class UserPrefrences {
     // final String xsrf = await getXsrf();
     final header = {
       'Authorization': 'Bearer $token',
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       // 'referer': "https://meinhaus.ca",
       // 'Cookie': xsrf,
       //'X-XSRF-TOKEN': xsrf,
@@ -74,7 +74,7 @@ class UserPrefrences {
     //  final String xsrf = await getXsrf();
     final header = {
       'Authorization': 'Bearer $token',
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       // 'Cookie': xsrf,
       // 'X-XSRF-TOKEN': xsrf,
     };

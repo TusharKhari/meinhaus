@@ -152,6 +152,7 @@ class EstimateNotifier extends ChangeNotifier {
           "Your estimate has been created successfully. we will contact you shortly",
           SnackBarState.Success);
     }).onError((error, stackTrace) {
+      print("err : $error");
       setLoadingState(false, true);
       onErrorHandler(context, error, stackTrace);
     });

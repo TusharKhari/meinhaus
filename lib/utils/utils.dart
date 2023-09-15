@@ -53,6 +53,12 @@ class Utils {
     return await locationFromAddress(address);
   }
 
+// Getting the lat and long form address
+  static Future<List<Placemark>> getAddress(double lat, double long) async {
+    return await placemarkFromCoordinates(lat, long);
+  }
+
+  
 // Convert random time into railway timing
   static String convertToRailwayTime(String time) {
     final dateTime = DateTime.parse(time).toLocal();
