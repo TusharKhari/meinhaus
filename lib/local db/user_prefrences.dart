@@ -62,13 +62,14 @@ class UserPrefrences {
       // 'referer': "https://meinhaus.ca",
       // 'Cookie': xsrf,
       //'X-XSRF-TOKEN': xsrf,
+
     };
 
     return header;
   }
 
-  // post header
-  Future<Map<String, String>> xsrfHeader() async {
+  // post header    xsrfHeader 
+  Future<Map<String, String>> postHeader() async {
     prefs = await SharedPreferences.getInstance();
     final String token = await getToken();
     //  final String xsrf = await getXsrf();

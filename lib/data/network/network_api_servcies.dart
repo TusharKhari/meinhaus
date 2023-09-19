@@ -38,7 +38,7 @@ class OldNetworkApiServices extends BaseApiServices {
           .post(
             url,
             body: data,
-            headers: await UserPrefrences().xsrfHeader(),
+            headers: await UserPrefrences().postHeader(),
           )
           .timeout(Duration(seconds: 15));
       responseJson = errorHandling(res);
@@ -96,7 +96,7 @@ class NetworkApiServices {
     if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     final getHeader = await UserPrefrences().getHeader();
-    final xsrfHeader = await UserPrefrences().xsrfHeader();
+    final postHeader = await UserPrefrences().postHeader();
     try {
       late final http.Request request;
       switch (method) {
@@ -109,19 +109,19 @@ class NetworkApiServices {
           if (body != null) {
             request.bodyFields = body;
           }
-          request.headers.addAll(xsrfHeader);
+          request.headers.addAll(postHeader);
           break;
         case HttpMethod.put:
           request = http.Request('PUT', uri);
           request.body = json.encode(body);
-          request.headers.addAll(xsrfHeader);
+          request.headers.addAll(postHeader);
           break;
         case HttpMethod.delete:
           request = http.Request('DELETE', uri);
           if (body != null) {
             request.bodyFields = body;
           }
-          request.headers.addAll(xsrfHeader);
+          request.headers.addAll(postHeader);
           break;
       }
 
@@ -193,7 +193,7 @@ class NetworkApiServices {
   }) async {
     final dio = Dio();
     final getHeader = await UserPrefrences().getHeader();
-    final xsrfHeader = await UserPrefrences().xsrfHeader();
+    final postHeader = await UserPrefrences().postHeader();
     if (body != null) (body).log("${url.path}");
     try {
       late final Response<dynamic> response;
@@ -208,21 +208,21 @@ class NetworkApiServices {
           response = await dio.postUri(
             url,
             data: FormData.fromMap(body!),
-            options: Options(headers: xsrfHeader),
+            options: Options(headers: postHeader),
           );
           break;
         case HttpMethod.put:
           response = await dio.putUri(
             url,
             data: FormData.fromMap(body!),
-            options: Options(headers: xsrfHeader),
+            options: Options(headers: postHeader),
           );
           break;
         case HttpMethod.delete:
           response = await dio.deleteUri(
             url,
             data: FormData.fromMap(body!),
-            options: Options(headers: xsrfHeader),
+            options: Options(headers: postHeader),
           );
           break;
       }
@@ -243,6 +243,8 @@ class NetworkApiServices {
       }
     } on SocketException {
       throw FetchDataException("No Internet Connection");
+    } catch(e){
+      throw e;
     }
   }
 

@@ -156,5 +156,5 @@ class AddressNotifier extends ChangeNotifier {
       onErrorHandler(context, error, stackTrace);
     });
   }
-  
+
 }

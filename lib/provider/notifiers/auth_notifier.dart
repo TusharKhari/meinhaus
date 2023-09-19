@@ -95,7 +95,7 @@ class AuthNotifier extends ChangeNotifier {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       return iosInfo.model;
     } else {
-      return "Fltter||Dart";
+      return "Flutter || Dart";
     }
   }
 

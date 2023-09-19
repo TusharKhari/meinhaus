@@ -65,9 +65,13 @@ class AddressRepository {
         method: HttpMethod.post,
         body : body, 
         );
-    } catch (e) {
+    } on FormatException{
+      throw FormatException("service temporarily unavailable");
+    } 
+     catch (e) {
+     // print("set default $e");
       throw e;
     }
    }
-   
+
 }

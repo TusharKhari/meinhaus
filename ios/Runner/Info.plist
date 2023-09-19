@@ -58,9 +58,11 @@
 		<string>Editor</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>com.googleusercontent.apps.443437268523-f6fk7pn52cu8865bpvmrf9722lo3su6o</string>
+			<!-- <string>com.googleusercontent.apps.443437268523-f6fk7pn52cu8865bpvmrf9722lo3su6o</string> -->
+		 <string>com.googleusercontent.apps.985150730790-i9p5vuprqc9o98lb32dus82d5015ffop</string>
 		</array>
 	    </dict>
     </array>
+	
 </dict>
 </plist>
