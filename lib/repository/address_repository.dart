@@ -55,4 +55,19 @@ class AddressRepository {
       throw e;
     }
   }
+   
+   // set default address 
+
+   Future<ResponseType> setDefaultAddress(MapSS body) async{
+    try {
+      return await services.sendHttpRequest(
+        url: ApiUrls.setDefaultAddress, 
+        method: HttpMethod.post,
+        body : body, 
+        );
+    } catch (e) {
+      throw e;
+    }
+   }
+   
 }

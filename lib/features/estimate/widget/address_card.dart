@@ -82,6 +82,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                   size: 20.sp,
                 ),
               ),
+           
             ],
           ),
           10.vs,
@@ -106,7 +107,8 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                       Padding(
                         padding: EdgeInsets.only(left: 5.w, top: 3.h),
                         child: MyTextPoppines(
-                          text: "Default",
+                          // text: "Default",
+                          text: "selected",
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: AppColors.yellow,

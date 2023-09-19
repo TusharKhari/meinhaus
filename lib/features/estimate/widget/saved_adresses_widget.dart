@@ -60,7 +60,11 @@ class SavedAddressesWidget extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         selectedAddress.setSelectedAddress(index);
-                        print(addressId);
+                        // put update address api call here 
+                       selectedAddress.updateDefaultAddress(context: context, body: {
+                         "address_id": addressId.toString(), 
+                        });
+                        print("address updated addId : $addressId");
                       },
                       child: AddressCardWidget(
                         index: index,

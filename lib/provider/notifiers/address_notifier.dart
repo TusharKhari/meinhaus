@@ -137,4 +137,24 @@ class AddressNotifier extends ChangeNotifier {
       onErrorHandler(context, error, stackTrace);
     });
   }
+
+  Future updateDefaultAddress({
+    required BuildContext context,
+    required MapSS body,
+  })async{
+      setLoadingState(true, true);
+   // final userProvider = context.read<AuthNotifier>();
+    addressRepository.setDefaultAddress(body).then((response) {
+        setLoadingState(false, true);
+        // User user = userProvider.user;
+       showSnakeBarr(
+          context, response['response_message'], SnackBarState.Success);
+      ("Default Address updated").log();
+      Navigator.pop(context);
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
+      onErrorHandler(context, error, stackTrace);
+    });
+  }
+  
 }
