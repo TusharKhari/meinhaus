@@ -19,10 +19,11 @@ import 'package:new_user_side/features/our%20services/screens/our_services_scree
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
 import 'package:new_user_side/features/settings/screens/setting_screen.dart';
 import 'package:new_user_side/features/splash/screens/splash_screen.dart';
-
+ 
 import '../../features/auth/screens/signin_screen.dart';
 import '../../features/edit profile/screens/edit_password_scree.dart';
 import '../../features/edit profile/screens/edit_profile_screen.dart';
+import '../../static components/empty states/screens/no_est_work_detail_static_screen.dart';
 import '../common/my_text.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -167,6 +168,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => AllConversationScreen(),
+      );
+      case  NoEstWorkDetailStaticScreen.routeName :
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => NoEstWorkDetailStaticScreen(),
       );
     default:
       return MaterialPageRoute(

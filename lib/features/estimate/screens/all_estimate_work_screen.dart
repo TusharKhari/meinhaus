@@ -8,7 +8,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
-import '../../../static components/empty states/empty_projects_state_widget.dart';
+ import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
 import '../widget/all_estimate_work_card.dart';
 
 class AllEstimatedWorkScreen extends StatelessWidget {

@@ -1,80 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// when no estimation is present in data
+
 import 'package:flutter/material.dart';
-import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
-import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
-import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
-import 'package:new_user_side/resources/common/my_text.dart'; 
-import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:provider/provider.dart';
+ 
+import '../../../features/home/widget/project_img_card_widget.dart';
+import '../../../resources/common/buttons/my_buttons.dart';
+import '../../../resources/common/my_text.dart';
+import '../../../utils/constants/app_colors.dart';
+import 'no_est_work_detail_static_screen.dart';
 
-import '../../../provider/notifiers/estimate_notifier.dart';
-import '../../../static components/empty states/screens/no_est_static_screen.dart';
-
-class EstimateCardHomeScreenView extends StatelessWidget {
-  final Function(BuildContext context) effect;
-  const EstimateCardHomeScreenView({super.key, required this.effect});
+class NoEstStaticScreen extends StatelessWidget {
+  const NoEstStaticScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-
-    final estimateNotifier = context.watch<EstimateNotifier>();
-    final estimateWork = estimateNotifier.estimated.estimatedWorks;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MyTextPoppines(
-          text: "Estimated Work",
-          fontWeight: FontWeight.w600,
-          fontSize: width / 23,
-        ),
-        SizedBox(height: height / 70),
-        estimateWork != null
-            ? Visibility(
-                visible: estimateWork.length != 0,
-                child: SizedBox(
-                  height: height / 3,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: estimateWork.length,
-                    itemBuilder: (context, index) {
-                      return EstimatedWorkCard(index: index);
-                    },
-                  ),
-                ),
-              )
-            :  effect(context),
-        Visibility(
-          visible: estimateWork != null && estimateWork.length == 0,
-          // child: NoEstViewHomeScreenWidget(
-          //   text:
-          //       "You Don’t have any estimated project right now. Add new project",
-          // ),
-          child: NoEstStaticScreen(),
-        ),
-      ],
-    );
-  }
-}
-
-class EstimatedWorkCard extends StatelessWidget {
-  final int index;
-  const EstimatedWorkCard({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-    final getEstProvider = context.watch<EstimateNotifier>();
-    final projectDetails = getEstProvider.estimated.estimatedWorks![index];
-    final projectCost = projectDetails.projectEstimate![0].projectCost;
-
     return Container(
       width: width / 2,
       margin: EdgeInsets.only(right: width / 35),
@@ -92,7 +32,8 @@ class EstimatedWorkCard extends StatelessWidget {
                 SizedBox(height: height / 60),
                 // PROJECT NAME
                 MyTextPoppines(
-                  text: projectDetails.projectName.toString(),
+                  // text: projectDetails.projectName.toString(),
+                  text:  "Project Name Sample",
                   fontWeight: FontWeight.w500,
                   fontSize: width / 30,
                   maxLines: 1,
@@ -115,7 +56,8 @@ class EstimatedWorkCard extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                        text: projectDetails.estimateDate ?? "",
+                        text:    "00/00/00",
+                        // text: projectDetails.estimateDate ?? "",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
@@ -144,15 +86,20 @@ class EstimatedWorkCard extends StatelessWidget {
                 bottomRight: Radius.circular(width / 40),
               ),
               // BACKGROUND PROJECT IMAGE
-              image: projectDetails.uploadedImgs != null &&
-                      projectDetails.uploadedImgs!.isNotEmpty
-                  ? DecorationImage(
-                      image: NetworkImage(
-                        projectDetails.uploadedImgs!.first.thumbnailUrl!,
-                      ),
-                      fit: BoxFit.fill,
-                    )
-                  : DecorationImage(
+              image:
+              //  projectDetails.uploadedImgs != null &&
+              //         projectDetails.uploadedImgs!.isNotEmpty
+              //     ? DecorationImage(
+              //         image: NetworkImage(
+              //           projectDetails.uploadedImgs!.first.thumbnailUrl!,
+              //         ),
+              //         fit: BoxFit.fill,
+              //       )
+              //     : DecorationImage(
+              //         image: AssetImage("assets/images/room/2(1).png"),
+              //         fit: BoxFit.fill,
+              //       ),
+              DecorationImage(
                       image: AssetImage("assets/images/room/2(1).png"),
                       fit: BoxFit.fill,
                     ),
@@ -203,7 +150,7 @@ class EstimatedWorkCard extends StatelessWidget {
                 SizedBox(height: height / 60),
                 // ESTIMATE COST
                 MyTextPoppines(
-                  text: "Estimated Amount: \$${projectCost}",
+                  text: "Estimated Amount: \$00}",
                   fontSize: width / 36,
                   color: AppColors.white,
                   fontWeight: FontWeight.w600,
@@ -226,9 +173,10 @@ class EstimatedWorkCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     onTap: () {
                       Navigator.pushNamed(
-                        context,
-                        EstimatedWorkDetailScreen.routeName,
-                        arguments: index,
+                        context, 
+                     NoEstWorkDetailStaticScreen.routeName,
+                //   EstimatedWorkDetailScreen.routeName,  
+                  
                       );
                     },
                   ),

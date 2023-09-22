@@ -7,7 +7,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
-import '../../../static components/empty states/empty_projects_state_widget.dart';
+ import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
 import '../widget/project_info_card.dart';
 
 class CompletedProjectsScreen extends StatefulWidget {

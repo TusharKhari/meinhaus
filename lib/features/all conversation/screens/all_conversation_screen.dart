@@ -7,11 +7,12 @@ import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
-import 'package:new_user_side/static%20components/empty%20states/no_message_found.dart';
-import 'package:new_user_side/utils/constants/app_colors.dart';
+ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
+
+import '../../../static components/empty states/screens/no_message_found.dart';
 
 class AllConversationScreen extends StatefulWidget {
   static const String routeName = '/chatList';

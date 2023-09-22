@@ -106,7 +106,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
     final addressNotifier = context.watch<AddressNotifier>();
-    String userName = "${user.firstname} ${user.lastname}";
+    String userName = "${user.firstname}";
+    // String userName = "${user.firstname} ${user.lastname}";
     final img = notifier.image;
 
     return ModalProgressHUD(
@@ -166,9 +167,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           color: AppColors.buttonBlue,
                         ),
                         child: Center(
-                            child: MyTextPoppines(
-                          text: user.firstname!.toUpperCase()[0] +
-                              user.lastname!.toUpperCase()[0],
+                            child: MyTextPoppines( 
+                              text:  user.lastname == "" ?
+                              user.firstname!.toUpperCase()[0]  : 
+                              user.firstname!.toUpperCase()[0] + user.lastname!.toUpperCase()[0], 
+                              // text: "here",
                           fontSize: width / 10,
                           color: AppColors.white,
                           fontWeight: FontWeight.w600,

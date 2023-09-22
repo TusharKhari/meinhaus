@@ -66,7 +66,7 @@ class AddressRepository {
         url: ApiUrls.setDefaultAddress, 
         method: HttpMethod.post,
         body : {
-       // "address_id" : "", 
+        "address_id" : "4", 
         }, 
         );
     } on FormatException{

@@ -31,8 +31,8 @@ class EstimatedWorkBillCardWidget extends StatelessWidget {
         15.vs,
         _EstimatedDetailsRow(
           prefixText: "Deposited Amount :",
-         // suffixText: "\$${projectDetails.projectBilling!.depositAmount}",
-         suffixText:  "depositAmount",
+         //suffixText: "\$${projectDetails.projectBilling!.depositAmount}",
+        suffixText:  "depositAmount",
         ),
         15.vs,
         _EstimatedDetailsRow(

@@ -148,8 +148,8 @@ class _ProfileCard extends StatelessWidget {
                 height: h / 30,
                 width: w / 4,
                 child: MyTextPoppines(
-                  text: user.lastname.toString(),
-               // text: "",
+                  text: user.lastname != "" ? user.lastname.toString() : "",
+               // text: "T",
                   fontSize: w / 20,
                   fontWeight: FontWeight.w600,
                   maxLines: 1,
@@ -181,9 +181,13 @@ class _ProfileCard extends StatelessWidget {
                       child: Center(
                           child: MyTextPoppines(
 
-                        text: user.lastname.toString() != "" ? user.firstname!.toUpperCase()[0] +
-                            user.lastname!.toUpperCase()[0] : user.firstname!.toUpperCase()[0],
-                      //  text: "T",
+                        // text: user.lastname.toString() != "" ? user.firstname!.toUpperCase()[0] +
+                        //     user.lastname!.toUpperCase()[0] : user.firstname!.toUpperCase()[0],
+
+                       text: user.lastname == "" ?
+                              user.firstname!.toUpperCase()[0]  : 
+                              user.firstname!.toUpperCase()[0] + user.lastname!.toUpperCase()[0], 
+                     // text: "n o",
                         fontSize: w / 16,
                         color: AppColors.white,
                         fontWeight: FontWeight.w600,
