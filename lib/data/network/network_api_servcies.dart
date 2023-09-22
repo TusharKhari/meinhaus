@@ -96,6 +96,7 @@ class NetworkApiServices {
     if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     final getHeader = await UserPrefrences().getHeader();
+    print(getHeader);
     final postHeader = await UserPrefrences().postHeader();
     try {
       late final http.Request request;
@@ -127,7 +128,7 @@ class NetworkApiServices {
 
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-     //  (response.body).log();
+      (response.body).log();
       final xsrf = response.headers['set-cookie'];
       await UserPrefrences().setXsrf(xsrf.toString());
       responseJson = errorHandling(response, allowUnauthorizedResponse);
@@ -137,7 +138,7 @@ class NetworkApiServices {
 
     on SocketException {
       throw FetchDataException("No Internet Connection");
-    } 
+    }
   }
 
   // SEND HTTP REQUEST WITHOUT HEADER
@@ -176,7 +177,7 @@ class NetworkApiServices {
       request.headers.addAll({'Accept': 'application/json'});
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      // (response.body).log();
+      (response.body).log();
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;

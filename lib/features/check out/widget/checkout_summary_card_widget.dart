@@ -1,20 +1,32 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/data/models/generated_estimate_model.dart';
+import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:provider/provider.dart';
 
 import '../../../resources/common/my_text.dart';
 
-class CheckOutSummaryCardWidget extends StatelessWidget {
+class CheckOutSummaryCardWidget extends StatefulWidget {
   final String totalAmount;
-  const CheckOutSummaryCardWidget({
+   CheckOutSummaryCardWidget({
     Key? key,
     required this.totalAmount,
   }) : super(key: key);
 
   @override
+  State<CheckOutSummaryCardWidget> createState() => _CheckOutSummaryCardWidgetState();
+}
+
+class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
+  
+  @override
   Widget build(BuildContext context) {
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,12 +68,13 @@ class CheckOutSummaryCardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MyTextPoppines(
-                          text: "Bathroom Renewal",
+                        // text: estimate.estimatedWorks![0].projectName!,
+                           text: "Bathroom Renewall",
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),
                         MyTextPoppines(
-                          text:"\$${totalAmount}",
+                          text:"\$${widget.totalAmount}",
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -109,7 +122,7 @@ class CheckOutSummaryCardWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                   MyTextPoppines(
-                    text: "\$${totalAmount}",
+                    text: "\$${widget.totalAmount}",
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                   ),

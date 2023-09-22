@@ -13,7 +13,6 @@ import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/upload_image_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
 import 'notifiers/check_out_notifier.dart';
 import 'notifiers/estimate_notifier.dart';
 
@@ -33,5 +32,4 @@ List<SingleChildWidget> provider = [
   ChangeNotifierProvider(create: (context) => ChatWithProNotifier()),
   ChangeNotifierProvider(create: (context) => SupportNotifier()),
   ChangeNotifierProvider(create: (context) => NotificationNotifier()),
-
 ];

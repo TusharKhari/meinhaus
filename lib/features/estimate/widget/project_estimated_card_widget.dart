@@ -78,14 +78,20 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
                 fontSize: width / 28,
               ),
               SizedBox(width: width / 22),
-              MyTextPoppines(
-                text: service.projectArea ?? "",
-                fontSize: width / 30,
+              Flexible(
+                child: MyTextPoppines(
+                  maxLines: 3,
+                 // height: 10,
+                  text: service.projectArea ?? "",
+                  fontSize: width / 30,
+                  
+                ),
               ),
             ],
           ),
           SizedBox(height: height / 80),
           MyTextPoppines(
+            
             text: "Description ",
             fontWeight: FontWeight.w600,
             fontSize: width / 28,

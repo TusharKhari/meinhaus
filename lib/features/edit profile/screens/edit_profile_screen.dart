@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -104,11 +105,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final width = MediaQuery.sizeOf(context).width;
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
+    final addressNotifier = context.watch<AddressNotifier>();
     String userName = "${user.firstname} ${user.lastname}";
     final img = notifier.image;
 
     return ModalProgressHUD(
-      inAsyncCall: notifier.loading,
+      // inAsyncCall: notifier.loading || addressNotifier.loading ,
+      inAsyncCall:  notifier.loading,
       child: Scaffold(
         // App bar
         appBar: MyAppBar(
@@ -320,7 +323,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       20.vs,
                       Divider(thickness: 1.5, indent: 20.w, endIndent: 20.w),
                       20.vs,
-                      const SavedAddressesWidget(),
+                       SavedAddressesWidget(isProfileEdit: true,),
                     ],
                   ),
                 ),

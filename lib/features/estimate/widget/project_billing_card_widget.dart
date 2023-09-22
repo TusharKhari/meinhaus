@@ -36,18 +36,22 @@ class ProjectBillingCardWidget extends StatelessWidget {
           8.vspacing(context),
           _buildShowPrice(
             context: context,
-            text: "Subtotal : \$${pBill.subTotal}",
+           text: "Subtotal : \$${pBill.totalCost}",
+          // text: "Subtotal : \$${pBill.totalCost}",
             fontWeight: FontWeight.w600,
           ),
           4.vspacing(context),
           _buildShowPrice(
             context: context,
-            text: "HST 13% (830275681RRT0001) = \$${pBill.hstForSubtotal}",
+           text: "HST 13% (830275681RRT0001) = \$${pBill.hstTotalCost! - pBill.totalCost!.toInt()}",
+          // text: "HST 13% (830275681RRT0001) = \$", hstAmountToPay
+       
           ),
           4.vspacing(context),
           _buildShowPrice(
             context: context,
-            text: "Total : \$${pBill.total}",
+            // text: "Total : \$${pBill.totalCost}",
+             text: "Total : \$${pBill.hstTotalCost}",
             fontWeight: FontWeight.w600,
           ),
           2.vspacing(context),
@@ -58,12 +62,15 @@ class ProjectBillingCardWidget extends StatelessWidget {
           2.vspacing(context),
           _buildShowPrice(
             context: context,
-            text: "Deposit for project Booking = \$${pBill.depositAmount}",
+           text: "Deposit for project Booking = \$${pBill.amountToPay}",
+      //  text: "Deposit for project Booking = \$",
+
           ),
           4.vspacing(context),
           _buildShowPrice(
             context: context,
-            text: "HST 13% (830275681RRT0001) = \$${pBill.hstForDepositAmount}",
+            // text: "HST 13% (830275681RRT0001) = \$${pBill.hstForDepositAmount}",
+            text: "HST 13% (830275681RRT0001) = \$${pBill.hstAmountToPay! - pBill.amountToPay!.toInt()}",
           ),
           5.vspacing(context),
           Container(
@@ -79,7 +86,9 @@ class ProjectBillingCardWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomRight,
               child: MyTextPoppines(
-                text: "Total : \$${pBill.totalDepositAmount}",
+                // text: "Total : \$${pBill.totalDepositAmount}",
+               text: "Total : \$${pBill.hstAmountToPay}",
+
                 fontSize: height / 60,
                 fontWeight: FontWeight.w600,
                 color: AppColors.white,

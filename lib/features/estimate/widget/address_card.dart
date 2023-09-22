@@ -14,11 +14,13 @@ class AddressCardWidget extends StatefulWidget {
   final int index;
   final bool isSelected;
   final int addressId;
-  const AddressCardWidget({
+  bool isProfileEdit = false;
+   AddressCardWidget({
     Key? key,
     required this.index,
     required this.isSelected,
     required this.addressId,
+    required this.isProfileEdit, 
   }) : super(key: key);
 
   @override
@@ -108,7 +110,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         padding: EdgeInsets.only(left: 5.w, top: 3.h),
                         child: MyTextPoppines(
                           // text: "Default",
-                          text: "selected",
+                          text: widget.isProfileEdit ? "Default" : "selected",
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: AppColors.yellow,

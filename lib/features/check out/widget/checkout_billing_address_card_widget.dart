@@ -35,6 +35,7 @@ class CheckOutBillingAddressCardWidget extends StatelessWidget {
                     return InkWell(
                       onTap: () => selectedAddress.setSelectedAddress(index),
                       child: AddressCardWidget(
+                        isProfileEdit: false,
                         index: index,
                         isSelected: selectedAddress.index == index,
                         addressId: 61,

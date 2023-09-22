@@ -44,7 +44,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 8.vspacing(context),
                 const Divider(thickness: 1.0),
                 8.vspacing(context),
-                const SavedAddressesWidget(),
+                  SavedAddressesWidget(),
               ],
             ),
           ),

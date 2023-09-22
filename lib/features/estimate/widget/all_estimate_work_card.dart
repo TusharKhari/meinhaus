@@ -23,7 +23,7 @@ class AllEstimateWorkCard extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.read<EstimateNotifier>();
     final estimate = notifier.estimated.estimatedWorks![index];
-    final estimateCost = estimate.projectBilling!.projectAmount.toString();
+   // final estimateCost = estimate.projectBilling!.projectAmount.toString();
     final isImgNull = estimate.uploadedImgs!.length == 0;
     final headline1 = width / 35;
 
@@ -82,7 +82,8 @@ class AllEstimateWorkCard extends StatelessWidget {
                         color: AppColors.golden.withOpacity(0.6),
                       ),
                       MyTextPoppines(
-                        text: "\$${estimateCost}",
+                     //   text: "\$${estimateCost}",
+                     text: "estimate cost",
                         fontSize: headline1,
                         fontWeight: FontWeight.bold,
                         color: AppColors.golden,

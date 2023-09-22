@@ -138,6 +138,8 @@ class AddressNotifier extends ChangeNotifier {
     });
   }
 
+  // update default address change default address
+
   Future updateDefaultAddress({
     required BuildContext context,
     required MapSS body,
@@ -145,12 +147,17 @@ class AddressNotifier extends ChangeNotifier {
       setLoadingState(true, true);
    // final userProvider = context.read<AuthNotifier>();
     addressRepository.setDefaultAddress(body).then((response) {
-        setLoadingState(false, true);
+       setLoadingState(false, true);
         // User user = userProvider.user;
-       showSnakeBarr(
-          context, response['response_message'], SnackBarState.Success);
-      ("Default Address updated").log();
-      Navigator.pop(context);
+      //  showSnakeBarr(
+      //     context, 
+      //     // response['response_message'], 
+      //     "Address Changed Successfully",
+      //     SnackBarState.Success, 
+      //     );
+      // ("Default Address updated").log();
+      // Navigator.pop(context);
+      (response).log("default address");
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       onErrorHandler(context, error, stackTrace);

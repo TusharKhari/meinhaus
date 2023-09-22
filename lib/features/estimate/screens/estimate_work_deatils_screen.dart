@@ -39,7 +39,7 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
     final projectDetails =
         getEstProvider.estimated.estimatedWorks![widget.index];
     final bookingId = projectDetails.estimateId;
-    final amountToPay = projectDetails.projectBilling!.totalDepositAmount;
+   // final amountToPay = projectDetails.projectBilling!.totalDepositAmount;
     final bool isImgPresent = projectDetails.uploadedImgs!.length > 0;
 
     return Scaffold(
@@ -68,7 +68,8 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
                       ),
                       SizedBox(width: width / 16),
                       MyTextPoppines(
-                        text: projectDetails.estimateId ?? "",
+                       text: projectDetails.estimateId ?? "",
+                      //  text: "my",
                         fontSize: width / 26,
                         fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
@@ -131,7 +132,9 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
             CheckOutScreen(
               ProjectName: projectDetails.projectName ?? "",
               bookingId: bookingId,
-              amountToPay: amountToPay ?? "",
+              //amountToPay: amountToPay ?? "",
+              // projectDetails
+              amountToPay: projectDetails.projectBilling!.hstAmountToPay != null ?  projectDetails.projectBilling!.hstAmountToPay.toString() : "NA" ,
             ),
           );
         },

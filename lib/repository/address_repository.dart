@@ -59,11 +59,15 @@ class AddressRepository {
    // set default address 
 
    Future<ResponseType> setDefaultAddress(MapSS body) async{
+     print("default address : $body");
+     print(ApiUrls.setDefaultAddress);
     try {
       return await services.sendHttpRequest(
         url: ApiUrls.setDefaultAddress, 
         method: HttpMethod.post,
-        body : body, 
+        body : {
+       // "address_id" : "", 
+        }, 
         );
     } on FormatException{
       throw FormatException("service temporarily unavailable");
@@ -73,5 +77,4 @@ class AddressRepository {
       throw e;
     }
    }
-
 }

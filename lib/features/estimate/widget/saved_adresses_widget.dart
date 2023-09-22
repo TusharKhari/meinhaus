@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -13,17 +14,19 @@ import '../../../provider/notifiers/auth_notifier.dart';
 import 'address_card.dart';
 
 class SavedAddressesWidget extends StatelessWidget {
-  const SavedAddressesWidget({
-    Key? key,
+   bool isProfileEdit;
+   SavedAddressesWidget({
+     Key? key,
+      this.isProfileEdit = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<AuthNotifier>();
     final address = userProvider.user.savedAddress;
-
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+    // final addressNotifier = context.watch<AddressNotifier>();
+    // final height = MediaQuery.sizeOf(context).height;
+    // final width = MediaQuery.sizeOf(context).width;
     return Column(
       children: [
         Row(
@@ -61,15 +64,18 @@ class SavedAddressesWidget extends StatelessWidget {
                       onTap: () {
                         selectedAddress.setSelectedAddress(index);
                         // put update address api call here 
-                       selectedAddress.updateDefaultAddress(context: context, body: {
+                     isProfileEdit ?  selectedAddress.updateDefaultAddress(context: context, body: {
                          "address_id": addressId.toString(), 
-                        });
-                        print("address updated addId : $addressId");
+                        }
+                        ) : (){};
+                    print(addressId);
+                       print("address updated addId : $addressId");
                       },
                       child: AddressCardWidget(
                         index: index,
                         isSelected: selectedAddress.index == index,
                         addressId: addressId!,
+                        isProfileEdit:  isProfileEdit,
                       ),
                     );
                   },
@@ -80,7 +86,7 @@ class SavedAddressesWidget extends StatelessWidget {
           visible: address!.isEmpty,
           child: NoAddressFoundWidget(),
         ),
-
+    
         30.vs,
       ],
     );

@@ -48,7 +48,7 @@ class MyDrawer extends StatelessWidget {
               children: [
                 _ExitIcon(),
                 SizedBox(height: h / 30),
-                _ProfileCard(),
+               _ProfileCard(),
                 SizedBox(height: h / 70),
                 Divider(thickness: 1.0),
                 _ItemList(),
@@ -135,6 +135,8 @@ class _ProfileCard extends StatelessWidget {
                 width: w / 4,
                 child: MyTextPoppines(
                   text: user.firstname.toString(),
+                 // text: "user",
+
                   fontSize: w / 20,
                   fontWeight: FontWeight.w600,
                   height: 1.5,
@@ -147,6 +149,7 @@ class _ProfileCard extends StatelessWidget {
                 width: w / 4,
                 child: MyTextPoppines(
                   text: user.lastname.toString(),
+               // text: "",
                   fontSize: w / 20,
                   fontWeight: FontWeight.w600,
                   maxLines: 1,
@@ -177,8 +180,10 @@ class _ProfileCard extends StatelessWidget {
                       backgroundColor: AppColors.buttonBlue,
                       child: Center(
                           child: MyTextPoppines(
-                        text: user.firstname!.toUpperCase()[0] +
-                            user.lastname!.toUpperCase()[0],
+
+                        text: user.lastname.toString() != "" ? user.firstname!.toUpperCase()[0] +
+                            user.lastname!.toUpperCase()[0] : user.firstname!.toUpperCase()[0],
+                      //  text: "T",
                         fontSize: w / 16,
                         color: AppColors.white,
                         fontWeight: FontWeight.w600,
