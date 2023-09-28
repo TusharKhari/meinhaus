@@ -56,7 +56,7 @@ class NoEstStaticScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                        text:    "00/00/00",
+                        text:    "01/01/23",
                         // text: projectDetails.estimateDate ?? "",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
@@ -86,19 +86,7 @@ class NoEstStaticScreen extends StatelessWidget {
                 bottomRight: Radius.circular(width / 40),
               ),
               // BACKGROUND PROJECT IMAGE
-              image:
-              //  projectDetails.uploadedImgs != null &&
-              //         projectDetails.uploadedImgs!.isNotEmpty
-              //     ? DecorationImage(
-              //         image: NetworkImage(
-              //           projectDetails.uploadedImgs!.first.thumbnailUrl!,
-              //         ),
-              //         fit: BoxFit.fill,
-              //       )
-              //     : DecorationImage(
-              //         image: AssetImage("assets/images/room/2(1).png"),
-              //         fit: BoxFit.fill,
-              //       ),
+              image: 
               DecorationImage(
                       image: AssetImage("assets/images/room/2(1).png"),
                       fit: BoxFit.fill,
@@ -150,7 +138,7 @@ class NoEstStaticScreen extends StatelessWidget {
                 SizedBox(height: height / 60),
                 // ESTIMATE COST
                 MyTextPoppines(
-                  text: "Estimated Amount: \$00}",
+                  text: "Estimated Amount: \$100",
                   fontSize: width / 36,
                   color: AppColors.white,
                   fontWeight: FontWeight.w600,

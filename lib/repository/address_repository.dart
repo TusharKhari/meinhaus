@@ -65,9 +65,7 @@ class AddressRepository {
       return await services.sendHttpRequest(
         url: ApiUrls.setDefaultAddress, 
         method: HttpMethod.post,
-        body : {
-        "address_id" : "4", 
-        }, 
+        body : body, 
         );
     } on FormatException{
       throw FormatException("service temporarily unavailable");

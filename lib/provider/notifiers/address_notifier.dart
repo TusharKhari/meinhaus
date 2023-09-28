@@ -20,13 +20,15 @@ class AddressNotifier extends ChangeNotifier {
   String _tappeddAddress = '';
   List<dynamic> _addressList = [];
   int _index = 0;
+  int  _selectedDefaultAddressIdx = -1 ;
 
   // getters
   bool get loading => _loading;
   List<dynamic> get addressList => _addressList;
   int get index => _index;
+  int get selectedDefaultAddressIdx => _selectedDefaultAddressIdx;
   String get tappedAddress => _tappeddAddress;
-
+  
   // setters
   void setTappedAddress(String address) {
     _tappeddAddress = address;
@@ -37,7 +39,11 @@ class AddressNotifier extends ChangeNotifier {
     _index = index;
     notifyListeners();
   }
-
+   
+  void setSelectedDefaultAddressIdx(int index){
+     _selectedDefaultAddressIdx = index;
+    notifyListeners();
+  }
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) notifyListeners();
@@ -138,30 +144,47 @@ class AddressNotifier extends ChangeNotifier {
     });
   }
 
-  // update default address change default address
-
+  // update default address change default address 
   Future updateDefaultAddress({
     required BuildContext context,
     required MapSS body,
+     
   })async{
       setLoadingState(true, true);
    // final userProvider = context.read<AuthNotifier>();
     addressRepository.setDefaultAddress(body).then((response) {
        setLoadingState(false, true);
-        // User user = userProvider.user;
-      //  showSnakeBarr(
-      //     context, 
-      //     // response['response_message'], 
-      //     "Address Changed Successfully",
-      //     SnackBarState.Success, 
-      //     );
-      // ("Default Address updated").log();
-      // Navigator.pop(context);
-      (response).log("default address");
+        final userProvider = context.read<AuthNotifier>();
+       // SavedAddress user = userProvider.user.savedAddress![indexOfAddress].copyWith(isDefault: 1)  ;
+       showSnakeBarr(
+          context, 
+          // response['response_message'], 
+          "Default Address Changed Successfully",
+          SnackBarState.Success, 
+          );
+      ("Default Address updated").log();
+      //Navigator.pop(context);
+      //(response).log("default address");
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       onErrorHandler(context, error, stackTrace);
     });
   }
 
+  int ? _defaultAddressIndex ;
+  int? get defaultAddressIndex => _defaultAddressIndex;
+
+   int getDefaultAddressIndex(BuildContext context){
+     final userProvider = context.watch<AuthNotifier>();
+    final address = userProvider.user.savedAddress;
+   if(address?.length != null){
+     for(int i =0; i< address!.length; i++){
+      if(address[i].isDefault == 1){
+        _defaultAddressIndex = i;
+      }
+    }
+   }
+   if(_defaultAddressIndex != null) return _defaultAddressIndex!;
+   return -1;
+  }
 }

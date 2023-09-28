@@ -7,6 +7,7 @@ import 'package:new_user_side/features/address/screens/update_address_screen.dar
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../provider/notifiers/auth_notifier.dart';
 
@@ -31,7 +32,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<AuthNotifier>(context, listen: true);
-    final userAddress = userProvider.user.savedAddress![widget.index];
+    final userAddress = userProvider.user.savedAddress![widget.index]; 
     final String fullAddres = userAddress.line1!.length == 1
         ? "${userAddress.line2}, ${userAddress.city}, ${userAddress.state}, ${userAddress.country}"
         : "${userAddress.line1}, ${userAddress.line2}, ${userAddress.city}, ${userAddress.state}, ${userAddress.country}";
@@ -71,20 +72,13 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         );
                       },
                     ),
-                  );
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return AddAdressDialog();
-                  //   },
-                  // );
+                  ); 
                 },
                 child: Icon(
                   FontAwesomeIcons.solidPenToSquare,
                   size: 20.sp,
                 ),
               ),
-           
             ],
           ),
           10.vs,
@@ -110,7 +104,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         padding: EdgeInsets.only(left: 5.w, top: 3.h),
                         child: MyTextPoppines(
                           // text: "Default",
-                          text: widget.isProfileEdit ? "Default" : "selected",
+                          text: widget.isProfileEdit  ? "Default" : "selected", 
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: AppColors.yellow,

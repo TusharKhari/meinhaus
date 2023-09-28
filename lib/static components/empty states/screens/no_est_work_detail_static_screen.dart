@@ -4,19 +4,16 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/static%20components/empty%20states/widgets/static_project_billing_card_widget.dart';
 import 'package:new_user_side/static%20components/empty%20states/widgets/static_project_estimate_card.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../features/estimate/widget/download_pdf_card_widget.dart';
- import '../../../features/estimate/widget/estimate_carousel_img.dart';
-import '../../../features/estimate/widget/project_estimated_card_widget.dart';
 import '../../../resources/common/buttons/my_bottom_bar_button.dart';
 import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
-import '../../../resources/common/show_img_upload_option.dart';
 import '../../../utils/constants/app_colors.dart';
+import 'checkout_screen_static.dart';
 
 
 class NoEstWorkDetailStaticScreen extends StatelessWidget {
@@ -152,16 +149,17 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
         hPadding: width / 7.6,
         text: "Book Project",
         onTap: () {
-          // Navigator.of(context).pushScreen(
-          //   // CheckOutScreen(
-          //   //   ProjectName: projectDetails.projectName ?? "",
-          //   //   bookingId: bookingId,
-          //   //   //amountToPay: amountToPay ?? "",
-          //   //   // projectDetails
-          //   //   amountToPay: projectDetails.projectBilling!.hstAmountToPay != null ?  projectDetails.projectBilling!.hstAmountToPay.toString() : "NA" ,
-          //   // ),
-          // );
-          showSnakeBarr(context, "No Projects available", SnackBarState.Warning);
+          Navigator.of(context).pushScreen(
+            CheckOutScreenStatic(
+              ProjectName:   "Sample Project Name",
+              bookingId: "11",
+              //amountToPay: amountToPay ?? "",
+              // projectDetails
+              // amountToPay: projectDetails.projectBilling!.hstAmountToPay != null ?  projectDetails.projectBilling!.hstAmountToPay.toString() : "NA" ,
+              amountToPay: "\$100",
+            ),
+          );
+         // showSnakeBarr(context, "No Projects available", SnackBarState.Warning);
         },
       ),
     );
@@ -191,28 +189,28 @@ class _EstimatedDetailsColumn extends StatelessWidget {
       children: [
          _EstimatedDetailsRow(
           prefixText: "Estimate Date :",
-          suffixText: "00/00/00",
+          suffixText: "01/01/23",
         ),
         15.vs,
         _EstimatedDetailsRow(
           prefixText: "Deposited Amount :",
          //suffixText: "\$${projectDetails.projectBilling!.depositAmount}",
-        suffixText:  "\$00",
+        suffixText:  "\$100",
         ),
         15.vs,
         _EstimatedDetailsRow(
           prefixText: "Bill To :",
-          suffixText: "address",
+          suffixText: "44 E. West Street Ashland, OH 44805.",
         ),
         15.vs,
         _EstimatedDetailsRow(
           prefixText: "Email :",
-          suffixText: "email",
+          suffixText: "emailsample@gmail.com",
         ),
         15.vs,
         _EstimatedDetailsRow(
           prefixText: "Contact No :",
-          suffixText: "Contact No",
+          suffixText: "+1 (519)641-1743",
         ),
 
       ],

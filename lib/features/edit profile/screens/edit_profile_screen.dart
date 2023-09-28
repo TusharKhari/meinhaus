@@ -13,7 +13,6 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
-
 import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/features/edit%20profile/controller/services/edit_profile_services.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -22,11 +21,11 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
-
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../static components/dialogs/edit_profile_dialog.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
+
 
 class EditProfileScreen extends StatefulWidget {
   static const String routeName = '/edit';
@@ -105,7 +104,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final width = MediaQuery.sizeOf(context).width;
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
-    final addressNotifier = context.watch<AddressNotifier>();
+  ///  final addressNotifier = context.watch<AddressNotifier>();
     // String userName = "${user.firstname}";
      String userName = "${user.firstname} ${user.lastname}";
     final img = notifier.image;
@@ -327,6 +326,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Divider(thickness: 1.5, indent: 20.w, endIndent: 20.w),
                       20.vs,
                        SavedAddressesWidget(isProfileEdit: true,),
+                      // EditProfileSavedAddressesWidget(), 
                     ],
                   ),
                 ),

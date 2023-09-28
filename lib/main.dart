@@ -8,7 +8,6 @@ import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
 import 'package:provider/provider.dart';
-
 import 'provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();

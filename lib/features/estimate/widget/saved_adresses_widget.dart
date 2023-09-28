@@ -2,12 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
-
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../provider/notifiers/auth_notifier.dart';
@@ -24,9 +22,10 @@ class SavedAddressesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = context.watch<AuthNotifier>();
     final address = userProvider.user.savedAddress;
-    // final addressNotifier = context.watch<AddressNotifier>();
-    // final height = MediaQuery.sizeOf(context).height;
-    // final width = MediaQuery.sizeOf(context).width;
+   
+    // _defaultAddressIndex
+    final addressNotifier = context.watch<AddressNotifier>();
+   int defaultAddressIdx = addressNotifier.getDefaultAddressIndex(context);
     return Column(
       children: [
         Row(
@@ -61,20 +60,44 @@ class SavedAddressesWidget extends StatelessWidget {
                 return Consumer<AddressNotifier>(
                   builder: (context, selectedAddress, child) {
                     return InkWell(
-                      onTap: () {
-                        selectedAddress.setSelectedAddress(index);
-                        // put update address api call here 
-                     isProfileEdit ?  selectedAddress.updateDefaultAddress(context: context, body: {
-                         "address_id": addressId.toString(), 
-                        }
-                        ) : (){};
-                    print(addressId);
-                       print("address updated addId : $addressId");
-                      },
+                      onTap: 
+                      // 
+                    //   () {
+                    //    selectedAddress.setSelectedAddress(index);
+                    //     // put update address api call here 
+                    //  isProfileEdit ?  selectedAddress.updateDefaultAddress(
+                    //   context: context,
+                    //    body: {
+                    //      "address_id": addressId.toString(),
+                         
+                    //     }, 
+                    //     ) : (){
+                    //     };
+                    // print(addressId);
+                    //    print("address updated addId : $addressId");
+                    //   },
+                    isProfileEdit ? (){
+                      selectedAddress.updateDefaultAddress(context: context, 
+                       body: {
+                         "address_id": addressId.toString(),
+                           },
+                            ); 
+                      selectedAddress.setSelectedDefaultAddressIdx(index);
+                     } :() {
+                    selectedAddress.setSelectedAddress(index);
+                    }, 
                       child: AddressCardWidget(
-                        index: index,
-                        isSelected: selectedAddress.index == index,
-                        addressId: addressId!,
+                        index:   index, 
+                        isSelected: isProfileEdit && addressNotifier.selectedDefaultAddressIdx == -1 ? 
+                        defaultAddressIdx == index  
+                         : 
+                         isProfileEdit && addressNotifier.selectedDefaultAddressIdx != -1 ? 
+                          addressNotifier.selectedDefaultAddressIdx == index  
+                            :
+                         defaultAddressIdx == -1 && isProfileEdit ? false
+                          : addressNotifier.index == index,
+                          // 
+                         addressId: addressId!,
                         isProfileEdit:  isProfileEdit,
                       ),
                     );

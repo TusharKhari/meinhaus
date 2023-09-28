@@ -82,7 +82,6 @@ class OldNetworkApiServices extends BaseApiServices {
   }
 }
 
-
 //=================
 
 class NetworkApiServices {
@@ -137,9 +136,7 @@ class NetworkApiServices {
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
-    } 
-
-    on SocketException {
+    } on SocketException {
       throw FetchDataException("No Internet Connection");
     }
   }
@@ -247,7 +244,7 @@ class NetworkApiServices {
       }
     } on SocketException {
       throw FetchDataException("No Internet Connection");
-    } catch(e){
+    } catch (e) {
       throw e;
     }
   }
