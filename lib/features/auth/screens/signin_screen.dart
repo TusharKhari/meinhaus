@@ -119,7 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
             Divider(thickness: 1.5.w, indent: 10.w, endIndent: 10.w),
             20.vs,
             MyBlueButton(
-              isWaiting: notifier.loading,
+              isWaiting: notifier.loading,  
               hPadding: 120.w,
               text: "Sign In",
               onTap: () => login(),

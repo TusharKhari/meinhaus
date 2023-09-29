@@ -14,10 +14,8 @@ import 'package:new_user_side/features/edit%20profile/screens/edit_profile_scree
 import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-
 import '../../data/network/network_api_servcies.dart';
-import '../../error_screens.dart';
-import '../../features/auth/screens/otp_validate_screen.dart';
+ import '../../features/auth/screens/otp_validate_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../resources/common/my_snake_bar.dart';
 
@@ -55,7 +53,7 @@ class AuthNotifier extends ChangeNotifier {
     _loading2 = state;
     if (notify) notifyListeners();
   }
-
+  
   void setGoogleLoadingState(bool state, bool notify) {
     _gloading = state;
     if (notify) notifyListeners();
@@ -123,7 +121,6 @@ class AuthNotifier extends ChangeNotifier {
       ("$error $stackTrace").log("Auth notifier");
     });
   }
-
   // set sanctum
   Future sanctum() async {
     final response = await http.get(

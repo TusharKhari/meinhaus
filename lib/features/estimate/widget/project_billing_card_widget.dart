@@ -69,7 +69,7 @@ class ProjectBillingCardWidget extends StatelessWidget {
           _buildShowPrice(
             context: context,
             // text: "HST 13% (830275681RRT0001) = \$${pBill.hstForDepositAmount}",
-            text: "HST 13%  = \$${pBill.hstAmountToPay! - pBill.amountToPay!.toInt()}",
+            text: "HST 13%  = \$${(pBill.hstAmountToPay! - pBill.amountToPay!).toStringAsFixed(2)}",
           ),
           5.vspacing(context),
           Container(

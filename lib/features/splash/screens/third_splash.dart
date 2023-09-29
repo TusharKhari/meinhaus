@@ -28,15 +28,16 @@ class ThirdSplashScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 70.h,
-            right: 20.w,
+            top: 30.h,
+            right: 0.w,
             child: Container(
-              width: 180.w,
-              height: 180.h,
+              width: 320.w,
+              height: 300.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    "assets/images/workers/worker_7.png",
+                    // "assets/images/workers/worker_7.png",
+                    "assets/images/splashScreen/image 216.png",
                   ),
                   fit: BoxFit.fill,
                 ),
@@ -44,15 +45,16 @@ class ThirdSplashScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 280.h,
-            left: 20.w,
+            top: 270.h,
+            left: 0.w,
             child: Container(
-              width: 180.w,
-              height: 180.h,
+              width: 320.w,
+              height: 300.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    "assets/images/workers/worker_5.png",
+                    // "assets/images/workers/worker_5.png",
+                    "assets/images/splashScreen/image 252.png"
                   ),
                   fit: BoxFit.fill,
                 ),

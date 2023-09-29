@@ -14,6 +14,7 @@ import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'checkout_screen_static.dart';
+import 'project_estimate_static_data.dart';
 
 
 class NoEstWorkDetailStaticScreen extends StatelessWidget {
@@ -72,7 +73,17 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
                     subHeadline: "Project Estimate :",
                   ),
                //  EstimateServiceCardWidget(),
-               StaticProjectEstimateCard(),
+               
+               ListView.builder(
+               shrinkWrap: true,
+               physics: NeverScrollableScrollPhysics(),
+                itemCount: projectEstimateStaticData.length,
+                itemBuilder: (context, index) {
+                 return StaticProjectEstimateCard(
+                  index: index,
+                 );
+               },), 
+             //  StaticProjectEstimateCard(),
                   SizedBox(height: height / 90),
                    // PROJECT IMAGES
                   Visibility(

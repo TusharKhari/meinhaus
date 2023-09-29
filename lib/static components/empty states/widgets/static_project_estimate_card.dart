@@ -3,10 +3,13 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/constant.dart';
+import '../screens/project_estimate_static_data.dart';
 
 class StaticProjectEstimateCard extends StatefulWidget {
-  const StaticProjectEstimateCard({
+  int index;
+    StaticProjectEstimateCard({
     Key? key, 
+    required this.index, 
   }) : super(key: key);
 
   @override
@@ -44,7 +47,9 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
                 child: MyTextPoppines(
                   maxLines: 3,
                  // height: 10,
-                  text: "Project Area",
+                  // text: "Project Area",
+                  //v project_area
+                 text:  projectEstimateStaticData[widget.index]["project_area"]!,
                   fontSize: width / 30,
                   
                 ),
@@ -52,8 +57,7 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
             ],
           ),
           SizedBox(height: height / 80),
-          MyTextPoppines(
-            
+          MyTextPoppines( 
             text: "Description ",
             fontWeight: FontWeight.w600,
             fontSize: width / 28,
@@ -62,7 +66,9 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
           Padding(
             padding: EdgeInsets.only(left: width / 30),
             child: MyTextPoppines(
-              text:  "Description of project",
+              // text:  "Description of project",
+              // projectEstimateStaticData
+              text:  projectEstimateStaticData[widget.index]["description"]!,
               fontSize: height / 65,
               maxLines: 100,
               height: 1.4,
@@ -70,23 +76,23 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
             ),
           ),
           SizedBox(height: height / 60),
-          Row(
-            children: [
-              MyTextPoppines(
-                text: "Deposit Amount :",
-                fontSize: width / 28,
-                fontWeight: FontWeight.w600,
-              ),
-              SizedBox(width: width / 22),
-              MyTextPoppines(
-                text: "Deposited Amount",
-                fontSize: width / 30,
-                fontWeight: FontWeight.w600,
-                color: AppColors.yellow,
-              ),
-            ],
-          ),
-          SizedBox(height: height / 60),
+          // Row(
+          //   children: [
+          //     MyTextPoppines(
+          //       text: "Deposit Amount :",
+          //       fontSize: width / 28,
+          //       fontWeight: FontWeight.w600,
+          //     ),
+          //     SizedBox(width: width / 22),
+          //     MyTextPoppines(
+          //       text: "Deposited Amount",
+          //       fontSize: width / 30,
+          //       fontWeight: FontWeight.w600,
+          //       color: AppColors.yellow,
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: height / 60),
           Row(
             children: [
               MyTextPoppines(
@@ -96,8 +102,8 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
               ),
               20.hs,
               MyTextPoppines(
-                text: "\$00",
-                // text: "\$${service.projectCost}",
+                // text: "\$00",
+                text:  "\$${projectEstimateStaticData[widget.index]["price"]!}",
                 fontSize: width / 30,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,

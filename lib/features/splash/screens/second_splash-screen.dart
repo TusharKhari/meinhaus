@@ -28,15 +28,16 @@ class SecondSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 60.h,
-          right: 20.w,
+          top: 20.h,
+          right: 0.w,
           child: Container(
-            width: 220.w,
-            height: 220.h,
+            width: 320.w,
+            height: 320.h,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/images/workers/worker_2.png",
+                  // "assets/images/workers/worker_2.png",
+                  "assets/images/splashScreen/image 253-1.png",
                 ),
                 fit: BoxFit.fill,
               ),
@@ -45,14 +46,15 @@ class SecondSplashScreen extends StatelessWidget {
         ),
         Positioned(
           top: 280.h,
-          left: 20.w,
+          left: 0.w,
           child: Container(
-            width: 180.w,
-            height: 180.h,
+            width: 320.w,
+            height: 300.h,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/images/workers/worker_4.png",
+                  // "assets/images/workers/worker_4.png",
+                  "assets/images/splashScreen/image 222.png", 
                 ),
                 fit: BoxFit.fill,
               ),

@@ -111,7 +111,7 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
           Row(
             children: [
               MyTextPoppines(
-                text: "Desposit Amount :",
+                text: "Deposit Amount :",
                 fontSize: width / 28,
                 fontWeight: FontWeight.w600,
               ),

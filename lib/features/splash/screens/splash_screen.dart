@@ -44,7 +44,8 @@ class _SplashScreenState extends State<SplashScreen>
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Stack(
+      body: 
+      Stack(
         alignment: Alignment.center,
         children: [
           TabBarView(
@@ -70,8 +71,11 @@ class _SplashScreenState extends State<SplashScreen>
           )
         ],
       ),
+      
+
       floatingActionButton: index != 2
-          ? InkWell(
+          ? 
+          InkWell(
               onTap: () {
                 (index != screens.length - 1) ? index++ : index = 0;
                 _tabController.animateTo(index);
@@ -115,7 +119,8 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             )
           // Get Started Button
-          : InkWell(
+          : 
+          InkWell(
               onTap: () => Navigator.pushNamed(context, SignInScreen.routeName),
               child: Container(
                 alignment: Alignment.center,

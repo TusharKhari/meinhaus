@@ -39,7 +39,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
     }
 
     return Container(
-      height: 150.h,
+      height: 160.h,
       padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
       decoration: BoxDecoration(
         color: AppColors.white,
