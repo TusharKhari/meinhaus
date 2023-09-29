@@ -27,7 +27,7 @@ class FirstSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 80.h,
+          top: 90.h,
           right: 20.w,
           child: Container(
             width: 220.w,
@@ -44,7 +44,7 @@ class FirstSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 280.h,
+          top: 270.h,
           left: 0.w,
           child: Container(
             width: 330.w,
