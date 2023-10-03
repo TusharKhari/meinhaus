@@ -4,8 +4,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/static%20components/empty%20states/widgets/static_project_billing_card_widget.dart';
-import 'package:new_user_side/static%20components/empty%20states/widgets/static_project_estimate_card.dart';
+// import 'package:new_user_side/static%20components/empty%20states/widgets/static_project_billing_card_widget.dart';
+// import 'package:new_user_side/static%20components/empty%20states/widgets/static_project_estimate_card.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../features/estimate/widget/download_pdf_card_widget.dart';
@@ -13,8 +13,10 @@ import '../../../resources/common/buttons/my_bottom_bar_button.dart';
 import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
+import 'static_project_billing_card_widget.dart';
+import 'static_project_estimate_card.dart';
 import 'checkout_screen_static.dart';
-import 'project_estimate_static_data.dart';
+import '../screens/project_estimate_static_data.dart';
 
 
 class NoEstWorkDetailStaticScreen extends StatelessWidget {

@@ -30,6 +30,7 @@ class EstimateNotifier extends ChangeNotifier {
   ProjectDetailsModel _detailsModel = ProjectDetailsModel();
   ProModel _proModel = ProModel();
   ProgressInvoiceModel _progressInvoiceModel = ProgressInvoiceModel();
+  
 
   // getters
   bool get loading => _loading;
@@ -42,7 +43,7 @@ class EstimateNotifier extends ChangeNotifier {
   ProjectDetailsModel get projectDetails => _detailsModel;
   ProModel get proDetails => _proModel;
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
-
+  
   void setImagesInList(List<XFile> images) {
     _images.addAll(images);
     notifyListeners();

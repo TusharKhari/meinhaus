@@ -28,7 +28,7 @@ class MakePayment {
           paymentIntentClientSecret: clientSecret,
           customerId: customerId,
           customerEphemeralKeySecret: ephemeralKey,
-          merchantDisplayName: 'Mein Haus',
+          merchantDisplayName: 'Mein Haus', 
         ),
       );
       final res = await displayPaymentSheet(context);
@@ -55,6 +55,8 @@ class MakePayment {
           print(data['data']['payment_intent']['customer']);
           print(data['data']['ephemeralKey']['secret']);
         }
+       // print("payment intent ${data}");
+        ("payment intent : ${response.body.toString()}").log();
         return data['data'];
       }
     } catch (err) {
@@ -66,12 +68,14 @@ class MakePayment {
     final notifier = context.read<CheckOutNotifier>();
     late bool isValueTrue;
     try {
-      await Stripe.instance.presentPaymentSheet().then((_) {
+      await Stripe.instance.presentPaymentSheet(
+
+      ).then((_) {
         paymentIntent = null;
         isValueTrue = true;
       }).onError((error, stackTrace) {
         notifier.setLoadingState(false);
-        showSnakeBarr(context, "Transcation Declined", SnackBarState.Info);
+        showSnakeBarr(context, "Transaction Declined", SnackBarState.Info);
         isValueTrue = false;
         throw Exception("$error $stackTrace");
       });

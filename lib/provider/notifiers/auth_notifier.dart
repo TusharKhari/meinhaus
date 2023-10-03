@@ -33,7 +33,7 @@ class AuthNotifier extends ChangeNotifier {
   bool _isAuthenticated = false;
   String accessToken = "";
   String deviceName = "";
-
+  bool  _isUserFirstVisit = true;
   // getters
   bool get isToggle => _isToggle;
   bool get isWaiting => _isWaiting;
@@ -42,6 +42,7 @@ class AuthNotifier extends ChangeNotifier {
   bool get loading2 => _loading2;
   bool get gLoading => _gloading;
   bool get isAuthenticated => _isAuthenticated;
+  bool  get isUserFirstVisit  => _isUserFirstVisit;
 
   // setters
   void setLoadingState(bool state, bool notify) {
@@ -110,6 +111,9 @@ class AuthNotifier extends ChangeNotifier {
 // Auth
   Future authentication(BuildContext context) async {
     final pref = await UserPrefrences();
+     // final pref = await UserPrefrences();
+     //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
+        // prefs.setIsUserFirstVisit(isFirstVisit: false);
     await repository.auth().then((response) {
       ("Token Verified!🔥").log("Auth-Auth_Notifier");
       prefs.printToken();

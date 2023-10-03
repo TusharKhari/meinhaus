@@ -2,13 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
 import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
+import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart'; 
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
-import '../../../static components/empty states/screens/no_est_static_screen.dart';
+import '../../../static components/empty states/no_estimate/no_est_showcase_view.dart';
+import '../../../static components/empty states/no_estimate/no_est_static_screen.dart';
 
 class EstimateCardHomeScreenView extends StatelessWidget {
   final Function(BuildContext context) effect;
@@ -20,7 +22,7 @@ class EstimateCardHomeScreenView extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
 
     final estimateNotifier = context.watch<EstimateNotifier>();
-    final estimateWork = estimateNotifier.estimated.estimatedWorks;
+    final estimateWork = estimateNotifier.estimated.estimatedWorks; 
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +55,8 @@ class EstimateCardHomeScreenView extends StatelessWidget {
           //   text:
           //       "You Don’t have any estimated project right now. Add new project",
           // ),
-          child: NoEstStaticScreen(),
+         child:  NoEstStaticScreen(),
+       // child: NoEstShowCaseView(),
         ),
       ],
     );

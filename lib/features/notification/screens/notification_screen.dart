@@ -18,7 +18,8 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<NotificationNotifier>();
-    return ModalProgressHUD(
+    return 
+    ModalProgressHUD(
       inAsyncCall: notifier.isLoading,
       child: Scaffold(
         appBar: MyAppBar(text: "Notifications"),

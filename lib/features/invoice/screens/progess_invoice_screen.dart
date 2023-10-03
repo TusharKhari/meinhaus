@@ -268,7 +268,7 @@ class _ShowTableView extends StatelessWidget {
       },
       children: [
         buildHeaderRow([
-          "Projet Area",
+          "Project Area",
           "Description",
           "Deposit Amount",
           "Project Cost",

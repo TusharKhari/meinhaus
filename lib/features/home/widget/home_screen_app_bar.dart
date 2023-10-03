@@ -82,14 +82,15 @@ class HomeScreenAppBar extends StatelessWidget {
           ),
         ),
         SizedBox(width: width / 24),
-        InkWell(
-          onTap: () => loadNotification(),
-          child: BadgeIcon(
-            icon: CupertinoIcons.bell,
-            text: '0',
-            badgePosition: -2,
-          ),
-        ),
+      //   Notification  button / Icon
+        // InkWell(
+        //   onTap: () => loadNotification(),
+        //   child: BadgeIcon(
+        //     icon: CupertinoIcons.bell,
+        //     text: '0',
+        //     badgePosition: -2,
+        //   ),
+        // ),
         SizedBox(width: width / 40),
       ],
     );

@@ -1,6 +1,7 @@
 // when no estimation is present in data
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
  
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
@@ -12,9 +13,10 @@ class NoEstStaticScreen extends StatelessWidget {
   const NoEstStaticScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+   
     return Container(
       width: width / 2,
       margin: EdgeInsets.only(right: width / 35),

@@ -23,7 +23,7 @@ import 'package:new_user_side/features/splash/screens/splash_screen.dart';
 import '../../features/auth/screens/signin_screen.dart';
 import '../../features/edit profile/screens/edit_password_scree.dart';
 import '../../features/edit profile/screens/edit_profile_screen.dart';
-import '../../static components/empty states/screens/no_est_work_detail_static_screen.dart';
+import '../../static components/empty states/no_estimate/no_est_work_detail_static_screen.dart';
 import '../common/my_text.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {

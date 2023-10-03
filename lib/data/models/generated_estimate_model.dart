@@ -16,7 +16,7 @@ class GeneratedEstimateModel {
     if (json['estimated_works'] != null) {
       estimatedWorks = <EstimatedWorks>[];
       json['estimated_works'].forEach((v) {
-       estimatedWorks!.add(new EstimatedWorks.fromJson(v));
+      estimatedWorks!.add(new EstimatedWorks.fromJson(v)); // adding estimated work in list
       });
     }
   }

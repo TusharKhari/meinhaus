@@ -8,6 +8,7 @@ import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -15,6 +16,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+ 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //await PushNotificationServices().initNotifications();
   Stripe.publishableKey = dotenv.env['stripePublishableKey']!;

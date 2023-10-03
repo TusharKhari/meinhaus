@@ -31,15 +31,15 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
     final notifier = context.watch<CheckOutNotifier>();
 
     _checkOutHandler() async {
-      final notifer = context.read<CheckOutNotifier>();
-      await notifer.checkOut(
+      final notifier = context.read<CheckOutNotifier>();
+      await notifier.checkOut(
         context: context,
         bookingId: widget.bookingId,
       );
     }
 
     return Container(
-      height: 160.h,
+      height: 168.h,
       padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -97,6 +97,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
           10.vs,
           MyBlueButton(
             isWaiting: notifier.loading,
+           // vPadding: 1.h,
             hPadding: 100.w,
             text: "Pay Now",
             fontSize: height > 800 ? 13.sp : 16.sp,

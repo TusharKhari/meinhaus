@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +12,6 @@ import '../resources/common/my_snake_bar.dart';
 class UserPrefrences {
   static String? _authToken;
   SharedPreferences? prefs;
-
 // set token
   Future setToken(String authToken) async {
     prefs = await SharedPreferences.getInstance();
@@ -51,6 +51,12 @@ class UserPrefrences {
     return userId;
   }
 
+   // is user first visit 
+  //  isFirstVisit() async{
+  //   prefs = await SharedPreferences.getInstance();
+  //   prefs!.setInt("first_visit", 0);
+  //  }
+     
 // get header
   Future<Map<String, String>> getHeader() async {
     prefs = await SharedPreferences.getInstance();

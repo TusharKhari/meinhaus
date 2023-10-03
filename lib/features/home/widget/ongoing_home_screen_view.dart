@@ -11,7 +11,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
- import '../../../static components/empty states/screens/no_est_view_home_screen.dart';
+ import '../../../static components/empty states/no_estimate/no_est_view_home_screen.dart';
 import '../../ongoing projects/screens/all_ongoing_projects_screen.dart';
 import '../../ongoing projects/screens/multiple_project_services_screen.dart';
 import '../../ongoing projects/screens/ongoing_project_details_screen.dart';
