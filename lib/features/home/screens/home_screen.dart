@@ -176,8 +176,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     OngoingCardHomeScreenView(effect: _buildShimmerEffect),
                     SizedBox(height: height / 30),
                     OurServicesCardHomeScreenView(effect: _buildShimmerEffect),
-
-
                     
                   ],
                 ),
