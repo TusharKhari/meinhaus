@@ -19,7 +19,6 @@ class ShowReviewCard extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final review = notifier.projectDetails.services!.reviews!;
-
     return review.isEmpty
         ? ShowNoReview()
         : Container(
@@ -56,7 +55,10 @@ class ShowReviewCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: width / 30),
                   child: Row(
                     children: [
-                      _buildRatingBar(width: width, rating: 5),
+                      _buildRatingBar(width: width, rating: 
+                      (review.first.punctuality! +
+                       review.first.quality! + review.first.responsiveness!)/3
+                      ),
                       8.hspacing(context),
                       Container(
                         height: height / 16,
@@ -65,7 +67,11 @@ class ShowReviewCard extends StatelessWidget {
                       ),
                       12.hspacing(context),
                       MyTextPoppines(
-                        text: "4",
+                      //  text: "0",
+                      // text:  '0',
+                      text:  "${((review.first.punctuality! +
+                       review.first.quality! + review.first.responsiveness!)/3).toStringAsPrecision(2)
+                       }",
                         fontSize: width / 20,
                         fontWeight: FontWeight.w600,
                         color: AppColors.golden,

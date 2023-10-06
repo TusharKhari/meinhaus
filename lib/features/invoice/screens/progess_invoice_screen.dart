@@ -16,7 +16,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
   const ProgressInvoiceScreen({
     Key? key,
   }) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>();
@@ -33,7 +33,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
             child: Scaffold(
-              appBar: MyAppBar(text: "Progess Invoice"),
+              appBar: MyAppBar(text: "Progress Invoice"),
               body: SafeArea(
                 child: Padding(
                   padding:
@@ -272,7 +272,7 @@ class _ShowTableView extends StatelessWidget {
           "Description",
           "Deposit Amount",
           "Project Cost",
-          "Action",
+          "Due",
         ]),
         for (var service in invoice.services!) _buildRow(service, invoice),
       ],
@@ -284,9 +284,9 @@ class _ShowTableView extends StatelessWidget {
           buildCell(service.serviceName ?? "", isBold: true),
           buildCell(service.description ?? ""),
           buildCell(
-              "\$${invoice.invoiceSummary!.totalAmountPaid!.split(".")[0]}"),
-          buildCell("\$${invoice.totalAmount!.split(".")[0]}"),
-          buildCell("\$${service.amountToPay!.split(".")[0]}"),
+              "\$${invoice.invoiceSummary!.totalAmountPaid!}"),
+           buildCell("\$${invoice.totalAmount!}"),
+           buildCell("\$${service.amountToPay!}"),
         ],
       );
 

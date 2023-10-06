@@ -258,7 +258,7 @@ class EstimateNotifier extends ChangeNotifier {
     });
   }
 
-  // PROGESS INVOICE
+  // PROGRESS INVOICE
   Future progressInvoice({
     required BuildContext context,
     required String bookingId,
