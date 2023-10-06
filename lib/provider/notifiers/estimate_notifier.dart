@@ -54,6 +54,8 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  
+
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) notifyListeners();

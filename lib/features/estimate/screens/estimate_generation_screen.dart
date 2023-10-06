@@ -100,6 +100,10 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
         backgroundColor: AppColors.white,
         appBar: MyAppBar(
           text: widget.isNewEstimate! ? "New Estimate" : "Estimate Generation",
+          onBack: (){
+            Navigator.of(context).pop();
+            estimateNotifer.removeImageFromList();
+          },
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
