@@ -148,7 +148,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case SavedNotesScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const SavedNotesScreen(),
+        builder: (_) =>   SavedNotesScreen(),
       );
 
     case OurServiceScreen.routeName:

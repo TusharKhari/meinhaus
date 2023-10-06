@@ -93,7 +93,7 @@ class ProProfileWidget extends StatelessWidget {
               ),
               30.hs,
               Container(
-                width: context.screenWidth / 2.93,
+                width: context.screenWidth / 2.8,
                 decoration: BoxDecoration(
                   color: Color(0xFFE8F4FF),
                   borderRadius: BorderRadius.circular(12.r),

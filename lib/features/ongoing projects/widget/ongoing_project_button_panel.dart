@@ -40,7 +40,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     final isNormalProject = project.normal!;
     final projectId = project.projectId.toString();
     final isProjectCompleted = project.isCompleted!;
-    print("project normal $isNormalProject");
+    
     // get invoice data
     void _getInvoiceHandler() {
       final estimateNotifer = context.read<EstimateNotifier>();
@@ -64,7 +64,9 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     _getSavedNotesHandler() async {
       final notifer = context.read<SavedNotesNotifier>();
       await notifer.getSavedNotes(context: context, id: projectId);
-      Navigator.of(context).pushScreen(SavedNotesScreen());
+      Navigator.of(context).pushScreen(SavedNotesScreen(
+       
+      ));
     }
 
     // onTap Customer Button
@@ -232,7 +234,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                     );
                   },
           ) : 
-          
+
           _buildIconButtonWithText(
             firstButtonText: "       Message pro     ",
             firstButtonTextColor: AppColors.buttonBlue,

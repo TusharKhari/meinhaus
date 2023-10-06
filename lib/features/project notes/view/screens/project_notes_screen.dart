@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
+
 import 'package:new_user_side/features/project%20notes/view/widget/preview_project_notes.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/saved_notes_notifier.dart';
@@ -10,15 +12,18 @@ import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../data/models/saved_notes_model.dart';
 import '../../../../resources/common/cached_network_img_error_widget.dart';
 import '../../../../static components/dialogs/projects_notes_dialog.dart';
 
 class SavedNotesScreen extends StatefulWidget {
+   
   static const String routeName = '/savedNotes';
-  const SavedNotesScreen({super.key});
+  SavedNotesScreen({
+    Key? key,
+     
+  }) : super(key: key);
 
   @override
   State<SavedNotesScreen> createState() => _SavedNotesScreenState();
@@ -162,7 +167,7 @@ class NotesSavedByCustomer extends StatelessWidget {
                   return _ShowProjectNote(note: note);
                 },
               )
-            : _NoSavedNotesFoundWidget();
+            : _NoSavedNotesFoundWidget( );
   }
 }
 
@@ -301,6 +306,10 @@ class _ShowProjectNote extends StatelessWidget {
 }
 
 class _NoSavedNotesFoundWidget extends StatelessWidget {
+  
+    _NoSavedNotesFoundWidget({
+    Key? key, 
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
@@ -320,6 +329,7 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           SizedBox(height: height / 60),
+          !project.isCompleted! ? 
           InkWell(
             onTap: () {
               showDialog(
@@ -339,7 +349,8 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(width / 34),
                 border: Border.all(color: AppColors.buttonBlue),
               ),
-              child: Row(
+              child: 
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MyTextPoppines(
@@ -356,7 +367,7 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ) : SizedBox(), 
         ],
       ),
     );
