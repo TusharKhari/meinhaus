@@ -61,9 +61,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     final MapSS body = {
       "address": addressController.text,
       "longitude": latLng["lat"].toString(),
-      "latitude": latLng["lng"].toString(), 
-      "longitude": first.longitude.toString(),
-      "latitude": first.latitude.toString(),
+      // "latitude": latLng["lng"].toString(), 
+      // "longitude": first.longitude.toString(),
+      // "latitude": first.latitude.toString(),
          'line1': first2.name.toString(),
         'line2': first2.street.toString(),
         'city': first2.locality.toString(),
