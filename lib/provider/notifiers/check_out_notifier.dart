@@ -33,7 +33,7 @@ class CheckOutNotifier extends ChangeNotifier {
     required BuildContext context,
     required String bookingId,
   }) async {
-   // final onGoingProjects = context.watch<EstimateNotifier>();
+    final onGoingProjects = context.watch<EstimateNotifier>();
     setLoadingState(true);
     Map<String, String> data = {"booking_id": bookingId};
     print("Payment processing");
@@ -53,7 +53,7 @@ class CheckOutNotifier extends ChangeNotifier {
          "Your payment is done", 
           SnackBarState.Success,
         );
-       // onGoingProjects.getOngoingProjects(context);
+        onGoingProjects.getOngoingProjects(context);
         Get.to(() => HomeScreen());
         setLoadingState(false);
       }

@@ -34,7 +34,7 @@ class ProChatAppBar extends StatelessWidget {
       elevation: 0.0,
       title: Row(
         children: [
-          CircleAvatar(
+          CircleAvatar( 
             backgroundColor: Colors.transparent,
             radius: w / 22,
             child: CachedNetworkImage(
@@ -57,14 +57,14 @@ class ProChatAppBar extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
-        Icon(
-          CupertinoIcons.ellipsis_vertical,
-          color: AppColors.black,
-          size: w / 22,
-        ),
-        SizedBox(width: w / 40),
-      ],
+      // actions: [
+      //   Icon(
+      //     CupertinoIcons.ellipsis_vertical,
+      //     color: AppColors.black,
+      //     size: w / 22,
+      //   ),
+      //   SizedBox(width: w / 40),
+      // ],
     );
   }
 }
