@@ -49,9 +49,11 @@ class Utils {
   }
 
 // Getting the lat and long form address
+
   static Future<List<Location>> getCordinates(String address) async {
     return await locationFromAddress(address);
-  }
+  } 
+
 
 // Getting the lat and long form address
   static Future<List<Placemark>> getAddress(double lat, double long) async {

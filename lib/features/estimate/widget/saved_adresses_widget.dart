@@ -51,7 +51,8 @@ class SavedAddressesWidget extends StatelessWidget {
         // Address
         Visibility(
           visible: address != null && address.isNotEmpty,
-          child: ListView.builder(
+          child: 
+          ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: userProvider.user.savedAddress!.length,
@@ -106,11 +107,12 @@ class SavedAddressesWidget extends StatelessWidget {
                 );
               }),
         ),
+
         Visibility(
           visible: address!.isEmpty,
           child: NoAddressFoundWidget(),
         ),
-    
+        
         30.vs,
       ],
     );

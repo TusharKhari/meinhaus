@@ -48,7 +48,7 @@ abstract class ApiUrls {
   static Uri updateAddress = setUrls("update-address");
   static Uri updateProfile = setUrls("update-profile");
   static Uri updatePassword = setUrls("update-password");
-  static Uri setDefaultAddress = setUrls("set-default-address");
+  static Uri setDefaultAddress = setUrls("set-default-address"); 
 
   // Additional Work
   static Uri requestAdditional = setUrls("request-additional-work");

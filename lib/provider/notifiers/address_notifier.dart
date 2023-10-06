@@ -20,7 +20,7 @@ class AddressNotifier extends ChangeNotifier {
   String _tappeddAddress = '';
   List<dynamic> _addressList = [];
   int _index = 0;
-  int  _selectedDefaultAddressIdx = -1 ;
+  int _selectedDefaultAddressIdx = -1;
 
   // getters
   bool get loading => _loading;
@@ -28,7 +28,7 @@ class AddressNotifier extends ChangeNotifier {
   int get index => _index;
   int get selectedDefaultAddressIdx => _selectedDefaultAddressIdx;
   String get tappedAddress => _tappeddAddress;
-  
+
   // setters
   void setTappedAddress(String address) {
     _tappeddAddress = address;
@@ -39,11 +39,12 @@ class AddressNotifier extends ChangeNotifier {
     _index = index;
     notifyListeners();
   }
-   
-  void setSelectedDefaultAddressIdx(int index){
-     _selectedDefaultAddressIdx = index;
+
+  void setSelectedDefaultAddressIdx(int index) {
+    _selectedDefaultAddressIdx = index;
     notifyListeners();
   }
+
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) notifyListeners();
@@ -62,6 +63,11 @@ class AddressNotifier extends ChangeNotifier {
       input,
       _sessionToken,
     );
+    _addressList.forEach(
+      (element) {
+        //  print("${element} \n");
+      },
+    );
     notifyListeners();
     return _addressList;
   }
@@ -74,6 +80,30 @@ class AddressNotifier extends ChangeNotifier {
     showSnakeBarr(context, "$error", SnackBarState.Error);
     ("$error $stackTrace").log("Address notifier");
     Navigator.of(context).pushScreen(ShowError(error: error.toString()));
+  }
+
+  // get lat and lng  from place id
+
+  Future<Map<String, dynamic>> getLatLngFromPlaceId(  {required String placeId}) async {
+    //
+    //https://maps.googleapis.com/maps/api/place/details/json?
+    //place_id=ChIJga_7fdRzhlQRh6P6ivHhNxE&key=AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU
+   late Map<String, dynamic> ? latLng;
+    await addressRepository
+        .getLatLngFromPlaceId( placeId: placeId)
+        .then((value) {
+         // print("value ${value["result"]["geometry"]["location"]["lat"]}");
+          latLng = {
+            "lat" :  value["result"]["geometry"]["location"]["lat"],
+            "lng" : value["result"]["geometry"]["location"]["lng"],
+          };
+          print("latLng $latLng");
+        })
+        .onError((error, stackTrace) {
+      ("$error $stackTrace").log("Address notifier");
+      // Navigator.of(context).pushScreen(ShowError(error: error.toString()));
+    }); 
+    return latLng!;
   }
 
   Future<void> addAddress({
@@ -89,12 +119,13 @@ class AddressNotifier extends ChangeNotifier {
       // userProvider.user.savedAddress!.insert(0, data.savedAddress![0]);
       // userProvider.updateUser();
       // User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
-     User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
+      User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
+      // User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
 
       userProvider.setUser(user);
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-      ("Address added").log();
+       ("Address added").log();
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -144,24 +175,23 @@ class AddressNotifier extends ChangeNotifier {
     });
   }
 
-  // update default address change default address 
+  // update default address change default address
   Future updateDefaultAddress({
     required BuildContext context,
     required MapSS body,
-     
-  })async{
-      setLoadingState(true, true);
-   // final userProvider = context.read<AuthNotifier>();
+  }) async {
+    setLoadingState(true, true);
+    // final userProvider = context.read<AuthNotifier>();
     addressRepository.setDefaultAddress(body).then((response) {
-       setLoadingState(false, true);
-        final userProvider = context.read<AuthNotifier>();
-       // SavedAddress user = userProvider.user.savedAddress![indexOfAddress].copyWith(isDefault: 1)  ;
-       showSnakeBarr(
-          context, 
-          // response['response_message'], 
-          "Default Address Changed Successfully",
-          SnackBarState.Success, 
-          );
+      setLoadingState(false, true);
+      final userProvider = context.read<AuthNotifier>();
+      // SavedAddress user = userProvider.user.savedAddress![indexOfAddress].copyWith(isDefault: 1)  ;
+      showSnakeBarr(
+        context,
+        // response['response_message'],
+        "Default Address Changed Successfully",
+        SnackBarState.Success,
+      );
       ("Default Address updated").log();
       //Navigator.pop(context);
       //(response).log("default address");
@@ -171,20 +201,20 @@ class AddressNotifier extends ChangeNotifier {
     });
   }
 
-  int ? _defaultAddressIndex ;
+  int? _defaultAddressIndex;
   int? get defaultAddressIndex => _defaultAddressIndex;
 
-   int getDefaultAddressIndex(BuildContext context){
-     final userProvider = context.watch<AuthNotifier>();
+  int getDefaultAddressIndex(BuildContext context) {
+    final userProvider = context.watch<AuthNotifier>();
     final address = userProvider.user.savedAddress;
-   if(address?.length != null){
-     for(int i =0; i< address!.length; i++){
-      if(address[i].isDefault == 1){
-        _defaultAddressIndex = i;
+    if (address?.length != null) {
+      for (int i = 0; i < address!.length; i++) {
+        if (address[i].isDefault == 1) {
+          _defaultAddressIndex = i;
+        }
       }
     }
-   }
-   if(_defaultAddressIndex != null) return _defaultAddressIndex!;
-   return -1;
+    if (_defaultAddressIndex != null) return _defaultAddressIndex!;
+    return -1;
   }
 }

@@ -26,6 +26,7 @@ class AddAddressScreen extends StatefulWidget {
 class _AddAddressScreenState extends State<AddAddressScreen> {
   TextEditingController addressController = TextEditingController();
   String selectedAddres = '';
+  String placeId = "";
 
   @override
   void initState() {
@@ -49,11 +50,18 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   _addAddressHandler() async {
     final notifier = context.read<AddressNotifier>();
     var addresses = await Utils.getCordinates(selectedAddres);
+    
+   // var latlng = await notifier.getLatLngFromPlaceId(selectedAddres);
     var first = addresses.first;
-    var address2 = await Utils.getAddress(first.latitude, first.longitude);
+    // var address2 = await Utils.getAddress(49.2778549, -123.1284769);
+    Map<String, dynamic > latLng = await notifier.getLatLngFromPlaceId(placeId: placeId);
+    var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
+   // var address2 = await Utils.getAddress(first.latitude, first.longitude);
     var first2 = address2.first;
     final MapSS body = {
       "address": addressController.text,
+      "longitude": latLng["lat"].toString(),
+      "latitude": latLng["lng"].toString(), 
       "longitude": first.longitude.toString(),
       "latitude": first.latitude.toString(),
          'line1': first2.name.toString(),
@@ -63,6 +71,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         'country': first2.country.toString(),
         'postal_code': first2.postalCode.toString(),
     };
+    print("body  $body");
     await notifier.addAddress(context: context, body: body);
   }
 
@@ -101,12 +110,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: addressNotifier.addressList.length,
                 itemBuilder: (context, index) {
-                  final address =
-                      addressNotifier.addressList[index]["description"];
+                   ("place id ${addressNotifier.addressList[index]["place_id"]}").log();
+                  final address =  addressNotifier.addressList[index]["description"];
                   return ListAddressTile(
-                    onTap: () {
+                    onTap: () async{
+                      
                       addressController.text = address;
                       selectedAddres = address;
+                      placeId =  addressNotifier.addressList[index]["place_id"];
+                  // Map<String, dynamic> mp =   await addressNotifier.getLatLngFromPlaceId(placeId: selectedAddres);
+                //   print("add add ${mp["lat"]}");
                     },
                     address: address,
                   );

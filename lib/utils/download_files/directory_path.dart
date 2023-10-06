@@ -4,7 +4,8 @@ import 'package:path_provider/path_provider.dart';
 
 class DirectoryPath {
   getPath() async {
-    final Directory? tempDir = await getExternalStorageDirectory();
+    final Directory? tempDir = Platform.isAndroid ?  await getExternalStorageDirectory() : 
+     await getApplicationSupportDirectory();
     final filePath = Directory("${tempDir!.path}/files");
     if (await filePath.exists()) {
       return filePath.path;
