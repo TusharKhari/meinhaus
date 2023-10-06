@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
@@ -68,10 +69,13 @@ class IconButtonWithText extends StatelessWidget {
                 : SizedBox(
                     width: height > 800 ? 20.w : 22.w,
                     height: height > 800 ? 20.w : 22.w,
-                    child: Image.asset(
-                      iconUrl!,
-                      fit: BoxFit.fill,
-                    ),
+                    child:
+                    //  Image.asset(
+                    //   iconUrl!,
+                    //   fit: BoxFit.fill,
+                    // ),
+                    SvgPicture.asset(iconUrl!, height: height*0.02,fit: BoxFit.fitHeight,), 
+                    
                   ),
             isIcon! ? 10.hs : 6.hs,
             MyTextPoppines(

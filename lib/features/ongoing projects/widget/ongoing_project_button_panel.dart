@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
@@ -143,7 +144,8 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/support.png"),
+                         // Image.asset("assets/icons/support.png"),
+                         SvgPicture.asset("assets/project_detail/customer_support.svg", height: h*0.02,),
                           SizedBox(width: w / 40),
                           MyTextPoppines(
                             text: "Customer Support",
@@ -185,7 +187,8 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Image.asset("assets/icons/writing.png"),
+                     // Image.asset("assets/icons/writing.png"),
+                     SvgPicture.asset("assets/project_detail/project_notes.svg", height: h*0.02,), 
                       SizedBox(width: w / 40),
                       MyTextPoppines(
                         text: "Project Notes",
@@ -208,14 +211,15 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           _buildIconButtonWithText(
             firstButtonText: "Message pro",
             firstButtonTextColor: AppColors.buttonBlue,
-            firstButtonImgUrl: "assets/icons/customer-support.png",
+            firstButtonImgUrl: "assets/project_detail/message_pro.svg",
+            // firstButtonImgUrl: "assets/icons/customer-support.png",
             firstButtonColor: const Color(0xFFE8F4FF),
             firstButtonOnTap: () => onMessageProTapped(),
             secondButtonext: isProjectCompleted
                 ? "   Additional Work   "
                 : "Req Additional Work",
             secondtButtonTextColor: const Color(0xFFB9B100),
-            secondButtonImgUrl: "assets/icons/add-photo.png",
+            secondButtonImgUrl: "assets/project_detail/work_details.svg",
             secondButtonColor: const Color(0xFFF7F6E0),
             secondButtonOnTap: !isProjectCompleted
                 ? () {
@@ -238,12 +242,13 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           _buildIconButtonWithText(
             firstButtonText: "       Message pro     ",
             firstButtonTextColor: AppColors.buttonBlue,
-            firstButtonImgUrl: "assets/icons/customer-support.png",
+            firstButtonImgUrl: "assets/project_detail/message_pro.svg",
+            // firstButtonImgUrl: "assets/icons/customer-support.png",
             firstButtonColor: const Color(0xFFE8F4FF),
             firstButtonOnTap: () => onMessageProTapped(),
             secondButtonext: "     Work details        ",
             secondtButtonTextColor: const Color(0xFFB9B100),
-            secondButtonImgUrl: "assets/icons/add-photo.png",
+            secondButtonImgUrl: "assets/project_detail/work_details.svg",
             secondButtonColor: const Color(0xFFF7F6E0),
             secondButtonOnTap: 
              () {
@@ -273,11 +278,13 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.linked_camera_outlined,
-                        size: 18.sp,
-                        color: Color(0xFF934600),
-                      ),
+                      // Icon(
+                      //   Icons.linked_camera_outlined,
+                      //   size: 18.sp,
+                      //   color: Color(0xFF934600),
+                      // ),
+                      
+                      SvgPicture.asset("assets/project_detail/invoice 1.svg"),
                       SizedBox(width: w / 40),
                       MyTextPoppines(
                         text: "Invoice",

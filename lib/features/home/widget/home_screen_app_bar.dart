@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/provider/notifiers/notification_notifier.dart';
@@ -60,15 +61,17 @@ class HomeScreenAppBar extends StatelessWidget {
             ),
           ),
           SizedBox(width: width / 28),
+
           InkWell(
             onTap: () => Navigator.of(context).pushScreen(HomeScreen()),
-            child: Image.asset(
-              "assets/logo/home.png",
+            child:
+             Image.asset(
+              "assets/logo/image 7 (2).png",
               scale: 1.8,
-              width: width / 10,
-              height: height / 25,
+              width: width / 9,
+              height: height / 20,
               fit: BoxFit.cover,
-            ),
+            ),  
           ),
         ],
       ),

@@ -41,7 +41,8 @@ class OurServicesCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               image: DecorationImage(
-                image: AssetImage("assets/images/fixing/fixing_1.png"),
+                image:
+                 AssetImage("assets/images/fixing/fixing_1.png"),
                 fit: BoxFit.cover,
               ),
               //  image: DecorationImage(
