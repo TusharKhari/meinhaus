@@ -77,7 +77,7 @@ class MakePayment {
         notifier.setLoadingState(false);
         showSnakeBarr(context, "Transaction Declined", SnackBarState.Info);
         isValueTrue = false;
-        throw Exception("$error $stackTrace");
+        throw Exception(" display payment sheet error  $error  stackTrace---> $stackTrace");
       });
     } on StripeException catch (e) {
       print('Error is:---> $e');

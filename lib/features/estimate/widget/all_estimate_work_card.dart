@@ -52,12 +52,19 @@ class AllEstimateWorkCard extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                MyTextPoppines(
-                  text: estimate.projectName.toString(),
-                  fontSize: width / 28,
-                  fontWeight: FontWeight.w600,
+                SizedBox(
+                  width: width * 0.4,
+                  child: MyTextPoppines(
+                  text: estimate.projectName!,
+                    //text: "",
+                    fontSize: width / 28,
+                    fontWeight: FontWeight.w600,
+                    maxLines: 6,
+                  ),
                 ),
+              //  Text(estimate.projectName!), 
                 // Project Cost
                 Container(
                   width: width / 3.6,
@@ -82,8 +89,8 @@ class AllEstimateWorkCard extends StatelessWidget {
                         color: AppColors.golden.withOpacity(0.6),
                       ),
                       MyTextPoppines(
-                     //   text: "\$${estimateCost}",
-                     text: "estimate cost",
+                       text: "\$${estimate.projectBilling!.totalCost}",
+                    //  text: "estimate cost",
                         fontSize: headline1,
                         fontWeight: FontWeight.bold,
                         color: AppColors.golden,

@@ -8,8 +8,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:showcaseview/showcaseview.dart';
-
+ 
 import '../../../provider/notifiers/chat_notifier.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../provider/notifiers/our_services_notifier.dart';
@@ -30,15 +29,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isExpanded = true;
-
- GlobalKey _one = GlobalKey();
+ 
   @override
   void initState() {
     super.initState();
-     (WidgetsBinding.instance).addPostFrameCallback(
-      (_) => ShowCaseWidget.of(context)
-          .startShowCase([_one,]),
-    );
+    
 
     animateEstimateButton();
     getEstimate();
@@ -92,47 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: Size.fromHeight(height / 16),
         child: HomeScreenAppBar(),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Divider(
-            thickness: 1.0,
-            color: AppColors.grey.withOpacity(0.2),
-          ),
-          SizedBox(height: height / 120),
-          const HomeOfferBanner(),
-          SizedBox(height: height / 120),
-          Divider(
-            thickness: 1.0,
-            color: AppColors.grey.withOpacity(0.2),
-          ),
-          SizedBox(height: height / 120),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                color: AppColors.grey.withOpacity(0.05),
-                padding: EdgeInsets.symmetric(horizontal: width / 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Showcase(
-                    //   key:  _one,
-                    //   description: "",
-                    //   child: Text("data"),
-                    // ),
-                    SizedBox(height: height / 80),
-                    EstimateCardHomeScreenView(effect: _buildShimmerEffect),
-                    SizedBox(height: height / 30),
-                    OngoingCardHomeScreenView(effect: _buildShimmerEffect),
-                    SizedBox(height: height / 30),
-                    OurServicesCardHomeScreenView(effect: _buildShimmerEffect),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: _body(height: height, width: width),
+     // 
+    
+     //
       floatingActionButton: GestureDetector(
         onTap: () {
           setState(() {
@@ -185,6 +143,51 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const MyDrawer(),
     );
   }
+
+  
+
+  Widget _body({ required  height ,required double width}){
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Divider(
+            thickness: 1.0,
+            color: AppColors.grey.withOpacity(0.2),
+          ),
+          SizedBox(height: height / 120),
+          const HomeOfferBanner(),
+          SizedBox(height: height / 120),
+          Divider(
+            thickness: 1.0,
+            color: AppColors.grey.withOpacity(0.2),
+          ),
+          SizedBox(height: height / 120),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                color: AppColors.grey.withOpacity(0.05),
+                padding: EdgeInsets.symmetric(horizontal: width / 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [ 
+                    SizedBox(height: height / 80),
+                    EstimateCardHomeScreenView(effect: _buildShimmerEffect),
+                    SizedBox(height: height / 30),
+                    OngoingCardHomeScreenView(effect: _buildShimmerEffect),
+                    SizedBox(height: height / 30),
+                    OurServicesCardHomeScreenView(effect: _buildShimmerEffect),
+
+
+                    
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+  }
+
 
   Widget _buildShimmerEffect(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;

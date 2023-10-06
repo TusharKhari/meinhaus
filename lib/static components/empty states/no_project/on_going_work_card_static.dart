@@ -1,151 +1,64 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
-import 'package:new_user_side/data/models/ongoing_project_model.dart';
-import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
-import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
-import 'package:new_user_side/resources/common/my_text.dart';
-import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:new_user_side/resources/common/my_snake_bar.dart';
+import 'package:new_user_side/static%20components/empty%20states/no_project/on_going_project%20_detail_static.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
-import '../../../provider/notifiers/estimate_notifier.dart';
- import '../../../static components/empty states/no_estimate/no_est_view_home_screen.dart';
- import '../../../static components/empty states/no_project/on_going_work_card_static.dart';
-import '../../ongoing projects/screens/all_ongoing_projects_screen.dart';
-import '../../ongoing projects/screens/multiple_project_services_screen.dart';
-import '../../ongoing projects/screens/ongoing_project_details_screen.dart';
+import '../../../features/home/widget/project_img_card_widget.dart';
+import '../../../resources/common/buttons/my_buttons.dart';
+import '../../../resources/common/my_text.dart';
+import '../../../utils/constants/app_colors.dart';
 
-class OngoingCardHomeScreenView extends StatelessWidget {
-  final Function(BuildContext context) effect;
-  const OngoingCardHomeScreenView({super.key, required this.effect});
-
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-
-    final estimateNotifier = context.watch<EstimateNotifier>();
-    final ongoingProjects = estimateNotifier.ongoingProjects.projects;
-    final project = ongoingProjects ?? OngoingProjectsModel().projects;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MyTextPoppines(
-              text: "Ongoing Projects",
-              fontWeight: FontWeight.w600,
-              fontSize: width / 23,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(AllOngoingProjects.routeName);
-              },
-              child: MyTextPoppines(
-                text: "View All",
-                fontWeight: FontWeight.w500,
-                fontSize: width / 30,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: height / 80),
-        ongoingProjects != null
-            ? Visibility(
-                visible: ongoingProjects.length != 0,
-                child: SizedBox(
-                  height: height / 2.90,
-                  child: ListView.builder(
-                    shrinkWrap: false,
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: project!.length,
-                    itemBuilder: (context, index) {
-                      final bool isMultipleProjects =
-                          ongoingProjects[index].services!.length > 1;
-                      return OngoingWorkCard(
-                        isMultiProjects: isMultipleProjects,
-                        index: index,
-                      );
-                    },
-                  ),
-                ),
-              )
-            : effect(context),
-        Visibility(
-          visible: ongoingProjects != null && ongoingProjects.length == 0,
-          child:  OngoingWorkCardStatic(),
-          //  NoEstViewHomeScreenWidget(
-          //   text:
-          //       "You Don’t have any Ongoing project as of now. Add new project with EST generation",
-          // ),
-        ),
-      ],
-    );
-  }
-}
-
-class OngoingWorkCard extends StatelessWidget {
-  final bool isMultiProjects;
-  final int index;
-  const OngoingWorkCard({
+class OngoingWorkCardStatic extends StatelessWidget {
+   
+  const OngoingWorkCardStatic({
     Key? key,
-    required this.isMultiProjects,
-    required this.index,
+    
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _buildOnProjectCard(
-      context: context,
-      isMultiProjectCard: isMultiProjects,
-      index: index,
+     final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+    return SizedBox(
+     height:  height / 2.90,
+      child: _buildOnProjectCard(
+        context: context,
+        height: height, 
+        width: width
+      ),
     );
   }
 
   Widget _buildOnProjectCard({
     required BuildContext context,
-    required bool isMultiProjectCard,
-    required int index,
+    required double height, 
+    required double width, 
   }) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-    final notifier = context.read<EstimateNotifier>();
-    final projects = notifier.ongoingProjects.projects!;
-    final project = projects[index];
-    final isImgisNotNull =
-        project.projectImages != null && project.projectImages!.isNotEmpty;
-    final projectId = project.services![0].projectId.toString();
-    final proId = project.services![0].proId.toString();
-
-    Future<void> _getProjectDetails() async {
-      await notifier.getProjectDetails(
-        context: context,
-        id: projectId,
-        proId: proId,
-      );
-    }
-
     void onViewEstTapped() async {
-      isMultiProjects
-          ? Navigator.of(context).pushScreen(
-              MultipleProjectServicesScreen(project: projects[index]),
-            )
-          : {
-              await _getProjectDetails(),
-              Navigator.of(context).pushScreen(
-                OngoingProjectDetailScreen(serviceId: projectId),
-              ),
-            };
-      ("Project Id : $projectId || Pro Id : $proId").log();
+      // isMultiProjects
+      //     ? Navigator.of(context).pushScreen(
+      //         MultipleProjectServicesScreen(project: projects[index]),
+      //       )
+      //     : {
+      //         await _getProjectDetails(),
+      //         Navigator.of(context).pushScreen(
+      //           OngoingProjectDetailScreen(serviceId: projectId),
+      //         ),
+      //       };
+      // ("Project Id : $projectId || Pro Id : $proId").log();
+       Navigator.of(context).pushScreen(
+                OnGoingProjectDetailsStatic(),
+              );
+      // OnGoingProjectDetailsStatic
+      showSnakeBarr(context, "Explore ongoing sample projects", SnackBarState.Info);
     }
 
-    return Container(
-      width: context.screenWidth / 1.95,
+    return 
+    Container(
+     width: context.screenWidth / 1.95, 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppColors.white,
@@ -168,27 +81,31 @@ class OngoingWorkCard extends StatelessWidget {
               children: [
                 // PROJECT NAME
                 MyTextPoppines(
-                  text: project.projectName ?? "",
+                //  text: project.projectName ?? "",
+                text:  "Kitchen Repairing",
                   fontWeight: FontWeight.w500,
                   fontSize: width / 30,
                   maxLines: 1,
                 ),
                 Visibility(
-                  visible: isMultiProjects,
+                  visible: true,
+                  // visible: isMultiProjects,
                   child: SizedBox(height: height / 150),
                 ),
                 // TOTAL SERVICES COUNT
                 Visibility(
-                  visible: isMultiProjects,
+                  visible: true,
+                  // visible: isMultiProjects,
                   child: MyTextPoppines(
-                    text: "   +${project.services!.length} more services",
+                    text: "   +2 more services",
+                  //  text: "   +${project.services!.length} more services",
                     fontWeight: FontWeight.w500,
                     fontSize: width / 40,
                     color: AppColors.black.withOpacity(0.5),
                   ),
                 ),
                 Visibility(
-                  visible: isMultiProjects,
+                  visible: false,
                   child: SizedBox(height: height / 150),
                 ),
                 Divider(
@@ -213,7 +130,8 @@ class OngoingWorkCard extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                        text: project.estimateNo.toString(),
+                      //  text: project.estimateNo,
+                      text: "OD-058699S",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
@@ -228,7 +146,8 @@ class OngoingWorkCard extends StatelessWidget {
                 ),
                 // PROJECT COST
                 Visibility(
-                  visible: !isMultiProjects,
+                  // visible: !isMultiProjects,
+                  visible: true,
                   child: Row(
                     children: [
                       MyTextPoppines(
@@ -238,7 +157,8 @@ class OngoingWorkCard extends StatelessWidget {
                       ),
                       10.hs,
                       MyTextPoppines(
-                        text: "\$${project.projectCost}",
+                      //  text: "${project.projectCost}",
+                      text: "\$100",
                         fontWeight: FontWeight.w600,
                         fontSize: width / 38,
                       ),
@@ -246,7 +166,8 @@ class OngoingWorkCard extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: !isMultiProjects,
+                  // visible: !isMultiProjects,
+                  visible: true,
                   child: SizedBox(height: height / 120),
                 ),
                 Row(
@@ -258,13 +179,14 @@ class OngoingWorkCard extends StatelessWidget {
                     ),
                     SizedBox(width: width / 60),
                     MyTextPoppines(
-                      text: project.projectStartDate ?? "",
+                   //   text: project.projectStartDate ?? "",
+                   text: "01/01/2023",
                       fontWeight: FontWeight.w600,
                       fontSize: width / 38,
                     ),
                   ],
                 ),
-                SizedBox(height: height / 120),
+               // SizedBox(height: height / 135),
               ],
             ),
           ),
@@ -277,14 +199,16 @@ class OngoingWorkCard extends StatelessWidget {
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
                 ),
-                image: isImgisNotNull
-                    ? DecorationImage(
-                        image: NetworkImage(
-                          project.projectImages!.first.thumbnailUrl!,
-                        ),
-                        fit: BoxFit.cover,
-                      )
-                    : DecorationImage(
+                image:
+                //  isImgisNotNull
+                //     ? DecorationImage(
+                //         image: NetworkImage(
+                //           project.projectImages!.first.thumbnailUrl!,
+                //         ),
+                //         fit: BoxFit.cover,
+                //       )
+                //     : 
+                    DecorationImage(
                         image: AssetImage("assets/images/room/2(1).png"),
                         fit: BoxFit.cover,
                       ),
@@ -343,7 +267,7 @@ class OngoingWorkCard extends StatelessWidget {
                     child: MyBlueButton(
                       hPadding: width / 10,
                       vPadding: height / 120,
-                      text: "View Est",
+                      text: "View Details",
                       fontSize: width / 30,
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,

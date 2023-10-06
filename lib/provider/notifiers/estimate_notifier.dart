@@ -43,7 +43,7 @@ class EstimateNotifier extends ChangeNotifier {
   ProjectDetailsModel get projectDetails => _detailsModel;
   ProModel get proDetails => _proModel;
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
-  
+
   void setImagesInList(List<XFile> images) {
     _images.addAll(images);
     notifyListeners();
@@ -164,6 +164,9 @@ class EstimateNotifier extends ChangeNotifier {
     estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
       setEstimate(data);
+      if(data.estimatedWorks!.length == 0){
+        showSnakeBarr(context, "Explore Sample Cards created for you", SnackBarState.Warning, );
+      }
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error $stackTrace").log("Estimate notifier");

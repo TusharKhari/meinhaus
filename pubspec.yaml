@@ -50,7 +50,7 @@ dependencies:
   uuid: ^3.0.7
   geocoding: ^2.1.0
   shimmer: ^2.0.0
-  flutter_stripe: ^9.3.0
+  flutter_stripe: ^9.4.0
   loading_animation_widget: ^1.2.0+4
   google_sign_in: ^6.1.4
   flutter_rating_bar: ^4.0.1

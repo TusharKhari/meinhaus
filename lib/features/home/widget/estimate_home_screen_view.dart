@@ -9,8 +9,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
-import '../../../static components/empty states/no_estimate/no_est_showcase_view.dart';
-import '../../../static components/empty states/no_estimate/no_est_static_screen.dart';
+ import '../../../static components/empty states/no_estimate/no_est_static_screen.dart';
 
 class EstimateCardHomeScreenView extends StatelessWidget {
   final Function(BuildContext context) effect;
@@ -23,6 +22,7 @@ class EstimateCardHomeScreenView extends StatelessWidget {
 
     final estimateNotifier = context.watch<EstimateNotifier>();
     final estimateWork = estimateNotifier.estimated.estimatedWorks; 
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

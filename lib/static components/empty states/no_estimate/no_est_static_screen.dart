@@ -1,6 +1,7 @@
 // when no estimation is present in data
 
 import 'package:flutter/material.dart';
+import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  
 import '../../../features/home/widget/project_img_card_widget.dart';
@@ -16,7 +17,7 @@ class NoEstStaticScreen extends StatelessWidget {
   Widget build(BuildContext context)  {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-   
+   // showSnakeBarr(context, "explore sample project", SnackBarState.Info);
     return Container(
       width: width / 2,
       margin: EdgeInsets.only(right: width / 35),
@@ -162,6 +163,7 @@ class NoEstStaticScreen extends StatelessWidget {
                     fontSize: width / 30,
                     fontWeight: FontWeight.w600,
                     onTap: () {
+                      showSnakeBarr(context, "Explore sample estimate", SnackBarState.Info);
                       Navigator.pushNamed(
                         context, 
                      NoEstWorkDetailStaticScreen.routeName,

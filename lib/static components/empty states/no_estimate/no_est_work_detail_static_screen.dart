@@ -28,7 +28,7 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
      final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      appBar: MyAppBar(text: "Estimated Work"),
+      appBar: MyAppBar(text: "Sample Estimated Work"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
