@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/payment_services.dart';
 import '../../features/home/screens/home_screen.dart';
@@ -31,6 +33,7 @@ class CheckOutNotifier extends ChangeNotifier {
     required BuildContext context,
     required String bookingId,
   }) async {
+   // final onGoingProjects = context.watch<EstimateNotifier>();
     setLoadingState(true);
     Map<String, String> data = {"booking_id": bookingId};
     print("Payment processing");
@@ -46,12 +49,15 @@ class CheckOutNotifier extends ChangeNotifier {
       await repository.checkOut(data).then((response) {
         showSnakeBarr(
           context,
-          "Your project has been booked successfully",
+         //  "Your project has been booked successfully",
+         "Your payment is done", 
           SnackBarState.Success,
         );
+       // onGoingProjects.getOngoingProjects(context);
         Get.to(() => HomeScreen());
         setLoadingState(false);
-      }).onError((error, stackTrace) {
+      }
+      ).onError((error, stackTrace) {
         print("Error in Check out notifier :: $error\n $stackTrace");
         setLoadingState(false);
       });

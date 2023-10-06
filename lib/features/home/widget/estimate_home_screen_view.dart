@@ -173,28 +173,64 @@ class EstimatedWorkCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ProjectImgCardWidget(
+
+
+                 projectDetails.uploadedImgs!.length  >= 1
+                 ?
+                   ProjectImgCardWidget(
+                      width: width / 8,
+                      height: height / 16,
+                      isNetworkImg: true,
+                      //imgPath: "assets/images/room/2(1).png",
+                    //  projectDetails.uploadedImgs
+                    imgPath:  projectDetails.uploadedImgs![0].thumbnailUrl!,
+                    ) : 
+                     ProjectImgCardWidget(
                       width: width / 8,
                       height: height / 16,
                       imgPath: "assets/images/room/2(1).png",
-                    ),
+                    ), 
+
+  projectDetails.uploadedImgs!.length  >= 2 
+                 ?
+                    ProjectImgCardWidget(
+                      width: width / 8,
+                      height: height / 16,
+                      isNetworkImg: true,
+                      imgPath:  projectDetails.uploadedImgs![1].thumbnailUrl!,
+                    ) : 
                     ProjectImgCardWidget(
                       width: width / 8,
                       height: height / 16,
                       imgPath: "assets/images/room/room_3.png",
                     ),
+
+
                     Stack(
                       children: [
+projectDetails.uploadedImgs!.length  >= 3
+                 ? 
+                        ProjectImgCardWidget(
+                          width: width / 8,
+                          height: height / 16,
+                          isNetworkImg: true,
+                      imgPath:  projectDetails.uploadedImgs![2].thumbnailUrl!,
+                        ) :
                         ProjectImgCardWidget(
                           width: width / 8,
                           height: height / 16,
                           imgPath: "assets/images/room/room_1.png",
                         ),
+
                         Positioned(
                           left: width / 30,
                           top: height / 60,
                           child: MyTextPoppines(
-                            text: " +5\nMore",
+                           // text: " +5\nMore",!
+                           text:
+                           projectDetails.uploadedImgs!.length > 3 ?
+                            " +${ (projectDetails.uploadedImgs!.length-3 )} \nMore" 
+                            : " ", 
                             fontSize: width / 38,
                             color: AppColors.white,
                           ),

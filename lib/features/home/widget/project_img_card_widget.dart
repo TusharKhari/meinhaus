@@ -48,7 +48,7 @@ class ProjectImgCardWidget extends StatelessWidget {
               imageUrl: imgPath,
               placeholder: (context, url) => cachedNetworkPlaceHolder,
               errorWidget: (context, url, error) =>
-                  CachedNetworkImgErrorWidget(iconSize: 30, textSize: 50),
+                  CachedNetworkImgErrorWidget(iconSize: 17, textSize: 100),
             )
           : Image.asset(
               imgPath,

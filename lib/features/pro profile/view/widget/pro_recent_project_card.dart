@@ -123,7 +123,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
           2.vspacing(context),
           SizedBox(
             width: widthh / 2.50,
-            height: height / 8.67,
+            height: height / 10,
             child: Stack(
               children: [
                 // Catalog Img of Project

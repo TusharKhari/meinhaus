@@ -11,8 +11,8 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
- import '../../../static components/empty states/no_estimate/no_est_view_home_screen.dart';
- import '../../../static components/empty states/no_project/on_going_work_card_static.dart';
+import '../../../static components/empty states/no_estimate/no_est_view_home_screen.dart';
+import '../../../static components/empty states/no_project/on_going_work_card_static.dart';
 import '../../ongoing projects/screens/all_ongoing_projects_screen.dart';
 import '../../ongoing projects/screens/multiple_project_services_screen.dart';
 import '../../ongoing projects/screens/ongoing_project_details_screen.dart';
@@ -78,7 +78,7 @@ class OngoingCardHomeScreenView extends StatelessWidget {
             : effect(context),
         Visibility(
           visible: ongoingProjects != null && ongoingProjects.length == 0,
-          child:  OngoingWorkCardStatic(),
+          child: OngoingWorkCardStatic(),
           //  NoEstViewHomeScreenWidget(
           //   text:
           //       "You Don’t have any Ongoing project as of now. Add new project with EST generation",
@@ -303,28 +303,54 @@ class OngoingWorkCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ProjectImgCardWidget(
-                        width: width / 8,
-                        height: height / 16,
-                        imgPath: "assets/images/room/2(1).png",
-                      ),
-                      ProjectImgCardWidget(
-                        width: width / 8,
-                        height: height / 16,
-                        imgPath: "assets/images/room/room_3.png",
-                      ),
+                      project.projectImages!.length >= 1
+                          ? ProjectImgCardWidget(
+                              width: width / 8,
+                              height: height / 16,
+                              isNetworkImg: true,
+                              imgPath: project.projectImages![0].thumbnailUrl!,
+                            )
+                          : ProjectImgCardWidget(
+                              width: width / 8,
+                              height: height / 16,
+                              imgPath: "assets/images/room/2(1).png",
+                            ),
+                      project.projectImages!.length >= 2
+                          ? ProjectImgCardWidget(
+                              width: width / 8,
+                              height: height / 16,
+                              isNetworkImg: true,
+                              imgPath: project.projectImages![1].thumbnailUrl!,
+                              // imgPath: "assets/images/room/room_3.png",
+                            )
+                          : ProjectImgCardWidget(
+                              width: width / 8,
+                              height: height / 16,
+                              imgPath: "assets/images/room/room_3.png",
+                            ),
                       Stack(
                         children: [
-                          ProjectImgCardWidget(
-                            width: width / 8,
-                            height: height / 16,
-                            imgPath: "assets/images/room/room_1.png",
-                          ),
+                          project.projectImages!.length >= 3
+                              ? ProjectImgCardWidget(
+                                  width: width / 8,
+                                  height: height / 16,
+                                  isNetworkImg: true,
+                                  imgPath:
+                                      project.projectImages![2].thumbnailUrl!,
+                                )
+                              : ProjectImgCardWidget(
+                                  width: width / 8,
+                                  height: height / 16,
+                                  imgPath: "assets/images/room/room_1.png",
+                                ),
                           Positioned(
                             left: width / 30,
                             top: height / 90,
                             child: MyTextPoppines(
-                              text: " +5\nMore",
+                             // text: " +5\nMore",
+                             text:   project.projectImages!.length > 3 ?
+                            " +${ ( project.projectImages!.length-3 )} \nMore" 
+                            : " ", 
                               fontSize: width / 36,
                               color: AppColors.white,
                             ),
