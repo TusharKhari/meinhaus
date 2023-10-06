@@ -85,6 +85,7 @@ class SavedAddressesWidget extends StatelessWidget {
                       selectedAddress.setSelectedDefaultAddressIdx(index);
                      } :() {
                     selectedAddress.setSelectedAddress(index);
+                    
                     }, 
                       child: AddressCardWidget(
                         index:   index, 

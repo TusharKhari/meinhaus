@@ -132,14 +132,15 @@ class OngoingWorkCard extends StatelessWidget {
 
     void onViewEstTapped() async {
       isMultiProjects
-          ? Navigator.of(context).pushScreen(
+          ?
+           Navigator.of(context).pushScreen(
               MultipleProjectServicesScreen(project: projects[index]),
             )
           : {
-              await _getProjectDetails(),
               Navigator.of(context).pushScreen(
                 OngoingProjectDetailScreen(serviceId: projectId),
               ),
+               await _getProjectDetails(),
             };
       ("Project Id : $projectId || Pro Id : $proId").log();
     }

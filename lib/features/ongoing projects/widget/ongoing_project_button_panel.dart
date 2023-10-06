@@ -40,7 +40,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     final isNormalProject = project.normal!;
     final projectId = project.projectId.toString();
     final isProjectCompleted = project.isCompleted!;
-
+    print("project normal $isNormalProject");
     // get invoice data
     void _getInvoiceHandler() {
       final estimateNotifer = context.read<EstimateNotifier>();
@@ -199,6 +199,10 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           ),
           15.vs,
           // Message pro and Request additional work
+    
+
+      isNormalProject ? 
+
           _buildIconButtonWithText(
             firstButtonText: "Message pro",
             firstButtonTextColor: AppColors.buttonBlue,
@@ -227,7 +231,30 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       AdditionalWorkProProvideScreen(),
                     );
                   },
-          ),
+          ) : 
+          
+          _buildIconButtonWithText(
+            firstButtonText: "       Message pro     ",
+            firstButtonTextColor: AppColors.buttonBlue,
+            firstButtonImgUrl: "assets/icons/customer-support.png",
+            firstButtonColor: const Color(0xFFE8F4FF),
+            firstButtonOnTap: () => onMessageProTapped(),
+            secondButtonext: "     Work details        ",
+            secondtButtonTextColor: const Color(0xFFB9B100),
+            secondButtonImgUrl: "assets/icons/add-photo.png",
+            secondButtonColor: const Color(0xFFF7F6E0),
+            secondButtonOnTap: 
+             () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ProWorkDetailsDialog();
+                          },
+                        );
+                      },
+          ), 
+
+          
           15.vs,
           Row(
             children: [
@@ -262,47 +289,50 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                 ),
               ),
               SizedBox(width: w / 40),
+          
               // Horuly Work details button
-              isNormalProject
-                  ? SizedBox()
-                  : InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ProWorkDetailsDialog();
-                          },
-                        );
-                      },
-                      child: Container(
-                        width: context.screenWidth / 2.4,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE0EAE4),
-                          borderRadius: BorderRadius.circular(30.r),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 10.h),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.linked_camera_outlined,
-                              size: 18.sp,
-                              color: Color(0xFF004D1E),
-                            ),
-                            SizedBox(
-                              width: w / 40,
-                            ),
-                            MyTextPoppines(
-                              text: "Work Details",
-                              height: 1.8,
-                              fontSize: w / 30,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF004D1E),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+              // isNormalProject
+
+              //     ? SizedBox()
+              //     : InkWell(
+              //         onTap: () {
+              //           showDialog(
+              //             context: context,
+              //             builder: (context) {
+              //               return ProWorkDetailsDialog();
+              //             },
+              //           );
+              //         },
+              //         child: Container(
+              //           width: context.screenWidth / 2.4,
+              //           decoration: BoxDecoration(
+              //             color: Color(0xFFE0EAE4),
+              //             borderRadius: BorderRadius.circular(30.r),
+              //           ),
+              //           padding: EdgeInsets.symmetric(
+              //               horizontal: 16.w, vertical: 10.h),
+              //           child: Row(
+              //             children: [
+              //               Icon(
+              //                 Icons.linked_camera_outlined,
+              //                 size: 18.sp,
+              //                 color: Color(0xFF004D1E),
+              //               ),
+              //               SizedBox(
+              //                 width: w / 40,
+              //               ),
+              //               MyTextPoppines(
+              //                 text: "Work Details",
+              //                 height: 1.8,
+              //                 fontSize: w / 30,
+              //                 fontWeight: FontWeight.bold,
+              //                 color: Color(0xFF004D1E),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ), 
+
             ],
           ),
         ],
