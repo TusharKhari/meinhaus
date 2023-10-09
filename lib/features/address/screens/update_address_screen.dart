@@ -32,6 +32,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
   TextEditingController addressController = TextEditingController();
 
   String selectedAddres = '';
+  String placeId ="";
   bool isWaiting = false;
 
   @override
@@ -54,15 +55,22 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
 
   Future _updateAddressHandler() async {
     final notifier = context.read<AddressNotifier>();
-    var addresses = await Utils.getCordinates(addressController.text);
-    var first = addresses.first;
-     var address2 = await Utils.getAddress(first.latitude, first.longitude);
+    
+    //  var addresses = await Utils.getCordinates(selectedAddres);
+
+    // var first = addresses.first;
+
+        Map<String, dynamic > latLng = await notifier.getLatLngFromPlaceId(placeId: placeId);
+
+
+     var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
+
     var first2 = address2.first; 
     final MapSS body = {
       "address_id": widget.addressId,
       "address": selectedAddres,
-      "longitude": first.longitude.toString(),
-      "latitude": first.latitude.toString(),
+      "longitude": latLng["lat"].toString(),
+       "latitude": latLng["lng"].toString(), 
        'line1': first2.name.toString(),
         'line2': first2.street.toString(),
         'city': first2.locality.toString(),
@@ -117,6 +125,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                     onTap: () {
                       addressController.text = address;
                       selectedAddres = address;
+                      placeId = addressNotifier.addressList[index]["place_id"];
                       print("selectedAddres : $selectedAddres");
                     },
                     address: address,

@@ -121,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen>
           // Get Started Button
           : 
           InkWell(
-              onTap: () => Navigator.pushNamed(context, SignInScreen.routeName),
+              onTap: () => Navigator.pushReplacementNamed(context, SignInScreen.routeName),
               child: Container(
                 alignment: Alignment.center,
                 width: double.infinity,
