@@ -162,11 +162,14 @@ class EstimateNotifier extends ChangeNotifier {
   }
 
 // GET ESTIMATED WORK
+   int _count =0;
   Future getEstimateWork(BuildContext context) async {
     estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
       setEstimate(data);
-      if(data.estimatedWorks!.length == 0){
+      if(data.estimatedWorks!.length == 0 && _count == 0 ){
+        _count++;
+        print("count $_count");
         showSnakeBarr(context, "Explore Sample Cards created for you", SnackBarState.Warning, );
       }
     }).onError((error, stackTrace) {
