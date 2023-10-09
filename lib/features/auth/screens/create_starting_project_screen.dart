@@ -12,6 +12,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/show_picked_images.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../utils/extensions/validator.dart';
@@ -43,6 +44,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
 
   // Deafult selected address is null
   String selectedAddress = '';
+  String placeId = "";
 
   @override
   void initState() {
@@ -67,18 +69,36 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
   // After verfication user can able to create its first project/estimate
   Future<void> createStartingProject() async {
     final notifier = context.read<EstimateNotifier>();
+    final addressNotifier = context.read<AddressNotifier>();
     final image = await Utils.collectImages(notifier.images);
-    var addresses = await Utils.getCordinates(selectedAddress);
-    var first = addresses.first;
+    // var addresses = await Utils.getCordinates(selectedAddress);
+    // var first = addresses.first;
+        Map<String, dynamic > latLng = await addressNotifier.getLatLngFromPlaceId(placeId: placeId);
+            var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
+             var first2 = address2.first;
+  final MapSS addressBody = {
+      "address": addressController.text,
+      "longitude": latLng["lat"].toString(),
+       "latitude": latLng["lng"].toString(), 
+         'line1': first2.name.toString(),
+        'line2': first2.street.toString() ,
+        'city': "${first2.subLocality}, ${first2.locality}",
+        'state': first2.administrativeArea.toString(),
+        'country': first2.country.toString(),
+        'postal_code': first2.postalCode.toString(),
+    };
+
     final data = {
       'title': titleController.text,
       'description': descriptionController.text,
       'time': selectedOption.toString(),
       'address': addressController.text,
-      "longitude": first.longitude.toString(),
-      "latitude": first.latitude.toString(),
+     "longitude": latLng["lat"].toString(),
+       "latitude": latLng["lng"].toString(),
       'images[]': image,
     };
+
+    await addressNotifier.addAddress(context: context, body: addressBody);
     await notifier.createStartingEstimate(context: context, data: data);
   }
 
@@ -92,6 +112,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     final w = context.screenWidth;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
+
       child: Scaffold(
         body: SafeArea(
           child: Column(
@@ -124,10 +145,13 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
+                        Navigator.of(context).pushReplacementNamed(
                           HomeScreen.routeName,
-                          (route) => false,
                         );
+                        // Navigator.of(context).pushNamedAndRemoveUntil(
+                        //   HomeScreen.routeName,
+                        //   (route) => false,
+                        // );
                       },
                       child: Text(
                         "Skip",
@@ -211,6 +235,8 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                                 onTap: () {
                                   addressController.text = address;
                                   selectedAddress = address;
+                                  placeId = addressNotifier.addressList[index]
+                                  ["place_id"];
                                   addressNotifier.addressList.clear();
                                 },
                                 address: address,

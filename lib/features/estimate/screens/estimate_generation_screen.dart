@@ -69,6 +69,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     final isPhoneVerified = userProvider.phoneVerified!;
     final addressProvider = context.read<AddressNotifier>();
     final image = await Utils.collectImages(estimateNotifer.images);
+   
     final data = {
       'title': nameController.text,
       'description': descController.text,
@@ -76,6 +77,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
       'user_address_id': userAddress[addressProvider.index].id,
       'images[]': image,
     };
+    
     if (_estimateFormKey.currentState!.validate()) {
       if (isPhoneVerified) {
         await estimateNotifer.createEstimate(context: context, data: data);

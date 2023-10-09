@@ -149,7 +149,8 @@ class EstimateNotifier extends ChangeNotifier {
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
       removeImageFromList();
       //Get.to(() => HomeScreen());
-      Navigator.of(context).pushScreen(HomeScreen());
+     // Navigator.of(context).pushScreen(HomeScreen());
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));
       showSnakeBarr(
           context,
           "Your estimate has been created successfully. we will contact you shortly",

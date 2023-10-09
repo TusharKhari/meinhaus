@@ -59,7 +59,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
    // var address2 = await Utils.getAddress(first.latitude, first.longitude);
     var first2 = address2.first;
    // print("first2 $first2");
-    final MapSS body = {
+    final MapSS addressBody = {
       "address": addressController.text,
       "longitude": latLng["lat"].toString(),
        "latitude": latLng["lng"].toString(), 
@@ -71,7 +71,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         'postal_code': first2.postalCode.toString(),
     };
   //  print("body  $body");
-    await notifier.addAddress(context: context, body: body);
+    await notifier.addAddress(context: context, body: addressBody);
   }
 
   @override
@@ -109,7 +109,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: addressNotifier.addressList.length,
                 itemBuilder: (context, index) {
-                   ("place id ${addressNotifier.addressList[index]["place_id"]}").log();
+                  // ("place id ${addressNotifier.addressList[index]["place_id"]}").log();
                   final address =  addressNotifier.addressList[index]["description"];
                   return ListAddressTile(
                     onTap: () async{
