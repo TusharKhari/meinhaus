@@ -69,7 +69,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     final isPhoneVerified = userProvider.phoneVerified!;
     final addressProvider = context.read<AddressNotifier>();
     final image = await Utils.collectImages(estimateNotifer.images);
-   
+
     final data = {
       'title': nameController.text,
       'description': descController.text,
@@ -77,7 +77,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
       'user_address_id': userAddress[addressProvider.index].id,
       'images[]': image,
     };
-    
+
     if (_estimateFormKey.currentState!.validate()) {
       if (isPhoneVerified) {
         await estimateNotifer.createEstimate(context: context, data: data);
@@ -102,7 +102,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
         backgroundColor: AppColors.white,
         appBar: MyAppBar(
           text: widget.isNewEstimate! ? "New Estimate" : "Estimate Generation",
-          onBack: (){
+          onBack: () {
             Navigator.of(context).pop();
             estimateNotifer.removeImageFromList();
           },
@@ -157,7 +157,9 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                         borderType: BorderType.RRect,
                         radius: Radius.circular(12.r),
                         padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 10.h),
+                         horizontal: 10.w,
+                         vertical: 10.h,
+                        ),
                         color: AppColors.black.withOpacity(0.5),
                         child: SizedBox(
                           height: 90.h,
@@ -175,16 +177,34 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                         itemCount: image.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index) {
-                                          return InkWell(
-                                            child: Padding(
+                                          return 
+                                          Padding(
                                               padding:
                                                   EdgeInsets.only(right: 10),
-                                              child: Image.file(
-                                                File(image[index].path)
-                                                    .absolute,
-                                              ),
-                                            ),
-                                          );
+                                              child: Stack(
+                                                alignment: Alignment.topRight,
+                                                children: [
+                                                  Image.file(
+                                                    File(image[index].path)
+                                                        .absolute,
+                                                    width: 100,
+                                                    height: 200,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      estimateNotifer
+                                                          .removeImageFromIndex(
+                                                              index);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.remove_circle_outline_outlined,
+                                                      color: AppColors.red,
+                                                      size: 30,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ));
                                         },
                                       ),
                                     ),
@@ -206,7 +226,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                   ),
                   20.vs,
 
-                   SavedAddressesWidget(),
+                  SavedAddressesWidget(),
                 ],
               ),
             ),

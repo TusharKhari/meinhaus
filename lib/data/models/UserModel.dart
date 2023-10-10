@@ -178,7 +178,7 @@ class SavedAddress {
     city = json['city'];
     state = json['state'];
     country = json['country'];
-    postal_code = json['postal_code'];
+    postal_code = json['zip'];
     phone = json['phone'];
     type = json['type'];
     isDefault = json['is_default'];
@@ -198,7 +198,7 @@ class SavedAddress {
     data['city'] = this.city;
     data['state'] = this.state;
     data['country'] = this.country;
-    data['postal_code'] = this.postal_code;
+    data['zip'] = this.postal_code;
     data['phone'] = this.phone;
     data['type'] = this.type;
     data['is_default'] = this.isDefault;

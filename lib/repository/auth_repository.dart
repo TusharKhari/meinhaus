@@ -28,7 +28,11 @@ class AuthRepositorys {
         body: body,
         allowUnauthorizedResponse: true,
       );
-    } catch (e) {
+    } 
+     on FormatException {
+      throw "Internal server error";
+     }
+    catch (e) {
       throw e;
     }
   }

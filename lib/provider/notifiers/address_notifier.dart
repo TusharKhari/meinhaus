@@ -8,6 +8,7 @@ import '../../data/models/UserModel.dart';
 import '../../error_screens.dart';
 import '../../resources/common/my_snake_bar.dart';
 import '../../utils/extensions/auto_complete_address.dart';
+import '../../utils/utils.dart';
 import 'auth_notifier.dart';
 
 class AddressNotifier extends ChangeNotifier {
@@ -85,34 +86,50 @@ class AddressNotifier extends ChangeNotifier {
   // get lat and lng  from place id
 
   Future<Map<String, dynamic>> getLatLngFromPlaceId(  {required String placeId}) async {
-    //
-    //https://maps.googleapis.com/maps/api/place/details/json?
-    //place_id=ChIJga_7fdRzhlQRh6P6ivHhNxE&key=AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU
-   late Map<String, dynamic> ? latLng;
+    
+   late Map<String, dynamic> ? latLngAdd;
     await addressRepository
         .getLatLngFromPlaceId( placeId: placeId)
         .then((value) {
          // print("value ${value["result"]["geometry"]["location"]["lat"]}");
-          latLng = {
+          latLngAdd = {
             "lat" :  value["result"]["geometry"]["location"]["lat"],
             "lng" : value["result"]["geometry"]["location"]["lng"],
+             "formattedAddress" : value["result"]["formatted_address"],
           };
-          print("latLng $latLng");
+          print("latLng $latLngAdd");
         })
         .onError((error, stackTrace) {
       ("$error $stackTrace").log("Address notifier");
       // Navigator.of(context).pushScreen(ShowError(error: error.toString()));
     }); 
-    return latLng!;
+    return latLngAdd!;
   }
 
   Future<void> addAddress({
-    required BuildContext context,
-    required MapSS body,
+    required BuildContext context, 
+    required String placeId, 
   }) async {
     setLoadingState(true, true);
     final userProvider = context.read<AuthNotifier>();
-    addressRepository.addAddress(body).then((response) {
+        Map<String, dynamic > latLng = await getLatLngFromPlaceId(placeId: placeId);
+           var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]); 
+    var first2 = address2.first;
+   // print("first2 $first2");
+    final MapSS addressBody = {
+      // formattedAddress
+      "address":  latLng["formattedAddress"].toString(),
+      "longitude": latLng["lat"].toString(),
+       "latitude": latLng["lng"].toString(), 
+         'line1': first2.name.toString(),
+        'line2': first2.street.toString() ,
+        'city': "${first2.subLocality}, ${first2.locality}",
+        'state': first2.administrativeArea.toString(),
+        'country': first2.country.toString(),
+        'zip': first2.postalCode.toString(),
+    };
+
+    addressRepository.addAddress(addressBody).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
       // Need testing Done WOrking fine
@@ -135,11 +152,32 @@ class AddressNotifier extends ChangeNotifier {
 
   Future updateAddress({
     required BuildContext context,
-    required MapSS body,
+   // required MapSS body,
+    required String placeId, 
+    required String addressId, 
+    required 
   }) async {
     setLoadingState(true, true);
     final userProvider = context.read<AuthNotifier>();
-    addressRepository.updateAddress(body).then((response) {
+       Map<String, dynamic > latLng = await getLatLngFromPlaceId(placeId: placeId);
+           var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]); 
+    var first2 = address2.first;
+   // print("first2 $first2");
+    final MapSS addressBodyy = {
+      // formattedAddress
+         "address_id":  addressId,
+      "address":  latLng["formattedAddress"].toString(),
+      "longitude": latLng["lat"].toString(),
+       "latitude": latLng["lng"].toString(), 
+         'line1': first2.name.toString(),
+        'line2': first2.street.toString() ,
+        'city': "${first2.subLocality}, ${first2.locality}",
+        'state': first2.administrativeArea.toString(),
+        'country': first2.country.toString(),
+        'zip': first2.postalCode.toString(),
+    };
+
+    addressRepository.updateAddress(addressBodyy).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
       User user = userProvider.user.copyWith(savedAddress: data.savedAddress);

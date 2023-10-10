@@ -35,7 +35,7 @@ class InternalSeverException extends AppException {
 
 class FormatException extends AppException{
    FormatException([String? message])
-      : super(message, "format exception");
+      : super(message, "Internal Sever Error");
 }
 
 class ErrorException {}

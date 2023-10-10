@@ -182,7 +182,11 @@ class NetworkApiServices {
       responseJson = errorHandling(response, allowUnauthorizedResponse);
       (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
-    } on SocketException {
+    } 
+    on FormatException {
+      throw FetchDataException("Internal server error");
+    }
+    on SocketException {
       throw FetchDataException("No Internet Connection");
     }
   }

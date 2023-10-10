@@ -68,38 +68,28 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
 
   // After verfication user can able to create its first project/estimate
   Future<void> createStartingProject() async {
+    final userNotier = context.read<AuthNotifier>();
     final notifier = context.read<EstimateNotifier>();
     final addressNotifier = context.read<AddressNotifier>();
     final image = await Utils.collectImages(notifier.images);
-    // var addresses = await Utils.getCordinates(selectedAddress);
-    // var first = addresses.first;
-        Map<String, dynamic > latLng = await addressNotifier.getLatLngFromPlaceId(placeId: placeId);
-            var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
-             var first2 = address2.first;
-  final MapSS addressBody = {
-      "address": addressController.text,
-      "longitude": latLng["lat"].toString(),
-       "latitude": latLng["lng"].toString(), 
-         'line1': first2.name.toString(),
-        'line2': first2.street.toString() ,
-        'city': "${first2.subLocality}, ${first2.locality}",
-        'state': first2.administrativeArea.toString(),
-        'country': first2.country.toString(),
-        'postal_code': first2.postalCode.toString(),
-    };
 
-    final data = {
+        Map<String, dynamic > latLng = await addressNotifier.getLatLngFromPlaceId(placeId: placeId);
+            // var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
+            //  var first2 = address2.first;
+            final userAddress  = userNotier.user.savedAddress![0];
+     await addressNotifier.addAddress(context: context, placeId: placeId);
+    // await addressNotifier.addAddress(context: context, body: addressBody);
+       final data = {
       'title': titleController.text,
       'description': descriptionController.text,
       'time': selectedOption.toString(),
-      'address': addressController.text,
-     "longitude": latLng["lat"].toString(),
-       "latitude": latLng["lng"].toString(),
+      //'address': addressController.text,
+    //  "longitude": latLng["lat"].toString(),
+    //    "latitude": latLng["lng"].toString(),
       'images[]': image,
+       "address_id" : userAddress.id,   // ye bhejni h 
     };
-
-    await addressNotifier.addAddress(context: context, body: addressBody);
-    await notifier.createStartingEstimate(context: context, data: data);
+     await notifier.createStartingEstimate(context: context, data: data);
   }
 
   @override

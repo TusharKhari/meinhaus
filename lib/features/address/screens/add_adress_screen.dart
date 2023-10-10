@@ -26,7 +26,7 @@ class AddAddressScreen extends StatefulWidget {
 class _AddAddressScreenState extends State<AddAddressScreen> {
   TextEditingController addressController = TextEditingController();
   String selectedAddres = '';
-  String placeId = "";
+  String _placeId = "";
 
   @override
   void initState() {
@@ -48,30 +48,27 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   }
 
   _addAddressHandler() async {
-    final notifier = context.read<AddressNotifier>();
-  //   var addresses = await Utils.getCordinates(selectedAddres);
-    
-  //  // var latlng = await notifier.getLatLngFromPlaceId(selectedAddres);
-  //   var first = addresses.first;
-    // var address2 = await Utils.getAddress(49.2778549, -123.1284769);
-    Map<String, dynamic > latLng = await notifier.getLatLngFromPlaceId(placeId: placeId);
-    var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
-   // var address2 = await Utils.getAddress(first.latitude, first.longitude);
-    var first2 = address2.first;
-   // print("first2 $first2");
-    final MapSS addressBody = {
-      "address": addressController.text,
-      "longitude": latLng["lat"].toString(),
-       "latitude": latLng["lng"].toString(), 
-         'line1': first2.name.toString(),
-        'line2': first2.street.toString() ,
-        'city': "${first2.subLocality}, ${first2.locality}",
-        'state': first2.administrativeArea.toString(),
-        'country': first2.country.toString(),
-        'postal_code': first2.postalCode.toString(),
-    };
+    final notifier = context.read<AddressNotifier>(); 
+
+    // Map<String, dynamic > latLng = await notifier.getLatLngFromPlaceId(placeId: _placeId);
+  //   var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
+  //  // var address2 = await Utils.getAddress(first.latitude, first.longitude);
+  //   var first2 = address2.first;
+  //  // print("first2 $first2");
+  //   final MapSS addressBody = {
+  //     "address": addressController.text,
+  //     "longitude": latLng["lat"].toString(),
+  //      "latitude": latLng["lng"].toString(), 
+  //        'line1': first2.name.toString(),
+  //       'line2': first2.street.toString() ,
+  //       'city': "${first2.subLocality}, ${first2.locality}",
+  //       'state': first2.administrativeArea.toString(),
+  //       'country': first2.country.toString(),
+  //       'zip': first2.postalCode.toString(),
+  //   };
   //  print("body  $body");
-    await notifier.addAddress(context: context, body: addressBody);
+    //await notifier.addAddress(context: context, body: addressBody);
+    await notifier.addAddress(context: context, placeId: _placeId);
   }
 
   @override
@@ -116,7 +113,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       
                       addressController.text = address;
                       selectedAddres = address;
-                      placeId =  addressNotifier.addressList[index]["place_id"];
+                      _placeId =  addressNotifier.addressList[index]["place_id"];
                   // Map<String, dynamic> mp =   await addressNotifier.getLatLngFromPlaceId(placeId: selectedAddres);
                 //   print("add add ${mp["lat"]}");
                     },

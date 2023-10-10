@@ -49,6 +49,10 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeImageFromIndex(int idx){
+    _images.removeAt(idx);
+    notifyListeners();
+  }
   void removeImageFromList() {
     _images.clear();
     notifyListeners();

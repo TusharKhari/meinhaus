@@ -53,32 +53,9 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
     notifier.getAddressSuggestions(addressController.text);
   }
 
-  Future _updateAddressHandler() async {
+  Future _updateAddressHandler({required String addressId}) async {
     final notifier = context.read<AddressNotifier>();
-    
-    //  var addresses = await Utils.getCordinates(selectedAddres);
-
-    // var first = addresses.first;
-
-        Map<String, dynamic > latLng = await notifier.getLatLngFromPlaceId(placeId: placeId);
-
-
-     var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
-
-    var first2 = address2.first; 
-    final MapSS body = {
-      "address_id": widget.addressId,
-      "address": selectedAddres,
-      "longitude": latLng["lat"].toString(),
-       "latitude": latLng["lng"].toString(), 
-       'line1': first2.name.toString(),
-        'line2': first2.street.toString(),
-        'city': first2.locality.toString(),
-        'state': first2.administrativeArea.toString(),
-        'country': first2.country.toString(),
-        'postal_code': first2.postalCode.toString(),
-    };
-    await notifier.updateAddress(context: context, body: body);
+    await notifier.updateAddress(context: context,placeId: placeId, addressId:addressId );
   }
 
   Future _deleteAddressHandler() async {
@@ -150,7 +127,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                 text: "Update",
                 onTap: () {
                   selectedAddres.isNotEmpty
-                      ? _updateAddressHandler()
+                      ? _updateAddressHandler(addressId: widget.addressId)
                       : showSnakeBar(context, "Select an address please");
                 },
               ),
