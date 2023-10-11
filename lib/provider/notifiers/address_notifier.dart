@@ -114,8 +114,7 @@ class AddressNotifier extends ChangeNotifier {
     final userProvider = context.read<AuthNotifier>();
         Map<String, dynamic > latLng = await getLatLngFromPlaceId(placeId: placeId);
            var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]); 
-    var first2 = address2.first;
-   // print("first2 $first2");
+    var first2 = address2.first; 
     final MapSS addressBody = {
       // formattedAddress
       "address":  latLng["formattedAddress"].toString(),
@@ -128,7 +127,6 @@ class AddressNotifier extends ChangeNotifier {
         'country': first2.country.toString(),
         'zip': first2.postalCode.toString(),
     };
-
     addressRepository.addAddress(addressBody).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
@@ -163,7 +161,7 @@ class AddressNotifier extends ChangeNotifier {
            var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]); 
     var first2 = address2.first;
    // print("first2 $first2");
-    final MapSS addressBodyy = {
+    final MapSS addressBody = {
       // formattedAddress
          "address_id":  addressId,
       "address":  latLng["formattedAddress"].toString(),
@@ -176,8 +174,7 @@ class AddressNotifier extends ChangeNotifier {
         'country': first2.country.toString(),
         'zip': first2.postalCode.toString(),
     };
-
-    addressRepository.updateAddress(addressBodyy).then((response) {
+    addressRepository.updateAddress(addressBody).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
       User user = userProvider.user.copyWith(savedAddress: data.savedAddress);

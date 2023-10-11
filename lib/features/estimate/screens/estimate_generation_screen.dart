@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
 import 'package:new_user_side/resources/common/buttons/my_bottom_bar_button.dart';
@@ -157,8 +158,8 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                         borderType: BorderType.RRect,
                         radius: Radius.circular(12.r),
                         padding: EdgeInsets.symmetric(
-                         horizontal: 10.w,
-                         vertical: 10.h,
+                          horizontal: 10.w,
+                          vertical: 10.h,
                         ),
                         color: AppColors.black.withOpacity(0.5),
                         child: SizedBox(
@@ -172,42 +173,73 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                       fit: BoxFit.fitWidth,
                                       width: 260.w,
                                     )
-                                  : Expanded(
+                                  :
+
+                                  // ===========
+                                  Expanded(
                                       child: ListView.builder(
                                         itemCount: image.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index) {
-                                          return 
-                                          Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 10),
-                                              child: Stack(
-                                                alignment: Alignment.topRight,
-                                                children: [
-                                                  Image.file(
+                                          return
+
+                                              // Container(
+                                              //   padding: EdgeInsets.only(right: 13.w, ),
+                                              //   child: InkWell(
+                                              //     onTap: () {
+                                              //        estimateNotifer
+                                              //           .removeImageFromIndex(
+                                              //               index);
+                                              //     },
+                                              //     child: Badge(
+                                              //       offset: Offset(0, 0),
+                                              //                                           label: Icon(
+                                              //                                             Icons.remove_circle_rounded,
+                                              //                                             color: AppColors.red,
+                                              //                                             size: 25,
+                                              //                                           ),
+                                              //       backgroundColor: Colors.transparent,
+                                              //                                     child:  Image.file(
+                                              //                                     File(image[index].path)
+                                              //                                         .absolute,
+                                              //                                     width: 100,
+                                              //                                     height: 200,
+                                              //                                     fit: BoxFit.fill,
+                                              //        ),
+                                              //     ),
+                                              //   ),
+                                              // );
+                                              Padding(
+                                            padding: EdgeInsets.only(
+                                              right: 20.w,
+                                            ),
+                                            child: Stack(
+                                              alignment: Alignment.topRight,
+                                              children: [
+                                                Container(
+                                                  width: 90, 
+                                                   margin: EdgeInsets.only(top: 10, right: 20), 
+                                                  child: Image.file(
                                                     File(image[index].path)
-                                                        .absolute,
-                                                    width: 100,
-                                                    height: 200,
-                                                    fit: BoxFit.fill,
+                                                        .absolute, 
+                                                    fit: BoxFit.fitWidth,
                                                   ),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      estimateNotifer
-                                                          .removeImageFromIndex(
-                                                              index);
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.remove_circle_outline_outlined,
-                                                      color: AppColors.red,
-                                                      size: 30,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ));
+                                                ),
+                                                // Icon(
+                                                //   Icons.remove_circle_rounded,
+                                                //   color: AppColors.red,
+                                                //   size: 25,
+                                                // ),
+                                                InkWell(
+                                                  onTap: () => estimateNotifer.removeImageFromIndex(index),
+                                                  child: SvgPicture.asset("assets/icons/remove_icon.svg", )), 
+                                              ],
+                                            ),
+                                          );
                                         },
                                       ),
                                     ),
+                              //
                               20.hs,
                               InkWell(
                                 onTap: () => getImagess(),

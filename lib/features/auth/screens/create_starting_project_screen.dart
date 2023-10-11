@@ -102,7 +102,6 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     final w = context.screenWidth;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
-
       child: Scaffold(
         body: SafeArea(
           child: Column(
