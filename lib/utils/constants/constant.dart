@@ -6,12 +6,9 @@ final String baseUrl = "https://meinhaus.ca/api";
 final String googleAddresUrl =
     "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 
-
 // Google Map API Keys
-final  String kPLACES_API_KEY = "AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU";
-// final String kPLACES_API_KEY = "AlzaSyBmvEj5825HG1V64SPiYv3-ZpzOnd2bpg";
+ final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIlU";   
 
-  // AlzaSyBmvEj5825HG1V64SPiYv3-ZpzOnd2bpg
 // Card box shadow
 final List<BoxShadow> boxShadow = [
   BoxShadow(

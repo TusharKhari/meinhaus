@@ -1,5 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,83 +35,34 @@ class OurServicesCard extends StatelessWidget {
       child: Column(
         children: [
           1.vspacing(context),
-
-          // Container(
-          //   width: width / 1.45,
-          //   height: height / 5,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(10.r),
-          //     image: DecorationImage(
-          //       image: AssetImage("assets/images/fixing/fixing_1.png"),
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          //   child: Align(
-          //     alignment: Alignment.bottomLeft,
-          //     child: Padding(
-          //       padding:
-          //           EdgeInsets.only(left: width / 35, bottom: height / 120),
-          //       child: MyTextPoppines(
-          //         text: services.name.toString(),
-          //         fontWeight: FontWeight.w600,
-          //         color: AppColors.white,
-          //         fontSize: width / 24,
-          //       ),
-          //     ),
-          //   ),
-          // ),
-
-// ==========
-
           Container(
             width: width / 1.45,
             height: height / 5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
-              // image: DecorationImage(
-              //   image: AssetImage("assets/images/fixing/fixing_1.png"),
+              image: DecorationImage(
+                image: NetworkImage(services.serviceDescImage!),
+                fit: BoxFit.cover,
+              ),
+              //  image: DecorationImage(
+              //   image: NetworkImage(services.serviceDescImage.toString()),
               //   fit: BoxFit.cover,
               // ),
             ),
-            child: Stack(
+            child: Align(
               alignment: Alignment.bottomLeft,
-              children: [
-                CachedNetworkImage(
-                  width: width / 1.45,
-                  height: height / 5,
-                  imageUrl: services.serviceDescImage!,
-                  // progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  //     SizedBox(
-                  //       height: 10,
-                  //       width: 10,
-                  //       child: CircularProgressIndicator(
-                  //         //  value: downloadProgress.progress,
-                  //            ),
-                  //     ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    "assets/images/fixing/fixing_1.png",
-                    fit: BoxFit.cover,
-                  ),
-                  // Icon(Icons.error),
+              child: Padding(
+                padding:
+                    EdgeInsets.only(left: width / 35, bottom: height / 120),
+                child: MyTextPoppines(
+                  text: services.name.toString(),
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                  fontSize: width / 24,
                 ),
-               Padding(
-                 padding:   EdgeInsets.only(left: width / 35, bottom: height / 120),
-                 child: MyTextPoppines(
-                          text: services.name.toString(),
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.white,
-                    fontSize: width / 24,
-                  ),
-               ), 
-              ],
+              ),
             ),
           ),
-         
-         
-         
-         
-         
-         // ===========
           1.vspacing(context),
           Divider(thickness: 1.0),
           Padding(

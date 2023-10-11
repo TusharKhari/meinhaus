@@ -1,5 +1,5 @@
 class OurServicesModel {
-  String? responseCode;
+  dynamic responseCode;
   List<Services>? services;
 
   OurServicesModel({this.responseCode, this.services});

@@ -64,13 +64,22 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
     await notifier.deleteAddress(context: context, body: body);
   }
 
+  var addressTypes = [  
+    "Address Type" , 
+     "Work",    
+    'Home', 
+    'Other',  
+  ]; 
+
   @override
   Widget build(BuildContext context) {
     final addressNotifier = context.watch<AddressNotifier>();
     return ModalProgressHUD(
       inAsyncCall: addressNotifier.loading,
       child: Scaffold(
-        appBar: MyAppBar(text: "Edit Address"),
+        appBar: MyAppBar(text: "Edit Address", onBack: ()  {
+          Navigator.pop(context);
+          addressNotifier.onBackClick();},),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -78,6 +87,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
               text: "Edit Address",
               controller: addressController,
               hintText: "44 E. West Street Ashland, OH 44805.",
+              
             ),
             Divider(thickness: 2, color: Color.fromARGB(32, 0, 0, 0)),
             10.vs,
@@ -122,7 +132,9 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                 text: "Delete",
                 onTap: () => _deleteAddressHandler(),
               ),
-              MyBlueButton(
+             
+
+             addressNotifier.addressType.isNotEmpty && addressNotifier.addressType != "Address Type" ?  MyBlueButton(
                 hPadding: 60.w,
                 text: "Update",
                 onTap: () {
@@ -130,6 +142,25 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                       ? _updateAddressHandler(addressId: widget.addressId)
                       : showSnakeBar(context, "Select an address please");
                 },
+              ) :
+
+              Container(
+                height: 70,
+                width: 180,
+                child: DropdownButton(
+                  elevation: 0,
+                isExpanded: true,
+                  value: "Address Type", 
+                // Down Arrow Icon 
+                icon: const Icon(Icons.keyboard_arrow_down),
+                  items:  addressTypes.map((String items) { 
+                     return DropdownMenuItem( 
+                     value: items, 
+                    child: Text(items), 
+                  ); 
+                }).toList(), onChanged: (value) { 
+                 addressNotifier.setAddressType(addressType: value!); 
+                },),
               ),
             ],
           ),

@@ -56,6 +56,11 @@ class AddressNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void onBackClick(){
+    _addressType = "";
+    notifyListeners();
+  }
+
   // Auto Adreess Suggestions Only for Canada
 
   Future<List> getAddressSuggestions(String input) async {
@@ -148,11 +153,21 @@ class AddressNotifier extends ChangeNotifier {
     });
   }
 
+
+ 
+ String _addressType ="";
+  String get addressType => _addressType;
+
+  void setAddressType({required String addressType}){
+    _addressType = addressType;
+    notifyListeners();
+  }
   Future updateAddress({
     required BuildContext context,
    // required MapSS body,
     required String placeId, 
     required String addressId, 
+
     required 
   }) async {
     setLoadingState(true, true);
@@ -173,6 +188,7 @@ class AddressNotifier extends ChangeNotifier {
         'state': first2.administrativeArea.toString(),
         'country': first2.country.toString(),
         'zip': first2.postalCode.toString(),
+        "type":_addressType, 
     };
     addressRepository.updateAddress(addressBody).then((response) {
       setLoadingState(false, true);
