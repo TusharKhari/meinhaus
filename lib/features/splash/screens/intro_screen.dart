@@ -113,7 +113,7 @@ class _IntroScreenState extends State<IntroScreen>
           AnimatedOpacity(
             duration: const Duration(milliseconds: 3000),
             opacity: opacityValue ? 1.0 : 0.0,
-            child: isAuth ? HomeScreen() : SplashScreen(),
+                        child: isAuth ? HomeScreen() : SplashScreen(),
           ),
           AnimatedPositioned(
             duration: duration,

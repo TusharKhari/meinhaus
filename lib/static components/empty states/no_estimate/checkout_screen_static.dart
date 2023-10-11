@@ -126,7 +126,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
                       fontWeight: FontWeight.w600,
                     ),
                     MyTextPoppines(
-                      text: "\$ ${widget.totalAmount}",
+                      text: "${widget.totalAmount}",
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.yellow,

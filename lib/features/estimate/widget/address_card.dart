@@ -7,8 +7,7 @@ import 'package:new_user_side/features/address/screens/update_address_screen.dar
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-import '../../../provider/notifiers/address_notifier.dart';
-import '../../../resources/common/my_text.dart';
+ import '../../../resources/common/my_text.dart';
 import '../../../provider/notifiers/auth_notifier.dart';
 
 class AddressCardWidget extends StatefulWidget {

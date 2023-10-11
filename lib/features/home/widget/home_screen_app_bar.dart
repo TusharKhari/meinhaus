@@ -63,7 +63,9 @@ class HomeScreenAppBar extends StatelessWidget {
           SizedBox(width: width / 28),
 
           InkWell(
-            onTap: () => Navigator.of(context).pushScreen(HomeScreen()),
+             onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),)),
+
+            //  onTap: () => Navigator.of(context).pushScreen(HomeScreen()),
             child:
              Image.asset(
               "assets/logo/image 7 (2).png",
