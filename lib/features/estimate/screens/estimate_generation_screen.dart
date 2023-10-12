@@ -120,7 +120,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                 children: [
                   MyTextField(
                     text: "Name of your project",
-                    hintText: "Fiting & fixing Window",
+                    hintText: "Fitting & fixing Window",
                     isHs20: false,
                     controller: nameController,
                     focusNode: nameNode,
@@ -181,37 +181,10 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                         itemCount: image.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index) {
-                                          return
-
-                                              // Container(
-                                              //   padding: EdgeInsets.only(right: 13.w, ),
-                                              //   child: InkWell(
-                                              //     onTap: () {
-                                              //        estimateNotifer
-                                              //           .removeImageFromIndex(
-                                              //               index);
-                                              //     },
-                                              //     child: Badge(
-                                              //       offset: Offset(0, 0),
-                                              //                                           label: Icon(
-                                              //                                             Icons.remove_circle_rounded,
-                                              //                                             color: AppColors.red,
-                                              //                                             size: 25,
-                                              //                                           ),
-                                              //       backgroundColor: Colors.transparent,
-                                              //                                     child:  Image.file(
-                                              //                                     File(image[index].path)
-                                              //                                         .absolute,
-                                              //                                     width: 100,
-                                              //                                     height: 200,
-                                              //                                     fit: BoxFit.fill,
-                                              //        ),
-                                              //     ),
-                                              //   ),
-                                              // );
+                                          return 
                                               Padding(
                                             padding: EdgeInsets.only(
-                                              right: 20.w,
+                                             //right: 5.w,
                                             ),
                                             child: Stack(
                                               alignment: Alignment.topRight,

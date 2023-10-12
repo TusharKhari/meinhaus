@@ -45,7 +45,7 @@ class EstimateNotifier extends ChangeNotifier {
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
 
   void setImagesInList(List<XFile> images) {
-    _images.addAll(images);
+  _images.addAll(images);
     notifyListeners();
   }
 

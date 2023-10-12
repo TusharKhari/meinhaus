@@ -1,9 +1,7 @@
 
 
-
-
 class GeneratedEstimateModel {
-  int? responseCode;
+  dynamic responseCode;
   String? responseMessage;
   List<EstimatedWorks>? estimatedWorks;
 

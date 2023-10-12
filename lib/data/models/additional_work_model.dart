@@ -1,7 +1,7 @@
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
 
 class AdditionalWorkModel {
-  String? status;
+  dynamic status;
   String? responseMessage;
   List<AdditionalWork>? additionalWork;
 
