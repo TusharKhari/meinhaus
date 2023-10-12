@@ -11,8 +11,7 @@ import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
-import '../../../utils/utils.dart';
-import '../widget/address_list_tile.dart';
+ import '../widget/address_list_tile.dart';
 
 class UpdateAdressScreen extends StatefulWidget {
   static const String routeName = '/update-address';

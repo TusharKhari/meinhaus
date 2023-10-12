@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
@@ -54,7 +54,8 @@ class CheckOutNotifier extends ChangeNotifier {
           SnackBarState.Success,
         );
         onGoingProjects.getOngoingProjects(context);
-        Get.to(() => HomeScreen());
+       // Get.to(() => HomeScreen());
+       Navigator.pushReplacement(context , MaterialPageRoute(builder: (context) => HomeScreen(),));
         setLoadingState(false);
       }
       ).onError((error, stackTrace) {

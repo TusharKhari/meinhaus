@@ -2,13 +2,10 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/data/models/generated_estimate_model.dart';
-import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; 
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
-
+ 
 import '../../../resources/common/my_text.dart';
 
 class CheckOutSummaryCardWidget extends StatefulWidget {

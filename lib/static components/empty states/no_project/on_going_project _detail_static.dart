@@ -1,15 +1,13 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:new_user_side/resources/common/my_app_bar.dart';
+ import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
-import '../../../resources/common/my_snake_bar.dart';
-import '../../../resources/common/my_text.dart';
+ import '../../../resources/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
 
 class OnGoingProjectDetailsStatic extends StatelessWidget {

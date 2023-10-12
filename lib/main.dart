@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
           ),
           navigatorKey: navigatorKey,
           home:   IntroScreen(),
-          onGenerateRoute: (settings) => generateRoute(settings),
+       onGenerateRoute: (settings) => generateRoute(settings),
         );
       },
     );

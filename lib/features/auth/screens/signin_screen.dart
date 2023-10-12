@@ -65,9 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<AuthNotifier>();
-    final h = context.screenHeight;
-    final w = context.screenWidth;
+    final notifier = context.watch<AuthNotifier>(); 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

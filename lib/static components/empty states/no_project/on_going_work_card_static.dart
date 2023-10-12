@@ -1,8 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:new_user_side/resources/common/my_snake_bar.dart';
+ import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/static%20components/empty%20states/no_project/on_going_project%20_detail_static.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 

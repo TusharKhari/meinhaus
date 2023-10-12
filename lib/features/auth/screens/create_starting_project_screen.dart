@@ -12,8 +12,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/show_picked_images.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/network/network_api_servcies.dart';
-import '../../../provider/notifiers/estimate_notifier.dart';
+ import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../utils/extensions/validator.dart';
 import '../../../utils/utils.dart';
@@ -73,7 +72,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     final addressNotifier = context.read<AddressNotifier>();
     final image = await Utils.collectImages(notifier.images);
 
-        Map<String, dynamic > latLng = await addressNotifier.getLatLngFromPlaceId(placeId: placeId);
+        // Map<String, dynamic > latLng = await addressNotifier.getLatLngFromPlaceId(placeId: placeId);
             // var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
             //  var first2 = address2.first;
             final userAddress  = userNotier.user.savedAddress![0];
