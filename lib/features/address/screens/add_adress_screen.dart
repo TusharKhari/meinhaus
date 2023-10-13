@@ -47,30 +47,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   void onChange() {
     final notifier = context.read<AddressNotifier>();
+
+   // if(addressController.text.length > 3 && addressController.text.length < 10)
     notifier.getAddressSuggestions(addressController.text);
   }
 
   _addAddressHandler() async {
-    final notifier = context.read<AddressNotifier>(); 
-
-    // Map<String, dynamic > latLng = await notifier.getLatLngFromPlaceId(placeId: _placeId);
-  //   var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
-  //  // var address2 = await Utils.getAddress(first.latitude, first.longitude);
-  //   var first2 = address2.first;
-  //  // print("first2 $first2");
-  //   final MapSS addressBody = {
-  //     "address": addressController.text,
-  //     "longitude": latLng["lat"].toString(),
-  //      "latitude": latLng["lng"].toString(), 
-  //        'line1': first2.name.toString(),
-  //       'line2': first2.street.toString() ,
-  //       'city': "${first2.subLocality}, ${first2.locality}",
-  //       'state': first2.administrativeArea.toString(),
-  //       'country': first2.country.toString(),
-  //       'zip': first2.postalCode.toString(),
-  //   };
-  //  print("body  $body");
-    //await notifier.addAddress(context: context, body: addressBody);
+    final notifier = context.read<AddressNotifier>();  
     await notifier.addAddress(context: context, placeId: _placeId);
   }
 
@@ -117,8 +100,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   final address =  addressNotifier.addressList[index]["description"];
                   return ListAddressTile(
                     onTap: () async{
-                      
-                      addressController.text = address;
+                       addressController.text = address;
                       selectedAddres = address;
                       _placeId =  addressNotifier.addressList[index]["place_id"];
                   // Map<String, dynamic> mp =   await addressNotifier.getLatLngFromPlaceId(placeId: selectedAddres);

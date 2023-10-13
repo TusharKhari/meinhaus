@@ -162,7 +162,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                "View Deatils",
+                                "View Details",
                                 style: GoogleFonts.poppins(
                                   fontSize: widthh / 36,
                                   color: AppColors.white,

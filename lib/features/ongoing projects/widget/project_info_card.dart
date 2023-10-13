@@ -53,7 +53,7 @@ class ProjectInfoCard extends StatelessWidget {
               ),
               _getProjectDetails(),
             };
-      ("Project Id:$projectId : Pro Id:$proId").log();
+      ("Project Id:$projectId : Pro Id:$proId isMultiple: $isMultipleServices").log();
     }
 
     return Container(

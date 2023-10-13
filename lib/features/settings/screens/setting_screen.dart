@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:new_user_side/features/add%20card/screens/add_new_card_screen.dart';
-import 'package:new_user_side/features/home/screens/home_screen.dart';
+ import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -20,7 +19,9 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(text: "Settings"),
+      appBar: MyAppBar(
+        text: "Settings",
+      ),
       body: Column(
         children: [
           SettingCardWidget(),
