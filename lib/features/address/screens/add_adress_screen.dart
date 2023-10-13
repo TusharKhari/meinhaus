@@ -25,6 +25,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   TextEditingController addressController = TextEditingController();
   String selectedAddres = '';
   String _placeId = "";
+    var addressTypes = [  
+    "Address Type" , 
+     "work",    
+    'home', 
+    'other',  
+  ]; 
   @override
   void initState() {
     super.initState();
@@ -71,10 +77,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   @override
   Widget build(BuildContext context) {
     final addressNotifier = context.watch<AddressNotifier>();
+    final w = MediaQuery.of(context).size.width;
     return ModalProgressHUD(
       inAsyncCall: addressNotifier.loading,
       child: Scaffold(
-        appBar: MyAppBar(text: "Add Address"),
+        appBar: MyAppBar(text: "Add Address", onBack: () {
+          Navigator.pop(context);
+          addressNotifier.onBackClick();
+        },),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -121,9 +131,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             ),
           ],
         ),
-        bottomSheet: Padding(
+        bottomSheet: 
+
+        Padding(
           padding: EdgeInsets.only(left: 40.w, bottom: 10.h),
-          child: MyBlueButton(
+          child: 
+           addressNotifier.addAddressType.isNotEmpty && addressNotifier.addAddressType != "Address Type" ? 
+
+          MyBlueButton(
             hPadding: 110.w,
             text: "Add Address",
             onTap: () {
@@ -131,7 +146,31 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   ? _addAddressHandler()
                   : showSnakeBar(context, "Please Select an Address First");
             },
-          ),
+          ) 
+          : 
+
+           Container(
+                height: 110,
+               // width: 160,
+               padding: EdgeInsets.symmetric(horizontal: 30, ).copyWith(bottom: 40),
+                child: DropdownButton(
+                  borderRadius: BorderRadius.circular(w / 28),
+                  hint: Text("Address Type"),
+                  elevation: 0,
+                isExpanded: true,
+                  value: "Address Type", 
+                // Down Arrow Icon 
+                icon: const Icon(Icons.keyboard_arrow_down),
+                  items:  addressTypes.map((String items) { 
+                     return DropdownMenuItem( 
+                     value: items, 
+                    child: Text(items), 
+                  ); 
+                }).toList(), 
+                onChanged: (value) { 
+                 addressNotifier.setAddAddressType(addAddressType: value!); 
+                },),
+              ), 
         ),
       ),
     );

@@ -57,7 +57,8 @@ class AddressNotifier extends ChangeNotifier {
   }
 
   void onBackClick(){
-    _addressType = "";
+    _updateAddressType = "";
+    _addAddressType="";
     notifyListeners();
   }
 
@@ -90,25 +91,50 @@ class AddressNotifier extends ChangeNotifier {
 
   // get lat and lng  from place id
 
-  Future<Map<String, dynamic>> getLatLngFromPlaceId(  {required String placeId}) async {
+  Future<Map<String, String>> getLatLngFromPlaceId(  {required String placeId}) async {
     
-   late Map<String, dynamic> ? latLngAdd;
+   late Map<String, String> ? latLngAdd;
     await addressRepository
         .getLatLngFromPlaceId( placeId: placeId)
-        .then((value) {
-         // print("value ${value["result"]["geometry"]["location"]["lat"]}");
+        .then((value) { 
+         int _lengthOfAddress = value["result"]["address_components"].length;
+          String _line1 = value["result"]["address_components"][0]["long_name"];
+          String _line2 = value["result"]["address_components"][1]["long_name"];
+          String _city = value["result"]["address_components"][2]["long_name"];
+          String _state = "";
+           for(int i =3; i<_lengthOfAddress-3; i++){
+           _state += "${value["result"]["address_components"][i]["long_name"]} ";
+          }
+           String _zip = value["result"]["address_components"][_lengthOfAddress-1]["long_name"];
+          _lengthOfAddress--;
+          String _country = value["result"]["address_components"][_lengthOfAddress-1]["long_name"];
+
           latLngAdd = {
-            "lat" :  value["result"]["geometry"]["location"]["lat"],
-            "lng" : value["result"]["geometry"]["location"]["lng"],
-             "formattedAddress" : value["result"]["formatted_address"],
+            "latitude" :  value["result"]["geometry"]["location"]["lat"].toString(),
+            "longitude" : value["result"]["geometry"]["location"]["lng"].toString(),
+             "address" : value["result"]["formatted_address"].toString(),
+             "line1" : _line1.toString(), 
+             "line2" : _line2.toString(), 
+             "city" : _city.toString(), 
+             "state" :  _state.toString(), 
+             "country": _country.toString(), 
+             "zip" : _zip.toString(), 
           };
-          print("latLng $latLngAdd");
+         // value.log();
+       //  print("latLng $latLngAdd");
         })
         .onError((error, stackTrace) {
-      ("$error $stackTrace").log("Address notifier");
-      // Navigator.of(context).pushScreen(ShowError(error: error.toString()));
+      ("$error $stackTrace").log("Address notifier"); 
     }); 
-    return latLngAdd!;
+    return latLngAdd ?? {};
+  }
+
+   String _addAddressType ="";
+  String get addAddressType => _addAddressType;
+
+  void setAddAddressType({required String addAddressType}){
+    _addAddressType = addAddressType;
+    notifyListeners();
   }
 
   Future<void> addAddress({
@@ -116,23 +142,14 @@ class AddressNotifier extends ChangeNotifier {
     required String placeId, 
   }) async {
     setLoadingState(true, true);
-    final userProvider = context.read<AuthNotifier>();
-        Map<String, dynamic > latLng = await getLatLngFromPlaceId(placeId: placeId);
-           var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]); 
-    var first2 = address2.first; 
-    final MapSS addressBody = {
-      // formattedAddress
-      "address":  latLng["formattedAddress"].toString(),
-      "longitude": latLng["lat"].toString(),
-       "latitude": latLng["lng"].toString(), 
-         'line1': first2.name.toString(),
-        'line2': first2.street.toString() ,
-        'city': "${first2.subLocality}, ${first2.locality}",
-        'state': first2.administrativeArea.toString(),
-        'country': first2.country.toString(),
-        'zip': first2.postalCode.toString(),
-    };
+    final userProvider = context.read<AuthNotifier>(); 
+    final MapSS addressBody = await getLatLngFromPlaceId(placeId: placeId);
+    final  _addType = <String, String> {"type": _addAddressType};
+      addressBody.addEntries(_addType.entries);
+
+    addressBody.log("address body");
     addressRepository.addAddress(addressBody).then((response) {
+
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
       // Need testing Done WOrking fine
@@ -155,11 +172,11 @@ class AddressNotifier extends ChangeNotifier {
 
 
  
- String _addressType ="";
-  String get addressType => _addressType;
+ String _updateAddressType ="";
+  String get updateAddressType => _updateAddressType;
 
-  void setAddressType({required String addressType}){
-    _addressType = addressType;
+  void setupdateAddressType({required String updateAddressType}){
+    _updateAddressType = updateAddressType;
     notifyListeners();
   }
   Future updateAddress({
@@ -167,29 +184,17 @@ class AddressNotifier extends ChangeNotifier {
    // required MapSS body,
     required String placeId, 
     required String addressId, 
-
-    required 
   }) async {
     setLoadingState(true, true);
-    final userProvider = context.read<AuthNotifier>();
-       Map<String, dynamic > latLng = await getLatLngFromPlaceId(placeId: placeId);
-           var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]); 
-    var first2 = address2.first;
-   // print("first2 $first2");
-    final MapSS addressBody = {
-      // formattedAddress
-         "address_id":  addressId,
-      "address":  latLng["formattedAddress"].toString(),
-      "longitude": latLng["lat"].toString(),
-       "latitude": latLng["lng"].toString(), 
-         'line1': first2.name.toString(),
-        'line2': first2.street.toString() ,
-        'city': "${first2.subLocality}, ${first2.locality}",
-        'state': first2.administrativeArea.toString(),
-        'country': first2.country.toString(),
-        'zip': first2.postalCode.toString(),
-        "type":_addressType, 
-    };
+    final userProvider = context.read<AuthNotifier>(); 
+
+       MapSS addressBody = await getLatLngFromPlaceId(placeId: placeId);
+       
+      final  _addId = <String, String> {"address_id": addressId};
+      final  _addType = <String, String> {"type": _updateAddressType};
+      addressBody.addEntries(_addId.entries);
+       addressBody.addEntries(_addType.entries);
+       addressBody.log("update address body");
     addressRepository.updateAddress(addressBody).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
@@ -234,9 +239,7 @@ class AddressNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     // final userProvider = context.read<AuthNotifier>();
     addressRepository.setDefaultAddress(body).then((response) {
-      setLoadingState(false, true);
-      final userProvider = context.read<AuthNotifier>();
-      // SavedAddress user = userProvider.user.savedAddress![indexOfAddress].copyWith(isDefault: 1)  ;
+      setLoadingState(false, true); 
       showSnakeBarr(
         context,
         // response['response_message'],

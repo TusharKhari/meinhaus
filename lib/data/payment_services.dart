@@ -51,7 +51,7 @@ class MakePayment {
         var data = json.decode(response.body);
         if (kDebugMode) {
           // help dev to see the output
-          print(data['data']['payment_intent']['client_secret']);
+       print(data['data']['payment_intent']['client_secret']);
           print(data['data']['payment_intent']['customer']);
           print(data['data']['ephemeralKey']['secret']);
         }

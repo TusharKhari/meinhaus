@@ -68,6 +68,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         return UpdateAdressScreen(
                           perAddress: fullAddres,
                           addressId: widget.addressId.toString(),
+                         addType:  userAddress.type! ,
                         );
                       },
                     ),

@@ -15,7 +15,10 @@ class AddressRepository {
         method: HttpMethod.post,
         body: body,
       );
-    } catch (e) {
+    } on FormatException {
+      throw "Internal Server Error";
+    }
+    catch (e) {
       throw e;
     }
   }

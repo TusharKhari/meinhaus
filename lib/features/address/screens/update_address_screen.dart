@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:new_user_side/data/models/UserModel.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
@@ -11,18 +13,19 @@ import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
- import '../widget/address_list_tile.dart';
+ import '../../../utils/constants/app_colors.dart';
+import '../widget/address_list_tile.dart';
 
 class UpdateAdressScreen extends StatefulWidget {
   static const String routeName = '/update-address';
   const UpdateAdressScreen({
     Key? key,
     required this.perAddress,
-    required this.addressId,
+    required this.addressId, required this.addType,
   }) : super(key: key);
   final String perAddress;
   final String addressId;
-
+  final String addType;
   @override
   State<UpdateAdressScreen> createState() => _UpdateAdressScreenState();
 }
@@ -65,14 +68,15 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
 
   var addressTypes = [  
     "Address Type" , 
-     "Work",    
-    'Home', 
-    'Other',  
+     "work",    
+    'home', 
+    'other',  
   ]; 
 
   @override
   Widget build(BuildContext context) {
-    final addressNotifier = context.watch<AddressNotifier>();
+    final w = MediaQuery.of(context).size.width;
+    final addressNotifier = context.watch<AddressNotifier>(); 
     return ModalProgressHUD(
       inAsyncCall: addressNotifier.loading,
       child: Scaffold(
@@ -132,8 +136,8 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                 onTap: () => _deleteAddressHandler(),
               ),
              
-
-             addressNotifier.addressType.isNotEmpty && addressNotifier.addressType != "Address Type" ?  MyBlueButton(
+             addressNotifier.updateAddressType.isNotEmpty && addressNotifier.updateAddressType != "Address Type" ? 
+              MyBlueButton(
                 hPadding: 60.w,
                 text: "Update",
                 onTap: () {
@@ -145,22 +149,28 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
 
               Container(
                 height: 70,
-                width: 180,
+                width: 160,
                 child: DropdownButton(
+                  borderRadius: BorderRadius.circular(w / 28),
+                  hint: Text("Address Type"),
                   elevation: 0,
                 isExpanded: true,
-                  value: "Address Type", 
+                   value: widget.addType, 
+                //   value: "Address Type", 
                 // Down Arrow Icon 
                 icon: const Icon(Icons.keyboard_arrow_down),
                   items:  addressTypes.map((String items) { 
+                    print("add val ${widget.addType}");
                      return DropdownMenuItem( 
                      value: items, 
                     child: Text(items), 
                   ); 
-                }).toList(), onChanged: (value) { 
-                 addressNotifier.setAddressType(addressType: value!); 
+                }).toList(), 
+                onChanged: (value) { 
+                 addressNotifier.setupdateAddressType(updateAddressType: value!); 
                 },),
-              ),
+              ), 
+ 
             ],
           ),
         ),
