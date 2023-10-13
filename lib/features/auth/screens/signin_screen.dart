@@ -28,7 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final _signInFormKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isWaiting = false;
+  bool isWaiting = false; 
 
   @override
   void dispose() {
@@ -58,9 +58,11 @@ class _SignInScreenState extends State<SignInScreen> {
       "password": _passwordController.text,
       "device_name": deviceName,
     };
-    if (_signInFormKey.currentState!.validate()) {
-      notifier.login(data, context);
-    }
+    if (_signInFormKey.currentState!.validate()) { 
+       notifier.login(data, context); 
+        }
+        notifier.setIsSignInClicked();
+   //  notifier.login(data, context);
   }
 
   @override
@@ -76,7 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
             // Text fields
             Form(
               key: _signInFormKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              autovalidateMode: notifier.isSignInClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled ,
               child: Column(
                 children: [
                   AuthTextField(

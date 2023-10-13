@@ -36,6 +36,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
   }
 
   void _signUpHandler(BuildContext context) async {
+    final notifer = context.read<AuthNotifier>();
     if (_signUpFormKey.currentState!.validate()) {
       Navigator.of(context).pushScreen(
         SignUpStepSecondScreen(
@@ -44,6 +45,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
         ),
       );
     }
+    notifer.setIsSignUpClicked();
   }
 
   @override
@@ -72,7 +74,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                   ),
                   Form(
                     key: _signUpFormKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    autovalidateMode: notifer.isSignUpClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                     child: Column(
                       children: [
                         AuthTextField(
