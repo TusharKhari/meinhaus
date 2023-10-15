@@ -108,7 +108,7 @@ class ProRecentProjectDialog extends StatelessWidget {
                               ),
                               10.hs,
                               MyTextPoppines(
-                                text: "3.5 out of 5",
+                                text: "${proRecentProject.avgRating} out of 5",
                                 fontSize: context.screenHeight / 65,
                                 fontWeight: FontWeight.w500,
                               ),

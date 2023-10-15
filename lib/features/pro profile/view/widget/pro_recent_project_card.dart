@@ -66,6 +66,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
               return _buildRecentProjectCard(
                 projectTitle: pro[index].projectName.toString(),
                 projectImg: isImgNull ? "https://rb.gy/n775j" : catalogueImg,
+                rating:  pro[index].avgRating.toString(),
                 onTap: () {
                   showDialog(
                     context: context,
@@ -89,6 +90,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
     required String projectImg,
     required VoidCallback onTap,
     required BuildContext context,
+    required String rating, 
   }) {
     final height = context.screenHeight;
     final widthh = context.screenWidth;
@@ -159,8 +161,20 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                         child: InkWell(
                           onTap: onTap,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                             // 80.vspacing(context), 
+                               Text(
+                                "   $rating/5",
+                                style: GoogleFonts.poppins(
+                                  fontSize: widthh / 36,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Spacer()
+                              , 
                               Text(
                                 "View Details",
                                 style: GoogleFonts.poppins(
@@ -175,7 +189,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                 color: AppColors.white,
                                 size: widthh / 28,
                               ),
-                              4.hspacing(context),
+                              9.hspacing(context),
                             ],
                           ),
                         ),

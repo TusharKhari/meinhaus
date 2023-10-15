@@ -7,7 +7,8 @@ final String googleAddresUrl =
     "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 
 // Google Map API Keys
- final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIlU";   
+ final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIl";   
+//  final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIlU";   
 
 // Card box shadow
 final List<BoxShadow> boxShadow = [

@@ -66,7 +66,7 @@ class AddressNotifier extends ChangeNotifier {
 
   Future<List> getAddressSuggestions(String input) async {
     sessionToken();
-    _addressList = await AddressAutocomplete.getSuggestions(
+   if(input.length >3 && input.length < 15) { _addressList = await AddressAutocomplete.getSuggestions(
       input,
       _sessionToken,
     );
@@ -75,7 +75,7 @@ class AddressNotifier extends ChangeNotifier {
         //  print("${element} \n");
       },
     );
-    notifyListeners();
+    notifyListeners();}
     return _addressList;
   }
 
