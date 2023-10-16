@@ -76,17 +76,17 @@ class SecondSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 145.h,
+          bottom: 140.h,
           left: 20.w,
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(
               text:
                   "Pay a fixed price at the best market rates. Guaranteed to completion  ",
-              fontSize: height > 800 ? 10.sp : 12.sp,
+              fontSize: height > 800 ? 15.sp : 17.sp,
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,
-              color: AppColors.black.withOpacity(0.6),
+              color: AppColors.orange,
             ),
           ),
         ),

@@ -74,16 +74,17 @@ class FirstSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 160.h,
+          bottom: 140.h,
           left: 20.w,
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(
               text: "24/7  Customer support. Hire renovators instantly.",
-              fontSize: height > 800 ? 10.sp : 12.sp,
+              fontSize: height > 800 ? 15.sp : 17.sp,
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,
-              color: AppColors.black.withOpacity(0.6),
+              // color: AppColors.black.withOpacity(0.6),
+              color: AppColors.orange ,
             ),
           ),
         ),

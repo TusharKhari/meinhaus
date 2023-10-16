@@ -7,6 +7,7 @@ final String googleAddresUrl =
     "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 
 // Google Map API Keys
+//  final  String kPLACES_API_KEY = "AIzaSyAMSlgp6670AymAuSSO8Gd6ci5Gj_GqJWc";   
  final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIl";   
 //  final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIlU";   
 
