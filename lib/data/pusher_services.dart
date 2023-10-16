@@ -126,7 +126,7 @@ class PusherService {
         if (notifier.myMessaage.messages!.isNotEmpty) {
           if (notifier.myMessaage.conversationId == data['conversation_id']) {
             // Add or Update message in mymessages list
-            notifier.updateOrAddNewMessage(message);
+            notifier.updateOrAddNewMessage(message,0);
             // Whenever we see the message we will mark
             //it as-read if all the conditions using this API
             notifier.readMessage(body);

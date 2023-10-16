@@ -116,18 +116,6 @@ class ChatNotifier extends ChangeNotifier {
     });
   }
 
-  void updateOrAddNewMessage(Messages messages) {
-    final existingMessageIndex = _message.messages!.indexWhere(
-      (m) => m.id == messages.id,
-    );
-    if (existingMessageIndex >= 0) {
-      _message.messages![existingMessageIndex] = messages;
-    } else {
-      _message.messages!.add(messages);
-    }
-    notifyListeners();
-    _scrollToBottom();
-  }
 
   void unsubscribe() async {
     final userId = await UserPrefrences().getUserId();
@@ -181,9 +169,13 @@ class ChatNotifier extends ChangeNotifier {
   /// Send Messages [ Texts/Images ]
   Future sendMessage({required BuildContext context}) async {
     // if message is type of img we dont set a dummmy message on ui
+    int localId = DateTime.now().millisecondsSinceEpoch;
     image.path.isEmpty && messageController.text != ""
-        ? sendDummyMessage(context)
+        ? sendDummyMessage(context,localId)
         : setLastMessage("");
+
+    //  setLastMessage("");
+
     // getting img if there is any
     final imgPath = await Utils.convertToMultipartFile(image);
     final body = {
@@ -194,11 +186,26 @@ class ChatNotifier extends ChangeNotifier {
     if (_lastMessage != "" || image.path.isNotEmpty)
       await repo.sendMessage(body).then((response) {
         final data = MessageModel.fromJson(response);
-        updateOrAddNewMessage(data.messages!.first);
+        updateOrAddNewMessage(data.messages!.first,localId);
         setImage(XFile(""));
       }).onError((error, stackTrace) {
         onErrorHandler(context, error, stackTrace);
       });
+  }
+
+    void updateOrAddNewMessage(Messages messages, int localId) {
+    final existingMessageIndex = _message.messages!.indexWhere(
+      (m) => m.id == messages.id || m.localId == localId,
+    );
+    existingMessageIndex.log("existingMessageIndex"); 
+    if (existingMessageIndex >= 0) {
+      _message.messages![existingMessageIndex] = messages;
+    } else {
+      messages.id!.log("messages id");
+      _message.messages!.add(messages);
+    }
+    notifyListeners();
+    _scrollToBottom();
   }
 
   /// Send Pdf
@@ -206,6 +213,7 @@ class ChatNotifier extends ChangeNotifier {
     required BuildContext context,
     required MultipartFile file,
   }) async {
+    int localId = DateTime.now().millisecondsSinceEpoch; 
     Map<String, dynamic> body = {
       "conversation_id": _message.conversationId.toString(),
       "files[]": file,
@@ -213,7 +221,7 @@ class ChatNotifier extends ChangeNotifier {
     await repo.sendMessage(body).then((response) {
       final data = MessageModel.fromJson(response);
       for (var message in data.messages!) {
-        updateOrAddNewMessage(message);
+        updateOrAddNewMessage(message,localId);
       }
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);
@@ -221,7 +229,7 @@ class ChatNotifier extends ChangeNotifier {
   }
 
   /// Send Dummy Message Before calling the api and getting the response
-  sendDummyMessage(BuildContext context) {
+  sendDummyMessage(BuildContext context,int localId) {
     // Add a new message
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId;
@@ -232,6 +240,7 @@ class ChatNotifier extends ChangeNotifier {
         largestId = messageId;
       }
     }
+    (largestId + 1).log("largest id");
     final message = Messages(
       id: largestId + 1,
       senderId: userId,
@@ -240,8 +249,9 @@ class ChatNotifier extends ChangeNotifier {
       message: messageController.text,
       createdAt: DateTime.now().toString(),
       type: "text",
+      localId: localId
     );
-    updateOrAddNewMessage(message);
+    updateOrAddNewMessage(message, localId);
     setLastMessage(messageController.text);
     messageController.clear();
   }

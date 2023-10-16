@@ -63,6 +63,7 @@ class Messages {
   int? forwarded;
   String? createdAt;
   String? type;
+  int? localId; 
 
   Messages(
       {this.id,
@@ -71,6 +72,7 @@ class Messages {
       this.isSeen,
       this.forwarded,
       this.createdAt,
+      this.localId, 
       this.type});
 
   Messages.fromJson(Map<String, dynamic> json) {

@@ -157,7 +157,7 @@ class SupportNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       final data = MessageModel.fromJson(response);
       for (var message in data.messages!) {
-        chatNotifier.updateOrAddNewMessage(message);
+        chatNotifier.updateOrAddNewMessage(message, 0);
       }
       setIsQuerySoved(false);
       setShowClosingDialog(false);
