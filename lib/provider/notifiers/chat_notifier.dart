@@ -185,10 +185,10 @@ class ChatNotifier extends ChangeNotifier {
         ? sendDummyMessage(context,localId)
         : setLastMessage("");
         
-    print("sending msd");
+    
      if(image.path.isNotEmpty)  setSendingMsgStatus(true);
     final imgPath = await Utils.convertToMultipartFile(image);
-   // _loading=false;
+   
     final body = {
       "message": _lastMessage,
       "conversation_id": _message.conversationId.toString(),
@@ -198,8 +198,7 @@ class ChatNotifier extends ChangeNotifier {
       await repo.sendMessage(body).then((response) {
         final data = MessageModel.fromJson(response);
         updateOrAddNewMessage(data.messages!.first,localId);
-        setSendingMsgStatus(false);
-        print("sent msd");
+        setSendingMsgStatus(false); 
         setImage(XFile(""));
       }).onError((error, stackTrace) {
         setSendingMsgStatus(false);
@@ -232,12 +231,16 @@ class ChatNotifier extends ChangeNotifier {
       "conversation_id": _message.conversationId.toString(),
       "files[]": file,
     };
+    setSendingMsgStatus(true);
     await repo.sendMessage(body).then((response) {
       final data = MessageModel.fromJson(response);
       for (var message in data.messages!) {
         updateOrAddNewMessage(message,localId);
       }
+          setSendingMsgStatus(false);
+
     }).onError((error, stackTrace) {
+          setSendingMsgStatus(false);
       onErrorHandler(context, error, stackTrace);
     });
   }

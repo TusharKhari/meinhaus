@@ -136,7 +136,9 @@ class _ChatTextFieldState extends State<ChatTextField> {
                           return _bottomSheet(
                             onTapDoc: () => uploadPdf(),
                             onTapGallery: () => selectImg(context),
-                            onTapCamera: () {},
+                            onTapCamera: () {
+                              
+                            },
                           );
                         },
                       );
