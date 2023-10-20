@@ -2,15 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+// final String baseUrl = "https://test.meinhaus.ca/api";
 final String baseUrl = "https://meinhaus.ca/api";
 final String googleAddresUrl =
     "https://maps.googleapis.com/maps/api/place/autocomplete/json";
-
-// Google Map API Keys
-//  final  String kPLACES_API_KEY = "AIzaSyAMSlgp6670AymAuSSO8Gd6ci5Gj_GqJWc";   
- final  String kPLACES_API_KEY = "AIzaSyA_hQ7SWkmIToW7jOLsjjT-9fLQPFe3OvM";   
-//  final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIl";   
-//  final  String kPLACES_API_KEY = "AIzaSyC3WL UbDPnruzxcS7eT8IQ5OVYJiSiLIlU";   
+// Google Map API Keys   
+ final  String kPLACES_API_KEY = "AIzaSyA_hQ7SWkmIToW7jOLsjjT-9fLQPFe3OvM";      
 
 // Card box shadow
 final List<BoxShadow> boxShadow = [
