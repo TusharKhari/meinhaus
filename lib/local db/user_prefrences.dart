@@ -114,4 +114,17 @@ class UserPrefrences {
     final xsrf = await pref.getString('xsrf');
     return xsrf;
   }
+
+  // first time login
+    Future<bool> isFirstTime()async{
+     prefs = await SharedPreferences.getInstance();
+   var res =  prefs!.getBool("isFirstTime");
+   print("object res $res");
+   return res ?? true;
+  }
+
+  Future<void> setIsNotFirstTime()async{
+     prefs = await SharedPreferences.getInstance();
+     prefs!.setBool("isFirstTime", false);
+  }
 }

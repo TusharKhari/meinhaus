@@ -6,11 +6,13 @@ import 'package:new_user_side/data/models/progress_invoice_model.dart';
 import 'package:new_user_side/data/models/project_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/error_screens.dart';
+import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/repository/estimate_repository.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
@@ -30,7 +32,6 @@ class EstimateNotifier extends ChangeNotifier {
   ProjectDetailsModel _detailsModel = ProjectDetailsModel();
   ProModel _proModel = ProModel();
   ProgressInvoiceModel _progressInvoiceModel = ProgressInvoiceModel();
-  
 
   // getters
   bool get loading => _loading;
@@ -45,20 +46,19 @@ class EstimateNotifier extends ChangeNotifier {
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
 
   void setImagesInList(List<XFile> images) {
-  _images.addAll(images);
+    _images.addAll(images);
     notifyListeners();
   }
 
-  void removeImageFromIndex(int idx){
+  void removeImageFromIndex(int idx) {
     _images.removeAt(idx);
     notifyListeners();
   }
+
   void removeImageFromList() {
     _images.clear();
     notifyListeners();
   }
-
-  
 
   void setLoadingState(bool state, bool notify) {
     _loading = state;
@@ -153,8 +153,10 @@ class EstimateNotifier extends ChangeNotifier {
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
       removeImageFromList();
       //Get.to(() => HomeScreen());
-     // Navigator.of(context).pushScreen(HomeScreen());
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));
+      // Navigator.of(context).pushScreen(HomeScreen());
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ));
       showSnakeBarr(
           context,
           "Your estimate has been created successfully. we will contact you shortly",
@@ -167,16 +169,21 @@ class EstimateNotifier extends ChangeNotifier {
   }
 
 // GET ESTIMATED WORK
-   int _count =0;
   Future getEstimateWork(BuildContext context) async {
+    final prefs = UserPrefrences();
+    bool isFirstTime = await prefs.isFirstTime();
     estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
       setEstimate(data);
-      if(data.estimatedWorks!.length == 0 && _count == 0 ){
-        _count++;
-        print("count $_count");
-        showSnakeBarr(context, "Explore Sample Cards created for you", SnackBarState.Warning, );
+      // if (data.estimatedWorks!.length == 0 && _count == 0)
+      if (isFirstTime) {
+        prefs.setIsNotFirstTime();   showSnakeBarr(
+          context,
+          "Explore Sample Cards created for you",
+          SnackBarState.Warning,
+        );
       }
+      print("object ${prefs}");
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error $stackTrace").log("Estimate notifier");

@@ -16,8 +16,7 @@ class NoEstStaticScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context)  {
     final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-   // showSnakeBarr(context, "explore sample project", SnackBarState.Info);
+    final width = MediaQuery.sizeOf(context).width; 
     return Container(
       width: width / 2,
       margin: EdgeInsets.only(right: width / 35),
