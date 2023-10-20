@@ -1,17 +1,20 @@
- // ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 class CameraViewPage extends StatelessWidget {
   final VoidCallback onTap;
   final String imgPath;
+  final ChatNotifier notifier;
   const CameraViewPage({
     Key? key,
     required this.onTap,
     required this.imgPath,
+    required this.notifier,
   }) : super(key: key);
 
   @override
@@ -24,7 +27,11 @@ class CameraViewPage extends StatelessWidget {
         backgroundColor: AppColors.black,
         elevation: 0.0,
         leading: InkWell(
-          onTap: () => Navigator.pop(context),
+          onTap: () {
+            Navigator.pop(context);
+            notifier.onImagePreviewBackTap();
+          },
+          // onTap: () => Navigator.pop(context),
           child: Icon(
             Icons.arrow_back_ios_new_outlined,
             color: AppColors.white,

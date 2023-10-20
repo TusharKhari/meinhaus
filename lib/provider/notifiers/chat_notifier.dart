@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/pusher_services.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
-import 'package:new_user_side/repository/chat_respository.dart';
-import 'package:new_user_side/resources/loading/loading_screen.dart';
+import 'package:new_user_side/repository/chat_respository.dart'; 
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ import 'auth_notifier.dart';
 
 class ChatNotifier extends ChangeNotifier {
   ChatRepository repo = ChatRepository();
-  final loadingScreen = LoadingScreen.instance();
+  //final loadingScreen = LoadingScreen.instance();
   PusherService _pusherService = PusherService.instance;
   TextEditingController messageController = TextEditingController();
   final scrollController = ScrollController();
@@ -33,6 +33,7 @@ class ChatNotifier extends ChangeNotifier {
   bool _loading = false;
   bool _loadMoreLoading = false;
   int _pageNo = 1;
+  bool _sendingMsg = false;
 
   double _scrollPostion = 0;
   String _lastMessage = '';
@@ -46,7 +47,14 @@ class ChatNotifier extends ChangeNotifier {
   List<XFile> get images => _images;
   XFile get image => _image;
   MessageModel get myMessaage => _message;
+  bool get sendingMsg => _sendingMsg;
 
+
+  void onImagePreviewBackTap(){
+    setImage(XFile(""));
+    print("object");
+    notifyListeners();
+  }
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) {
@@ -88,7 +96,10 @@ class ChatNotifier extends ChangeNotifier {
     }
     notifyListeners();
   }
-
+   void setSendingMsgStatus(bool status){
+    _sendingMsg = status;
+    notifyListeners();
+   }
   void setScrollPostion(double newPosition) {
     _scrollPostion = newPosition;
     notifyListeners();
@@ -173,11 +184,11 @@ class ChatNotifier extends ChangeNotifier {
     image.path.isEmpty && messageController.text != ""
         ? sendDummyMessage(context,localId)
         : setLastMessage("");
-
-    //  setLastMessage("");
-
-    // getting img if there is any
+        
+    print("sending msd");
+     if(image.path.isNotEmpty)  setSendingMsgStatus(true);
     final imgPath = await Utils.convertToMultipartFile(image);
+   // _loading=false;
     final body = {
       "message": _lastMessage,
       "conversation_id": _message.conversationId.toString(),
@@ -187,8 +198,11 @@ class ChatNotifier extends ChangeNotifier {
       await repo.sendMessage(body).then((response) {
         final data = MessageModel.fromJson(response);
         updateOrAddNewMessage(data.messages!.first,localId);
+        setSendingMsgStatus(false);
+        print("sent msd");
         setImage(XFile(""));
       }).onError((error, stackTrace) {
+        setSendingMsgStatus(false);
         onErrorHandler(context, error, stackTrace);
       });
   }

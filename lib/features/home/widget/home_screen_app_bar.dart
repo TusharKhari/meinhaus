@@ -68,7 +68,7 @@ class HomeScreenAppBar extends StatelessWidget {
             //  onTap: () => Navigator.of(context).pushScreen(HomeScreen()),
             child:
              Image.asset(
-              "assets/logo/image 7 (2).png",
+              "assets/logo/image 7 (2).png", 
               scale: 1.8,
               width: width / 9,
               height: height / 20,

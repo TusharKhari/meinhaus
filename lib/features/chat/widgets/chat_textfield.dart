@@ -3,7 +3,9 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/resources/common/camera_view_page.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -34,6 +36,11 @@ class _ChatTextFieldState extends State<ChatTextField> {
       CameraViewPage(
         onTap: sendImgMessage,
         imgPath: imgPath,
+        // onBackTap: () {
+        //   Navigator.pop(context);
+        //   notifier.onImagePreviewBackTap();
+        // },
+        notifier: notifier,
       ),
     );
   }
@@ -141,7 +148,12 @@ class _ChatTextFieldState extends State<ChatTextField> {
                     ),
                   ),
                   // send message
-                  suffixIcon: InkWell(
+                  suffixIcon: notifier.sendingMsg ?  
+                LoadingAnimationWidget.inkDrop(
+                  color: AppColors.black,
+                  size: 20.w,
+                )
+                  : InkWell(
                     onTap: () => notifier.sendMessage(context: context),
                     child: Icon(
                       Icons.send_sharp,

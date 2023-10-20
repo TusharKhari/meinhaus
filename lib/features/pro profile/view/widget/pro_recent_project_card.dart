@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_user_side/resources/common/cached_network_img_error_widget.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -66,7 +68,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
               return _buildRecentProjectCard(
                 projectTitle: pro[index].projectName.toString(),
                 projectImg: isImgNull ? "https://rb.gy/n775j" : catalogueImg,
-                rating:  pro[index].avgRating.toString(),
+                rating: pro[index].avgRating.toString(),
                 onTap: () {
                   showDialog(
                     context: context,
@@ -90,7 +92,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
     required String projectImg,
     required VoidCallback onTap,
     required BuildContext context,
-    required String rating, 
+    required String rating,
   }) {
     final height = context.screenHeight;
     final widthh = context.screenWidth;
@@ -161,11 +163,37 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                         child: InkWell(
                           onTap: onTap,
                           child: Row(
-                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                             // 80.vspacing(context), 
-                               Text(
-                                "   $rating/5",
+                              // 80.vspacing(context),
+                              //  Text(
+                              //   "   $rating/5",
+                              //   style: GoogleFonts.poppins(
+                              //     fontSize: widthh / 36,
+                              //     color: AppColors.white,
+                              //     fontWeight: FontWeight.w600,
+                              //     decoration: TextDecoration.underline,
+                              //   ),
+                              // ),
+                              RatingBar.builder(
+                                initialRating: (double.parse(rating)/5)/5,
+                                minRating: 0,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 1,
+                                itemSize: 15,
+                                itemPadding:
+                                    EdgeInsets.only(left: 4.w),
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (rating) {
+                                 // print(rating);
+                                },
+                              ),
+                                   Text(
+                                "$rating/5",
                                 style: GoogleFonts.poppins(
                                   fontSize: widthh / 36,
                                   color: AppColors.white,
@@ -173,8 +201,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                              Spacer()
-                              , 
+                              Spacer(),
                               Text(
                                 "View Details",
                                 style: GoogleFonts.poppins(

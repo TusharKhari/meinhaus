@@ -10,6 +10,7 @@ import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
 import '../../features/edit profile/screens/edit_profile_screen.dart';
+import '../../features/home/screens/home_screen.dart';
 import '../../provider/notifiers/auth_notifier.dart';
 import '../../utils/constants/app_list.dart';
 
@@ -48,7 +49,7 @@ class MyDrawer extends StatelessWidget {
               children: [
                 _ExitIcon(),
                 SizedBox(height: h / 30),
-               _ProfileCard(),
+                _ProfileCard(),
                 SizedBox(height: h / 70),
                 Divider(thickness: 1.0),
                 _ItemList(),
@@ -135,7 +136,7 @@ class _ProfileCard extends StatelessWidget {
                 width: w / 4,
                 child: MyTextPoppines(
                   text: user.firstname.toString(),
-                 // text: "user",
+                  // text: "user",
 
                   fontSize: w / 20,
                   fontWeight: FontWeight.w600,
@@ -149,7 +150,7 @@ class _ProfileCard extends StatelessWidget {
                 width: w / 4,
                 child: MyTextPoppines(
                   text: user.lastname != "" ? user.lastname.toString() : "",
-               // text: "T",
+                  // text: "T",
                   fontSize: w / 20,
                   fontWeight: FontWeight.w600,
                   maxLines: 1,
@@ -180,14 +181,14 @@ class _ProfileCard extends StatelessWidget {
                       backgroundColor: AppColors.buttonBlue,
                       child: Center(
                           child: MyTextPoppines(
-
                         // text: user.lastname.toString() != "" ? user.firstname!.toUpperCase()[0] +
                         //     user.lastname!.toUpperCase()[0] : user.firstname!.toUpperCase()[0],
 
-                       text: user.lastname == "" ?
-                              user.firstname!.toUpperCase()[0]  : 
-                              user.firstname!.toUpperCase()[0] + user.lastname!.toUpperCase()[0], 
-                     // text: "n o",
+                        text: user.lastname == ""
+                            ? user.firstname!.toUpperCase()[0]
+                            : user.firstname!.toUpperCase()[0] +
+                                user.lastname!.toUpperCase()[0],
+                        // text: "n o",
                         fontSize: w / 16,
                         color: AppColors.white,
                         fontWeight: FontWeight.w600,
@@ -254,13 +255,16 @@ class _ItemList extends StatelessWidget {
               height: h / 30,
               margin: EdgeInsets.symmetric(vertical: h / 70),
               child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    drawerList[index][2],
-                    arguments: true,
-                  );
-                },
+                onTap: () => index == 0
+                    ? Navigator.pushReplacementNamed(
+                        context,
+                        drawerList[index][2],
+                      )
+                    : Navigator.pushNamed(
+                        context,
+                        drawerList[index][2],
+                        arguments: true,
+                      ),
                 child: Row(
                   children: [
                     Icon(drawerList[index][0], size: w / 18),
