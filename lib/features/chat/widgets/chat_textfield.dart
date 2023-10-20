@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/resources/common/camera_view_page.dart';
@@ -30,6 +31,23 @@ class _ChatTextFieldState extends State<ChatTextField> {
   Future selectImg(BuildContext context) async {
     final notifier = context.read<ChatNotifier>();
     await getImage.pickImage<ChatNotifier>(context: context);
+    Navigator.pop(context);
+    final imgPath = await notifier.image.path;
+    Navigator.of(context).pushScreen(
+      CameraViewPage(
+        onTap: sendImgMessage,
+        imgPath: imgPath,
+        // onBackTap: () {
+        //   Navigator.pop(context);
+        //   notifier.onImagePreviewBackTap();
+        // },
+        notifier: notifier,
+      ),
+    );
+  }
+  Future selectImgFromCamera(BuildContext context) async {
+    final notifier = context.read<ChatNotifier>();
+    await getImage.pickImageFromCamera<ChatNotifier>(context: context);
     Navigator.pop(context);
     final imgPath = await notifier.image.path;
     Navigator.of(context).pushScreen(
@@ -136,8 +154,8 @@ class _ChatTextFieldState extends State<ChatTextField> {
                           return _bottomSheet(
                             onTapDoc: () => uploadPdf(),
                             onTapGallery: () => selectImg(context),
-                            onTapCamera: () {
-                              
+                            onTapCamera: ()  {
+                              selectImgFromCamera(context);
                             },
                           );
                         },

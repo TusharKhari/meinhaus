@@ -52,7 +52,7 @@ class ChatNotifier extends ChangeNotifier {
 
   void onImagePreviewBackTap(){
     setImage(XFile(""));
-    print("object");
+   // print("object");
     notifyListeners();
   }
   void setLoadingState(bool state, bool notify) {

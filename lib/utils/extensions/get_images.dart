@@ -61,4 +61,23 @@ class GetImages {
       print("No image picked");
     }
   }
+
+  Future pickImageFromCamera<T>({
+    required BuildContext context,
+  }) async {
+    final notifier = context.read<T>();
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      if (notifier is EditProfileNotifier) {
+        notifier.setProfileImg(pickedFile);
+        print(notifier.image.path);
+      }
+      if (notifier is ChatNotifier) {
+        notifier.setImage(pickedFile);
+        print(notifier.image.path);
+      }
+    } else {
+      print("No image picked");
+    }
+  }
 }
