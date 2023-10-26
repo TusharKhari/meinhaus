@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:new_user_side/data/models/UserModel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; 
 import 'package:new_user_side/features/auth/screens/user_details.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
@@ -12,8 +10,7 @@ import 'package:provider/provider.dart';
 import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
-import '../../../resources/common/my_text.dart';
- import '../../../utils/constants/app_colors.dart';
+import '../../../resources/common/my_text.dart'; 
 import '../widget/address_list_tile.dart';
 
 class UpdateAdressScreen extends StatefulWidget {

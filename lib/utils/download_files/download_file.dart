@@ -47,6 +47,7 @@ class _DownloadFileState extends State<DownloadFile> {
     setState(() {
       fileName = widget.fileNmae.split("/").last;
     });
+    //checkPermission();
     checkFileExit();
   }
 
@@ -56,6 +57,8 @@ class _DownloadFileState extends State<DownloadFile> {
     if (permission) {
       setState(() {
         isPermission = true;
+        //print("download");
+        startDownload();
       });
     }
   }
@@ -152,12 +155,25 @@ class _DownloadFileState extends State<DownloadFile> {
             ),
             SizedBox(width: w / 20),
             InkWell(
-              onTap: () {
+              onTap: () async{
                 // checking the permissions
-                if (isPermission) {
+                // if (isPermission) {
+                //   fileExists && dowloading == false
+                //       ? openfile()
+                //       : print("download");
+                //       //startDownload();
+                // } else {
+                //   checkPermission();
+                // }
+               await checkPermission();
+               setState(() {
+               });
+                 if (isPermission) {
                   fileExists && dowloading == false
                       ? openfile()
-                      : startDownload();
+                      :
+                      // print("download");
+                      startDownload();
                 } else {
                   checkPermission();
                 }
