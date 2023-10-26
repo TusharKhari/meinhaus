@@ -204,7 +204,7 @@ class _DownloadFileState extends State<DownloadFile> {
                             // cancel button
                             InkWell(
                               onTap: () {
-                                if (fileExists && dowloading) cancelDownload();
+                                if (fileExists || dowloading) cancelDownload();
                               },
                               child: Icon(
                                 Icons.close_sharp,
