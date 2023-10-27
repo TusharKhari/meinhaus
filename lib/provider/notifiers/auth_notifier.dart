@@ -13,6 +13,7 @@ import 'package:new_user_side/features/auth/screens/signin_screen.dart';
 import 'package:new_user_side/features/edit%20profile/screens/edit_profile_screen.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../data/network/network_api_servcies.dart';
  import '../../features/auth/screens/otp_validate_screen.dart';
@@ -142,7 +143,7 @@ class AuthNotifier extends ChangeNotifier {
   // set sanctum
   Future sanctum() async {
     final response = await http.get(
-      Uri.parse("https://test.meinhaus.ca/sanctum/csrf-cookie"),
+      Uri.parse("$baseUrl2/sanctum/csrf-cookie"),
       // Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
     );
     final xsrf = response.headers['set-cookie'];

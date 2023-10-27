@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:new_user_side/utils/constants/constant.dart';
 
 @immutable
 abstract class ApiUrls {
   // static String _base = "https://quantumhostings.com/projects/meinhaus";
     // static String _base = "https://meinhaus.ca";
-    static String _base = "https://test.meinhaus.ca";
+    static String _base = baseUrl2;
+    // static String _base = "https://test.meinhaus.ca";
 
   static String baseUrl = "$_base/api/";
 

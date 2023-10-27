@@ -1,5 +1,6 @@
 import 'package:new_user_side/data/network/base_api_services.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
 import '../resources/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
 
@@ -11,7 +12,7 @@ class AuthRepositorys {
   Future<ResponseType> sanctum() async {
     try {
       return await services.sendHttpRequest(
-        url: Uri.parse("https://test.meinhaus.ca/sanctum/csrf-cookie"),
+        url: Uri.parse("$baseUrl2/sanctum/csrf-cookie"),
         // url: Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
         method: HttpMethod.get,
       );
