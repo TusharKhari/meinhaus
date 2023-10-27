@@ -142,7 +142,8 @@ class AuthNotifier extends ChangeNotifier {
   // set sanctum
   Future sanctum() async {
     final response = await http.get(
-      Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
+      Uri.parse("https://test.meinhaus.ca/sanctum/csrf-cookie"),
+      // Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
     );
     final xsrf = response.headers['set-cookie'];
     await UserPrefrences().setXsrf(xsrf.toString());

@@ -11,7 +11,8 @@ class AuthRepositorys {
   Future<ResponseType> sanctum() async {
     try {
       return await services.sendHttpRequest(
-        url: Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
+        url: Uri.parse("https://test.meinhaus.ca/sanctum/csrf-cookie"),
+        // url: Uri.parse("https://meinhaus.ca/sanctum/csrf-cookie"),
         method: HttpMethod.get,
       );
     } catch (e) {

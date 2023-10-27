@@ -87,7 +87,7 @@ class _DownloadFileState extends State<DownloadFile> {
 
     try {
       await Dio().download(
-        widget.fileNmae,
+         widget.fileNmae,
         filePath,
         onReceiveProgress: (count, total) {
           setState(() {
