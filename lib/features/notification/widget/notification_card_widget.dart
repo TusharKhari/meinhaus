@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -10,6 +11,7 @@ class NotificationCardWidget extends StatelessWidget {
   final String notifiSubHeading;
   final String notifiTime;
   final bool? isFreshNotifi;
+  final isSvg;
   const NotificationCardWidget({
     Key? key,
     required this.iconImgUrl,
@@ -17,6 +19,7 @@ class NotificationCardWidget extends StatelessWidget {
     required this.notifiSubHeading,
     required this.notifiTime,
     this.isFreshNotifi = true,
+    this.isSvg = false,
   }) : super(key: key);
 
   @override
@@ -40,11 +43,18 @@ class NotificationCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.r),
                   color: AppColors.yellow.withOpacity(0.8),
                 ),
-                child: Image.asset(
+                child:
+                
+                   !isSvg  ? Image.asset(
+                      iconImgUrl,
+                      fit: BoxFit.fill,
+                    ) :
+                    SvgPicture.asset(
                   iconImgUrl,
                   fit: BoxFit.fill,
                 ),
               ),
+              // SvgPicture.asset(iconImgUrl, height: 40.h,fit: BoxFit.fitHeight,),
               10.hs,
               SizedBox(
                 width: height > 800 ? 250.sp : 260.w,

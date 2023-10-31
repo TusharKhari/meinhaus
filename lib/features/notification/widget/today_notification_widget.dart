@@ -26,6 +26,7 @@ class TodaysNotificationWidget extends StatelessWidget {
           notifiHeading: "You have successfully booked project",
           notifiSubHeading: "Project Booked",
           notifiTime: "2h Ago",
+          
         )
       ],
     );

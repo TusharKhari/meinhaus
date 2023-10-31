@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
@@ -103,8 +104,11 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
-                        10.hs,
-                        Image.asset("assets/icons/project_notes.png"),
+                        10.hs, 
+                        SvgPicture.asset(
+                          "assets/project_detail/project_notes.svg",
+                          height: height * 0.02,
+                        ),
                       ],
                     ),
                     InkWell(

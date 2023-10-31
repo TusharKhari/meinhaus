@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../resources/common/my_text.dart';
@@ -15,8 +17,12 @@ class SupportChatAppbar extends StatelessWidget {
     return AppBar(
       backgroundColor: AppColors.white,
       elevation: 0.0,
-      leading: Image.asset(
-        "assets/icons/support_2.png",
+      leading: 
+       Padding(
+        padding:   EdgeInsets.all(10.h),
+        child: SvgPicture.asset(
+          "assets/icons/support_2.svg",
+        ),
       ),
       titleSpacing: 4.0,
       title: MyTextPoppines(text: "Customer support", fontSize: w / 22),

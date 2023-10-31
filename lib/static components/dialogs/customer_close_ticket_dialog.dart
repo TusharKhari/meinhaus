@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/static%20components/dialogs/customer_keep_open_dialog.dart';
@@ -32,8 +33,8 @@ class CustosmerCloseTicketDialog extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 40),
         child: Column(
           children: [
-            Image.asset(
-              "assets/icons/question.png",
+            SvgPicture.asset(
+              "assets/icons/question.svg",
               width: w / 1.3,
               height: h / 8,
             ),

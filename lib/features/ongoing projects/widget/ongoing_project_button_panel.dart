@@ -143,8 +143,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                         vertical: h / 80,
                       ),
                       child: Row(
-                        children: [
-                         // Image.asset("assets/icons/support.png"),
+                        children: [ 
                          SvgPicture.asset("assets/project_detail/customer_support.svg", height: h*0.02,),
                           SizedBox(width: w / 40),
                           MyTextPoppines(
@@ -186,8 +185,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                     vertical: h / 80,
                   ),
                   child: Row(
-                    children: [
-                     // Image.asset("assets/icons/writing.png"),
+                    children: [ 
                      SvgPicture.asset("assets/project_detail/project_notes.svg", height: h*0.02,), 
                       SizedBox(width: w / 40),
                       MyTextPoppines(
@@ -211,8 +209,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           _buildIconButtonWithText(
             firstButtonText: "Message pro",
             firstButtonTextColor: AppColors.buttonBlue,
-            firstButtonImgUrl: "assets/project_detail/message_pro.svg",
-            // firstButtonImgUrl: "assets/icons/customer-support.png",
+            firstButtonImgUrl: "assets/project_detail/message_pro.svg", 
             firstButtonColor: const Color(0xFFE8F4FF),
             firstButtonOnTap: () => onMessageProTapped(),
             secondButtonext: isProjectCompleted
@@ -242,8 +239,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           _buildIconButtonWithText(
             firstButtonText: "       Message pro     ",
             firstButtonTextColor: AppColors.buttonBlue,
-            firstButtonImgUrl: "assets/project_detail/message_pro.svg",
-            // firstButtonImgUrl: "assets/icons/customer-support.png",
+            firstButtonImgUrl: "assets/project_detail/message_pro.svg", 
             firstButtonColor: const Color(0xFFE8F4FF),
             firstButtonOnTap: () => onMessageProTapped(),
             secondButtonext: "     Work details        ",

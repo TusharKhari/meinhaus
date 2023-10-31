@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
@@ -31,9 +32,12 @@ class AdditionalWorkAddedDialog extends StatelessWidget {
           children: [
             35.vs,
             SizedBox(
-                width: 85.w,
-                height: 85.h,
-                child: Image.asset("assets/icons/done.png")),
+              width: 85.w,
+              height: 85.h,
+              child:  
+               SvgPicture.asset("assets/icons/done.svg"), 
+            ),
+
             10.vs,
             SizedBox(
               width: 266.w,

@@ -21,18 +21,20 @@ class EarlyNotificationWidget extends StatelessWidget {
           ),
         ),
         const NotificationCardWidget(
-          iconImgUrl: "assets/icons/ticket.png",
+          iconImgUrl: "assets/icons/ticket.svg",
           notifiHeading: "Your ticket has been closed by admin",
-          notifiSubHeading: "Ticket clousure",
+          notifiSubHeading: "Ticket closure",
           notifiTime: "2h Ago",
+          isSvg: true,
         ),
         10.vs,
         const NotificationCardWidget(
-          iconImgUrl: "assets/icons/ok.png",
+          iconImgUrl: "assets/icons/ok.svg",
           notifiHeading: "Your project has been marked as completed by pro",
           notifiSubHeading: "Project Status",
           notifiTime: "3w Ago",
           isFreshNotifi: false,
+          isSvg: true,
         )
       ],
     );
