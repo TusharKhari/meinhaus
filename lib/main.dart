@@ -10,6 +10,8 @@ import 'package:new_user_side/resources/routing/router.dart';
 import 'package:provider/provider.dart';
 import 'provider/provider.dart';
 
+//  prod test env is in constants
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
