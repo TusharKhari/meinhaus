@@ -167,12 +167,12 @@ class _AdditionalWorkProProvideCardWidgetState
                                   ),
                                   10.hs,
                                   IconButtonWithText(
-                                    text: "Aprrove",
+                                    text: "Approve",
                                     textColor: AppColors.white,
                                     buttonColor: const Color(0xFF68E365),
                                     onTap: () =>
                                         _approveAdditionalWorkHandler(),
-                                    iconUrl: "assets/icons/approved_it.png",
+                                    iconUrl: "assets/icons/approve_it.svg",
                                     isIcon: false,
                                   ),
                                 ],
@@ -184,7 +184,8 @@ class _AdditionalWorkProProvideCardWidgetState
                                     buttonColor: const Color(0xFF68E365)
                                         .withOpacity(0.12),
                                     onTap: () {},
-                                    iconUrl: "assets/icons/approved.png",
+                                    iconUrl: "assets/icons/approved_verified.svg",
+                                    // iconUrl: "assets/icons/approved.png",
                                     isIcon: false,
                                   )
                                 : IconButtonWithText(

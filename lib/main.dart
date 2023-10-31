@@ -7,10 +7,13 @@ import 'package:get/get.dart';
 import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
+import 'package:new_user_side/test_screen.dart';
 import 'package:provider/provider.dart';
 import 'provider/provider.dart';
 
 //  prod test env is in constants
+ 
+
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -50,6 +53,7 @@ class MyApp extends StatelessWidget {
           ),
           navigatorKey: navigatorKey,
           home:   IntroScreen(),
+          // home: TestScreen(),
        onGenerateRoute: (settings) => generateRoute(settings),
         );
       },

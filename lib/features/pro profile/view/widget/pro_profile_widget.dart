@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_rating_card.dart';
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_recent_project_card.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -81,9 +82,10 @@ class ProProfileWidget extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Image.asset("assets/icons/approved.png"),
+                    SvgPicture.asset("assets/icons/approved_verified.svg"),
+                    // Image.asset("assets/icons/approved.png"),
                     MyTextPoppines(
-                      text: "Verfied Pro",
+                      text: "Verified Pro",
                       height: 1.8,
                       fontSize: context.screenHeight / MyFontSize.font12,
                       fontWeight: FontWeight.w500,
