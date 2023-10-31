@@ -20,6 +20,12 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = context.screenHeight;
     final w = context.screenWidth;
+      // logged out function
+    Future<void> _logoutHandler() async {
+      // print("Log out clicked");
+      final notifier = context.read<AuthNotifier>();
+      await notifier.logout(context);
+    }
     return Drawer(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -58,7 +64,10 @@ class MyDrawer extends StatelessWidget {
           Positioned(
             bottom: h / 40,
             left: w / 20,
-            child: const _LogoutButton(),
+            child: 
+             InkWell(
+              onTap: _logoutHandler,
+              child: _LogoutButton()),
           )
         ],
       ),
@@ -110,8 +119,7 @@ class _ProfileCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final height = context.screenHeight;
+  Widget build(BuildContext context) { 
     final h = context.screenHeight;
     final w = context.screenWidth;
     final user = context.watch<AuthNotifier>().user;
@@ -296,43 +304,32 @@ class _LogoutButton extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
 
-    // logged out function
-    Future _logoutHandler() async {
-      final notifier = context.read<AuthNotifier>();
-      await notifier.logout(context);
-    }
-
-    return InkWell(
-      onTap: () => _logoutHandler,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(width / 12),
-          color: AppColors.black.withOpacity(0.8),
-          boxShadow: buttonShadow,
-        ),
-        padding: EdgeInsets.symmetric(
-          horizontal: width / 6.8,
-          vertical: height / 55,
-        ),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.logout_sharp,
-              color: AppColors.white,
-            ),
-            SizedBox(width: width / 35),
-            InkWell(
-              onTap: () => _logoutHandler(),
-              child: MyTextPoppines(
-                text: "Log Out",
-                fontSize: height / MyFontSize.font18,
-                color: AppColors.white,
-                fontWeight: FontWeight.w500,
-                height: 1.5,
-              ),
-            ),
-          ],
-        ),
+  
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(width / 12),
+        color: AppColors.black.withOpacity(0.8),
+        boxShadow: buttonShadow,
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: width / 6.8,
+        vertical: height / 55,
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.logout_sharp,
+            color: AppColors.white,
+          ),
+          SizedBox(width: width / 35),
+          MyTextPoppines(
+            text: "Log Out",
+            fontSize: height / MyFontSize.font18,
+            color: AppColors.white,
+            fontWeight: FontWeight.w500,
+            height: 1.5,
+          ),
+        ],
       ),
     );
   }

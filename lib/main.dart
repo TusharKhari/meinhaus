@@ -47,8 +47,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           navigatorKey: navigatorKey,
-          home: IntroScreen(),
-          // home: TestScreen(),
+          home: IntroScreen(), 
           onGenerateRoute: (settings) => generateRoute(settings),
         );
       },

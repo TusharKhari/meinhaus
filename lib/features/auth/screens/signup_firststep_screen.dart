@@ -27,6 +27,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isSignUpClicked = false;
 
   @override
   void dispose() {
@@ -36,6 +37,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
   }
 
   void _signUpHandler(BuildContext context) async {
+    isSignUpClicked = true;
     final notifer = context.read<AuthNotifier>();
     if (_signUpFormKey.currentState!.validate()) {
       Navigator.of(context).pushScreen(
@@ -44,8 +46,8 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
           password: _passwordController.text,
         ),
       );
-    }
-    notifer.setIsSignUpClicked();
+    } 
+    isSignUpClicked = false;
   }
 
   @override
@@ -74,7 +76,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                   ),
                   Form(
                     key: _signUpFormKey,
-                    autovalidateMode: notifer.isSignUpClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+                    autovalidateMode: isSignUpClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                     child: Column(
                       children: [
                         AuthTextField(

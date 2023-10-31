@@ -29,6 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isWaiting = false; 
+  bool isSignInClicked = false;
 
   @override
   void dispose() {
@@ -51,6 +52,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future login() async {
+    isSignInClicked = true;
     final notifier = context.read<AuthNotifier>();
     final deviceName = await getDeviceName();
     Map<String, String> data = {
@@ -59,10 +61,9 @@ class _SignInScreenState extends State<SignInScreen> {
       "device_name": deviceName,
     };
     if (_signInFormKey.currentState!.validate()) { 
-       notifier.login(data, context); 
-        }
-        notifier.setIsSignInClicked();
-   //  notifier.login(data, context);
+      await notifier.login(data, context); 
+        } 
+        isSignInClicked = false;
   }
 
   @override
@@ -78,7 +79,7 @@ class _SignInScreenState extends State<SignInScreen> {
             // Text fields
             Form(
               key: _signInFormKey,
-              autovalidateMode: notifier.isSignInClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled ,
+              autovalidateMode: isSignInClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled ,
               child: Column(
                 children: [
                   AuthTextField(

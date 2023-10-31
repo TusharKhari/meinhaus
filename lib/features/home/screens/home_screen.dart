@@ -45,9 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void animateEstimateButton() {
     Timer(const Duration(seconds: 2), () {
-      setState(() => _isExpanded = true);
+     if(mounted) setState(() => _isExpanded = true);
       Timer(const Duration(seconds: 4), () {
-        setState(() => _isExpanded = false);
+      if(mounted)  setState(() => _isExpanded = false);
       });
     });
   }
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
      //
       floatingActionButton: GestureDetector(
         onTap: () {
-          setState(() {
+        if(mounted)  setState(() {
             _isExpanded = !_isExpanded;
           });
         },

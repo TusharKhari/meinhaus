@@ -34,9 +34,7 @@ class AuthNotifier extends ChangeNotifier {
   bool _isAuthenticated = false;
   String accessToken = "";
   String deviceName = "";
-  bool  _isUserFirstVisit = true;
-  bool _isSignInClicked = false;
-  bool _isSignUpClicked = false;
+  bool  _isUserFirstVisit = true; 
   // getters
   bool get isToggle => _isToggle;
   bool get isWaiting => _isWaiting;
@@ -45,9 +43,7 @@ class AuthNotifier extends ChangeNotifier {
   bool get loading2 => _loading2;
   bool get gLoading => _gloading;
   bool get isAuthenticated => _isAuthenticated;
-  bool  get isUserFirstVisit  => _isUserFirstVisit;
-  bool  get isSignInClicked  => _isSignInClicked;
-  bool  get isSignUpClicked  => _isSignUpClicked;
+  bool  get isUserFirstVisit  => _isUserFirstVisit;  
 
 
   // setters
@@ -88,14 +84,6 @@ class AuthNotifier extends ChangeNotifier {
 
   void setAuthentication(bool isAuth) {
     _isAuthenticated = isAuth;
-    notifyListeners();
-  }
-   void  setIsSignInClicked() {
-    _isSignInClicked = true;
-    notifyListeners();
-  }
-   void  setIsSignUpClicked() {
-    _isSignUpClicked = true;
     notifyListeners();
   }
 
