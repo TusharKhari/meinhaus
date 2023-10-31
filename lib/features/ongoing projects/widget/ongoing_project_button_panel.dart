@@ -224,7 +224,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       AddAdditionalWorkScreen.routeName,
                       arguments: projectId,
                     );
-                    print("Project id For additonal work : $projectId");
+                    print("Project id For additional work : $projectId");
                   }
                 : () {
                     // Show history of all the requested additional work

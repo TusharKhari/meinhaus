@@ -38,7 +38,7 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
   TextEditingController descriptionController = TextEditingController();
   FocusNode titleNode = FocusNode();
   FocusNode descNode = FocusNode();
-
+  bool isRequestItClicked = false;
   @override
   void initState() {
     _getAdditionalWorkHandler();
@@ -69,10 +69,12 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
       'images[]': image,
     };
     if (_additionalWorkFormKey.currentState!.validate()) {
+      isRequestItClicked = true;
       await notifier.requestAdditonalWork(
         context: context,
         body: body,
       );
+      isRequestItClicked = false;
       titleController.clear();
       descriptionController.clear();
     }
@@ -127,7 +129,7 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
                       15.vs,
                       Form(
                         key: _additionalWorkFormKey,
-                        autovalidateMode: AutovalidateMode.always,
+                        autovalidateMode: isRequestItClicked ? AutovalidateMode.always : AutovalidateMode.disabled,
                         child: Column(
                           children: [
                             MyTextField(

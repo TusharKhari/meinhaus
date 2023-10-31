@@ -311,7 +311,6 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     final headline1 = width / 35;
-    final project = this.project;
     final service = this.service;
     final projectId = service.projectId.toString();
     final proId = service.proId.toString();

@@ -522,8 +522,8 @@ class VerifyPhoneNoDialogState extends State<VerifyPhoneNoDialog> {
               onCompleted: (value) {
                 setState(() => isOtpEnterd = true);
                 setState(() => otp = value);
-                print("otp set" + otp);
-                print("Completed " + value);
+                // print("otp set" + otp);
+                // print("Completed " + value);
               },
             ),
             SizedBox(height: h / 40),

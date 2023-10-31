@@ -1,23 +1,24 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:new_user_side/features/auth/screens/user_details.dart';
+ import 'package:new_user_side/features/auth/screens/user_details.dart';
+import 'package:new_user_side/features/estimate/widget/saved_adresses_widget.dart';
 import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_bottom_bar_button.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/extensions/show_picked_images.dart';
+ import 'package:new_user_side/utils/extensions/show_picked_images.dart';
 import 'package:provider/provider.dart';
 
  import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../utils/extensions/validator.dart';
 import '../../../utils/utils.dart';
-import '../../address/widget/address_list_tile.dart';
-import '../../estimate/screens/estimate_generation_screen.dart';
+ import '../../estimate/screens/estimate_generation_screen.dart';
 import '../../home/screens/home_screen.dart';
 import '../widgets/user_details_toggle_button.dart';
 
@@ -44,6 +45,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
   // Deafult selected address is null
   String selectedAddress = '';
   String placeId = "";
+  bool isSubmitClicked = false;
 
   @override
   void initState() {
@@ -64,38 +66,29 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     final notifier = context.read<AddressNotifier>();
     notifier.getAddressSuggestions(addressController.text);
   }
-
+   
   // After verfication user can able to create its first project/estimate
   Future<void> createStartingProject() async {
     final userNotier = context.read<AuthNotifier>();
-    final notifier = context.read<EstimateNotifier>();
-    final addressNotifier = context.read<AddressNotifier>();
-    final image = await Utils.collectImages(notifier.images);
-
-        // Map<String, dynamic > latLng = await addressNotifier.getLatLngFromPlaceId(placeId: placeId);
-            // var address2 = await Utils.getAddress(latLng["lat"], latLng["lng"]);
-            //  var first2 = address2.first;
-            final userAddress  = userNotier.user.savedAddress![0];
-     await addressNotifier.addAddress(context: context, placeId: placeId);
-    // await addressNotifier.addAddress(context: context, body: addressBody);
+    final notifier = context.read<EstimateNotifier>(); 
+   final image = await Utils.collectImages(notifier.images);  
+  //  final image = GetImages().pickImages<EstimateNotifier>(context: context);
+     final userAddress  = userNotier.user.savedAddress![0]; 
        final data = {
       'title': titleController.text,
       'description': descriptionController.text,
-      'time': selectedOption.toString(),
-      //'address': addressController.text,
-    //  "longitude": latLng["lat"].toString(),
-    //    "latitude": latLng["lng"].toString(),
-      'images[]': image,
-       "address_id" : userAddress.id,   // ye bhejni h 
+      'time': selectedOption.toString(), 
+       'user_address_id' : userAddress.id.toString(),
+      'images[]': image, 
     };
      await notifier.createStartingEstimate(context: context, data: data);
   }
 
   @override
-  Widget build(BuildContext context) {
-    final addressNotifier = context.watch<AddressNotifier>();
+  Widget build(BuildContext context) { 
     final estimateNotifer = context.watch<EstimateNotifier>();
     final authNotifer = context.watch<AuthNotifier>();
+
     // Mediaquerys for responsiveness
     final h = context.screenHeight;
     final w = context.screenWidth;
@@ -118,7 +111,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyTextPoppines(
-                          text: "Start you project",
+                          text: "Start your project",
                           fontSize: w / 24,
                           fontWeight: FontWeight.w700,
                         ),
@@ -136,10 +129,6 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                         Navigator.of(context).pushReplacementNamed(
                           HomeScreen.routeName,
                         );
-                        // Navigator.of(context).pushNamedAndRemoveUntil(
-                        //   HomeScreen.routeName,
-                        //   (route) => false,
-                        // );
                       },
                       child: Text(
                         "Skip",
@@ -160,7 +149,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                     padding: EdgeInsets.symmetric(horizontal: w / 20),
                     child: Form(
                       key: _estimateFormKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: isSubmitClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -191,46 +180,15 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                             focusNode: descNode,
                             validator: Validator().nullValidator,
                           ),
-                          SizedBox(height: h / 130),
+                          SizedBox(height: h / 100),
                           // [Dropdwon] When would you like to have this task to be done?
                           GenerateEstimateDropdown(),
-                          SizedBox(height: h / 130),
-                          // Address textfield with auto suggestion
-                          MyTextField(
-                            text: "Addresss",
-                            hintText: "44 E. West Street Ashland, OH 44805.",
-                            isHs20: false,
-                            controller: addressController,
-                            validator: Validator().nullValidator,
-                          ),
-                          SizedBox(height: h / 130),
-                          addressNotifier.addressList.isEmpty
-                              ? SizedBox()
-                              : MyTextPoppines(
-                                  text: "Suggestions",
-                                  fontSize: w / 32,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          SizedBox(height: h / 90),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: addressNotifier.addressList.length,
-                            itemBuilder: (context, index) {
-                              final address = addressNotifier.addressList[index]
-                                  ["description"];
-                              return ListAddressTile(
-                                onTap: () {
-                                  addressController.text = address;
-                                  selectedAddress = address;
-                                  placeId = addressNotifier.addressList[index]
-                                  ["place_id"];
-                                  addressNotifier.addressList.clear();
-                                },
-                                address: address,
-                              );
-                            },
-                          ),
+                         // SizedBox(height: h / 80),
+                         SizedBox(height: 20.h,)
+                         ,
+                       
+                          SavedAddressesWidget(), 
+
                           // Upload Images Section
                           SizedBox(height: h / 50),
                           MyTextPoppines(
@@ -330,6 +288,8 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
           hPadding: w / 4,
           text: "Submit",
           onTap: () {
+            isSubmitClicked = true;
+           // print("useradd $u")
             if (_estimateFormKey.currentState!.validate()) {
               authNotifer.isToggle
                   ? createStartingProject()

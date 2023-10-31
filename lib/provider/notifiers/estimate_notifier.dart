@@ -12,7 +12,6 @@ import 'package:new_user_side/repository/estimate_repository.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
@@ -55,8 +54,13 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeImageFromList() {
+  void removeImagesFromList() {
     _images.clear();
+    notifyListeners();
+  }
+
+  void removeImageFromList(XFile pickedFile) {
+    _images.remove(pickedFile);
     notifyListeners();
   }
 
@@ -122,14 +126,20 @@ class EstimateNotifier extends ChangeNotifier {
   // CREATE STARTING ESTIMATE
   Future createStartingEstimate({
     required BuildContext context,
-    required Map<String, Object?> data,
+    required Map<String, dynamic> data,
+    // MapSS data,
   }) async {
     setLoadingState(true, true);
-    estimateRepository.createStartingEstimate(data).then((response) {
+    // estimateRepository.createStartingEstimate(data).then((response) {
+    estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
-      ('Estimate Succesfully Created ✅').log("Estimate Creation");
-      removeImageFromList();
-      Navigator.of(context).pushScreen(HomeScreen());
+      ('Estimate Successfully Created ✅').log("Estimate Creation");
+      removeImagesFromList();
+      // Navigator.of(context).pushScreen(HomeScreen());
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        HomeScreen.routeName,
+        (route) => false,
+      );
       showSnakeBarr(
         context,
         "Your estimate has been created successfully. We will contact you shortly",
@@ -151,7 +161,7 @@ class EstimateNotifier extends ChangeNotifier {
     estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
       ('Estimate Succesfully Created ✅').log("Estimate Creation");
-      removeImageFromList();
+      removeImagesFromList();
       //Get.to(() => HomeScreen());
       // Navigator.of(context).pushScreen(HomeScreen());
       Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -177,7 +187,8 @@ class EstimateNotifier extends ChangeNotifier {
       setEstimate(data);
       // if (data.estimatedWorks!.length == 0 && _count == 0)
       if (isFirstTime) {
-        prefs.setIsNotFirstTime();   showSnakeBarr(
+        prefs.setIsNotFirstTime();
+        showSnakeBarr(
           context,
           "Explore Sample Cards created for you",
           SnackBarState.Warning,

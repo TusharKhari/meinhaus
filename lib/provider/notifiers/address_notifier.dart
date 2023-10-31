@@ -8,8 +8,7 @@ import '../../data/models/UserModel.dart';
 import '../../error_screens.dart';
 import '../../resources/common/my_snake_bar.dart';
 import '../../utils/extensions/auto_complete_address.dart';
-import '../../utils/utils.dart';
-import 'auth_notifier.dart';
+ import 'auth_notifier.dart';
 
 class AddressNotifier extends ChangeNotifier {
   var uuid = Uuid();

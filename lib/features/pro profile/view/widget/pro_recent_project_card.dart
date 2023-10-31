@@ -176,7 +176,9 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                               //   ),
                               // ),
                               RatingBar.builder(
-                                initialRating: (double.parse(rating)/5)/5,
+                                ignoreGestures: true,
+                                 initialRating: (double.parse(rating))/5,
+                              //  initialRating: 0.1,
                                 minRating: 0,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,

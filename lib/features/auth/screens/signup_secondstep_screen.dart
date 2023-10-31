@@ -34,6 +34,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  bool isContinueClicked = false;
 
   @override
   void dispose() {
@@ -52,9 +53,11 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
       "phone": phone,
     };
     final notifier = context.read<AuthNotifier>();
+    isContinueClicked = true;
     if (_signUpFormKey.currentState!.validate()) {
       await notifier.signUp(data, context);
     }
+    isContinueClicked = false;
   }
 
   @override
@@ -84,7 +87,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                   ),
                   Form(
                     key: _signUpFormKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    autovalidateMode: isContinueClicked ?  AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: width / 16),
                       child: Column(

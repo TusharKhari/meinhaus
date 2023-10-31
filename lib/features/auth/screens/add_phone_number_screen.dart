@@ -74,48 +74,10 @@ class _AddPhoneNumberScreenState extends State<AddPhoneNumberScreen> {
                       fontSize: w / 32,
                     ),
                   ),
-                  SizedBox(height: h / 30),
-                  // MyTextPoppines(
-                  //   text: "Enter OTP",
-                  //   fontSize: w / 24,
-                  //   fontWeight: FontWeight.w600,
-                  // ),
-                  // SizedBox(height: h / 80),
-
-                  // // OTP TEXT FIELD
-                  // OTPTextField(
-                  //   length: 6,
-                  //   width: w,
-                  //   fieldWidth: w / 8,
-                  //   outlineBorderRadius: w / 28,
-                  //   fieldStyle: FieldStyle.box,
-                  //   textFieldAlignment: MainAxisAlignment.spaceAround,
-                  //   keyboardType: TextInputType.number,
-                  //   contentPadding: EdgeInsets.symmetric(vertical: h / 75),
-                  //   style: TextStyle(
-                  //     fontSize: w / 20,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  //   otpFieldStyle: OtpFieldStyle(
-                  //     focusBorderColor: AppColors.black,
-                  //   ),
-                  //   onChanged: (value) {},
-                  //   onCompleted: (value) {
-                  //     setState(() => isOtpEnterd = true);
-                  //     setState(() => otp = value);
-                  //     print("otp set" + otp);
-                  //     print("Completed " + value);
-                  //   },
-                  // ),
-                  // SizedBox(height: h / 60),
+                  SizedBox(height: h / 30), 
                 ],
               ),
-            ),
-            // MediaQuery.of(context).viewInsets.bottom > 0
-            //     ? SizedBox(height: h / 25)
-            //     : SizedBox(height: h / 3.2),
-            // Divider(thickness: 1.0),
-            // SizedBox(height: h / 60),
+            ), 
           ],
         ),
       ),

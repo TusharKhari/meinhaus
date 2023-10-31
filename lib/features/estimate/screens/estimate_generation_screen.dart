@@ -50,6 +50,8 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
 
   GetImages getImages = GetImages();
 
+    bool isCreateAnEstimateClicked = false;
+
   Future getImagess() async {
     await getImages.pickImages<EstimateNotifier>(context: context);
   }
@@ -64,6 +66,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
   }
 
   Future _createEstimateHandler() async {
+    isCreateAnEstimateClicked = true;
     final estimateNotifer = context.read<EstimateNotifier>();
     final userProvider = context.read<AuthNotifier>().user;
     final userAddress = userProvider.savedAddress!;
@@ -96,6 +99,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     final estimateNotifer = context.watch<EstimateNotifier>();
      final width = MediaQuery.sizeOf(context).width;
     final image = estimateNotifer.images;
+  
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
       child: Scaffold(
@@ -104,7 +108,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
           text: widget.isNewEstimate! ? "New Estimate" : "Estimate Generation",
           onBack: () {
             Navigator.of(context).pop();
-            estimateNotifer.removeImageFromList();
+            estimateNotifer.removeImagesFromList();
           },
         ),
         body: SingleChildScrollView(
@@ -113,7 +117,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
             padding: EdgeInsets.symmetric(horizontal: width / 20),
             child: Form(
               key: _estimateFormKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              autovalidateMode: isCreateAnEstimateClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
