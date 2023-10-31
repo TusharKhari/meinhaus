@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/auth/screens/user_details.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
-import '../../../resources/common/my_text.dart'; 
+import '../../../resources/common/my_text.dart';
 import '../widget/address_list_tile.dart';
 
 class UpdateAdressScreen extends StatefulWidget {
@@ -18,7 +18,8 @@ class UpdateAdressScreen extends StatefulWidget {
   const UpdateAdressScreen({
     Key? key,
     required this.perAddress,
-    required this.addressId, required this.addType,
+    required this.addressId,
+    required this.addType,
   }) : super(key: key);
   final String perAddress;
   final String addressId;
@@ -31,7 +32,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
   TextEditingController addressController = TextEditingController();
 
   String selectedAddres = '';
-  String placeId ="";
+  String placeId = "";
   bool isWaiting = false;
 
   @override
@@ -54,7 +55,8 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
 
   Future _updateAddressHandler({required String addressId}) async {
     final notifier = context.read<AddressNotifier>();
-    await notifier.updateAddress(context: context,placeId: placeId, addressId:addressId );
+    await notifier.updateAddress(
+        context: context, placeId: placeId, addressId: addressId);
   }
 
   Future _deleteAddressHandler() async {
@@ -63,23 +65,27 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
     await notifier.deleteAddress(context: context, body: body);
   }
 
-  var addressTypes = [  
-    "Address Type" , 
-     "work",    
-    'home', 
-    'other',  
-  ]; 
+  var addressTypes = [
+    "Address Type",
+    "work",
+    'home',
+    'other',
+  ];
 
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    final addressNotifier = context.watch<AddressNotifier>(); 
+    final addressNotifier = context.watch<AddressNotifier>();
     return ModalProgressHUD(
       inAsyncCall: addressNotifier.loading,
       child: Scaffold(
-        appBar: MyAppBar(text: "Edit Address", onBack: ()  {
-          Navigator.pop(context);
-          addressNotifier.onBackClick();},),
+        appBar: MyAppBar(
+          text: "Edit Address",
+          onBack: () {
+            Navigator.pop(context);
+            addressNotifier.onBackClick();
+          },
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,7 +93,6 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
               text: "Edit Address",
               controller: addressController,
               hintText: "44 E. West Street Ashland, OH 44805.",
-              
             ),
             Divider(thickness: 2, color: Color.fromARGB(32, 0, 0, 0)),
             10.vs,
@@ -132,42 +137,42 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                 text: "Delete",
                 onTap: () => _deleteAddressHandler(),
               ),
-             
-             addressNotifier.updateAddressType.isNotEmpty && addressNotifier.updateAddressType != "Address Type" ? 
-              MyBlueButton(
-                hPadding: 60.w,
-                text: "Update",
-                onTap: () {
-                  selectedAddres.isNotEmpty
-                      ? _updateAddressHandler(addressId: widget.addressId)
-                      : showSnakeBar(context, "Select an address please");
-                },
-              ) :
-
-              Container(
-                height: 70,
-                width: 160,
-                child: DropdownButton(
-                  borderRadius: BorderRadius.circular(w / 28),
-                  hint: Text("Address Type"),
-                  elevation: 0,
-                isExpanded: true,
-                   value: widget.addType, 
-                //   value: "Address Type", 
-                // Down Arrow Icon 
-                icon: const Icon(Icons.keyboard_arrow_down),
-                  items:  addressTypes.map((String items) { 
-                    print("add val ${widget.addType}");
-                     return DropdownMenuItem( 
-                     value: items, 
-                    child: Text(items), 
-                  ); 
-                }).toList(), 
-                onChanged: (value) { 
-                 addressNotifier.setupdateAddressType(updateAddressType: value!); 
-                },),
-              ), 
- 
+              addressNotifier.updateAddressType.isNotEmpty &&
+                      addressNotifier.updateAddressType != "Address Type"
+                  ? MyBlueButton(
+                      hPadding: 60.w,
+                      text: "Update",
+                      onTap: () {
+                        selectedAddres.isNotEmpty
+                            ? _updateAddressHandler(addressId: widget.addressId)
+                            : showSnakeBar(context, "Select an address please");
+                      },
+                    )
+                  : Container(
+                      height: 70,
+                      width: 160,
+                      child: DropdownButton(
+                        borderRadius: BorderRadius.circular(w / 28),
+                        hint: Text("Address Type"),
+                        elevation: 0,
+                        isExpanded: true,
+                        value: widget.addType,
+                        //   value: "Address Type",
+                        // Down Arrow Icon
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: addressTypes.map((String items) {
+                          print("add val ${widget.addType}");
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          addressNotifier.setupdateAddressType(
+                              updateAddressType: value!);
+                        },
+                      ),
+                    ),
             ],
           ),
         ),

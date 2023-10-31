@@ -9,8 +9,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
-import '../../features/edit profile/screens/edit_profile_screen.dart';
-import '../../features/home/screens/home_screen.dart';
+import '../../features/edit profile/screens/edit_profile_screen.dart'; 
 import '../../provider/notifiers/auth_notifier.dart';
 import '../../utils/constants/app_list.dart';
 

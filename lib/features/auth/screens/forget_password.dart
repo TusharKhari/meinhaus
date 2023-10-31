@@ -22,8 +22,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _emailFormKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
 
-  // Making the request for forgetpassword will are sharing email so that
-  // i can share otp on email and we can verify it for genrate new password
+  // Making the request for forget password will are sharing email so that
+  // i can share otp on email and we can verify it for generate new password
   Future<void> forgetPassword() async {
     final notifier = context.read<AuthNotifier>();
     MapSS body = {"email": _emailController.text};

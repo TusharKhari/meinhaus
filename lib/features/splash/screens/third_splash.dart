@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_text.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:new_user_side/resources/common/my_text.dart'; 
 
 class ThirdSplashScreen extends StatelessWidget {
   const ThirdSplashScreen({super.key});

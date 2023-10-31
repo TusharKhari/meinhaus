@@ -3,14 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-import '../../../features/check out/widget/checkout_bottom_bar.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart'; 
 import '../../../features/check out/widget/checkout_summary_card_widget.dart';
 import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/estimate/widget/saved_adresses_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
-import '../../../resources/common/my_app_bar.dart';
-import '../../../resources/common/my_snake_bar.dart';
+import '../../../resources/common/my_app_bar.dart'; 
 import '../../../utils/constants/app_colors.dart';
 
 class CheckOutScreenStatic extends StatelessWidget {

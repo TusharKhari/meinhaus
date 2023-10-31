@@ -1,8 +1,7 @@
 // when no estimation is present in data
 
 import 'package:flutter/material.dart';
-import 'package:new_user_side/resources/common/my_snake_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:new_user_side/resources/common/my_snake_bar.dart'; 
  
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';

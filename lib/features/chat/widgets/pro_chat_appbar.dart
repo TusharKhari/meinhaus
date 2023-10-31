@@ -55,15 +55,7 @@ class ProChatAppBar extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ],
-      ),
-      // actions: [
-      //   Icon(
-      //     CupertinoIcons.ellipsis_vertical,
-      //     color: AppColors.black,
-      //     size: w / 22,
-      //   ),
-      //   SizedBox(width: w / 40),
-      // ],
+      ), 
     );
   }
 }
