@@ -94,8 +94,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
   @override
   Widget build(BuildContext context) {
     final estimateNotifer = context.watch<EstimateNotifier>();
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+     final width = MediaQuery.sizeOf(context).width;
     final image = estimateNotifer.images;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,

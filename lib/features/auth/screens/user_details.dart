@@ -195,7 +195,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                   width: 250.w,
                   child: Text.rich(
                     TextSpan(
-                      text: 'By Signing Up with MeinHause you agree with our ',
+                      text: 'By Signing Up with MeinHaus you agree with our ',
                       style: TextStyle(fontSize: height / 55),
                       children: [
                         TextSpan(

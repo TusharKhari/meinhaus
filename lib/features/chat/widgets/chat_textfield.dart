@@ -4,8 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:google_fonts/google_fonts.dart'; 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:new_user_side/resources/common/camera_view_page.dart';
@@ -139,7 +138,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                     vertical: height / 400,
                   ),
 
-                  hintText: "write a Meassage ",
+                  hintText: "write a Massage ",
                   hintStyle: TextStyle(
                     fontSize: width / 28,
                     color: AppColors.black.withOpacity(0.4),

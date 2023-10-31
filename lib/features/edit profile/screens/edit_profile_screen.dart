@@ -7,8 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:new_user_side/data/network/network_api_servcies.dart';
-import 'package:new_user_side/provider/notifiers/address_notifier.dart';
+import 'package:new_user_side/data/network/network_api_servcies.dart'; 
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -487,7 +486,7 @@ class VerifyPhoneNoDialogState extends State<VerifyPhoneNoDialog> {
             Image.asset('assets/icons/email.png'),
             SizedBox(height: h / 40),
             MyTextPoppines(
-              text: "We have sent you an OTP with your \n reiestered Mobile no",
+              text: "We have sent you an OTP with your \n registered Mobile no",
               fontSize: w / 32,
               fontWeight: FontWeight.w500,
               color: AppColors.black.withOpacity(0.6),
@@ -573,7 +572,7 @@ class _VerifyEmailDialog extends StatelessWidget {
             Image.asset('assets/icons/email.png'),
             SizedBox(height: h / 40),
             MyTextPoppines(
-              text: "We have sent you a link with your \n reiestered EMAIL",
+              text: "We have sent you a link with your \n registered EMAIL",
               fontSize: w / 32,
               fontWeight: FontWeight.w500,
               color: AppColors.black.withOpacity(0.6),
@@ -584,7 +583,7 @@ class _VerifyEmailDialog extends StatelessWidget {
               isWaiting: authNotifier.loading,
               hPadding: w / 4,
               vPadding: h / 60,
-              text: "Get verification Lonk ",
+              text: "Get verification Link ",
               onTap: () => _verifyEmailHandler(),
             )
           ],

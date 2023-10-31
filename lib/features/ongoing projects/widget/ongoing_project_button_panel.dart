@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:new_user_side/data/models/conversation_list_model.dart';
-import 'package:new_user_side/data/models/ongoing_project_model.dart';
+import 'package:new_user_side/data/models/conversation_list_model.dart'; 
 import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';

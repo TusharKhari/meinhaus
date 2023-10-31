@@ -17,8 +17,7 @@ class ProChatAppBar extends StatelessWidget {
   final String senderImg;
 
   @override
-  Widget build(BuildContext context) {
-    final h = context.screenHeight;
+  Widget build(BuildContext context) { 
     final w = context.screenWidth;
     return AppBar(
       backgroundColor: Colors.white,
