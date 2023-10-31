@@ -64,8 +64,8 @@ class AddressRepository {
    // set default address 
 
    Future<ResponseType> setDefaultAddress(MapSS body) async{
-     print("default address : $body");
-     print(ApiUrls.setDefaultAddress);
+   //  print("default address : $body");
+    // print(ApiUrls.setDefaultAddress);
     try {
       return await services.sendHttpRequest(
         url: ApiUrls.setDefaultAddress, 

@@ -171,8 +171,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                             setState(() {
                               lat = first.latitude.toString();
                               long = first.longitude.toString();
-                            });
-                            print("${long} : ${lat}");
+                            }); 
                           },
                           address: address,
                         );

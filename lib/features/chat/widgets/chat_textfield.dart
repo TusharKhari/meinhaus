@@ -75,7 +75,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
         await FilePicker.platform.pickFiles(type: FileType.any);
     if (result != null && result.files.isNotEmpty) {
       String filePath = result.files.first.path!;
-      print("filepath $filePath");
+     //  print("filepath $filePath");
       return filePath;
     } else {
       return '';

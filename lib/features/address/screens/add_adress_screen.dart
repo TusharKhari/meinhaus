@@ -102,9 +102,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     onTap: () async{
                        addressController.text = address;
                       selectedAddres = address;
-                      _placeId =  addressNotifier.addressList[index]["place_id"];
-                  // Map<String, dynamic> mp =   await addressNotifier.getLatLngFromPlaceId(placeId: selectedAddres);
-                //   print("add add ${mp["lat"]}");
+                      _placeId =  addressNotifier.addressList[index]["place_id"]; 
                     },
                     address: address,
                   );

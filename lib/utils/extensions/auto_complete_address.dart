@@ -11,7 +11,7 @@ class AddressAutocomplete {
         '$googleAddresUrl?input=$input&key=$kPLACES_API_KEY&sessiontoken=$sessionToken&components=country:ca';
     var response = await http.get(Uri.parse(request));
     var data = jsonDecode(response.body);
-    print(response.body);
+   // print(response.body);
     if (response.statusCode == 200) {
    //   print("addresprint :  $data");
       return data['predictions'];

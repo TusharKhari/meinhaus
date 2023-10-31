@@ -36,11 +36,11 @@ class CheckOutNotifier extends ChangeNotifier {
     final onGoingProjects = context.watch<EstimateNotifier>();
     setLoadingState(true);
     Map<String, String> data = {"booking_id": bookingId};
-    print("Payment processing");
+   // print("Payment processing");
     final res = await MakePayment()
         .makePayment(context: context, bookingId: bookingId)
         .onError((error, stackTrace) {
-      print("Error in Check out notifier :: $error\n $stackTrace");
+     // print("Error in Check out notifier :: $error\n $stackTrace");
       setLoadingState(false);
       return false;
     });
@@ -59,7 +59,7 @@ class CheckOutNotifier extends ChangeNotifier {
         setLoadingState(false);
       }
       ).onError((error, stackTrace) {
-        print("Error in Check out notifier :: $error\n $stackTrace");
+       // print("Error in Check out notifier :: $error\n $stackTrace");
         setLoadingState(false);
       });
     }

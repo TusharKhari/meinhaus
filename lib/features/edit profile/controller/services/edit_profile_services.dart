@@ -41,7 +41,7 @@ class EditProfileServices {
       }
 
       var response = await http.Response.fromStream(await request.send());
-      print("Status code at profile update = ${response.statusCode}");
+     // print("Status code at profile update = ${response.statusCode}");
       httpErrorHandle(
         response: response,
         context: context,
@@ -55,7 +55,7 @@ class EditProfileServices {
             "Profile Update Complete",
             SnackBarState.Success,
           );
-          print("Profile Updated");
+        //  print("Profile Updated");
         },
       );
     } catch (e) {
@@ -64,7 +64,7 @@ class EditProfileServices {
         "Catch in Edit Profile --> $e ",
         SnackBarState.Error,
       );
-      print("Catch in Edit Profile --> $e");
+    //  print("Catch in Edit Profile --> $e");
     }
   }
 }

@@ -164,7 +164,7 @@ class _TileListState extends State<TileList> {
         fileExists = true;
       });
     } catch (e) {
-      print(e);
+     // print(e);
       setState(() {
         dowloading = false;
       });
@@ -189,7 +189,7 @@ class _TileListState extends State<TileList> {
 
   openfile() {
     OpenFile.open(filePath);
-    print("fff $filePath");
+   // print("fff $filePath");
   }
 
   @override

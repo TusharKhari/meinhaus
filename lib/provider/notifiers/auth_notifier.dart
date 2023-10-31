@@ -440,9 +440,9 @@ class AuthNotifier extends ChangeNotifier {
         final GoogleSignIn googleSignIn = GoogleSignIn();
         await googleSignIn.signOut();
         UserPrefrences().logOut(context);
-        print('Signed out successfully.');
+      //  print('Signed out successfully.');
       } else {
-        print("Social login is null");
+      //  print("Social login is null");
         ("normal").log("Log-out");
         UserPrefrences().logOut(context);
       }

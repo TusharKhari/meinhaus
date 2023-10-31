@@ -117,8 +117,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                     onTap: () {
                       addressController.text = address;
                       selectedAddres = address;
-                      placeId = addressNotifier.addressList[index]["place_id"];
-                      print("selectedAddres : $selectedAddres");
+                      placeId = addressNotifier.addressList[index]["place_id"]; 
                     },
                     address: address,
                   );
@@ -160,8 +159,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                         //   value: "Address Type",
                         // Down Arrow Icon
                         icon: const Icon(Icons.keyboard_arrow_down),
-                        items: addressTypes.map((String items) {
-                          print("add val ${widget.addType}");
+                        items: addressTypes.map((String items) { 
                           return DropdownMenuItem(
                             value: items,
                             child: Text(items),

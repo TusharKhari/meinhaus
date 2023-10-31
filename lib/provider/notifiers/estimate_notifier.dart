@@ -172,7 +172,7 @@ class EstimateNotifier extends ChangeNotifier {
           "Your estimate has been created successfully. we will contact you shortly",
           SnackBarState.Success);
     }).onError((error, stackTrace) {
-      print("err : $error");
+    //  print("err : $error");
       setLoadingState(false, true);
       onErrorHandler(context, error, stackTrace);
     });
@@ -194,7 +194,7 @@ class EstimateNotifier extends ChangeNotifier {
           SnackBarState.Warning,
         );
       }
-      print("object ${prefs}");
+     // print("object ${prefs}");
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error $stackTrace").log("Estimate notifier");

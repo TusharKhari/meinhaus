@@ -114,7 +114,7 @@ class UserPrefrences {
     Future<bool> isFirstTime()async{
      prefs = await SharedPreferences.getInstance();
    var res =  prefs!.getBool("isFirstTime");
-   print("object res $res");
+  // print("object res $res");
    return res ?? true;
   }
 

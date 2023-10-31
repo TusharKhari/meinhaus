@@ -52,7 +52,7 @@ class _IntroScreenState extends State<IntroScreen>
     _controller.forward();
 
     Timer(const Duration(seconds: 3), () {
-      setState(() {});
+    if(mounted) setState(() {});
     });
 
     // authenticate();
@@ -73,8 +73,6 @@ class _IntroScreenState extends State<IntroScreen>
 
   @override
   Widget build(BuildContext context) {
-    // final authNotifier = context.watch<AuthNotifier>();
-    //isAuth = authNotifier.isAuthenticated;
     final Duration duration = const Duration(milliseconds: 2000);
     final bool opacityValue = _opacityAnimation.value == 0;
     return Scaffold(
