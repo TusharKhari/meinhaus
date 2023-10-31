@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -24,6 +25,9 @@ class _IntroScreenState extends State<IntroScreen>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -69,7 +73,7 @@ class _IntroScreenState extends State<IntroScreen>
 
   @override
   Widget build(BuildContext context) {
-   // final authNotifier = context.watch<AuthNotifier>();
+    // final authNotifier = context.watch<AuthNotifier>();
     //isAuth = authNotifier.isAuthenticated;
     final Duration duration = const Duration(milliseconds: 2000);
     final bool opacityValue = _opacityAnimation.value == 0;
@@ -113,7 +117,7 @@ class _IntroScreenState extends State<IntroScreen>
           AnimatedOpacity(
             duration: const Duration(milliseconds: 3000),
             opacity: opacityValue ? 1.0 : 0.0,
-                        child: isAuth ? HomeScreen() : SplashScreen(),
+            child: isAuth ? HomeScreen() : SplashScreen(),
           ),
           AnimatedPositioned(
             duration: duration,
@@ -144,7 +148,3 @@ class _IntroScreenState extends State<IntroScreen>
     );
   }
 }
-
-
-
-
