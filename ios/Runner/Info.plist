@@ -29,7 +29,6 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<!-- <string>com.googleusercontent.apps.985150730790-i9p5vuprqc9o98lb32dus82d5015ffop</string> -->
 				<string>com.googleusercontent.apps.544499278167-2e9su12l1h2js64g29dgdu6ks1spnfrq</string>
 			</array>
 		</dict>
@@ -39,9 +38,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>hello app camera description.</string>
+	<string>camera is required to upload live photos of the service area in which service will be provide. for ex if customer wants to renovate kitchen then we have to colllect the images for analysing how much resources we have to allocate and how much it will cost to user.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>hello app photos description.</string>
+	<string>photos are required to upload  photos of the service area in which service will be provide if the user has already captured them. For ex if customer wants to renovate kitchen then we have to colllect the images for analysing how much resources we have to allocate and how much it will cost to user.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
