@@ -11,7 +11,7 @@
     <!-- Permissions options for the `camera` group -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <application
-        android:label="new_user_side"
+        android:label="Meinhaus"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
