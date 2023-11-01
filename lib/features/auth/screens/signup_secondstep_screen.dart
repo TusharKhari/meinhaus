@@ -53,11 +53,14 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
       "phone": phone,
     };
     final notifier = context.read<AuthNotifier>();
-    isContinueClicked = true;
+    if(mounted) setState(() {
+      isContinueClicked = true;
+    });
     if (_signUpFormKey.currentState!.validate()) {
       await notifier.signUp(data, context);
+      isContinueClicked = false;
     }
-    isContinueClicked = false;
+    
   }
 
   @override

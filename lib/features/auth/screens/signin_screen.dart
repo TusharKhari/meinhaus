@@ -52,7 +52,9 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future login() async {
-    isSignInClicked = true;
+   if(mounted) setState(() {
+      isSignInClicked = true;
+   });
     final notifier = context.read<AuthNotifier>();
     final deviceName = await getDeviceName();
     Map<String, String> data = {
@@ -61,9 +63,10 @@ class _SignInScreenState extends State<SignInScreen> {
       "device_name": deviceName,
     };
     if (_signInFormKey.currentState!.validate()) { 
-      await notifier.login(data, context); 
-        } 
+      await notifier.login(data, context);  
         isSignInClicked = false;
+        }
+       
   }
 
   @override

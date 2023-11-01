@@ -68,8 +68,10 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
       'description': descriptionController.text,
       'images[]': image,
     };
-    if (_additionalWorkFormKey.currentState!.validate()) {
-      isRequestItClicked = true;
+    if (_additionalWorkFormKey.currentState!.validate() && mounted) {
+      setState(() {
+     isRequestItClicked = true;
+      });
       await notifier.requestAdditonalWork(
         context: context,
         body: body,

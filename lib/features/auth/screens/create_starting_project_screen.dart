@@ -288,9 +288,11 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
           hPadding: w / 4,
           text: "Submit",
           onTap: () {
+         if(mounted)  setState(() {
             isSubmitClicked = true;
-           // print("useradd $u")
+         }); 
             if (_estimateFormKey.currentState!.validate()) {
+              isSubmitClicked = false;
               authNotifer.isToggle
                   ? createStartingProject()
                   : showSnakeBarr(

@@ -71,14 +71,14 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                   ),
                                   MyTextPoppines(
                                     text:
-                                        "Estiamte Number : ${invoice?.bookingId}",
+                                        "Estimate Number : ${invoice?.bookingId}",
                                     fontSize: width / 35,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
                                   MyTextPoppines(
                                     text:
-                                        "Estiamte Date : ${invoice!.createdAt}",
+                                        "Estimate Date : ${invoice!.createdAt}",
                                     fontSize: width / 35,
                                     height: 1.5,
                                     textAlign: TextAlign.start,

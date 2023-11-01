@@ -37,7 +37,9 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
   }
 
   void _signUpHandler(BuildContext context) async {
-    isSignUpClicked = true;
+  if(mounted) setState(() {
+      isSignUpClicked = true;
+   });
     final notifer = context.read<AuthNotifier>();
     if (_signUpFormKey.currentState!.validate()) {
       Navigator.of(context).pushScreen(
@@ -46,8 +48,9 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
           password: _passwordController.text,
         ),
       );
+       isSignUpClicked = false;
     } 
-    isSignUpClicked = false;
+   
   }
 
   @override

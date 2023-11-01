@@ -30,7 +30,7 @@ class _IntroScreenState extends State<IntroScreen>
     ]);
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom],
+      overlays: [SystemUiOverlay.top,  ]
     );
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),

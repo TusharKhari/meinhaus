@@ -67,7 +67,9 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
   }
 
   Future _createEstimateHandler() async {
-    isCreateAnEstimateClicked = true;
+   if(mounted) setState(() {
+     isCreateAnEstimateClicked = true;
+   }); 
     final estimateNotifer = context.read<EstimateNotifier>();
     final userProvider = context.read<AuthNotifier>().user;
     final userAddress = userProvider.savedAddress!;
