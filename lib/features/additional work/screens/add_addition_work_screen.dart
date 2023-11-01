@@ -101,7 +101,10 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
     return ModalProgressHUD(
       inAsyncCall: notifier.loading,
       child: Scaffold(
-        appBar: MyAppBar(text: "Additional Work"),
+        appBar: MyAppBar(text: "Additional Work", onBack: () {
+          Navigator.pop(context);
+          notifier.onBackClick();
+        },),
         body: Column(
           children: [
             DownloadPdfCard(

@@ -26,6 +26,10 @@ class SavedNotesNotifier extends ChangeNotifier {
   SavedNotesModel get savedNotes => _savedNotes;
 
   //function
+  void onBackClick(){
+    _images = [];
+    notifyListeners();
+  }
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) notifyListeners();

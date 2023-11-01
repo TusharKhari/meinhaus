@@ -112,7 +112,10 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       ],
                     ),
                     InkWell(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () {
+                        Navigator.pop(context);
+                        notifer.onBackClick();
+                      },
                       child: CircleAvatar(
                         radius: 10.r,
                         backgroundColor: AppColors.textBlue.withOpacity(0.15),

@@ -23,8 +23,14 @@ class AdditionalWorkNotifier extends ChangeNotifier {
   AdditionalWorkModel get additionalWork => _additionalWork;
 
   //setters
-
+  
   //function
+
+  void onBackClick(){
+    _images = [];
+    notifyListeners();
+  }
+
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) {
@@ -135,7 +141,7 @@ class AdditionalWorkNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       var data = AdditionalWorkModel.fromJson(response);
       setAdditionalWork(data);
-      ('Rejection Done Addtional work succesfully ❌').log();
+      ('Rejection Done Addtional work successfully ❌').log();
       showSnakeBar(context, 'Addtional Work Rejected ❌');
     }).onError((error, stackTrace) {
       setLoadingState(false, true);

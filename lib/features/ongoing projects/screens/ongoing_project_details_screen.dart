@@ -6,6 +6,7 @@ import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_wid
 import 'package:new_user_side/features/review/widgets/show_review_card.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
+import 'package:new_user_side/provider/notifiers/upload_image_notifier.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -76,6 +77,7 @@ class _OngoingProjectDetailScreenState
     final services = projectDetails.services;
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+    final uploadNotifier =  context.watch<UploadImgNotifier>();
 
     return services != null && notifier.proDetails.prodata != null
         ? ModalProgressHUD(
@@ -87,6 +89,10 @@ class _OngoingProjectDetailScreenState
                     : services.normal!
                         ? "Ongoing Job"
                         : "Hourly Job",
+                onBack: (){ 
+                 Navigator.pop(context);
+                  uploadNotifier.onBackClick();
+                },
               ),
               body: Column(
                 children: [

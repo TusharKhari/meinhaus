@@ -28,13 +28,18 @@ class AdditionalWorkProProvideScreen extends StatelessWidget {
     return ModalProgressHUD(
       inAsyncCall: additionalNotifier.loading,
       child: Scaffold(
-        appBar: MyAppBar(text: "Additional Works"),
+        appBar: MyAppBar(text: "Additional Works", 
+        onBack: () { 
+           additionalNotifier.onBackClick();
+           Navigator.pop(context);
+        },),
         body: Column(
           children: [
             DownloadPdfCard(
               workName: projectDetails.projectName.toString(),
               isAddonWork: true,
               projectId: projectDetails.estimateNo,
+              
             ),
             const Divider(thickness: 2, height: 9),
             Expanded(

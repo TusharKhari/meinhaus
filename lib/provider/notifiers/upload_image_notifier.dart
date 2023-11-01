@@ -21,6 +21,10 @@ class UploadImgNotifier extends ChangeNotifier {
   List<XFile> get images => _images;
 
   //function
+  void onBackClick(){
+    _images = [];
+    notifyListeners();
+  }
   void setLoadingState(bool state, bool notify) {
     _loading = state;
     if (notify) notifyListeners();

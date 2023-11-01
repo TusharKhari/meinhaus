@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_user_side/features/add%20card/screens/add_new_card_screen.dart';
-import 'package:new_user_side/features/additional%20work/screens/add_addition_work_screen.dart';
+ import 'package:new_user_side/features/additional%20work/screens/add_addition_work_screen.dart';
 import 'package:new_user_side/features/additional%20work/screens/additional_work_from_pro_screen.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
@@ -10,8 +9,7 @@ import 'package:new_user_side/features/customer%20support/screens/customer_suppo
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
-import 'package:new_user_side/features/home/screens/home_screen.dart';
-import 'package:new_user_side/features/invoice/screens/progess_invoice_screen.dart';
+import 'package:new_user_side/features/home/screens/home_screen.dart'; 
 import 'package:new_user_side/features/notification/screens/notification_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/all_ongoing_projects_screen.dart';
 import 'package:new_user_side/features/ongoing%20projects/screens/completed_projects_screen.dart';
@@ -116,11 +114,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const CompletedProjectsScreen(),
       );
-    case AddNewCard.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const AddNewCard(),
-      );
+    
     case EditPasswordScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,

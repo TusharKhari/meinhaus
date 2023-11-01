@@ -15,8 +15,7 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
   const OngoingProjectPhotoCardWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
+  Widget build(BuildContext context) { 
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;

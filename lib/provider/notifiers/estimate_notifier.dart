@@ -44,6 +44,13 @@ class EstimateNotifier extends ChangeNotifier {
   ProModel get proDetails => _proModel;
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
 
+
+  void onBackClick(){
+    _images = []; 
+    print("${_images.length}");
+    notifyListeners();
+  }
+
   void setImagesInList(List<XFile> images) {
     _images.addAll(images);
     notifyListeners();

@@ -121,13 +121,7 @@ List settingCardList = [
     "Terms & Condition",
     "know about terms & condition",
     HomeScreen.routeName,
-  ],
-  // [
-  //   'assets/svgs/settings_card_icon.svg',
-  //   "Payment Method",
-  //   "Add your credit /debit cards",
-  //   AddNewCard.routeName,
-  // ],
+  ], 
   [
     'assets/svgs/settings_help_icon.svg',
     "Help & Support",
