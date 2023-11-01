@@ -21,8 +21,7 @@ class MyDrawer extends StatelessWidget {
     final h = context.screenHeight;
     final w = context.screenWidth;
       // logged out function
-    Future<void> _logoutHandler() async {
-      // print("Log out clicked");
+    Future<void> _logoutHandler() async { 
       final notifier = context.read<AuthNotifier>();
       await notifier.logout(context);
     }

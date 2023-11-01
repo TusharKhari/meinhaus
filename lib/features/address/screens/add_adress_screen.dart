@@ -130,9 +130,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           : 
 
            Container(
-                height: 110,
+                height: 70,
                // width: 160,
-               padding: EdgeInsets.symmetric(horizontal: 30, ).copyWith(bottom: 40),
+               padding: EdgeInsets.symmetric(horizontal: 30.w, ).copyWith(bottom: 20),
                 child: DropdownButton(
                   borderRadius: BorderRadius.circular(w / 28),
                   hint: Text("Address Type"),
