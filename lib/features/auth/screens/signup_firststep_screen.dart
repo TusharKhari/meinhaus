@@ -42,13 +42,14 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
    });
     final notifer = context.read<AuthNotifier>();
     if (_signUpFormKey.currentState!.validate()) {
+         isSignUpClicked = false;
       Navigator.of(context).pushScreen(
         SignUpStepSecondScreen(
           email: _emailController.text,
           password: _passwordController.text,
         ),
       );
-       isSignUpClicked = false;
+    
     } 
    
   }

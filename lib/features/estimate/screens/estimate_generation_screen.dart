@@ -86,6 +86,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     };
 
     if (_estimateFormKey.currentState!.validate()) {
+      isCreateAnEstimateClicked = false;
       if (isPhoneVerified) {
         await estimateNotifer.createEstimate(context: context, data: data);
       } else {
