@@ -49,6 +49,10 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+   Future<void> selectImgFromCamera(BuildContext context) async { 
+    await GetImages().pickImageFromCamera<EstimateNotifier>(context: context);
+  }
+
   void removeImageFromIndex(int idx) {
     _images.removeAt(idx);
     notifyListeners();

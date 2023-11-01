@@ -24,6 +24,7 @@ import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
 
 import '../../../utils/utils.dart';
+import '../widget/bottom_sheet.dart';
 import '../widget/saved_adresses_widget.dart';
 
 class EstimateGenerationScreen extends StatefulWidget {
@@ -50,7 +51,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
 
   GetImages getImages = GetImages();
 
-    bool isCreateAnEstimateClicked = false;
+  bool isCreateAnEstimateClicked = false;
 
   Future getImagess() async {
     await getImages.pickImages<EstimateNotifier>(context: context);
@@ -94,12 +95,14 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     }
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     final estimateNotifer = context.watch<EstimateNotifier>();
-     final width = MediaQuery.sizeOf(context).width;
+    final width = MediaQuery.sizeOf(context).width;
     final image = estimateNotifer.images;
-  
+
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
       child: Scaffold(
@@ -117,7 +120,9 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
             padding: EdgeInsets.symmetric(horizontal: width / 20),
             child: Form(
               key: _estimateFormKey,
-              autovalidateMode: isCreateAnEstimateClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+              autovalidateMode: isCreateAnEstimateClicked
+                  ? AutovalidateMode.onUserInteraction
+                  : AutovalidateMode.disabled,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -184,31 +189,30 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                         itemCount: image.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index) {
-                                          return 
-                                              Padding(
+                                          return Padding(
                                             padding: EdgeInsets.only(
-                                             //right: 5.w,
-                                            ),
+                                                //right: 5.w,
+                                                ),
                                             child: Stack(
                                               alignment: Alignment.topRight,
                                               children: [
                                                 Container(
-                                                  width: 90, 
-                                                   margin: EdgeInsets.only(top: 10, right: 20), 
+                                                  width: 90,
+                                                  margin: EdgeInsets.only(
+                                                      top: 10, right: 20),
                                                   child: Image.file(
                                                     File(image[index].path)
-                                                        .absolute, 
+                                                        .absolute,
                                                     fit: BoxFit.fitWidth,
                                                   ),
                                                 ),
-                                                // Icon(
-                                                //   Icons.remove_circle_rounded,
-                                                //   color: AppColors.red,
-                                                //   size: 25,
-                                                // ),
                                                 InkWell(
-                                                  onTap: () => estimateNotifer.removeImageFromIndex(index),
-                                                  child: SvgPicture.asset("assets/icons/remove_icon.svg", )), 
+                                                    onTap: () => estimateNotifer
+                                                        .removeImageFromIndex(
+                                                            index),
+                                                    child: SvgPicture.asset(
+                                                      "assets/icons/remove_icon.svg",
+                                                    )),
                                               ],
                                             ),
                                           );
@@ -218,7 +222,21 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                               //
                               20.hs,
                               InkWell(
-                                onTap: () => getImagess(),
+                                // onTap: () => getImagess(),
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) {
+                                      return BottomSheetSelectImagesOption( 
+                                        onTapGallery: () => getImagess(),
+                                        onTapCamera: () async{
+                                          estimateNotifer.selectImgFromCamera(context);
+                                           },
+                                      );
+                                    },
+                                  );
+                                },
                                 child: Icon(
                                   Icons.add_circle,
                                   size: 35.sp,

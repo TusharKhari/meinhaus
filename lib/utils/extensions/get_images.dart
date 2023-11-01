@@ -75,6 +75,8 @@ class GetImages {
       if (notifier is ChatNotifier) {
         notifier.setImage(pickedFile);
        // print(notifier.image.path);
+      } if(notifier is EstimateNotifier){
+        notifier.setImagesInList([pickedFile]);
       }
     } else {
      // print("No image picked");

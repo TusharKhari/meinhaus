@@ -44,7 +44,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
       ),
     );
   }
-  Future selectImgFromCamera(BuildContext context) async {
+  Future<void> selectImgFromCamera(BuildContext context) async {
     final notifier = context.read<ChatNotifier>();
     await getImage.pickImageFromCamera<ChatNotifier>(context: context);
     Navigator.pop(context);
@@ -237,7 +237,7 @@ class _bottomSheet extends StatelessWidget {
             context: context,
             backgroundColor: Colors.purple,
             icon: Icons.insert_photo,
-            title: "Gallary",
+            title: "Gallery",
             onTap: onTapGallery,
           ),
         ],
