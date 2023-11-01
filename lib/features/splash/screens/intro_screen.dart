@@ -28,6 +28,10 @@ class _IntroScreenState extends State<IntroScreen>
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom],
+    );
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -52,7 +56,7 @@ class _IntroScreenState extends State<IntroScreen>
     _controller.forward();
 
     Timer(const Duration(seconds: 3), () {
-    if(mounted) setState(() {});
+      if (mounted) setState(() {});
     });
 
     // authenticate();
@@ -62,6 +66,7 @@ class _IntroScreenState extends State<IntroScreen>
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 
