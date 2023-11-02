@@ -52,7 +52,7 @@ dependencies:
   shimmer: ^2.0.0
   flutter_stripe: ^9.4.0
   loading_animation_widget: ^1.2.0+4
-  google_sign_in: ^6.1.4
+  google_sign_in: 6.1.4
   flutter_rating_bar: ^4.0.1
   pusher_channels_flutter: ^2.1.2
   permission_handler: ^10.2.0

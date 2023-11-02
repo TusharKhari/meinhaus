@@ -16,7 +16,7 @@ import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../data/network/network_api_servcies.dart';
- import '../../features/auth/screens/otp_validate_screen.dart';
+import '../../features/auth/screens/otp_validate_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../resources/common/my_snake_bar.dart';
 
@@ -34,7 +34,7 @@ class AuthNotifier extends ChangeNotifier {
   bool _isAuthenticated = false;
   String accessToken = "";
   String deviceName = "";
-  bool  _isUserFirstVisit = true; 
+  bool _isUserFirstVisit = true;
   // getters
   bool get isToggle => _isToggle;
   bool get isWaiting => _isWaiting;
@@ -43,8 +43,7 @@ class AuthNotifier extends ChangeNotifier {
   bool get loading2 => _loading2;
   bool get gLoading => _gloading;
   bool get isAuthenticated => _isAuthenticated;
-  bool  get isUserFirstVisit  => _isUserFirstVisit;  
-
+  bool get isUserFirstVisit => _isUserFirstVisit;
 
   // setters
   void setLoadingState(bool state, bool notify) {
@@ -56,7 +55,7 @@ class AuthNotifier extends ChangeNotifier {
     _loading2 = state;
     if (notify) notifyListeners();
   }
-  
+
   void setGoogleLoadingState(bool state, bool notify) {
     _gloading = state;
     if (notify) notifyListeners();
@@ -113,9 +112,9 @@ class AuthNotifier extends ChangeNotifier {
 // Auth
   Future authentication(BuildContext context) async {
     final pref = await UserPrefrences();
-     // final pref = await UserPrefrences();
-     //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
-        // prefs.setIsUserFirstVisit(isFirstVisit: false);
+    // final pref = await UserPrefrences();
+    //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
+    // prefs.setIsUserFirstVisit(isFirstVisit: false);
     await repository.auth().then((response) {
       ("Token Verified!🔥").log("Auth-Auth_Notifier");
       prefs.printToken();
@@ -128,6 +127,7 @@ class AuthNotifier extends ChangeNotifier {
       ("$error $stackTrace").log("Auth notifier");
     });
   }
+
   // set sanctum
   Future sanctum() async {
     final response = await http.get(
@@ -305,10 +305,13 @@ class AuthNotifier extends ChangeNotifier {
   Future googleAuth(BuildContext context) async {
     setGoogleLoadingState(true, true);
     try {
+      print("gAuth");
       // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      print(gUser);
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
       accessToken = await gAuth.accessToken!;
+      print(accessToken);
       if (accessToken.isNotEmpty) googleSignIn(context);
     } catch (e) {
       showSnakeBarr(
@@ -316,6 +319,8 @@ class AuthNotifier extends ChangeNotifier {
         "Something went wrong try again",
         SnackBarState.Warning,
       );
+      e.log("gauth");
+      print("gauth $e");
       setGoogleLoadingState(false, true);
     }
   }
@@ -428,9 +433,9 @@ class AuthNotifier extends ChangeNotifier {
         final GoogleSignIn googleSignIn = GoogleSignIn();
         await googleSignIn.signOut();
         UserPrefrences().logOut(context);
-      //  print('Signed out successfully.');
+        //  print('Signed out successfully.');
       } else {
-      //  print("Social login is null");
+        //  print("Social login is null");
         ("normal").log("Log-out");
         UserPrefrences().logOut(context);
       }

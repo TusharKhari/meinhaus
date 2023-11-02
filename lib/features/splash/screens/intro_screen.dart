@@ -23,15 +23,16 @@ class _IntroScreenState extends State<IntroScreen>
   bool isAuth = false;
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top,  ]
-    );
+    // SystemChrome.setEnabledSystemUIMode(
+    //   SystemUiMode.manual,
+    //   overlays: [SystemUiOverlay.top,]
+    // );
+    
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -43,7 +44,7 @@ class _IntroScreenState extends State<IntroScreen>
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.easeOut,
-    ));
+    ), );
 
     _opacityAnimation = Tween<double>(
       begin: 1.0,
@@ -56,11 +57,12 @@ class _IntroScreenState extends State<IntroScreen>
     _controller.forward();
 
     Timer(const Duration(seconds: 3), () {
-      if (mounted) setState(() {});
+      if (mounted) 
+      setState(() {});
     });
 
     // authenticate();
-    auth();
+     auth();
   }
 
   @override

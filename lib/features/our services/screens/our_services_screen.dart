@@ -51,7 +51,9 @@ class OurServiceScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage("assets/images/fixing/fixing_1.png"),
+                      image:
+                      // AssetImage("assets/images/fixing/fixing_1.png"),
+                      NetworkImage(services.serviceDescImage!, ),
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -62,10 +62,16 @@ class EditProfileNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     editProfileRepository.editPassword(body).then((value) {
       setLoadingState(false, true);
-      showSnakeBar(context, "Password Updated ✅");
-      ("Password Updated ✅").log();
-
-      Navigator.pop(context);
+      // showSnakeBar(context, "Password Updated ✅");
+      showSnakeBar(context, value["response_message"]);
+     // value.log("pass");
+     // ("Password Updated ✅").log();
+      String res = value["response_message"].toString();
+     // print(res);
+      if(res.contains("successfully")){
+         Navigator.pop(context);
+      }
+     // Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       showSnakeBar(context, error.toString());

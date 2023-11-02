@@ -32,7 +32,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
   FocusNode newPassNode = FocusNode();
   FocusNode confrimPassNode = FocusNode();
   bool isWaiting = false;
-
+  bool isSaveClicked = false;
   @override
   void dispose() {
     super.dispose();
@@ -45,7 +45,11 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
   }
 
   _editPasswordHandler() async {
+    if(mounted)setState(() {
+      isSaveClicked = true;
+    });
     if (_editPasswordKey.currentState!.validate()) {
+      isSaveClicked = false;
       final notifier = context.read<EditProfileNotifier>();
       final body = {
         "old_password": oldPasswordController.text,
@@ -83,7 +87,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 10.vs,
                 Form(
                   key: _editPasswordKey,
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: isSaveClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                   child: Column(
                     children: [
                       MyTextField(
