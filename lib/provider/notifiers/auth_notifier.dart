@@ -305,13 +305,12 @@ class AuthNotifier extends ChangeNotifier {
   Future googleAuth(BuildContext context) async {
     setGoogleLoadingState(true, true);
     try {
-      print("gAuth");
+ 
       // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-      print(gUser);
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
       accessToken = await gAuth.accessToken!;
-      print(accessToken);
+      // print(gAuth.accessToken);
       if (accessToken.isNotEmpty) googleSignIn(context);
     } catch (e) {
       showSnakeBarr(
@@ -334,6 +333,7 @@ class AuthNotifier extends ChangeNotifier {
         response['response_message'],
         SnackBarState.Success,
       );
+      print(response);
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
