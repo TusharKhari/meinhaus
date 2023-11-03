@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
