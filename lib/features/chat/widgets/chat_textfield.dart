@@ -32,7 +32,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
     await getImage.pickImage<ChatNotifier>(context: context);
     Navigator.pop(context);
     final imgPath = await notifier.image.path;
-    Navigator.of(context).pushScreen(
+  if(imgPath.isNotEmpty)  Navigator.of(context).pushScreen(
       CameraViewPage(
         onTap: sendImgMessage,
         imgPath: imgPath,
@@ -49,14 +49,10 @@ class _ChatTextFieldState extends State<ChatTextField> {
     await getImage.pickImageFromCamera<ChatNotifier>(context: context);
     Navigator.pop(context);
     final imgPath = await notifier.image.path;
-    Navigator.of(context).pushScreen(
+     Navigator.of(context).pushScreen(
       CameraViewPage(
         onTap: sendImgMessage,
-        imgPath: imgPath,
-        // onBackTap: () {
-        //   Navigator.pop(context);
-        //   notifier.onImagePreviewBackTap();
-        // },
+        imgPath: imgPath, 
         notifier: notifier,
       ),
     );
