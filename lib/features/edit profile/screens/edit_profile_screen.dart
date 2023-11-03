@@ -90,9 +90,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }) {
     if (notifierImg.isNotEmpty) {
       return Image.file(File(notifierImg)).image;
-    } else if (newtworkImg.length != 0) {
+    } 
+    else if (newtworkImg.length != 0) {
       return NetworkImage(newtworkImg);
-    } else {
+    } 
+    else {
       return AssetImage("assets/images/man.png");
     }
   }
@@ -138,7 +140,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Row(
               children: [
                 30.hs,
-                user.profilePic!.isNotEmpty
+                user.profilePic!.isNotEmpty || img.path.isNotEmpty
                     ? Container(
                         width: width / 4.5,
                         height: height / 9,

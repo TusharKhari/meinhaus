@@ -37,6 +37,7 @@ class ChatWithProNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     await repo.allConversation().then((response) {
       final data = ConversationsListModal.fromJson(response);
+      //response.log("all conversation");
       setAllConversationList(data);
       setLoadingState(false, true);
     }).onError((error, stackTrace) {
