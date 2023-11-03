@@ -18,7 +18,7 @@ class ShowError extends StatelessWidget {
     } else if (error.contains("Internet")) {
       errorScreen = GenericErrorScreen(
         svgImg: serverErrorIcon,
-        errorHeading: "No Intenet Connection",
+        errorHeading: "No Internet Connection",
         errorSubHeading: SubHeading500,
       );
     } else if (error.contains("400")) {

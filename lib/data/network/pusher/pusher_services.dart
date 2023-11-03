@@ -14,7 +14,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
-import '../static components/dialogs/customer_close_ticket_dialog.dart';
+import '../../../static components/dialogs/customer_close_ticket_dialog.dart';
 
 class PusherService {
   //*  Singleton Design Pattern

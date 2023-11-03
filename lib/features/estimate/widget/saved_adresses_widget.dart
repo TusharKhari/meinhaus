@@ -61,23 +61,8 @@ class SavedAddressesWidget extends StatelessWidget {
                 return Consumer<AddressNotifier>(
                   builder: (context, selectedAddress, child) {
                     return InkWell(
-                      onTap: 
-                      // 
-                    //   () {
-                    //    selectedAddress.setSelectedAddress(index);
-                    //     // put update address api call here 
-                    //  isProfileEdit ?  selectedAddress.updateDefaultAddress(
-                    //   context: context,
-                    //    body: {
-                    //      "address_id": addressId.toString(),
-                         
-                    //     }, 
-                    //     ) : (){
-                    //     };
-                    // print(addressId);
-                    //    print("address updated addId : $addressId");
-                    //   },
-                    isProfileEdit ? (){
+                      onTap:  
+                    isProfileEdit  && index != defaultAddressIdx  ? (){
                       selectedAddress.updateDefaultAddress(context: context, 
                        body: {
                          "address_id": addressId.toString(),
@@ -86,7 +71,6 @@ class SavedAddressesWidget extends StatelessWidget {
                       selectedAddress.setSelectedDefaultAddressIdx(index);
                      } :() {
                     selectedAddress.setSelectedAddress(index);
-                    
                     }, 
                       child: AddressCardWidget(
                         index:   index, 

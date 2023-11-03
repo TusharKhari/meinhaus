@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
- import 'package:new_user_side/features/auth/screens/user_details.dart';
+ import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/features/estimate/widget/saved_adresses_widget.dart';
 import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';

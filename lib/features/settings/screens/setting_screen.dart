@@ -121,6 +121,7 @@ List settingCardList = [
     "Terms & Condition",
     "know about terms & condition",
     HomeScreen.routeName,
+    
   ], 
   [
     'assets/svgs/settings_help_icon.svg',

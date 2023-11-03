@@ -6,7 +6,7 @@ import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/payment_services.dart';
+import '../../data/network/payment/payment_services.dart';
 import '../../features/home/screens/home_screen.dart';
 
 class CheckOutNotifier extends ChangeNotifier {

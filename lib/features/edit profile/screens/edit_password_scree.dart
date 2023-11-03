@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/auth/screens/user_details.dart';
+import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/features/edit%20profile/controller/provider/edit_profile_notifier.dart';
 import 'package:new_user_side/features/edit%20profile/controller/services/edit_profile_services.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_user_side/features/additional%20work/screens/additional_work_from_pro_screen.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/features/auth/screens/signup_firststep_screen.dart';
-import 'package:new_user_side/features/auth/screens/user_details.dart';
+import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/features/all%20conversation/screens/all_conversation_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/features/estimate/screens/all_estimate_work_screen.dart';
@@ -88,11 +88,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const NotificationScreen(),
       );
-    case UserDetailsScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const UserDetailsScreen(),
-      );
+
+    // case UserDetailsScreen.routeName:
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => const UserDetailsScreen(),
+    //   );
     // case OtpValidateScreen.routeName:
     //   var email = routeSettings.arguments as String;
     //   return MaterialPageRoute(

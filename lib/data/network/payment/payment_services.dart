@@ -10,7 +10,7 @@ import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
-import '../resources/common/api_url/api_urls.dart';
+import '../../../resources/common/api_url/api_urls.dart';
 
 class MakePayment {
   Map<String, dynamic>? paymentIntent;

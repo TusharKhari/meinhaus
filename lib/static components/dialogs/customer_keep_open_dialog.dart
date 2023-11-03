@@ -6,7 +6,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/validator.dart';
 import 'package:provider/provider.dart';
 
-import '../../features/auth/screens/user_details.dart';
+import '../../features/auth/widgets/my_text_field.dart';
 
 class CustomerSupportKeepOpenDialog extends StatelessWidget {
   const CustomerSupportKeepOpenDialog({super.key});

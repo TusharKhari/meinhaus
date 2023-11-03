@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../../utils/extensions/show_picked_images.dart';
 import '../../../utils/utils.dart';
-import '../../auth/screens/user_details.dart';
+import '../../auth/widgets/my_text_field.dart';
 
 class SendQueryScreen extends StatefulWidget {
   static const String routeName = '/sendQuery';

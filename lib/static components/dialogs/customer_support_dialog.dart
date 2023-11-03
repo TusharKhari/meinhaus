@@ -8,7 +8,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
-import '../../features/auth/screens/user_details.dart';
+import '../../features/auth/widgets/my_text_field.dart';
 import '../../utils/extensions/get_images.dart';
 import '../../utils/extensions/show_picked_images.dart';
 

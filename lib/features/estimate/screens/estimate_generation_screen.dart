@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_user_side/features/auth/screens/user_details.dart';
+import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/resources/common/buttons/my_bottom_bar_button.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';

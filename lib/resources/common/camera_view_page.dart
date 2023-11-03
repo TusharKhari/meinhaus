@@ -39,38 +39,38 @@ class CameraViewPage extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.edit,
-              color: AppColors.white,
-              size: w / 20,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.crop_rotate,
-              color: AppColors.white,
-              size: w / 20,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.title,
-              color: AppColors.white,
-              size: w / 20,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.emoji_emotions,
-              color: AppColors.white,
-              size: w / 20,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.edit,
+          //     color: AppColors.white,
+          //     size: w / 20,
+          //   ),
+          // ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.crop_rotate,
+          //     color: AppColors.white,
+          //     size: w / 20,
+          //   ),
+          // ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.title,
+          //     color: AppColors.white,
+          //     size: w / 20,
+          //   ),
+          // ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.emoji_emotions,
+          //     color: AppColors.white,
+          //     size: w / 20,
+          //   ),
+          // ),
         ],
       ),
       body: Stack(

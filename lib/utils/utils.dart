@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:image_picker/image_picker.dart'; 
+ import 'package:image_picker/image_picker.dart';
 
-class Utils {
-  final dio = Dio();
+class Utils { 
   Utils._();
 
   // function to change the focus from the current textfield to another with keyboard
@@ -47,19 +45,8 @@ class Utils {
     }
   }
 
-// Getting the lat and long form address
+ 
 
-  static Future<List<Location>> getCordinates(String address) async {
-    return await locationFromAddress(address);
-  } 
-
-
-// Getting the lat and long form address
-  static Future<List<Placemark>> getAddress(double lat, double long) async {
-    return await placemarkFromCoordinates(lat, long);
-  }
-
-  
 // Convert random time into railway timing
   static String convertToRailwayTime(String time) {
     final dateTime = DateTime.parse(time).toLocal();

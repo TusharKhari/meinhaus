@@ -21,13 +21,20 @@ class ForgetPasswordScreen extends StatefulWidget {
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _emailFormKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
+  bool isSendOTPClicked = false;
 
   // Making the request for forget password will are sharing email so that
   // i can share otp on email and we can verify it for generate new password
   Future<void> forgetPassword() async {
+    if(context.mounted){
+      setState(() {
+        isSendOTPClicked=true;
+      });
+    }
     final notifier = context.read<AuthNotifier>();
     MapSS body = {"email": _emailController.text};
     if (_emailFormKey.currentState!.validate()) {
+      isSendOTPClicked = false;
       await notifier.forgetPassword(context: context, body: body);
     }
   }
@@ -87,7 +94,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               SizedBox(height: h / 40),
               Form(
                 key: _emailFormKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode:  isSendOTPClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                 child: AuthTextField(
                   controller: _emailController,
                   headingText: 'Email',
