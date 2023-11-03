@@ -33,7 +33,7 @@ class CheckOutNotifier extends ChangeNotifier {
     required BuildContext context,
     required String bookingId,
   }) async {
-    final onGoingProjects = context.watch<EstimateNotifier>();
+    final onGoingProjects = context.read<EstimateNotifier>();
     setLoadingState(true);
     Map<String, String> data = {"booking_id": bookingId};
    // print("Payment processing");

@@ -63,7 +63,7 @@ class PusherService {
   }
 
   void onConnectionStateChange(dynamic currentState, dynamic previousState) {
-    print("pusher Connection: $currentState");
+   // print("pusher Connection: $currentState");
   }
 
   void onError(String message, int? code, dynamic e) {
