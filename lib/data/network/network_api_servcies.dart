@@ -158,6 +158,8 @@ class NetworkApiServices {
             url,
             data: FormData.fromMap(body!),
             options: Options(headers: postHeader),
+            // onReceiveProgress: (count, total) => print(count/total *100),
+            // onSendProgress: (count, total) => print((count/total *100)),
           );
           break;
         case HttpMethod.put:

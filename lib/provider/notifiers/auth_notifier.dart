@@ -116,15 +116,14 @@ class AuthNotifier extends ChangeNotifier {
     //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
     // prefs.setIsUserFirstVisit(isFirstVisit: false);
     await repository.auth().then((response) {
-      ("Token Verified!🔥").log("Auth-Auth_Notifier");
-      prefs.printToken();
+      ("Token Verified!🔥").log("Auth-Auth_Notifier"); 
       final user = UserModel.fromJson(response).user!;
       setUser(user);
       pref.setUserId(user.userId.toString());
       //Navigator.pushNamed(context, HomeScreen.routeName);
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     }).onError((error, stackTrace) {
-      ("$error $stackTrace").log("Auth notifier");
+     // ("$error $stackTrace").log("Auth notifier");
     });
   }
 
