@@ -7,7 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:new_user_side/data/network/network_api_servcies.dart'; 
+import 'package:new_user_side/data/network/network_api_servcies.dart';
+import 'package:new_user_side/features/chat/widgets/preview_single_images.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -22,9 +23,9 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../static components/dialogs/edit_profile_dialog.dart';
+import '../../../utils/extensions/full_screen_image_view.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
-
 
 class EditProfileScreen extends StatefulWidget {
   static const String routeName = '/edit';
@@ -90,11 +91,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }) {
     if (notifierImg.isNotEmpty) {
       return Image.file(File(notifierImg)).image;
-    } 
-    else if (newtworkImg.length != 0) {
+    } else if (newtworkImg.length != 0) {
       return NetworkImage(newtworkImg);
-    } 
-    else {
+    } else {
       return AssetImage("assets/images/man.png");
     }
   }
@@ -105,14 +104,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final width = MediaQuery.sizeOf(context).width;
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
-  ///  final addressNotifier = context.watch<AddressNotifier>();
+
+    ///  final addressNotifier = context.watch<AddressNotifier>();
     // String userName = "${user.firstname}";
-     String userName = "${user.firstname} ${user.lastname}";
+    String userName = "${user.firstname} ${user.lastname}";
     final img = notifier.image;
 
     return ModalProgressHUD(
       // inAsyncCall: notifier.loading || addressNotifier.loading ,
-      inAsyncCall:  notifier.loading,
+      inAsyncCall: notifier.loading,
       child: Scaffold(
         // App bar
         appBar: MyAppBar(
@@ -141,21 +141,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 30.hs,
                 user.profilePic!.isNotEmpty || img.path.isNotEmpty
-                    ? Container(
-                        width: width / 4.5,
-                        height: height / 9,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                            image: _showProfileImage(
-                              notifierImg: img.path,
-                              newtworkImg: user.profilePic!,
+                    ? InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PreviewSingleImage(
+                                    imgPath: user.profilePic!),
+                              )); 
+                        },
+                        child: Container(
+                          width: width / 4.5,
+                          height: height / 9,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.transparent,
+                            image: DecorationImage(
+                              image: _showProfileImage(
+                                notifierImg: img.path,
+                                newtworkImg: user.profilePic!,
+                              ),
                             ),
-                          ),
-                          border: Border.all(
-                            color: AppColors.black,
-                            width: width / 200,
+                            border: Border.all(
+                              color: AppColors.black,
+                              width: width / 200,
+                            ),
                           ),
                         ),
                       )
@@ -167,11 +177,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           color: AppColors.buttonBlue,
                         ),
                         child: Center(
-                            child: MyTextPoppines( 
-                              text:  user.lastname == "" ?
-                              user.firstname!.toUpperCase()[0]  : 
-                              user.firstname!.toUpperCase()[0] + user.lastname!.toUpperCase()[0], 
-                              // text: user.firstname!.toUpperCase()[0] + user.lastname!.toUpperCase()[0], 
+                            child: MyTextPoppines(
+                          text: user.lastname == ""
+                              ? user.firstname!.toUpperCase()[0]
+                              : user.firstname!.toUpperCase()[0] +
+                                  user.lastname!.toUpperCase()[0],
+                          // text: user.firstname!.toUpperCase()[0] + user.lastname!.toUpperCase()[0],
                           fontSize: width / 10,
                           color: AppColors.white,
                           fontWeight: FontWeight.w600,
@@ -326,8 +337,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       20.vs,
                       Divider(thickness: 1.5, indent: 20.w, endIndent: 20.w),
                       20.vs,
-                       SavedAddressesWidget(isProfileEdit: true,),
-                      // EditProfileSavedAddressesWidget(), 
+                      SavedAddressesWidget(
+                        isProfileEdit: true,
+                      ),
+                      // EditProfileSavedAddressesWidget(),
                     ],
                   ),
                 ),

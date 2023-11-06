@@ -59,7 +59,7 @@ class EditProfilePicDialog extends StatelessWidget {
               children: [
                 MyBlueButton(
                   hPadding: 40.w,
-                  text: "Ok",
+                  text: "Yes",
                   vPadding: 10.h,
                   fontSize: height / 48,
                   onTap: onTapAtOk,

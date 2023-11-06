@@ -64,6 +64,7 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
                                 currentIndex: index,
                               ),
                             );
+                           
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(width / 40),
