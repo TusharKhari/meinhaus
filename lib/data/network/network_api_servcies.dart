@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../local db/user_prefrences.dart';
@@ -27,7 +28,7 @@ class NetworkApiServices {
   }) async {
     final uri = url;
 
-    //if (body != null) (body).log("${uri.path}");
+    if (body != null && !isProd) (body).log("${uri.path}");
 
     dynamic responseJson;
     final getHeader = await UserPrefrences().getHeader();
@@ -64,11 +65,11 @@ class NetworkApiServices {
 
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      // (response.body).log();
+      if(!isProd) (response.body).log();
       final xsrf = response.headers['set-cookie'];
       await UserPrefrences().setXsrf(xsrf.toString());
       responseJson = errorHandling(response, allowUnauthorizedResponse);
-      // (response.statusCode).log(response.request!.url.path.toString());
+      if(!isProd) (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -95,7 +96,7 @@ class NetworkApiServices {
     bool? allowUnauthorizedResponse = false,
   }) async {
     final uri = url;
-    // if (body != null) (body).log("${uri.path}");
+    if (body != null) (body).log("${uri.path}");
     dynamic responseJson;
     try {
       late final http.Request request;
@@ -123,9 +124,9 @@ class NetworkApiServices {
       request.headers.addAll({'Accept': 'application/json'});
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      // (response.body).log();
+      (response.body).log();
       responseJson = errorHandling(response, allowUnauthorizedResponse);
-      // (response.statusCode).log(response.request!.url.path.toString());
+      (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on FormatException {
       throw FetchDataException("Internal server error");
@@ -143,7 +144,7 @@ class NetworkApiServices {
     final dio = Dio();
     final getHeader = await UserPrefrences().getHeader();
     final postHeader = await UserPrefrences().postHeader();
-    // if (body != null) (body).log("${url.path}");
+    if (body != null) (body).log("${url.path}");
     try {
       late final Response<dynamic> response;
       switch (method) {
@@ -177,7 +178,7 @@ class NetworkApiServices {
           );
           break;
       }
-      //  (response.statusCode)!.log(response.realUri.path);
+       (response.statusCode)!.log(response.realUri.path);
       if (response.statusCode == 200 || response.statusCode == 201)
         return response.data;
       else

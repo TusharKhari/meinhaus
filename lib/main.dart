@@ -7,6 +7,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import 'provider/provider.dart';
 
@@ -20,6 +22,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //await PushNotificationServices().initNotifications();
   Stripe.publishableKey = dotenv.env['stripePublishableKey']!;
+  ("").log();
   runApp(
     MultiProvider(
       providers: provider,
@@ -55,6 +58,7 @@ class MyApp extends StatelessWidget {
         // 
         MaterialApp(
               title: 'Mein Haus',
+              debugShowCheckedModeBanner: !isProd,
           theme: ThemeData(
             primarySwatch: Colors.blue,
             dialogTheme: DialogTheme(

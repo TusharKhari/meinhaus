@@ -1,11 +1,15 @@
 import 'dart:developer' as dev show log;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
 
 // This extension show all the logs on console
 // Use it like this -> response.log();
 extension Log on Object {
-  void log([String tag = 'Log']) => dev.log(toString(), name: tag);
+  void log([String tag = 'Log']) {
+    if(!isProd)
+    dev.log(toString(), name: tag);
+  }
 }
 
 extension CustomPadding on num {
@@ -50,5 +54,3 @@ extension NavigationExtension on NavigatorState {
     );
   }
 }
-
-
