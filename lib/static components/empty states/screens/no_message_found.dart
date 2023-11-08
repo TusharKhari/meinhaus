@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -24,7 +25,7 @@ class NoMessageFound extends StatelessWidget {
         SizedBox(height: height / 60),
         MyTextPoppines(
           text: "No messages in your indox yet!",
-          fontSize: width / 30,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
           color: AppColors.grey,
           // textAlign: TextAlign.center,

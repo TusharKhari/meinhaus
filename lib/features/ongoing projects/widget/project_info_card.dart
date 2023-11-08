@@ -30,7 +30,7 @@ class ProjectInfoCard extends StatelessWidget {
     final ongoingJobs = projects[index];
     final projectId = ongoingJobs.services![0].projectId.toString();
     final proId = ongoingJobs.services![0].proId.toString();
-    final headline1 = width / 35;
+    final headline1 =16.sp;
     final bool isHourlyBooking = ongoingJobs.normal!;
     final bool isMultipleServices = ongoingJobs.services!.length > 1;
 
@@ -197,7 +197,7 @@ class ProjectInfoCard extends StatelessWidget {
                     ),
                     SizedBox(
                       height: height / 13,
-                      width: width / 1.4,
+                      width: 250.w,
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -206,8 +206,8 @@ class ProjectInfoCard extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final images = ongoingJobs.projectImages![index];
                           return Container(
-                            margin: EdgeInsets.only(left: width / 30),
-                            width: width / 5.4,
+                           margin: EdgeInsets.only(left: width / 30),
+                           width: width / 5.4,
                             decoration: BoxDecoration(
                               color: AppColors.black,
                               borderRadius: BorderRadius.circular(12),
@@ -238,7 +238,7 @@ class ProjectInfoCard extends StatelessWidget {
                       visible: !isHourlyBooking,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            vertical: height / 110, horizontal: width / 35),
+                            vertical: height / 110, horizontal:16.sp),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           color: Color(0xFFB9B100).withOpacity(0.12),

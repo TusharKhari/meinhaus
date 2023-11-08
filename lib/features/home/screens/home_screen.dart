@@ -150,12 +150,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Divider(
-            thickness: 1.0,
-            color: AppColors.grey.withOpacity(0.2),
-          ),
-          SizedBox(height: height / 120),
-          const HomeOfferBanner(),
+          // Divider(
+          //   thickness: 1.0,
+          //   color: AppColors.grey.withOpacity(0.2),
+          // ),
+          // SizedBox(height: height / 120),
+        //  const HomeOfferBanner(),
           SizedBox(height: height / 120),
           Divider(
             thickness: 1.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
  import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -91,7 +92,7 @@ class SettingCardWidget extends StatelessWidget {
                     children: [
                       MyTextPoppines(
                         text: list[1],
-                        fontSize: width / 26,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                       ),
                       8.vs,
@@ -123,10 +124,10 @@ List settingCardList = [
     HomeScreen.routeName,
     
   ], 
-  [
-    'assets/svgs/settings_help_icon.svg',
-    "Help & Support",
-    "Raise a concern or read our FAQs",
-    HomeScreen.routeName,
-  ],
+  // [
+  //   'assets/svgs/settings_help_icon.svg',
+  //   "Help & Support",
+  //   "Raise a concern or read our FAQs",
+  //   HomeScreen.routeName,
+  // ],
 ];

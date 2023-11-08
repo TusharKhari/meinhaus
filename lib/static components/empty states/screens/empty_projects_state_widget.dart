@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
@@ -35,7 +36,7 @@ class EmptyProjectsStateWidget extends StatelessWidget {
           MyTextPoppines(
             text:
                 "Don’t worry! To start new project You can create new estimate by tapping below.",
-            fontSize: width / 30,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
             color: AppColors.black.withOpacity(0.5),

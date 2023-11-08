@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -56,7 +57,8 @@ class SendMessage extends StatelessWidget {
                 children: [
                   MyTextPoppines(
                     text: "Reason for denying : ",
-                    fontSize: w / 32,
+                      fontSize:14.sp,
+                    // fontSize: w / 32,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black,
                     maxLines: 100,
@@ -64,7 +66,8 @@ class SendMessage extends StatelessWidget {
                   SizedBox(height: h / 200),
                   MyTextPoppines(
                     text: message.message!,
-                    fontSize: w / 32,
+                     fontSize:14.sp,
+                    // fontSize: w / 32,
                     fontWeight: FontWeight.w500,
                     color: isConvoEnd! ? AppColors.black : AppColors.white,
                     maxLines: 100,
@@ -81,7 +84,8 @@ class SendMessage extends StatelessWidget {
             ),
           MyTextPoppines(
             text: messageTime,
-            fontSize: w / 32,
+              fontSize:14.sp,
+            // fontSize: w / 32,
             fontWeight: FontWeight.w500,
             color: isConvoEnd!
                 ? AppColors.black.withOpacity(0.6)
@@ -112,7 +116,8 @@ class ChatHelper {
       width: w / 1.9,
       child: MyTextPoppines(
         text: message,
-        fontSize: w / 32,
+         fontSize:14.sp,
+        // fontSize: w / 32,
         fontWeight: FontWeight.w500,
         color: messageColor,
         maxLines: 100,

@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import '../../../utils/sizer.dart';
-import 'my_buttons.dart';
+ import 'my_buttons.dart';
 
 class MyBottomNavWidget extends StatelessWidget {
   final double hPadding;
@@ -29,7 +28,8 @@ class MyBottomNavWidget extends StatelessWidget {
             hPadding: hPadding,
             text: text,
             onTap: onTap,
-            fontSize: context.screenHeight / MyFontSize.font16,
+            fontSize: 16.sp,
+            // fontSize: context.screenHeight / MyFontSize.font16,
           ),
         ],
       ),

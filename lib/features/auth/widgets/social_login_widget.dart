@@ -35,7 +35,7 @@ class SocialLoginWidget extends StatelessWidget {
               ),
               MyTextPoppines(
                 text: "Or Login with",
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: AppColors.black.withOpacity(0.7),
               ),
               Expanded(

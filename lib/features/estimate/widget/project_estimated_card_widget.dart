@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -75,7 +76,7 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
               MyTextPoppines(
                 text: "Project Area :",
                 fontWeight: FontWeight.w600,
-                fontSize: width / 28,
+                fontSize:16.sp,
               ),
               SizedBox(width: width / 22),
               Flexible(
@@ -83,7 +84,8 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
                   maxLines: 3,
                  // height: 10,
                   text: service.projectArea ?? "",
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
+                  // fontSize: 16.sp,
                   
                 ),
               ),
@@ -94,14 +96,15 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             
             text: "Description ",
             fontWeight: FontWeight.w600,
-            fontSize: width / 28,
+            fontSize: 16.sp,
           ),
           SizedBox(height: height / 80),
           Padding(
             padding: EdgeInsets.only(left: width / 30),
             child: MyTextPoppines(
               text: service.projectDescription ?? "No Description",
-              fontSize: height / 65,
+              fontSize: 14.sp,
+              // fontSize: height / 65,
               maxLines: 100,
               height: 1.4,
               color: AppColors.black.withOpacity(0.5),
@@ -112,13 +115,13 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             children: [
               MyTextPoppines(
                 text: "Deposit Amount :",
-                fontSize: width / 28,
+                fontSize:16.sp,
                 fontWeight: FontWeight.w600,
               ),
               SizedBox(width: width / 22),
               MyTextPoppines(
                 text: "\$${service.depositAmount}",
-                fontSize: width / 30,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
@@ -129,13 +132,13 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             children: [
               MyTextPoppines(
                 text: "Project Cost :",
-                fontSize: width / 28,
+                fontSize:16.sp,
                 fontWeight: FontWeight.w600,
               ),
               20.hs,
               MyTextPoppines(
                 text: "\$${service.projectCost}",
-                fontSize: width / 30,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
@@ -178,7 +181,7 @@ class __BuildButtonState extends State<_BuildButton> {
       children: [
         MyTextPoppines(
           text: "Action :",
-          fontSize: width / 28,
+          fontSize:16.sp,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(width: width / 22),

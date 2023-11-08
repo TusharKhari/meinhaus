@@ -20,11 +20,10 @@ class AllEstimatedWorkScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifer = context.read<EstimateNotifier>();
-    final estimate = notifer.estimated.estimatedWorks!;
-    final height = MediaQuery.of(context).size.height;
+    final notifier = context.read<EstimateNotifier>();
+    final estimate = notifier.estimated.estimatedWorks!; 
     return Scaffold(
-      appBar: MyAppBar(text: "Estimated Work's"),
+      appBar: MyAppBar(text: "Estimated Works"),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.h),
         child: Column(
@@ -36,7 +35,8 @@ class AllEstimatedWorkScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                 child: MyTextPoppines(
                   text: "Here’s the list of all estimates.",
-                  fontSize: height / MyFontSize.font16,
+                  fontSize: 16.sp, 
+                  // fontSize: height / MyFontSize.font16,
                   fontWeight: FontWeight.w500,
                 ),
               ),

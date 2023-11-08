@@ -14,13 +14,13 @@ class MyBlueButton extends StatelessWidget {
   final FontWeight? fontWeight;
   final bool? isRoundedBorder;
   final bool? isWaiting;
-  const MyBlueButton({
+   MyBlueButton({
     Key? key,
     required this.hPadding,
     required this.text,
     required this.onTap,
     this.vPadding,
-    this.fontSize = 16,
+    this.fontSize = 18,
     this.fontWeight = FontWeight.w600,
     this.isRoundedBorder = true,
     this.isWaiting = false,

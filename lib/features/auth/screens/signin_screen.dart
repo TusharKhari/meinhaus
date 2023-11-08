@@ -111,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
                 child: MyTextPoppines(
                   text: "Forget Password ?",
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   color: AppColors.textBlue,
                   fontWeight: FontWeight.w600,
                 ),
@@ -124,6 +124,7 @@ class _SignInScreenState extends State<SignInScreen> {
             MyBlueButton(
               isWaiting: notifier.loading,  
               hPadding: 120.w,
+              
               text: "Sign In",
               onTap: () => login(),
             ),
@@ -133,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 MyTextPoppines(
                   text: "Don't have an account ?",
-                  fontSize: 13.sp,
+                  fontSize: 14.sp,
                   color: AppColors.black.withOpacity(0.7),
                 ),
                 10.hs,
@@ -142,7 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       context, SignUpStepFirstScreen.routeName),
                   child: MyTextPoppines(
                     text: "Sign up",
-                    fontSize: 13.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textBlue,
                   ),

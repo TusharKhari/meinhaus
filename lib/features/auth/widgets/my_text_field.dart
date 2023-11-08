@@ -53,7 +53,7 @@ class _MyTextFieldState extends State<MyTextField> {
           MyTextPoppines(
             text: " ${widget.text}",
             fontWeight: widget.headingFontWeight ?? FontWeight.w600,
-            fontSize: width / 28,
+            fontSize: 16.sp,
             maxLines: 1,
           ),
           3.vspacing(context),
@@ -63,6 +63,7 @@ class _MyTextFieldState extends State<MyTextField> {
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: TextFormField(
+              
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               controller: widget.controller,
               maxLines: widget.maxLines,
@@ -70,7 +71,7 @@ class _MyTextFieldState extends State<MyTextField> {
                 filled: true,
                 fillColor: const Color.fromARGB(194, 240, 240, 240),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: width / 26,
+                  horizontal: 16.sp,
                   vertical: widget.isSuffix!
                       ? 14.h
                       : widget.maxLines == 1
@@ -112,14 +113,14 @@ class _MyTextFieldState extends State<MyTextField> {
                 hintText: widget.hintText,
                 hintStyle: GoogleFonts.poppins(
                   color: AppColors.black.withOpacity(0.5),
-                  fontSize: width / 36,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                   height: 1.5,
                 ),
               ),
               style: GoogleFonts.poppins(
                 color: AppColors.black,
-                fontSize: width / 36,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w400,
                 height: 1.5,
               ),

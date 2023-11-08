@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
  import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
@@ -105,7 +106,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: width / 35,
+              horizontal: width / 36,
               vertical: height / 130,
             ),
             child: Column(
@@ -116,7 +117,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                 //  text: project.projectName ?? "",
                 text:  projectName,
                   fontWeight: FontWeight.w500,
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
                   maxLines: 1,
                 ),
                 Visibility(
@@ -297,10 +298,11 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
-                      hPadding: width / 10,
-                      vPadding: height / 120,
+                        hPadding: 10.w,
+                    vPadding: height / 120,
+                     fontSize:14.sp,
                       text: "View Details",
-                      fontSize: width / 30,
+                       
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
                     ),

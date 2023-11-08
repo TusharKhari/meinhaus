@@ -25,7 +25,7 @@ class AllEstimateWorkCard extends StatelessWidget {
     final estimate = notifier.estimated.estimatedWorks![index];
    // final estimateCost = estimate.projectBilling!.projectAmount.toString();
     final isImgNull = estimate.uploadedImgs!.length == 0;
-    final headline1 = width / 35;
+    final headline1 =16.sp;
 
     return Container(
       width: double.infinity,
@@ -59,7 +59,8 @@ class AllEstimateWorkCard extends StatelessWidget {
                   child: MyTextPoppines(
                   text: estimate.projectName!,
                     //text: "",
-                    fontSize: width / 28,
+                    fontSize: 16.sp,
+                    // fontSize:16.sp,
                     fontWeight: FontWeight.w600,
                     maxLines: 6,
                   ),
@@ -145,7 +146,7 @@ class AllEstimateWorkCard extends StatelessWidget {
                           )
                         : SizedBox(
                             height: height / 13,
-                            width: width / 1.4,
+                            width: 250.w,
                             child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
@@ -195,7 +196,7 @@ class AllEstimateWorkCard extends StatelessWidget {
                         ),
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal: width / 28,
+                        horizontal:16.sp,
                         vertical: height / 100,
                       ),
                       child: MyTextPoppines(

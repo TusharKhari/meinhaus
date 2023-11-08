@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_widget.dart';
 import 'package:new_user_side/features/review/widgets/show_review_card.dart';
@@ -111,13 +112,13 @@ class _OngoingProjectDetailScreenState
                               SizedBox(width: width / 12),
                               MyTextPoppines(
                                 text: "Estimate  No :",
-                                fontSize: width / 28,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                               SizedBox(width: width / 20),
                               MyTextPoppines(
                                 text: services.estimateNo ?? "",
-                                fontSize: width / 28,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.yellow,
                               ),
@@ -131,6 +132,7 @@ class _OngoingProjectDetailScreenState
                           Divider(thickness: height * 0.003),
                           SizedBox(height: height / 90),
                           // DESCRIPTION
+
                           const OngoingProjectDescCardWidget(),
                           Divider(thickness: height * 0.003),
                           Visibility(
@@ -147,8 +149,10 @@ class _OngoingProjectDetailScreenState
                           ShowImgUploadOption(bookingId: services.estimateNo!),
                           SizedBox(height: height / 100),
                           Divider(thickness: height * 0.003),
+
                           // BUTTONS
                           OngoingJobsButtonsPanel(),
+                          
                           Visibility(
                             visible: services.isCompleted!,
                             child: Divider(thickness: height * 0.003),

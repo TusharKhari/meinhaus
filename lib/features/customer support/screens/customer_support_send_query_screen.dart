@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/provider/notifiers/customer_support_notifier.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_bottom_bar_button.dart';
@@ -104,12 +105,12 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                           children: [
                             MyTextPoppines(
                               text: project.projectName.toString(),
-                              fontSize: width / 28,
+                              fontSize:16.sp,
                               fontWeight: FontWeight.w500,
                             ),
                             MyTextPoppines(
                               text: project.estimateNo.toString(),
-                              fontSize: width / 35,
+                              fontSize:16.sp,
                               color: AppColors.yellow,
                               fontWeight: FontWeight.w500,
                             ),
@@ -125,7 +126,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           child: Padding(
                             padding:
-                                EdgeInsets.symmetric(horizontal: width / 26),
+                                EdgeInsets.symmetric(horizontal: 16.sp),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -155,7 +156,8 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                     children: [
                                       MyTextPoppines(
                                         text: "Select Photos To Upload :",
-                                        fontSize: width / 34,
+                                        fontSize: 14.sp,
+                                        // fontSize: width / 34,
                                         fontWeight: FontWeight.w600,
                                       ),
                                       InkWell(
@@ -179,13 +181,14 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                                 text: "Select File",
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.buttonBlue,
-                                                fontSize: width / 28,
+                                                fontSize: 16.sp,
+                                                // fontSize:16.sp,
                                               ),
                                               2.hspacing(context),
                                               Icon(
                                                 Icons.attach_file,
                                                 color: AppColors.buttonBlue,
-                                                size: width / 28,
+                                                size:16.sp,
                                               ),
                                             ],
                                           ),
@@ -211,7 +214,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                       6.vspacing(context),
                                       MyTextPoppines(
                                         text: "Raised Query",
-                                        fontSize: width / 30,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.grey,
                                       ),

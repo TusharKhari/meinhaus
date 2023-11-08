@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
@@ -7,7 +8,7 @@ import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/provider/notifiers/chat_with_pro_notifier.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
- import 'package:new_user_side/utils/constants/app_colors.dart';
+import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -130,7 +131,8 @@ class ChatCardWidget extends StatelessWidget {
                       width: w / 1.8,
                       child: MyTextPoppines(
                         text: conv.projectName!,
-                        fontSize: w / 28,
+                        // fontSize: w / 28,
+                        fontSize: 16.sp,
                         color: AppColors.buttonBlue,
                         fontWeight: FontWeight.w600,
                       ),
@@ -139,7 +141,8 @@ class ChatCardWidget extends StatelessWidget {
                     // username
                     MyTextPoppines(
                       text: conv.toUserName!,
-                      fontSize: w / 32,
+                      fontSize: 16.sp,
+                      // fontSize: w / 32,
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: h / 300),
@@ -150,7 +153,8 @@ class ChatCardWidget extends StatelessWidget {
                         isSendByUser
                             ? MyTextPoppines(
                                 text: "You :  ",
-                                fontSize: w / 40,
+                                fontSize: 14.sp,
+                                // fontSize: w / 40,
                                 fontWeight: FontWeight.w500,
                                 height: 1.4,
                               )
@@ -178,7 +182,8 @@ class ChatCardWidget extends StatelessWidget {
                     // text time
                     MyTextPoppines(
                       text: Utils.getTimeAgo(conv.lastMessageCreatedAt!),
-                      fontSize: w / 45,
+                      fontSize: 10.sp,
+                      // fontSize: w / 45,
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: h / 120),
@@ -194,7 +199,8 @@ class ChatCardWidget extends StatelessWidget {
                                 horizontal: w / 50, vertical: h / 300),
                             child: MyTextPoppines(
                               text: conv.unreadCount.toString(),
-                              fontSize: w / 45,
+                              fontSize: 10.sp,
+                              // fontSize: w / 45,
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
                             ),
@@ -213,7 +219,7 @@ class ChatCardWidget extends StatelessWidget {
     final w = context.screenWidth;
     final textMessage = MyTextPoppines(
       text: conversations.lastMessage!,
-      fontSize: w / 40,
+      fontSize: 12.sp,
       maxLines: 1,
       height: 1.4,
       color: conversations.unreadCount! == 0
@@ -231,7 +237,8 @@ class ChatCardWidget extends StatelessWidget {
         ),
         MyTextPoppines(
           text: "  Pdf",
-          fontSize: w / 40,
+          // fontSize: w / 40,
+          fontSize: 14.sp,
           maxLines: 1,
           height: 1.4,
           color: conversations.unreadCount! == 0
@@ -251,7 +258,8 @@ class ChatCardWidget extends StatelessWidget {
         ),
         MyTextPoppines(
           text: "  Photo",
-          fontSize: w / 36,
+          fontSize: 14.sp,
+          // fontSize: w / 36,
           maxLines: 1,
           height: 1.4,
           color: conversations.unreadCount! == 0

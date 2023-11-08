@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
@@ -62,7 +63,7 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
                   MyTextPoppines(
                     text:
                         "Please write Overall level of satisfaction with your Project/Pro Service.",
-                    fontSize: width / 28,
+                    fontSize:16.sp,
                     fontWeight: FontWeight.w600,
                   ),
                   8.vspacing(context),
@@ -116,7 +117,7 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
                       isWaiting: notifier.reviewLoading,
                       hPadding: width / 4,
                       vPadding: height / 55,
-                      fontSize: width / 26,
+                      fontSize: 16.sp,
                       text: "Submit",
                       onTap: () => _reviewHandler(),
                     ),
@@ -156,7 +157,7 @@ class __buildRatingSnackBarState extends State<_buildRatingBar> {
       children: [
         MyTextPoppines(
           text: widget.title,
-          fontSize: width / 28,
+          fontSize:16.sp,
           fontWeight: FontWeight.w500,
         ),
         RatingBar.builder(

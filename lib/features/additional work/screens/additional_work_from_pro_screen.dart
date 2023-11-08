@@ -54,7 +54,7 @@ class AdditionalWorkProProvideScreen extends StatelessWidget {
                         text:
                             "This is for adding to the scope of work that your current pro can provide.",
                         fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                       ),
                       5.vspacing(context),
                       ListView.builder(

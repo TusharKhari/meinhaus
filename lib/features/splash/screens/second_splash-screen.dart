@@ -68,7 +68,9 @@ class SecondSplashScreen extends StatelessWidget {
             width: 350.w,
             child: MyTextPoppines(
               text: "Instant quotation tailored to you.",
-              fontSize: height > 800 ? 18.sp : 22.sp,
+              fontSize: 
+              //height > 800 ? 18.sp : 22.sp,
+              19.sp, 
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
               maxLines: 3,
@@ -83,7 +85,10 @@ class SecondSplashScreen extends StatelessWidget {
             child: MyTextPoppines(
               text:
                   "Pay a fixed price at the best market rates. Guaranteed to completion  ",
-              fontSize: height > 800 ? 15.sp : 17.sp,
+              fontSize: 
+              //height > 800 ? 15.sp : 17.sp,
+              17.sp, 
+
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,
               color: AppColors.orange,

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/auth/screens/signin_screen.dart';
 import 'package:new_user_side/features/auth/screens/signup_secondstep_screen.dart';
 import 'package:new_user_side/features/auth/widgets/auth_banner_widget.dart';
@@ -74,7 +75,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                     alignment: Alignment.bottomRight,
                     child: MyTextPoppines(
                       text: "Step 1     ",
-                      fontSize: width / 30,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -120,7 +121,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                     children: [
                       MyTextPoppines(
                         text: "Already have an account ?",
-                        fontSize: width / 30,
+                        fontSize: 14.sp,
                         color: AppColors.black.withOpacity(0.7),
                       ),
                       SizedBox(width: width / 40),
@@ -129,7 +130,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                             context, SignInScreen.routeName),
                         child: MyTextPoppines(
                           text: "Sign In",
-                          fontSize: width / 30,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textBlue,
                         ),

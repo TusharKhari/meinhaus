@@ -189,7 +189,7 @@ class ProRecentProjectDialog extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.only(right: width / 28),
+                        padding: EdgeInsets.only(right:16.sp),
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context).pushScreen(

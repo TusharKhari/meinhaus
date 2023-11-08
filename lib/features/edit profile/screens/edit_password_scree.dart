@@ -45,9 +45,10 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
   }
 
   _editPasswordHandler() async {
-    if(mounted)setState(() {
-      isSaveClicked = true;
-    });
+    if (mounted)
+      setState(() {
+        isSaveClicked = true;
+      });
     if (_editPasswordKey.currentState!.validate()) {
       isSaveClicked = false;
       final notifier = context.read<EditProfileNotifier>();
@@ -87,7 +88,9 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 10.vs,
                 Form(
                   key: _editPasswordKey,
-                  autovalidateMode: isSaveClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+                  autovalidateMode: isSaveClicked
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                   child: Column(
                     children: [
                       MyTextField(
@@ -135,28 +138,35 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.r),
-                          border: Border.all(color: AppColors.grey),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 42.w,
-                          vertical: 15.h,
-                        ),
-                        child: Center(
-                          child: MyTextPoppines(
-                            text: "Discard",
-                            fontWeight: FontWeight.w500,
-                            fontSize: height > 800 ? 14.sp : 16.sp,
-                            color: AppColors.grey,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.r),
+                            border: Border.all(color: AppColors.grey),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 42.w,
+                            vertical: 15.h,
+                          ),
+                          child: Center(
+                            child: MyTextPoppines(
+                              text: "Discard",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.sp,
+                              // fontSize: height > 800 ? 14.sp : 16.sp,
+                              color: AppColors.grey,
+                            ),
                           ),
                         ),
                       ),
                       MyBlueButton(
                         hPadding: height > 600 ? 55.w : 65.w,
                         vPadding: height > 600 ? 15.h : 28.h,
-                        fontSize: height > 800 ? 14.sp : 16.sp,
+                        fontSize: 18.sp,
+                        // fontSize: height > 800 ? 14.sp : 16.sp,
                         text: "Save",
                         onTap: () => _editPasswordHandler(),
                       )

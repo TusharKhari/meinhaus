@@ -36,7 +36,8 @@ class AllOngoingProjects extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                 child: MyTextPoppines(
                   text: "Here’s the list of all ongoing projects.",
-                  fontSize: height / MyFontSize.font16,
+                  fontSize: 16.sp,
+                  // fontSize: height / MyFontSize.font16,
                   fontWeight: FontWeight.w500,
                 ),
               ),

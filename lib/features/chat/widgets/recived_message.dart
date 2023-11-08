@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/chat/widgets/sent_message.dart';
  import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -73,7 +74,8 @@ class RecivedMessage extends StatelessWidget {
               SizedBox(width: w / 60),
               MyTextPoppines(
                 text: messageTime,
-                fontSize: w / 32,
+                fontSize:14.sp,
+                // fontSize: w / 32,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black.withOpacity(0.6),
                 maxLines: 20,

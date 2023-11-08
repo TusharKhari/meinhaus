@@ -26,7 +26,7 @@ class OngoingProjectDescCardWidget extends StatelessWidget {
           child: MyTextPoppines(
             text: "Description :",
             fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
+            fontSize: 17.sp,
           ),
         ),
         Container(
@@ -38,7 +38,7 @@ class OngoingProjectDescCardWidget extends StatelessWidget {
           child: MyTextPoppines(
             text: services.discription ??
                 'No project description found. This area usually provides details about the project.',
-            fontSize: width / 34,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500,
             height: 1.6,
             color: AppColors.black.withOpacity(0.6),

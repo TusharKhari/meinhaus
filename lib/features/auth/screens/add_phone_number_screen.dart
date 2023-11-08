@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
@@ -56,7 +57,8 @@ class _AddPhoneNumberScreenState extends State<AddPhoneNumberScreen> {
                   SizedBox(height: h / 30),
                   MyTextPoppines(
                     text: "Please Enter the registered number to continue.",
-                    fontSize: w / 19,
+                    fontSize: 16.sp,
+                    // fontSize: w / 19,
                     fontWeight: FontWeight.w600,
                   ),
                   SizedBox(height: h / 40),
@@ -71,7 +73,8 @@ class _AddPhoneNumberScreenState extends State<AddPhoneNumberScreen> {
                       vPadding: h / 80,
                       text: "Send OTP",
                       onTap: () => addPhoneNo(),
-                      fontSize: w / 32,
+                      fontSize: 18.sp,
+                      // fontSize: w / 32,
                     ),
                   ),
                   SizedBox(height: h / 30), 

@@ -19,7 +19,7 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;
-    final EdgeInsets paddingH15 = EdgeInsets.symmetric(horizontal: width / 26);
+    final EdgeInsets paddingH15 = EdgeInsets.symmetric(horizontal: 16.sp);
 
     return Padding(
       padding: paddingH15,

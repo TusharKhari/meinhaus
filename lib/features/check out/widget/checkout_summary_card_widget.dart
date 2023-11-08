@@ -10,9 +10,10 @@ import '../../../resources/common/my_text.dart';
 
 class CheckOutSummaryCardWidget extends StatefulWidget {
   final String totalAmount;
+  final String projectName;
    CheckOutSummaryCardWidget({
     Key? key,
-    required this.totalAmount,
+    required this.totalAmount, required this.projectName,
   }) : super(key: key);
 
   @override
@@ -53,7 +54,7 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
             children: [
               MyTextPoppines(
                 text: "Project details",
-                fontSize: 14.sp,
+                fontSize: 1.sp,
                 fontWeight: FontWeight.w600,
               ),
               20.vs,
@@ -66,7 +67,8 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                       children: [
                         MyTextPoppines(
                         // text: estimate.estimatedWorks![0].projectName!,
-                           text: "Bathroom Renewall",
+                           text: widget.projectName,
+                          //  text: "Bathroom Renewall",
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),

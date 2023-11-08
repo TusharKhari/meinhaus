@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/constants/constant.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart'; 
 import 'package:provider/provider.dart';
 
 import '../../features/edit profile/screens/edit_profile_screen.dart'; 
@@ -320,10 +320,11 @@ class _LogoutButton extends StatelessWidget {
             Icons.logout_sharp,
             color: AppColors.white,
           ),
-          SizedBox(width: width / 35),
+          SizedBox(width: width / 36),
           MyTextPoppines(
             text: "Log Out",
-            fontSize: height / MyFontSize.font18,
+            fontSize: 16.sp,
+            // fontSize: height / MyFontSize.font18,
             color: AppColors.white,
             fontWeight: FontWeight.w500,
             height: 1.5,

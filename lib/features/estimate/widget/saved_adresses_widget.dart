@@ -114,7 +114,7 @@ class NoAddressFoundWidget extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(width / 26),
+        borderRadius: BorderRadius.circular(16.sp),
         border: Border.all(
           color: AppColors.golden,
         ),
@@ -126,7 +126,7 @@ class NoAddressFoundWidget extends StatelessWidget {
           SizedBox(height: height / 50),
           MyTextPoppines(
             text: "No Saved Address found!",
-            fontSize: width / 28,
+            fontSize:16.sp,
             fontWeight: FontWeight.w600,
             textAlign: TextAlign.center,
           ),

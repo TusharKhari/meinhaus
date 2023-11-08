@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/provider/notifiers/upload_image_notifier.dart';
@@ -94,7 +95,7 @@ class ShowImgUploadOption extends StatelessWidget {
                     ),
                     child: MyTextPoppines(
                       text: "Cancel",
-                      fontSize: width / 30,
+                      fontSize: 16.sp,
                       color: AppColors.white,
                       fontWeight: FontWeight.w600,
                     ),
@@ -118,7 +119,7 @@ class ShowImgUploadOption extends StatelessWidget {
                         : Center(
                             child: MyTextPoppines(
                               text: "Upload",
-                              fontSize: width / 30,
+                              fontSize: 16.sp,
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
                             ),

@@ -4,7 +4,6 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../provider/notifiers/estimate_notifier.dart';
@@ -32,7 +31,8 @@ class MeinHouseProRatingCard extends StatelessWidget {
           10.vs,
           MyTextPoppines(
             text: "Pro Rating",
-            fontSize: context.screenHeight / MyFontSize.font14,
+          fontSize: 14.sp,
+            // fontSize: context.screenHeight / MyFontSize.font14,
             fontWeight: FontWeight.w600,
           ),
           Divider(thickness: 0.8),
@@ -55,7 +55,8 @@ class MeinHouseProRatingCard extends StatelessWidget {
                     6.hs,
                     MyTextPoppines(
                       text: "${pro.proRating!.avgRating}/5",
-                      fontSize: context.screenHeight / MyFontSize.font14,
+                      fontSize: 14.sp,
+                      // fontSize: context.screenHeight / MyFontSize.font14,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textBlue,
                     ),
@@ -68,7 +69,8 @@ class MeinHouseProRatingCard extends StatelessWidget {
                     10.hs,
                     MyTextPoppines(
                       text: "${pro.proRating!.avgRating} out of 5",
-                      fontSize: context.screenHeight / MyFontSize.font13,
+                      fontSize: 14.sp,
+                      // fontSize: context.screenHeight / MyFontSize.font13,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -77,7 +79,8 @@ class MeinHouseProRatingCard extends StatelessWidget {
               10.hs,
               MyTextPoppines(
                 text: "${pro.proRating!.totalRating} Customer ratings",
-                fontSize: context.screenHeight / MyFontSize.font10,
+                 fontSize: 11.sp,
+                // fontSize: context.screenHeight / MyFontSize.font10,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black.withOpacity(0.6),
               ),

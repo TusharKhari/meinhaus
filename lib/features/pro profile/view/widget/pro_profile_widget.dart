@@ -28,6 +28,8 @@ class ProProfileWidget extends StatelessWidget {
         children: [
           // Pro -> Profile/Name/Company Name/Moto
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
                 radius: 30.r,
@@ -39,13 +41,13 @@ class ProProfileWidget extends StatelessWidget {
                 children: [
                   MyTextPoppines(
                     text: pro?.proName ?? "",
-                    fontSize: context.screenHeight / MyFontSize.font12,
+                    fontSize:  16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   5.vs,
                   MyTextPoppines(
                     text: pro?.proCompanyName ?? "",
-                    fontSize: width / 42,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                   ),
@@ -54,7 +56,7 @@ class ProProfileWidget extends StatelessWidget {
                     width: context.screenWidth / 1.5,
                     child: MyTextPoppines(
                       text: pro?.proMotive ?? "",
-                      fontSize: width / 42,
+                      fontSize:16.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.grey,
                       maxLines: 5,
@@ -87,7 +89,7 @@ class ProProfileWidget extends StatelessWidget {
                     MyTextPoppines(
                       text: "Verified Pro",
                       height: 1.8,
-                      fontSize: context.screenHeight / MyFontSize.font12,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -106,14 +108,14 @@ class ProProfileWidget extends StatelessWidget {
                     MyTextPoppines(
                       text: pro?.jobsDone.toString() ?? "",
                       height: 1.8,
-                      fontSize: context.screenHeight / MyFontSize.font12,
+                      fontSize:   13.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     5.hs,
                     MyTextPoppines(
                       text: "Job Completed",
                       height: 1.8,
-                      fontSize: context.screenHeight / MyFontSize.font12,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -126,7 +128,7 @@ class ProProfileWidget extends StatelessWidget {
           10.vs,
           MyTextPoppines(
             text: "Services Offered :",
-            fontSize: context.screenHeight / MyFontSize.font14,
+            fontSize:  16.sp,
             fontWeight: FontWeight.w500,
           ),
           Padding(
@@ -141,7 +143,7 @@ class ProProfileWidget extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 5.h),
                   child: MyTextPoppines(
                     text: "•   $service",
-                    fontSize: context.screenHeight / MyFontSize.font10,
+                   fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                   ),

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -37,14 +38,15 @@ class DownloadPdfCard extends StatelessWidget {
                         width: w / 1.1,
                         child: MyTextPoppines(
                           text: workName,
-                          fontSize: w / 28,
+                          fontSize: 16.sp,
                           color: AppColors.white,
                         ),
                       ),
                       3.vs,
                       MyTextPoppines(
                         text: projectId!,
-                        fontSize: height / MyFontSize.font11,
+                       fontSize: 12.sp,
+                        // fontSize: height / MyFontSize.font11,
                         color: AppColors.yellow,
                         fontWeight: FontWeight.w600,
                       ),
@@ -54,32 +56,11 @@ class DownloadPdfCard extends StatelessWidget {
                     width: w / 1.1,
                     child: MyTextPoppines(
                       text: workName,
-                      fontSize: w / 26,
+                      fontSize: 16.sp,
                       color: AppColors.white,
                     ),
                   ),
-          ),
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Download as PDF",
-          //       style: GoogleFonts.poppins(
-          //         fontSize: w / 34,
-          //         fontWeight: FontWeight.w600,
-          //         fontStyle: FontStyle.normal,
-          //         color: AppColors.yellow,
-          //         decoration: TextDecoration.underline,
-          //         decorationThickness: 2.0,
-          //         // height: 2,
-          //       ),
-          //     ),
-          //     Icon(
-          //       Icons.file_download_outlined,
-          //       color: AppColors.yellow,
-          //       size: 24.sp,
-          //     ),
-          //   ],
-          // )
+          ), 
         ],
       ),
     );

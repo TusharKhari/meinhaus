@@ -35,7 +35,7 @@ class CheckOutScreenStatic extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CheckOutSummaryCardWidget(totalAmount: "100"),
+                CheckOutSummaryCardWidget(totalAmount: "100", projectName: 'Kitchen Repairing'),
                 8.vspacing(context),
                 const Divider(thickness: 1.0),
                 8.vspacing(context),

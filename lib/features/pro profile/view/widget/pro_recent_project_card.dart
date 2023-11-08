@@ -32,7 +32,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 90),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(width / 26),
+        borderRadius: BorderRadius.circular(16.sp),
         color: AppColors.white,
         border: Border.all(
           width: 1.0,
@@ -46,7 +46,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
           2.5.vspacing(context),
           MyTextPoppines(
             text: "Recent Projects",
-            fontSize: width / 28,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w500,
           ),
           Divider(thickness: 1.0),
@@ -119,7 +119,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
             width: widthh / 2.50,
             child: MyTextPoppines(
               text: "  $projectTitle",
-              fontSize: widthh / 42,
+              fontSize:12.sp,
               fontWeight: FontWeight.w500,
               maxLines: 1,
             ),
@@ -198,7 +198,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                    Text(
                                 "$rating/5",
                                 style: GoogleFonts.poppins(
-                                  fontSize: widthh / 36,
+                                  fontSize: 12.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
@@ -208,7 +208,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                               Text(
                                 "View Details",
                                 style: GoogleFonts.poppins(
-                                  fontSize: widthh / 36,
+                                  fontSize: 12.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,

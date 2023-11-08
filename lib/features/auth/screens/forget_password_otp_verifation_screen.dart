@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -154,7 +155,8 @@ class _ForgetPasswordOtpValidateScreenState
                     MyTextPoppines(
                       text:
                           "We’ve sent an text message with an activation code on your email ${widget.email}",
-                      fontSize: w / 30,
+                      fontSize: 14.sp,
+                      // fontSize: w / 30,
                       color: AppColors.black.withOpacity(0.7),
                       textAlign: TextAlign.center,
                     ),
@@ -217,13 +219,15 @@ class _ForgetPasswordOtpValidateScreenState
                       children: [
                         MyTextPoppines(
                           text: "I didn't receive a code",
-                          fontSize: w / 30,
+                          fontSize: 15.sp,
+                          // fontSize: w / 30,
                           color: AppColors.black.withOpacity(0.6),
                         ),
                         SizedBox(width: w / 60),
                         MyTextPoppines(
                           text: "00:$startTime",
-                          fontSize: w / 27,
+                          fontSize: 14.sp,
+                          // fontSize: w / 27,
                           fontWeight: FontWeight.bold,
                           color: AppColors.buttonBlue,
                         ),
@@ -232,7 +236,8 @@ class _ForgetPasswordOtpValidateScreenState
                           onTap: _resendOtpHandler,
                           child: MyTextPoppines(
                             text: "Resend",
-                            fontSize: w / 27,
+                            fontSize: 16.sp,
+                            //  fontSize: w / 27,
                             fontWeight: FontWeight.bold,
                             color: showResendButton
                                 ? Colors.black

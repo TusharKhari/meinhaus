@@ -51,10 +51,10 @@ class ProjectDetailsRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        30.hs,
+        10.hs,
         MyTextPoppines(
           text: prefixText,
-          fontSize: 14.sp,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -63,13 +63,13 @@ class ProjectDetailsRow extends StatelessWidget {
           // width: 260.w,
           child: MyTextPoppines(
             text: suffixText,
-            fontSize: 12.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w400,
             maxLines: 3,
             height: 1.5,
           ),
         ),
-        70.hs,
+        5.hs,
       ],
     );
   }

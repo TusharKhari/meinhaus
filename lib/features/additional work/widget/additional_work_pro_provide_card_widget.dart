@@ -51,7 +51,8 @@ class _AdditionalWorkProProvideCardWidgetState
             child: MyTextPoppines(
               text: work.title ?? "",
               fontWeight: FontWeight.w600,
-              fontSize: 14.sp,
+              fontSize: 16.sp,
+              // fontSize: 14.sp,
             ),
           ),
           const Divider(thickness: 1.0),
@@ -107,12 +108,14 @@ class _AdditionalWorkProProvideCardWidgetState
                 MyTextPoppines(
                   text: "Description",
                   fontWeight: FontWeight.w600,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
+                  // fontSize: 14.sp,
                 ),
                 10.vs,
                 MyTextPoppines(
                   text: work.description ?? "",
-                  fontSize: 10.sp,
+                  fontSize: 12.sp,
+                  // fontSize: 10.sp,
                   maxLines: 6,
                   height: 1.4,
                   color: AppColors.black.withOpacity(0.4),
@@ -129,13 +132,15 @@ class _AdditionalWorkProProvideCardWidgetState
                         MyTextPoppines(
                           text: "Price :   ",
                           fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
+                          // fontSize: 14.sp,
+                          fontSize: 16.sp,
                         ),
                         MyTextPoppines(
                           text:
                               work.amount != null ? "\$${work.amount}" : "----",
                           fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
+                          fontSize: 16.sp,
+                          // fontSize: 14.sp,
                           color: AppColors.yellow,
                         ),
                       ],

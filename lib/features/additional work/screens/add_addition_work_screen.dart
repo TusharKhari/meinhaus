@@ -129,7 +129,8 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
                         text:
                             "This is for adding to the scope of work that your current pro can provide.",
                         fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
+                        // fontSize: 14.sp,
                       ),
                       15.vs,
                       Form(
@@ -213,7 +214,8 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
                                         text:
                                             "Tap here to view your all additional work details.",
                                         fontWeight: FontWeight.w500,
-                                        fontSize: width / 28,
+                                        fontSize: 16.sp,
+                                        // fontSize:16.sp,
                                         height: 1.5,
                                       ),
                                       InkWell(
@@ -239,7 +241,8 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
                                             text: "View Details",
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.buttonBlue,
-                                            fontSize: 10.sp,
+                                            fontSize: 12.sp,
+                                            // fontSize: 10.sp,
                                           ),
                                         ),
                                       ),
@@ -266,7 +269,8 @@ class _AddAdditionalWorkScreenState extends State<AddAdditionalWorkScreen> {
                                       SizedBox(width: width / 40),
                                       MyTextPoppines(
                                         text: "No Additional Work To Show",
-                                        fontSize: width / 28,
+                                        fontSize: 16.sp, 
+                                        // fontSize:16.sp, 
                                         fontWeight: FontWeight.w600,
                                       )
                                     ],
@@ -313,14 +317,14 @@ class SelectFileButton extends StatelessWidget {
               text: "Select File",
               fontWeight: FontWeight.w500,
               color: AppColors.buttonBlue,
-              fontSize: 14.sp,
+              fontSize: 16.sp,
               // height: 1.6,
             ),
             5.hs,
             Icon(
               Icons.attach_file,
               color: AppColors.buttonBlue,
-              size: 14.sp,
+              size: 16.sp,
             ),
           ],
         ),

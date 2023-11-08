@@ -310,7 +310,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-    final headline1 = width / 35;
+    final headline1 =16.sp;
     final service = this.service;
     final projectId = service.projectId.toString();
     final proId = service.proId.toString();
@@ -350,7 +350,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
             ),
             child: MyTextPoppines(
               text: service.serviceName.toString(),
-              fontSize: width / 28,
+              fontSize:16.sp,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -466,7 +466,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                             ),
                           ),
                           padding: EdgeInsets.symmetric(
-                            horizontal: width / 28,
+                            horizontal:16.sp,
                             vertical: height / 100,
                           ),
                           child: MyTextPoppines(

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:new_user_side/data/models/conversation_list_model.dart'; 
+import 'package:new_user_side/data/models/conversation_list_model.dart';
 import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
@@ -40,7 +40,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     final isNormalProject = project.normal!;
     final projectId = project.projectId.toString();
     final isProjectCompleted = project.isCompleted!;
-    
+
     // get invoice data
     void _getInvoiceHandler() {
       final estimateNotifer = context.read<EstimateNotifier>();
@@ -64,9 +64,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     _getSavedNotesHandler() async {
       final notifer = context.read<SavedNotesNotifier>();
       await notifer.getSavedNotes(context: context, id: projectId);
-      Navigator.of(context).pushScreen(SavedNotesScreen(
-       
-      ));
+      Navigator.of(context).pushScreen(SavedNotesScreen());
     }
 
     // onTap Customer Button
@@ -119,81 +117,102 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.w,
+        vertical: 20.h,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+         
+
+          // ============
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // Customer Support Button
-              Stack(
-                children: [
-                  InkWell(
-                    onTap: _onTapCustomerButton,
-                    child: Container(
-                      width: w / 2.15,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEAEAEA),
-                        borderRadius: BorderRadius.circular(w / 12),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: w / 35,
-                        vertical: h / 80,
-                      ),
-                      child: Row(
-                        children: [ 
-                         SvgPicture.asset("assets/project_detail/customer_support.svg", height: h*0.02,),
-                          SizedBox(width: w / 40),
-                          MyTextPoppines(
-                            text: "Customer Support",
-                            height: 1.8,
-                            fontSize: w / 30,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ],
+              Expanded(
+                child: Stack(
+                  children: [
+                    InkWell(
+                      onTap: _onTapCustomerButton,
+                      child: Container(
+                        //  width: w / 2.15,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFEAEAEA),
+                          borderRadius: BorderRadius.circular(w / 12),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10.h,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/project_detail/customer_support.svg",
+                              height: h * 0.02,
+                            ),
+                            SizedBox(width: w / 40),
+                            MyTextPoppines(
+                              text: "Customer Support",
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // WWhen support is active we will show a active status
-                  isSupportActive
-                      ? Positioned(
-                          right: w / 200000,
-                          child: CircleAvatar(
-                            radius: w / 60,
-                            backgroundColor:
-                                const Color.fromARGB(255, 0, 255, 106),
-                          ),
-                        )
-                      : SizedBox(),
-                ],
+                    // WWhen support is active we will show a active status
+                    isSupportActive
+                        ? Positioned(
+                            right: w / 200000,
+                            child: CircleAvatar(
+                              radius: w / 60,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 255, 106),
+                            ),
+                          )
+                        : SizedBox(),
+                  ],
+                ),
               ),
+              // Spacer(),
+              SizedBox(width: 10.w,), 
               // Project Notes Button
-              InkWell(
-                onTap: _onTapProjectNotesButton,
-                child: Container(
-                  width: w / 2.5,
-                  height: h / 16,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF8EC),
-                    borderRadius: BorderRadius.circular(w / 12),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: w / 35,
-                    vertical: h / 80,
-                  ),
-                  child: Row(
-                    children: [ 
-                     SvgPicture.asset("assets/project_detail/project_notes.svg", height: h*0.02,), 
-                      SizedBox(width: w / 40),
-                      MyTextPoppines(
-                        text: "Project Notes",
-                        fontSize: w / 28,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.yellow,
-                      ),
-                    ],
+              Expanded(
+                child: InkWell(
+                  onTap: _onTapProjectNotesButton,
+                  child: Container(
+                    // width: double.maxFinite,
+                    // height: h / 16,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFF8EC),
+                      borderRadius: BorderRadius.circular(w / 12),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      // horizontal: w / 35,
+                      vertical: 10.h,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/project_detail/project_notes.svg",
+                          height: h * 0.02,
+                        ),
+                        SizedBox(width: w / 40),
+                        MyTextPoppines(
+                          text: "Project Notes",
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.yellow,
+                          //
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -201,144 +220,76 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           ),
           15.vs,
           // Message pro and Request additional work
-    
 
-      isNormalProject ? 
 
           _buildIconButtonWithText(
-            firstButtonText: "Message pro",
-            firstButtonTextColor: AppColors.buttonBlue,
-            firstButtonImgUrl: "assets/project_detail/message_pro.svg", 
-            firstButtonColor: const Color(0xFFE8F4FF),
-            firstButtonOnTap: () => onMessageProTapped(),
-            secondButtonext: isProjectCompleted
-                ? "   Additional Work   "
-                : "Req Additional Work",
-            secondtButtonTextColor: const Color(0xFFB9B100),
-            secondButtonImgUrl: "assets/project_detail/work_details.svg",
-            secondButtonColor: const Color(0xFFF7F6E0),
-            secondButtonOnTap: !isProjectCompleted
-                ? () {
-                    Navigator.pushNamed(
-                      context,
-                      AddAdditionalWorkScreen.routeName,
-                      arguments: projectId,
-                    );
-                 //   print("Project id For additional work : $projectId");
-                  }
-                : () {
-                    // Show history of all the requested additional work
-                    _getAdditionalWorkHandler();
-                    Navigator.of(context).pushScreen(
-                      AdditionalWorkProProvideScreen(),
-                    );
-                  },
-          ) : 
+              firstButtonText: "Message pro",
+              firstButtonTextColor: AppColors.buttonBlue,
+              firstButtonImgUrl: "assets/project_detail/message_pro.svg",
+              firstButtonColor: const Color(0xFFE8F4FF),
+              firstButtonOnTap: () => onMessageProTapped(),
+              secondButtonext:
+                  // isProjectCompleted
+                  //     ? "   Additional Work   "
+                  //     : "Req Additional Work",
+                  "Invoice",
+              secondtButtonTextColor: const Color(0xFF934600),
+              // secondButtonImgUrl: "assets/project_detail/work_details.svg",
+              secondButtonImgUrl: "assets/project_detail/invoice 1.svg",
+              secondButtonColor: const Color(0xFF934600).withOpacity(0.12),
+              secondButtonOnTap: () {
+                _getInvoiceHandler();
+              }),
 
-          _buildIconButtonWithText(
-            firstButtonText: "       Message pro     ",
-            firstButtonTextColor: AppColors.buttonBlue,
-            firstButtonImgUrl: "assets/project_detail/message_pro.svg", 
-            firstButtonColor: const Color(0xFFE8F4FF),
-            firstButtonOnTap: () => onMessageProTapped(),
-            secondButtonext: "     Work details        ",
-            secondtButtonTextColor: const Color(0xFFB9B100),
-            secondButtonImgUrl: "assets/project_detail/work_details.svg",
-            secondButtonColor: const Color(0xFFF7F6E0),
-            secondButtonOnTap: 
-             () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ProWorkDetailsDialog();
-                          },
-                        );
-                      },
-          ), 
+//
+          15.vs,
 
           
-          15.vs,
-          Row(
-            children: [
-              // Invoice button
-              InkWell(
-                onTap: () => _getInvoiceHandler(),
+
+           InkWell(
+                onTap:   !isProjectCompleted
+                      ? () {
+                          Navigator.pushNamed(
+                            context,
+                            AddAdditionalWorkScreen.routeName,
+                            arguments: projectId,
+                          );
+                          //   print("Project id For additional work : $projectId");
+                        }
+                      : () {
+                          // Show history of all the requested additional work
+                          _getAdditionalWorkHandler();
+                          Navigator.of(context).pushScreen(
+                            AdditionalWorkProProvideScreen(),
+                          );
+                        },
                 child: Container(
-                  width: context.screenWidth / 3.2,
+                 // width: context.screenWidth / 3.2,
                   decoration: BoxDecoration(
-                    color: Color(0xFF934600).withOpacity(0.12),
+                    color: Color(0xFFF7F6E0),
                     borderRadius: BorderRadius.circular(30.r),
                   ),
                   padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                      EdgeInsets.symmetric(  vertical: 10.h),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Icon(
-                      //   Icons.linked_camera_outlined,
-                      //   size: 18.sp,
-                      //   color: Color(0xFF934600),
-                      // ),
-                      
-                      SvgPicture.asset("assets/project_detail/invoice 1.svg"),
+                      SvgPicture.asset("assets/project_detail/work_details.svg"),
                       SizedBox(width: w / 40),
                       MyTextPoppines(
-                        text: "Invoice",
-                        height: 1.8,
-                        fontSize: w / 30,
+                        text: isProjectCompleted
+                      ? "   Additional Work   "
+                      : "Req Additional Work",
+                        
+                        fontSize:14.sp,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF934600),
+                        color: Color(0xFFB9B100),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(width: w / 40),
-          
-              // Horuly Work details button
-              // isNormalProject
-
-              //     ? SizedBox()
-              //     : InkWell(
-              //         onTap: () {
-              //           showDialog(
-              //             context: context,
-              //             builder: (context) {
-              //               return ProWorkDetailsDialog();
-              //             },
-              //           );
-              //         },
-              //         child: Container(
-              //           width: context.screenWidth / 2.4,
-              //           decoration: BoxDecoration(
-              //             color: Color(0xFFE0EAE4),
-              //             borderRadius: BorderRadius.circular(30.r),
-              //           ),
-              //           padding: EdgeInsets.symmetric(
-              //               horizontal: 16.w, vertical: 10.h),
-              //           child: Row(
-              //             children: [
-              //               Icon(
-              //                 Icons.linked_camera_outlined,
-              //                 size: 18.sp,
-              //                 color: Color(0xFF004D1E),
-              //               ),
-              //               SizedBox(
-              //                 width: w / 40,
-              //               ),
-              //               MyTextPoppines(
-              //                 text: "Work Details",
-              //                 height: 1.8,
-              //                 fontSize: w / 30,
-              //                 fontWeight: FontWeight.bold,
-              //                 color: Color(0xFF004D1E),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ), 
-
-            ],
-          ),
         ],
       ),
     );
@@ -357,29 +308,37 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     required VoidCallback secondButtonOnTap,
   }) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //  mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        IconButtonWithText(
-          text: firstButtonText,
-          textColor: firstButtonTextColor,
-          buttonColor: firstButtonColor,
-          iconUrl: firstButtonImgUrl,
-          isIcon: false,
-          vPadding: 12.h,
-          hPadding: 15.w,
-          borderRadius: 20.r,
-          onTap: firstButtonOnTap,
+        Expanded(
+          child: IconButtonWithText(
+            text: firstButtonText,
+            textColor: firstButtonTextColor,
+            buttonColor: firstButtonColor,
+            iconUrl: firstButtonImgUrl,
+            isIcon: false,
+            vPadding: 12.h,
+            hPadding: 15.w,
+            borderRadius: 20.r,
+            onTap: firstButtonOnTap,
+          ),
         ),
-        IconButtonWithText(
-          text: secondButtonext,
-          textColor: secondtButtonTextColor,
-          buttonColor: secondButtonColor,
-          iconUrl: secondButtonImgUrl,
-          isIcon: false,
-          vPadding: 12.h,
-          hPadding: 15.w,
-          borderRadius: 20.r,
-          onTap: secondButtonOnTap,
+        SizedBox(
+          width: 10.w,
+        ),
+        Expanded(
+          child: IconButtonWithText(
+            text: secondButtonext,
+            textColor: secondtButtonTextColor,
+            buttonColor: secondButtonColor,
+            iconUrl: secondButtonImgUrl,
+            isIcon: false,
+            vPadding: 12.h,
+            hPadding: 15.w,
+            borderRadius: 20.r,
+            onTap: secondButtonOnTap,
+          ),
         ),
       ],
     );

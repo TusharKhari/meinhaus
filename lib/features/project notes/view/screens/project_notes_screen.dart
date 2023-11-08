@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
@@ -325,7 +326,7 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
           SizedBox(height: height / 40),
           MyTextPoppines(
             text: "No Saved Notes found!",
-            fontSize: width / 26,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
           SizedBox(height: height / 60),

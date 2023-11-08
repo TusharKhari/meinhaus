@@ -66,7 +66,7 @@ class FirstSplashScreen extends StatelessWidget {
             width: 300.w,
             child: MyTextPoppines(
               text: "A secure platform for all renovation projects",
-              fontSize: height > 800 ? 18.sp : 22.sp,
+              fontSize: 19.sp,
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
             ),
@@ -79,7 +79,7 @@ class FirstSplashScreen extends StatelessWidget {
             width: 350.w,
             child: MyTextPoppines(
               text: "24/7  Customer Support Hire renovators instantly.",
-              fontSize: height > 800 ? 15.sp : 17.sp,
+              fontSize: 17.sp,
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,
               // color: AppColors.black.withOpacity(0.6),

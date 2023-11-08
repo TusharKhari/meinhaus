@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart'; 
 
 class HomeOfferBanner extends StatelessWidget {
   const HomeOfferBanner({
@@ -47,9 +46,11 @@ class HomeOfferBanner extends StatelessWidget {
                 height > 800 ? 20.vs : 25.vs,
                 MyTextPoppines(
                   text: "Get 20% OFF",
-                  fontSize: height > 800
-                      ? height / MyFontSize.font20
-                      : height / MyFontSize.font24,
+                  // fontSize: 
+                  // height > 800
+                      // ? height / MyFontSize.font20
+                      // : height / MyFontSize.font24,
+                       fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   color: AppColors.white,
                 ),
@@ -58,9 +59,11 @@ class HomeOfferBanner extends StatelessWidget {
                   width: 200.w,
                   child: MyTextPoppines(
                     text: "Tap on banner to see more in details.",
-                    fontSize: height > 800
-                        ? height / MyFontSize.font10
-                        : height / MyFontSize.font14,
+                     fontSize: 12.sp,
+                    //fontSize:
+                    //  height > 800
+                    //     ? height / MyFontSize.font10
+                    //     : height / MyFontSize.font14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.white,
                     height: 1.2.h,
@@ -83,7 +86,8 @@ class HomeOfferBanner extends StatelessWidget {
                     child: Center(
                       child: MyTextPoppines(
                         text: "View Details",
-                        fontSize: height / MyFontSize.font12,
+                        fontSize: 14.sp,
+                        // fontSize: height / MyFontSize.font12,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),

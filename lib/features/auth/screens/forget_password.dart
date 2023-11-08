@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
@@ -87,7 +88,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               MyTextPoppines(
                 text:
                     "Enter the email so that we can send you an otp to reset your password.",
-                fontSize: w / 18,
+                fontSize: 22.sp,
+                // fontSize: w / 18,
                 fontWeight: FontWeight.w600,
                 maxLines: 3,
               ),

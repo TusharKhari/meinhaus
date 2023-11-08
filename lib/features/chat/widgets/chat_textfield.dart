@@ -136,7 +136,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
 
                   hintText: "write a Massage ",
                   hintStyle: TextStyle(
-                    fontSize: width / 28,
+                    fontSize:16.sp,
                     color: AppColors.black.withOpacity(0.4),
                   ),
                   // show attachment options

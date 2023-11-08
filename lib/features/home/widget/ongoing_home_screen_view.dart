@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/models/ongoing_project_model.dart';
 import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
@@ -39,7 +40,8 @@ class OngoingCardHomeScreenView extends StatelessWidget {
             MyTextPoppines(
               text: "Ongoing Projects",
               fontWeight: FontWeight.w600,
-              fontSize: width / 23,
+              fontSize: 18.sp,
+              // fontSize: width / 23,
             ),
             InkWell(
               onTap: () {
@@ -48,7 +50,7 @@ class OngoingCardHomeScreenView extends StatelessWidget {
               child: MyTextPoppines(
                 text: "View All",
                 fontWeight: FontWeight.w500,
-                fontSize: width / 30,
+                fontSize: 16.sp,
               ),
             ),
           ],
@@ -161,7 +163,7 @@ class OngoingWorkCard extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: width / 35,
+              horizontal:16.sp,
               vertical: height / 130,
             ),
             child: Column(
@@ -171,7 +173,7 @@ class OngoingWorkCard extends StatelessWidget {
                 MyTextPoppines(
                   text: project.projectName ?? "",
                   fontWeight: FontWeight.w500,
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
                   maxLines: 1,
                 ),
                 Visibility(
@@ -368,12 +370,13 @@ class OngoingWorkCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
-                      hPadding: width / 10,
+                      hPadding: 10.w,
                       vPadding: height / 120,
-                      text: "View Est",
-                      fontSize: width / 30,
+                      text: "View Project",
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
+                      
                     ),
                   ),
                   SizedBox(height: height / 80),

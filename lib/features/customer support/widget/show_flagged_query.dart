@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -30,7 +31,8 @@ class ShowQueryIsFlagged extends StatelessWidget {
           MyTextPoppines(
             text:
                 "Your ticket has been flagged for our escalation team. They will contact you shortly!",
-            fontSize: w / 26,
+            fontSize:16.sp,
+            // fontSize: w / 26,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
             maxLines: 3,
@@ -38,7 +40,8 @@ class ShowQueryIsFlagged extends StatelessWidget {
           SizedBox(height: 18),
           MyBlueButton(
             hPadding: w / 10,
-            fontSize: w / 26,
+            fontSize: 16.sp,
+            // fontSize: w / 26,
             text: "Back To Home",
             onTap: () {
               context.pushNamedRoute(HomeScreen.routeName);

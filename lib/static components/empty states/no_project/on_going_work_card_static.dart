@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
  import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/static%20components/empty%20states/no_project/on_going_project%20_detail_static.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -52,7 +53,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                 OnGoingProjectDetailsStatic(),
               );
       // OnGoingProjectDetailsStatic
-      showSnakeBarr(context, "Explore ongoing sample projects", SnackBarState.Info);
+      showSnakeBarr(context, "This is a sample project", SnackBarState.Info);
     }
 
     return 
@@ -72,7 +73,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: width / 35,
+              horizontal: width / 36,
               vertical: height / 130,
             ),
             child: Column(
@@ -83,7 +84,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                 //  text: project.projectName ?? "",
                 text:  "Kitchen Repairing",
                   fontWeight: FontWeight.w500,
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
                   maxLines: 1,
                 ),
                 Visibility(
@@ -264,10 +265,10 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
-                      hPadding: width / 10,
-                      vPadding: height / 120,
-                      text: "View Details",
-                      fontSize: width / 30,
+                       hPadding: 10.w,
+                    vPadding: height / 120,
+                     fontSize:14.sp,
+                      text: "View Details", 
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
                     ),

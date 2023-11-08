@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -42,11 +43,15 @@ class _AuthTextFieldState extends State<AuthTextField> {
         children: [
           MyTextPoppines(
             text: "  ${widget.headingText}",
-            fontSize: w / 28,
+           // fontSize: w / 28,
+           fontSize: 18.sp,
             fontWeight: FontWeight.w500,
           ),
           8.vs,
           TextFormField(
+            style: TextStyle(
+              fontSize: 18.sp
+            ),
             controller: widget.controller,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
@@ -79,7 +84,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
               ),
               hintText: "Enter your ${widget.hintText} here",
               hintStyle: TextStyle(
-                fontSize: w / 26,
+                fontSize: 18.sp,
                 color: AppColors.grey.withOpacity(0.5),
               ),
               suffixIcon: widget.showSuffix!

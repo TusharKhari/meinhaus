@@ -201,7 +201,8 @@ class EstimateNotifier extends ChangeNotifier {
         prefs.setIsNotFirstTime();
         showSnakeBarr(
           context,
-          "Explore Sample Cards created for you",
+          //"Explore Sample Cards created for you",
+          "These card are samples",
           SnackBarState.Warning,
         );
       }

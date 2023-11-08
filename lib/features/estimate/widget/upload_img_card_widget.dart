@@ -15,7 +15,7 @@ class UploadImgCardWidget extends StatelessWidget {
         MyTextPoppines(
           text: " Upload pictures of the project",
           fontWeight: FontWeight.w600,
-          fontSize: 14.sp,
+          fontSize: 16.sp,
         ),
         15.vs,
         Padding(

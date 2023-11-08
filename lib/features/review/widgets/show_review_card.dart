@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/review/widgets/write_review_dialog.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -89,7 +90,7 @@ class ShowReviewCard extends StatelessWidget {
                 8.vspacing(context),
                 MyTextPoppines(
                   text: review[0].review.toString(),
-                  fontSize: width / 28,
+                  fontSize:16.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.grey,
                   maxLines: 5,
@@ -133,7 +134,7 @@ class ShowReviewCard extends StatelessWidget {
         children: [
           MyTextPoppines(
             text: title,
-            fontSize: width / 28,
+            fontSize:16.sp,
             fontWeight: FontWeight.w500,
           ),
           _buildRatingBar(width: width, rating: rating),
@@ -207,7 +208,7 @@ class ShowNoReview extends StatelessWidget {
             ),
             child: MyTextPoppines(
               text: "No review yet, Add a review.",
-              fontSize: width / 30,
+              fontSize: 16.sp,
               color: AppColors.black.withOpacity(0.5),
             ),
           ),
@@ -216,7 +217,7 @@ class ShowNoReview extends StatelessWidget {
             text: "Write a review",
             vPadding: height / 80,
             fontWeight: FontWeight.w600,
-            fontSize: width / 30,
+            fontSize: 16.sp,
             onTap: () {
               showDialog(
                 context: context,

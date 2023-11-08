@@ -88,7 +88,7 @@ void showSnakeBarr(
                 text: text,
                 color: mainColor,
                 fontWeight: FontWeight.w600,
-                fontSize: width / 28,
+                fontSize:16.sp,
                 maxLines: 10,
               ),
             ),

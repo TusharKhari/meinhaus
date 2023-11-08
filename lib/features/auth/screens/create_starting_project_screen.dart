@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
- import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
+import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/features/estimate/widget/saved_adresses_widget.dart';
 import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -11,13 +11,14 @@ import 'package:new_user_side/resources/common/buttons/my_bottom_bar_button.dart
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
- import 'package:new_user_side/utils/extensions/show_picked_images.dart';
+import 'package:new_user_side/utils/extensions/show_picked_images.dart';
 import 'package:provider/provider.dart';
- import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../utils/extensions/validator.dart';
 import '../../../utils/utils.dart';
- import '../../estimate/screens/estimate_generation_screen.dart';
+import '../../estimate/screens/estimate_generation_screen.dart';
+import '../../estimate/widget/bottom_sheet.dart';
 import '../../home/screens/home_screen.dart';
 import '../widgets/user_details_toggle_button.dart';
 
@@ -65,26 +66,26 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     final notifier = context.read<AddressNotifier>();
     notifier.getAddressSuggestions(addressController.text);
   }
-   
+
   // After verfication user can able to create its first project/estimate
   Future<void> createStartingProject() async {
     final userNotier = context.read<AuthNotifier>();
-    final notifier = context.read<EstimateNotifier>(); 
-   final image = await Utils.collectImages(notifier.images);  
-  //  final image = GetImages().pickImages<EstimateNotifier>(context: context);
-     final userAddress  = userNotier.user.savedAddress![0]; 
-       final data = {
+    final notifier = context.read<EstimateNotifier>();
+    final image = await Utils.collectImages(notifier.images);
+    //  final image = GetImages().pickImages<EstimateNotifier>(context: context);
+    final userAddress = userNotier.user.savedAddress![0];
+    final data = {
       'title': titleController.text,
       'description': descriptionController.text,
-      'time': selectedOption.toString(), 
-       'user_address_id' : userAddress.id.toString(),
-      'images[]': image, 
+      'time': selectedOption.toString(),
+      'user_address_id': userAddress.id.toString(),
+      'images[]': image,
     };
-     await notifier.createStartingEstimate(context: context, data: data);
+    await notifier.createStartingEstimate(context: context, data: data);
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     final estimateNotifer = context.watch<EstimateNotifier>();
     final authNotifer = context.watch<AuthNotifier>();
 
@@ -111,15 +112,19 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                       children: [
                         MyTextPoppines(
                           text: "Start your project",
-                          fontSize: w / 24,
+                          fontSize: 20.sp,
+                          // fontSize: w / 24,
                           fontWeight: FontWeight.w700,
                         ),
                         SizedBox(height: h / 130),
                         MyTextPoppines(
                           text: "We will provide you an estimate right away",
-                          fontSize: w / 34,
+                          fontSize: 13.sp,
+
+                          // fontSize: w / 34,
                           fontWeight: FontWeight.w500,
                           color: AppColors.grey,
+                          maxLines: 2,
                         ),
                       ],
                     ),
@@ -132,7 +137,8 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                       child: Text(
                         "Skip",
                         style: GoogleFonts.poppins(
-                          fontSize: w / 28,
+                          fontSize: 14.sp,
+                          // fontSize: w / 28,
                           color: AppColors.buttonBlue,
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
@@ -148,7 +154,9 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                     padding: EdgeInsets.symmetric(horizontal: w / 20),
                     child: Form(
                       key: _estimateFormKey,
-                      autovalidateMode: isSubmitClicked ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+                      autovalidateMode: isSubmitClicked
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -182,24 +190,42 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                           SizedBox(height: h / 100),
                           // [Dropdwon] When would you like to have this task to be done?
                           GenerateEstimateDropdown(),
-                         // SizedBox(height: h / 80),
-                         SizedBox(height: 20.h,)
-                         ,
-                       
-                          SavedAddressesWidget(), 
+                          // SizedBox(height: h / 80),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+
+                          SavedAddressesWidget(),
 
                           // Upload Images Section
                           SizedBox(height: h / 50),
                           MyTextPoppines(
                             text: "Upload clear photos of project area",
-                            fontSize: w / 34,
+                            fontSize: 14.sp,
+                            // fontSize: w / 34,
                             fontWeight: FontWeight.w600,
                           ),
                           SizedBox(height: h / 80),
                           estimateNotifer.images.isEmpty
                               ? InkWell(
-                                  onTap: () =>
-                                      estimateNotifer.getImagess(context),
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return BottomSheetSelectImagesOption(
+                                          onTapGallery: () => estimateNotifer
+                                              .getImagess(context),
+                                          onTapCamera: () async {
+                                            await estimateNotifer
+                                                .selectImgFromCamera(context);
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                  // onTap: () =>
+                                  //     estimateNotifer.getImagess(context),
                                   child: Container(
                                     width: w / 6,
                                     height: h / 12.5,
@@ -218,7 +244,8 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                           SizedBox(height: h / 80),
                           MyTextPoppines(
                             text: "You can select multiple images",
-                            fontSize: w / 36,
+                            fontSize: 12.sp,
+                            // fontSize: w / 36,
                             fontWeight: FontWeight.w500,
                             color: AppColors.golden,
                           ),
@@ -244,13 +271,17 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                         TextSpan(
                           text:
                               'By Signing Up with MeinHaus you agree with our ',
-                          style: TextStyle(fontSize: h / 55),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            // fontSize: h / 55,
+                          ),
                           children: [
                             TextSpan(
                               text: 'Terms & Conditions',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: w / 30,
+                                fontSize: 14.sp,
+                                // fontSize: w / 30,
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
@@ -258,14 +289,16 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                             TextSpan(
                               text: ' and ',
                               style: TextStyle(
-                                fontSize: w / 30,
+                                fontSize: 14.sp,
+                                // fontSize: w / 30,
                               ),
                             ),
                             TextSpan(
                               text: 'Privacy Policy',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: w / 30,
+                                fontSize: 14.sp,
+                                // fontSize: w / 30,
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
@@ -287,9 +320,10 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
           hPadding: w / 4,
           text: "Submit",
           onTap: () {
-         if(mounted)  setState(() {
-            isSubmitClicked = true;
-         }); 
+            if (mounted)
+              setState(() {
+                isSubmitClicked = true;
+              });
             if (_estimateFormKey.currentState!.validate()) {
               isSubmitClicked = false;
               authNotifer.isToggle

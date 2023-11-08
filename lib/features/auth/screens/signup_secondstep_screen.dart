@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'package:new_user_side/data/network/network_api_servcies.dart';
@@ -84,7 +85,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                     alignment: Alignment.bottomRight,
                     child: MyTextPoppines(
                       text: "Step 2     ",
-                      fontSize: width / 30,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -98,7 +99,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                         children: [
                           MyTextPoppines(
                             text: "Full Name",
-                            fontSize: width / 26,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(height: height / 90),
@@ -110,7 +111,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                           SizedBox(height: height / 50),
                           MyTextPoppines(
                             text: "Contact Number",
-                            fontSize: width / 26,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(height: height / 90),
@@ -183,7 +184,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                     children: [
                       MyTextPoppines(
                         text: "Already have an account ?",
-                        fontSize: width / 30,
+                        fontSize: 16.sp,
                         color: AppColors.black.withOpacity(0.7),
                       ),
                       SizedBox(width: width / 40),
@@ -192,7 +193,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                             context, SignInScreen.routeName),
                         child: MyTextPoppines(
                           text: "Sign In",
-                          fontSize: width / 30,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textBlue,
                         ),

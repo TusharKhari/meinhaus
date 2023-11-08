@@ -49,14 +49,16 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                         text: "Estimate  No :",
-                        fontSize: width / 26,
+                     fontSize:16.sp,
+                        // fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                       ),
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                     //   text: projectDetails.estimateId ?? "",
                        text: "Estimate id",
-                        fontSize: width / 26,
+                       fontSize:16.sp,
+                        // fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
                       ),
@@ -187,7 +189,8 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
       child: MyTextPoppines(
         text: subHeadline,
         fontWeight: FontWeight.w600,
-        fontSize: width / 25,
+       fontSize:20.sp,
+        // fontSize: width / 25,
       ),
     );
   }
@@ -250,7 +253,7 @@ class _EstimatedDetailsRow extends StatelessWidget {
         30.hs,
         MyTextPoppines(
           text: prefixText,
-          fontSize: 14.sp,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -258,7 +261,7 @@ class _EstimatedDetailsRow extends StatelessWidget {
         Expanded(
           child: MyTextPoppines(
             text: suffixText,
-            fontSize: 12.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w400,
             maxLines: 10,
             height: 1.5,

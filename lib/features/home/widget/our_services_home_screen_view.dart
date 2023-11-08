@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/our%20services/screens/our_service_card.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,8 @@ class OurServicesCardHomeScreenView extends StatelessWidget {
         MyTextPoppines(
           text: "Our Services",
           fontWeight: FontWeight.w600,
-          fontSize: width / 23,
+          fontSize: 18.sp, 
+          // fontSize: width / 23,
         ),
         ourservices != null
             ? SizedBox(

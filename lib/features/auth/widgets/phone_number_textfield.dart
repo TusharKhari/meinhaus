@@ -37,6 +37,7 @@ class PhoneNumberTextFeild extends StatelessWidget {
           child: MyTextPoppines(
             text: "+1",
             fontSize: w / 25,
+            // fontSize: w / 25,
           ),
         ),
         SizedBox(width: w / 40),

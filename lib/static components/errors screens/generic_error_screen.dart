@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
@@ -53,7 +54,7 @@ class GenericErrorScreen extends StatelessWidget {
               MyTextPoppines(
                 text: errorSubHeading,
                 color: AppColors.black.withOpacity(0.5),
-                fontSize: width / 28,
+                fontSize:16.sp,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
                 maxLines: 10,
@@ -88,7 +89,7 @@ class GenericErrorScreen extends StatelessWidget {
                   child: Center(
                     child: MyTextPoppines(
                       text: "REPORT TO SUPPORT",
-                      fontSize: width / 28,
+                      fontSize:16.sp,
                       fontWeight: FontWeight.w700,
                       color: AppColors.textBlue,
                     ),

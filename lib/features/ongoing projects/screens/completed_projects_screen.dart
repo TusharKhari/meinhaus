@@ -38,9 +38,7 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
   @override
   Widget build(BuildContext context) {
     final notifer = context.watch<EstimateNotifier>();
-    final project = notifer.projectsHistory.projects;
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+    final project = notifer.projectsHistory.projects; 
 
     return project != null
         ? Scaffold(
@@ -57,7 +55,8 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
                       child: MyTextPoppines(
                         text:
                             "We have record of your last projects .Tap to view details.",
-                        fontSize: height / MyFontSize.font16,
+                        // fontSize: height / MyFontSize.font16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

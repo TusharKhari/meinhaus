@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/check%20out/screens/checkout_screen.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -63,14 +64,15 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                         text: "Estimate  No :",
-                        fontSize: width / 26,
+                        fontSize: 16.sp,
+                        // fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                       ),
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                        text: projectDetails.estimateId ?? "",
                       //  text: "my",
-                        fontSize: width / 26,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
                       ),

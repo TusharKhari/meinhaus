@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -23,10 +22,14 @@ class UserDeatilsToggleButton extends StatelessWidget {
       onToggle: (value) {
         toggle.setToggle(value);
       },
-      activeToggleColor: AppColors.black,
+      activeToggleColor: AppColors.orange,
+      // activeToggleColor: AppColors.black,
       inactiveToggleColor: AppColors.white,
       activeColor: Colors.transparent,
-      activeSwitchBorder: Border.all(color: AppColors.black),
+      activeSwitchBorder: Border.all(
+      //  color: AppColors.black,
+      color: AppColors.orange
+      ),
     );
   }
 }

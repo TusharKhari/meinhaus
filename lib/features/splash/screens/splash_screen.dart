@@ -7,8 +7,7 @@ import 'package:new_user_side/features/splash/screens/second_splash-screen.dart'
 import 'package:new_user_side/features/splash/screens/third_splash.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-
-import '../../../utils/sizer.dart';
+ 
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = '/splash';
@@ -65,7 +64,8 @@ class _SplashScreenState extends State<SplashScreen>
                 controller: _tabController,
                 selectedColor: AppColors.black,
                 borderStyle: BorderStyle.solid,
-                indicatorSize: height / MyFontSize.font12,
+                indicatorSize: 13.sp,
+                // indicatorSize: height / MyFontSize.font12,
               ),
             ),
           )
@@ -105,14 +105,16 @@ class _SplashScreenState extends State<SplashScreen>
                         text: "Next",
                         fontWeight: FontWeight.w600,
                         color: AppColors.buttonBlue,
-                        fontSize: height / MyFontSize.font16,
+                         fontSize: 16.sp,
+                        // fontSize: height / MyFontSize.font16,
                       ),
                     ),
                     10.hs,
                     Icon(
                       Icons.arrow_forward,
                       color: AppColors.buttonBlue,
-                      size: height / MyFontSize.font20,
+                      size:   20.sp,
+                      // size: height / MyFontSize.font20,
                     ),
                   ],
                 ),
@@ -143,7 +145,8 @@ class _SplashScreenState extends State<SplashScreen>
                     text: "Get Started",
                     fontWeight: FontWeight.w600,
                     color: AppColors.white,
-                    fontSize: height / MyFontSize.font16,
+                    fontSize: 16.sp,
+                    // fontSize: height / MyFontSize.font16,
                   ),
                 ),
               ),

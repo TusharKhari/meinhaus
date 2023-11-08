@@ -160,7 +160,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                       MyTextPoppines(
                         text: " Upload pictures of the project",
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                       ),
                       15.vs,
                       DottedBorder(
@@ -227,6 +227,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                               InkWell(
                                 // onTap: () => getImagess(),
                                 onTap: () {
+
                                   showModalBottomSheet(
                                     backgroundColor: Colors.transparent,
                                     context: context,
@@ -234,7 +235,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                       return BottomSheetSelectImagesOption( 
                                         onTapGallery: () => getImagess(),
                                         onTapCamera: () async{
-                                          estimateNotifer.selectImgFromCamera(context);
+                                         await estimateNotifer.selectImgFromCamera(context);
                                            },
                                       );
                                     },
@@ -321,7 +322,8 @@ class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
             hint: MyTextPoppines(
               text: "When would you like to have this tasks to be done?",
               color: AppColors.black,
-              fontSize: w / 34,
+             fontSize:15.sp,
+              // fontSize: w / 34,
               fontWeight: FontWeight.w500,
             ),
             style: GoogleFonts.poppins(

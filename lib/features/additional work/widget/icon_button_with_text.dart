@@ -48,6 +48,8 @@ class IconButtonWithText extends StatelessWidget {
           color: buttonColor,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             isIcon!
                 ? Container(
@@ -70,19 +72,23 @@ class IconButtonWithText extends StatelessWidget {
                     width: height > 800 ? 20.w : 22.w,
                     height: height > 800 ? 20.w : 22.w,
                     child:
-                    //  Image.asset(
-                    //   iconUrl!,
-                    //   fit: BoxFit.fill,
-                    // ),
-                    SvgPicture.asset(iconUrl!, height: height*0.02,fit: BoxFit.fitHeight,), 
-                    
+                        //  Image.asset(
+                        //   iconUrl!,
+                        //   fit: BoxFit.fill,
+                        // ),
+                        SvgPicture.asset(
+                      iconUrl!,
+                      height: height * 0.02,
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
-            isIcon! ? 10.hs : 6.hs,
+
+            10.hs,
             MyTextPoppines(
               text: text,
               color: textColor,
-              fontSize: height > 800 ? 11.w : 13.sp,
-              height: 1.4,
+              fontSize: 16.sp,
+              // fontSize: 14.sp,
               fontWeight: FontWeight.w600,
             ),
           ],

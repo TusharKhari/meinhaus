@@ -16,7 +16,7 @@ class AuthBannerWidget extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return Container(
       width: double.infinity,
-      height: 200.h,
+      height: 220.h,
       color: const Color(0xFFE9F4FF),
       child: Stack(
         children: [
@@ -40,7 +40,7 @@ class AuthBannerWidget extends StatelessWidget {
             bottom: 50.h,
             left: 10.w,
             child: SizedBox(
-              height: 60.h,
+              height: 70.h,
               width: 160.w,
               child: Image.asset(
                 "assets/logo/logo_mein_haus.png",
@@ -48,13 +48,15 @@ class AuthBannerWidget extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: 30.w,
+            left: 15.w,
             bottom: 10.h,
             child: MyTextPoppines(
               text: isSignIn! ? "Sign In " : "Sign up",
-              fontSize: height > 800
-                  ? height / MyFontSize.font22
-                  : height / MyFontSize.font24,
+              fontSize: 
+              // height > 800
+              //     ? height / MyFontSize.font22
+              //     : height / MyFontSize.font24,
+              30.sp, 
               fontWeight: FontWeight.w500,
             ),
           ),

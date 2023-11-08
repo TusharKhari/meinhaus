@@ -71,7 +71,7 @@ class _EstimatedDetailsRow extends StatelessWidget {
         30.hs,
         MyTextPoppines(
           text: prefixText,
-          fontSize: 14.sp,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -79,7 +79,7 @@ class _EstimatedDetailsRow extends StatelessWidget {
         Expanded(
           child: MyTextPoppines(
             text: suffixText,
-            fontSize: 12.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w400,
             maxLines: 10,
             height: 1.5,

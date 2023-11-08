@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 
@@ -95,7 +96,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   alignment: Alignment.topLeft,
                   child: MyTextPoppines(
                     text: "Create New Password",
-                    fontSize: w / 18,
+                    fontSize: 20.sp,
+                    // fontSize: w / 18,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

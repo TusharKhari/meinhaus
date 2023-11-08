@@ -1,6 +1,7 @@
 // when no estimation is present in data
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart'; 
  
 import '../../../features/home/widget/project_img_card_widget.dart';
@@ -18,7 +19,7 @@ class NoEstStaticScreen extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width; 
     return Container(
       width: width / 2,
-      margin: EdgeInsets.only(right: width / 35),
+      margin: EdgeInsets.only(right: width / 36),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(width / 28),
         color: AppColors.white,
@@ -36,7 +37,7 @@ class NoEstStaticScreen extends StatelessWidget {
                   // text: projectDetails.projectName.toString(),
                   text:  "Project Name Sample",
                   fontWeight: FontWeight.w500,
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
                   maxLines: 1,
                 ),
                 Divider(thickness: 1.0, color: AppColors.grey.withOpacity(0.2)),
@@ -155,13 +156,13 @@ class NoEstStaticScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: MyBlueButton(
-                    hPadding: width / 10,
+                    hPadding: 10.w,
                     vPadding: height / 120,
                     text: "View Est",
-                    fontSize: width / 30,
+                    fontSize:14.sp, 
                     fontWeight: FontWeight.w600,
                     onTap: () {
-                      showSnakeBarr(context, "Explore sample estimate", SnackBarState.Info);
+                      showSnakeBarr(context, "This is a sample estimate", SnackBarState.Info);
                       Navigator.pushNamed(
                         context, 
                      NoEstWorkDetailStaticScreen.routeName,

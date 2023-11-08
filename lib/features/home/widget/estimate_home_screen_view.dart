@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_work_deatils_screen.dart';
 import 'package:new_user_side/features/home/widget/project_img_card_widget.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -30,7 +31,8 @@ class EstimateCardHomeScreenView extends StatelessWidget {
         MyTextPoppines(
           text: "Estimated Work",
           fontWeight: FontWeight.w600,
-          fontSize: width / 23,
+          fontSize: 18.sp,
+          // fontSize: width / 23,
         ),
         SizedBox(height: height / 70),
         estimateWork != null
@@ -80,7 +82,7 @@ class EstimatedWorkCard extends StatelessWidget {
 
     return Container(
       width: width / 2,
-      margin: EdgeInsets.only(right: width / 35),
+      margin: EdgeInsets.only(right:16.sp),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(width / 28),
         color: AppColors.white,
@@ -97,7 +99,7 @@ class EstimatedWorkCard extends StatelessWidget {
                 MyTextPoppines(
                   text: projectDetails.projectName.toString(),
                   fontWeight: FontWeight.w500,
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
                   maxLines: 1,
                 ),
                 Divider(thickness: 1.0, color: AppColors.grey.withOpacity(0.2)),
@@ -258,10 +260,11 @@ projectDetails.uploadedImgs!.length  >= 3
                 Align(
                   alignment: Alignment.center,
                   child: MyBlueButton(
-                    hPadding: width / 10,
+                     hPadding: 10.w,
                     vPadding: height / 120,
+                     fontSize:14.sp,
                     text: "View Est",
-                    fontSize: width / 30,
+                   
                     fontWeight: FontWeight.w600,
                     onTap: () {
                       Navigator.pushNamed(

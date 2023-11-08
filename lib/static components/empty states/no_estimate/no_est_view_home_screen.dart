@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/features/estimate/screens/estimate_generation_screen.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -44,7 +45,7 @@ class NoEstViewHomeScreenWidget extends StatelessWidget {
               children: [
                 MyTextPoppines(
                   text: text,
-                  fontSize: width / 30,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                   maxLines: 5,
                   textAlign: TextAlign.start,
