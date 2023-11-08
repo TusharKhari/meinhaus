@@ -78,7 +78,7 @@ class FirstSplashScreen extends StatelessWidget {
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(
-              text: "24/7  Customer  Hire renovators instantly.",
+              text: "24/7  Customer Support Hire renovators instantly.",
               fontSize: height > 800 ? 15.sp : 17.sp,
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,

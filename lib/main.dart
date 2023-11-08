@@ -36,8 +36,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return ScreenUtilInit(
-      designSize: const Size(393, 781),
+      // designSize: const Size(393, 781),
+      designSize:  Size(width, height),
       builder: (context, child) {
         return 
         

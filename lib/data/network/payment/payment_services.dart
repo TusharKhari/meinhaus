@@ -69,7 +69,6 @@ class MakePayment {
     late bool isValueTrue;
     try {
       await Stripe.instance.presentPaymentSheet(
-
       ).then((_) {
         paymentIntent = null;
         isValueTrue = true;
