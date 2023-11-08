@@ -72,15 +72,15 @@ class OurServicesCard extends StatelessWidget {
               children: [
                 MyTextPoppines(
                   text: services.description.toString(),
-                  maxLines: 3,
-                  fontSize: 16.sp,
+                  maxLines: 2,
+                  fontSize: 14.sp,
                   // fontSize: width / 38,
                 ),
                 4.vspacing(context),
                 MyTextPoppines(
                   text: "50 + Top Rated Pro",
                   maxLines: 2,
-                 fontSize: 14.sp,
+                 fontSize: 12.sp,
                   // fontSize: width / 35,
                   fontWeight: FontWeight.w600,
                   color: AppColors.golden,
@@ -89,7 +89,7 @@ class OurServicesCard extends StatelessWidget {
                 MyTextPoppines(
                   text: "10 + Years of experience",
                   maxLines: 2,
-                 fontSize: 14.sp,
+                 fontSize: 12.sp,
                   // fontSize: width / 35,
                   fontWeight: FontWeight.w600,
                   color: AppColors.golden,

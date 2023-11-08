@@ -18,6 +18,7 @@ import 'package:new_user_side/features/project%20notes/view/screens/project_note
 import 'package:new_user_side/features/settings/screens/setting_screen.dart';
 import 'package:new_user_side/features/splash/screens/splash_screen.dart';
  
+import '../../features/auth/screens/create_starting_project_screen.dart';
 import '../../features/auth/screens/signin_screen.dart';
 import '../../features/edit profile/screens/edit_password_scree.dart';
 import '../../features/edit profile/screens/edit_profile_screen.dart';
@@ -56,9 +57,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       var isNewEstismate = routeSettings.arguments as bool;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => EstimateGenerationScreen(
+        builder: (_) =>
+         EstimateGenerationScreen(
           isNewEstimate: isNewEstismate,
-        ),
+        ), 
       );
     case EstimatedWorkDetailScreen.routeName:
       var index = routeSettings.arguments as int;
