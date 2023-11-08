@@ -1,14 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- import 'package:new_user_side/resources/common/my_app_bar.dart';
+import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
- import '../../../resources/common/my_text.dart';
+import '../../../resources/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
 
 class OnGoingProjectDetailsStatic extends StatelessWidget {
@@ -18,59 +16,71 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-    return Scaffold
-    (
+    return Scaffold(
       appBar: MyAppBar(text: "Sample Ongoing Projects"),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Padding(
-               padding:   EdgeInsets.only(top: 20, left: 20,),
-               child: Text(
-                 'Here’s the list of your all ongoing projects.',
-                 style: TextStyle(
-                   color: Colors.black,
-                   fontSize: 16,
-                   fontFamily: 'Roboto',
-                   fontWeight: FontWeight.w400,
-                   height: 0,
-                 ),
-               ),
-             ),
-             Padding(
-               padding: const EdgeInsets.only(left: 20,top: 20),
-               child: SizedBox(
-                
-                 height:  height / 2.90,
-                 child: ListView.builder(
+            Padding(
+              padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+              ),
+              child: Text(
+                'Here’s the list of your all ongoing projects.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 20),
+              child: SizedBox(
+                height: height / 2.90,
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                   return  _buildOnProjectCard(context: context, height: height, width: width, projectName: index==0 ? "Bathroom Renewal" : "Furniture Fixing");
-                 },),
-               ),
-             ),
-             Padding(
-               padding: const EdgeInsets.only(top: 30, left: 20, bottom: 30),
-               child: Text(
-                 'Hourly Bookings',
-                 style: TextStyle(
-                   color: Colors.black,
-                   fontSize: 16,
-                   fontFamily: 'Roboto',
-                   fontWeight: FontWeight.w400,
-                   height: 0,
-                 ),
-               ),
-             ),
-             Padding(
-               padding: const EdgeInsets.only(left: 20),
-               child: SizedBox(
-                height:  height / 2.90,
-                child: _buildOnProjectCard(context: context, height: height, width: width, projectName: "Furniture Fixing")),
-             ), 
+                    return _buildOnProjectCard(
+                        context: context,
+                        height: height,
+                        width: width,
+                        projectName: index == 0
+                            ? "Bathroom Renewal"
+                            : "Furniture Fixing");
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30, left: 20, bottom: 30),
+              child: Text(
+                'Hourly Bookings',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: SizedBox(
+                  height: height / 2.90,
+                  child: _buildOnProjectCard(
+                      context: context,
+                      height: height,
+                      width: width,
+                      projectName: "Furniture Fixing")),
+            ),
           ],
         ),
       ),
@@ -79,19 +89,17 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
 
   Widget _buildOnProjectCard({
     required BuildContext context,
-    required double height, 
-    required double width, 
-    required String projectName, 
+    required double height,
+    required double width,
+    required String projectName,
   }) {
-    void onViewEstTapped() async { 
-    //  showSnakeBarr(context, "No Ongoing Project Available", SnackBarState.Info);
-       Navigator.of(context).pushScreen(
-       EstimateGenerationScreen());
+    void onViewEstTapped() async {
+      //  showSnakeBarr(context, "No Ongoing Project Available", SnackBarState.Info);
+      Navigator.of(context).pushScreen(EstimateGenerationScreen());
     }
 
-    return 
-    Container(
-     width: context.screenWidth / 1.95, 
+    return Container(
+      width: context.screenWidth / 1.95,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppColors.white,
@@ -114,8 +122,8 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
               children: [
                 // PROJECT NAME
                 MyTextPoppines(
-                //  text: project.projectName ?? "",
-                text:  projectName,
+                  //  text: project.projectName ?? "",
+                  text: projectName,
                   fontWeight: FontWeight.w500,
                   fontSize: 16.sp,
                   maxLines: 1,
@@ -131,7 +139,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                   // visible: isMultiProjects,
                   child: MyTextPoppines(
                     text: "   +2 more services",
-                  //  text: "   +${project.services!.length} more services",
+                    //  text: "   +${project.services!.length} more services",
                     fontWeight: FontWeight.w500,
                     fontSize: width / 40,
                     color: AppColors.black.withOpacity(0.5),
@@ -163,8 +171,8 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                      //  text: project.estimateNo,
-                      text: "OD-058699S",
+                        //  text: project.estimateNo,
+                        text: "OD-058699S",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
@@ -190,8 +198,8 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                       ),
                       10.hs,
                       MyTextPoppines(
-                      //  text: "${project.projectCost}",
-                      text: "\$100",
+                        //  text: "${project.projectCost}",
+                        text: "\$100",
                         fontWeight: FontWeight.w600,
                         fontSize: width / 38,
                       ),
@@ -212,14 +220,14 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                     ),
                     SizedBox(width: width / 60),
                     MyTextPoppines(
-                   //   text: project.projectStartDate ?? "",
-                   text: "01/01/2023",
+                      //   text: project.projectStartDate ?? "",
+                      text: "01/01/2023",
                       fontWeight: FontWeight.w600,
                       fontSize: width / 38,
                     ),
                   ],
                 ),
-               // SizedBox(height: height / 135),
+                // SizedBox(height: height / 135),
               ],
             ),
           ),
@@ -233,18 +241,18 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                   bottomRight: Radius.circular(12),
                 ),
                 image:
-                //  isImgisNotNull
-                //     ? DecorationImage(
-                //         image: NetworkImage(
-                //           project.projectImages!.first.thumbnailUrl!,
-                //         ),
-                //         fit: BoxFit.cover,
-                //       )
-                //     : 
+                    //  isImgisNotNull
+                    //     ? DecorationImage(
+                    //         image: NetworkImage(
+                    //           project.projectImages!.first.thumbnailUrl!,
+                    //         ),
+                    //         fit: BoxFit.cover,
+                    //       )
+                    //     :
                     DecorationImage(
-                        image: AssetImage("assets/images/room/2(1).png"),
-                        fit: BoxFit.cover,
-                      ),
+                  image: AssetImage("assets/images/room/2(1).png"),
+                  fit: BoxFit.cover,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,11 +306,10 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
-                        hPadding: 10.w,
-                    vPadding: height / 120,
-                     fontSize:14.sp,
+                      hPadding: 10.w,
+                      vPadding: height / 120,
+                      fontSize: 14.sp,
                       text: "View Details",
-                       
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
                     ),

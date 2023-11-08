@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
       designSize:  Size(width, height),
       builder: (context, child) {
         return 
-        
         // GetMaterialApp(
         //   title: 'Mein Haus',
         //   theme: ThemeData(

@@ -268,7 +268,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                        hPadding: 10.w,
                     vPadding: height / 120,
                      fontSize:14.sp,
-                      text: "View Details", 
+                      text: "View Project", 
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
                     ),
