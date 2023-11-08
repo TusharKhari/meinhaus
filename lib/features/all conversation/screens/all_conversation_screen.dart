@@ -105,7 +105,7 @@ class ChatCardWidget extends StatelessWidget {
     return InkWell(
       onTap: () => loadMessages(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: w / 40, vertical: h / 60),
+        margin: EdgeInsets.symmetric(horizontal: w / 43, vertical: h / 60),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

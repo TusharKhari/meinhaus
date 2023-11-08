@@ -26,6 +26,7 @@ class OurServicesCard extends StatelessWidget {
     final notifier = context.read<OurServicesNotifier>();
     final services = notifier.services.services![index];
     return Container(
+    //  height: 350,
       width: width / 1.4,
       margin: EdgeInsets.only(top: height / 80, right: width / 30),
       decoration: BoxDecoration(
@@ -37,7 +38,7 @@ class OurServicesCard extends StatelessWidget {
           1.vspacing(context),
           Container(
             width: width / 1.45,
-            height: 160.h,
+            height: 130.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               image: DecorationImage(

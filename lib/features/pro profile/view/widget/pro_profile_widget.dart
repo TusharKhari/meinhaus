@@ -102,7 +102,7 @@ class ProProfileWidget extends StatelessWidget {
                   color: Color(0xFFE8F4FF),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                 child: Row(
                   children: [
                     MyTextPoppines(

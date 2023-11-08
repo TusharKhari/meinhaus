@@ -319,7 +319,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
             iconUrl: firstButtonImgUrl,
             isIcon: false,
             vPadding: 12.h,
-            hPadding: 15.w,
+            hPadding: 2.w,
             borderRadius: 20.r,
             onTap: firstButtonOnTap,
           ),

@@ -116,12 +116,12 @@ class EstimatedWorkCard extends StatelessWidget {
                     children: [
                       MyTextPoppines(
                         text: "Estimate Date :",
-                        fontSize: width / 38,
+                        fontSize: 11.sp,
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
                         text: projectDetails.estimateDate ?? "",
-                        fontSize: width / 38,
+                        fontSize: 11.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
                       ),
@@ -136,11 +136,11 @@ class EstimatedWorkCard extends StatelessWidget {
             margin: EdgeInsets.only(
               right: width / 65,
               left: width / 65,
-              bottom: height / 300,
+             bottom: height / 300,
             ),
             padding: EdgeInsets.symmetric(
               horizontal: width / 36,
-              vertical: height / 80,
+              vertical: height / 150,
             ),
             decoration: BoxDecoration(
               color: AppColors.black,

@@ -183,7 +183,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 1,
-                                itemSize: 15,
+                                itemSize: 15.sp,
                                 itemPadding:
                                     EdgeInsets.only(left: 4.w),
                                 itemBuilder: (context, _) => Icon(
@@ -198,7 +198,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                    Text(
                                 "$rating/5",
                                 style: GoogleFonts.poppins(
-                                  fontSize: 12.sp,
+                                  fontSize: 11.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
@@ -208,7 +208,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                               Text(
                                 "View Details",
                                 style: GoogleFonts.poppins(
-                                  fontSize: 12.sp,
+                                  fontSize: 11.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
