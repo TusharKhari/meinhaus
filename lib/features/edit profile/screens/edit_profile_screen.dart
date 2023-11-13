@@ -20,11 +20,9 @@ import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
-import '../../../resources/common/buttons/my_buttons.dart';
+ import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../static components/dialogs/edit_profile_dialog.dart';
-import '../../../utils/extensions/full_screen_image_view.dart';
-import '../../../utils/extensions/get_images.dart';
+ import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -381,8 +379,7 @@ class _TextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authNotifier = context.watch<AuthNotifier>();
-    final h = context.screenHeight;
-    final w = context.screenWidth;
+     final w = context.screenWidth;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h),
       child: Column(

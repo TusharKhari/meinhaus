@@ -149,10 +149,10 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                 // Select File button
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: width / 15),
+                                      ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       MyTextPoppines(
                                         text: "Select Photos To Upload :",

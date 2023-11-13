@@ -154,7 +154,7 @@ class SupportNotifier extends ChangeNotifier {
     };
     setLoadingState(true, true);
     await repo.keepOpen(body).then((response) {
-      setLoadingState(false, true);
+      setLoadingState(false, false);
       final data = MessageModel.fromJson(response);
       for (var message in data.messages!) {
         chatNotifier.updateOrAddNewMessage(message, 0);
@@ -162,6 +162,7 @@ class SupportNotifier extends ChangeNotifier {
       setIsQuerySoved(false);
       setShowClosingDialog(false);
       Navigator.pop(context);
+      messageController.clear();
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in keep open --> $error").log("Support Notifier");

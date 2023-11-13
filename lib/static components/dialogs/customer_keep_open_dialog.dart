@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
@@ -29,7 +31,7 @@ class CustomerSupportKeepOpenDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.white,
       child: Container(
-        height: h / 3.25,
+        height: 300.h,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: w / 30, vertical: h / 85),
         child: Column(
@@ -45,13 +47,19 @@ class CustomerSupportKeepOpenDialog extends StatelessWidget {
               validator: Validator().nullValidator,
             ),
             SizedBox(height: h / 85),
-            MyBlueButton(
-              hPadding: w / 20,
-              vPadding: h / 70,
-              text: "Submit it",
-              fontSize: w / 30,
-              onTap: () => _keepOpenHandler(),
-            ),
+            notifier.loading
+                ? Padding(
+                    padding: EdgeInsets.only(right: 15.w, top: 5.h),
+                    child: LoadingAnimationWidget.inkDrop(
+                        color: Colors.blue, size: 20.sp),
+                  )
+                : MyBlueButton(
+                    hPadding: w / 20,
+                    vPadding: h / 70,
+                    text: "Submit it",
+                    fontSize: w / 30,
+                    onTap: () => _keepOpenHandler(),
+                  ),
             SizedBox(height: h / 85),
           ],
         ),

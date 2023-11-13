@@ -82,6 +82,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
     final notifer = context.watch<SavedNotesNotifier>();
     final height = context.screenHeight;
     return Dialog(
+      
       backgroundColor: Colors.white,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -101,7 +102,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       children: [
                         MyTextPoppines(
                           text: "Project Notes",
-                          fontSize: 14.sp,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                         ),
                         10.hs, 
@@ -134,10 +135,12 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                   child: MyTextPoppines(
                     text:
                         "Use these notes like a notebook of things you want to remember about your job, like which color/material goes where, or special details about an installation.",
-                    fontSize: context.screenWidth / 40,
+                    fontSize: 13.sp,
+                    // fontSize: context.screenWidth / 40,
                     fontWeight: FontWeight.w500,
-                    maxLines: 3,
-                    height: 1.3,
+                    maxLines: 5,
+                    // maxLines: 3,
+                    // height: 1.3,
                   ),
                 ),
                 const Divider(thickness: 1.5),
@@ -174,7 +177,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                             Text(
                               "Saved Notes",
                               style: GoogleFonts.poppins(
-                                fontSize: 12.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
                                 color: AppColors.textBlue1E9BD0,
@@ -195,7 +198,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                         child: _Button(
                           buttonText: "Select File",
                           iconData: Icons.attach_file,
-                          fontSize: 12.sp,
+                          fontSize: 14.sp,
                           vPadding: 3.h,
                           iconSize: 18.sp,
                         ),
@@ -216,7 +219,8 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       child: _Button(
                         buttonText: "Save For Me Only",
                         iconData: Icons.bookmark,
-                        fontSize: height > 800 ? 8.sp : 10.sp,
+                        fontSize: 11.sp,
+                        // fontSize: height > 800 ? 8.sp : 10.sp,
                         vPadding: 10.h,
                         iconSize: height > 800 ? 14.sp : 16.sp,
                       ),
@@ -226,7 +230,8 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       child: _Button(
                         buttonText: "Save For Me & Pro",
                         iconData: Icons.bookmark,
-                        fontSize: height > 800 ? 8.sp : 10.sp,
+                        fontSize: 11.sp,
+                        // fontSize: height > 800 ? 8.sp : 10.sp,
                         vPadding: 10.h,
                         iconSize: height > 800 ? 14.sp : 16.sp,
                         isBorder: false,
@@ -271,7 +276,7 @@ class _Button extends StatelessWidget {
         ),
         color: isBorder! ? null : AppColors.buttonBlue,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: vPadding!.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: vPadding!.h),
       child: Row(
         children: [
           MyTextPoppines(

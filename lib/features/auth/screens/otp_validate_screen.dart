@@ -268,7 +268,8 @@ class _OtpValidateScreenState extends State<OtpValidateScreen> {
                         onTap: () => _verifyEmailHandler(otp),
                         child: Container(
                           width: w / 2,
-                          height: h / 15,
+                       height: 50,
+                    //   padding: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(w / 8),
                             color: AppColors.buttonBlue,

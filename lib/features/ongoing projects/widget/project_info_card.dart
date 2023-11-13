@@ -30,7 +30,7 @@ class ProjectInfoCard extends StatelessWidget {
     final ongoingJobs = projects[index];
     final projectId = ongoingJobs.services![0].projectId.toString();
     final proId = ongoingJobs.services![0].proId.toString();
-    final headline1 =16.sp;
+    final headline1 = 16.sp;
     final bool isHourlyBooking = ongoingJobs.normal!;
     final bool isMultipleServices = ongoingJobs.services!.length > 1;
 
@@ -53,7 +53,8 @@ class ProjectInfoCard extends StatelessWidget {
               ),
               _getProjectDetails(),
             };
-      ("Project Id:$projectId : Pro Id:$proId isMultiple: $isMultipleServices").log();
+      ("Project Id:$projectId : Pro Id:$proId isMultiple: $isMultipleServices")
+          .log();
     }
 
     return Container(
@@ -73,7 +74,9 @@ class ProjectInfoCard extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(
-                horizontal: width / 20, vertical: height / 80),
+              horizontal: width / 20,
+              vertical: height / 80,
+            ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
@@ -133,6 +136,7 @@ class ProjectInfoCard extends StatelessWidget {
                         ),
                         4.vspacing(context),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             MyTextPoppines(
                               text: "Project Started :  ",
@@ -151,7 +155,7 @@ class ProjectInfoCard extends StatelessWidget {
                     ),
                     // Project Cost
                     Container(
-                      width: width / 3.6,
+                      width: 90.w,
                       margin: EdgeInsets.only(right: width / 40),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
@@ -162,7 +166,7 @@ class ProjectInfoCard extends StatelessWidget {
                         children: [
                           1.vspacing(context),
                           MyTextPoppines(
-                            text: "Project Cost",
+                            text: "Cost",
                             fontSize: headline1,
                             fontWeight: FontWeight.w500,
                             color: AppColors.black.withOpacity(0.8),
@@ -172,8 +176,9 @@ class ProjectInfoCard extends StatelessWidget {
                             height: 10,
                             color: AppColors.golden.withOpacity(0.6),
                           ),
+                        
                           MyTextPoppines(
-                            text: "\$${ongoingJobs.projectCost}",
+                            text: " \$${ongoingJobs.projectCost} ",
                             fontSize: headline1,
                             fontWeight: FontWeight.bold,
                             color: AppColors.golden,
@@ -206,8 +211,8 @@ class ProjectInfoCard extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final images = ongoingJobs.projectImages![index];
                           return Container(
-                           margin: EdgeInsets.only(left: width / 30),
-                           width: width / 5.4,
+                            margin: EdgeInsets.only(left: width / 30),
+                            width: width / 5.4,
                             decoration: BoxDecoration(
                               color: AppColors.black,
                               borderRadius: BorderRadius.circular(12),
@@ -238,7 +243,7 @@ class ProjectInfoCard extends StatelessWidget {
                       visible: !isHourlyBooking,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            vertical: height / 110, horizontal:16.sp),
+                            vertical: height / 110, horizontal: 16.sp),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           color: Color(0xFFB9B100).withOpacity(0.12),
@@ -251,7 +256,7 @@ class ProjectInfoCard extends StatelessWidget {
                             ),
                             5.hspacing(context),
                             MyTextPoppines(
-                              text: "Hourly Booking",
+                              text: "Hourly",
                               fontSize: headline1,
                               fontWeight: FontWeight.w500,
                               height: 1.5,

@@ -87,6 +87,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           ? _getSavedNotesHandler()
           : showDialog(
               context: context,
+              barrierDismissible: false,
               builder: (context) {
                 return ProjectNotesDialog(
                   serviceId: projectId,

@@ -60,6 +60,7 @@ class CustosmerCloseTicketDialog extends StatelessWidget {
                     Navigator.pop(context);
                     showDialog(
                       context: context,
+                      barrierDismissible: false,
                       builder: (context) {
                         return const CustomerSupportKeepOpenDialog();
                       },
