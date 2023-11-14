@@ -191,7 +191,7 @@ class EstimateNotifier extends ChangeNotifier {
 
 // GET ESTIMATED WORK
   Future getEstimateWork(BuildContext context) async {
-    setLoadingState(true, true);
+    setLoadingState(true, false);
     final prefs = UserPrefrences();
     bool isFirstTime = await prefs.isFirstTime();
    estimateRepository.getEstimates().then((response) {
