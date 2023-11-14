@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
-import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'project_img_card_widget.dart';
@@ -123,8 +122,7 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
                             width: width / 8,
                             height: height / 16,
                             isNetworkImg: true,
-                            //imgPath: "assets/images/room/2(1).png",
-                            //  projectDetails.uploadedImgs
+                           
                             imgPath:
                                 projectDetails.uploadedImgs![0].thumbnailUrl!,
                           )
@@ -193,38 +191,26 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
                   color: AppColors.white.withOpacity(0.8),
                   height: 0,
                 ),
-                SizedBox(height: height / 120),
+                SizedBox(height: 12.h),
+                // SizedBox(height: height / 120),
                 Align(
-                  alignment: Alignment.center,
-                  child:
-                  //  MyBlueButton(
-                  //   hPadding: 10.w,
-                  //   vPadding: height / 120,
-                  //   fontSize: 14.sp,
-                  //   text: "Awaiting",
-                  //   fontWeight: FontWeight.w600,
-                  //   onTap: () {
-                  //     // Navigator.pushNamed(
-                  //     //   context,
-                  //     // //  EstimatedWorkDetailScreen.routeName,
-                  //     //   arguments: index,
-                  //     // );
-                  //   },
-                  // ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
-                  decoration: BoxDecoration(
-                  border: Border.all(width: 2.w, color: AppColors.golden),
-                  borderRadius: BorderRadius.circular(10.r) , 
-                  color: Colors.grey 
-                  ),
-                  child: Text("Awaiting", style: TextStyle(
-                    color: AppColors.white, 
-                    fontSize: 18.sp, 
-                    fontWeight: FontWeight.w600
-                  ),),
-                  )
-                ),
+                    alignment: Alignment.center,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 2.w, color: AppColors.golden),
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Colors.grey),
+                      child: Text(
+                        "Awaiting",
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    )),
               ],
             ),
           ),

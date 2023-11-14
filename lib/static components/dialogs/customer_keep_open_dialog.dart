@@ -56,7 +56,7 @@ class CustomerSupportKeepOpenDialog extends StatelessWidget {
                 : MyBlueButton(
                     hPadding: w / 20,
                     vPadding: h / 70,
-                    text: "Submit it",
+                    text: "Submit",
                     fontSize: w / 30,
                     onTap: () => _keepOpenHandler(),
                   ),

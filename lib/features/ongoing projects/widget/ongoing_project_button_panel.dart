@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/data/models/conversation_list_model.dart';
-import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
+ import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
 import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
 
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
-import 'package:new_user_side/static%20components/dialogs/pro_work_details_dialog.dart';
-import 'package:new_user_side/static%20components/dialogs/projects_notes_dialog.dart';
+ import 'package:new_user_side/static%20components/dialogs/projects_notes_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
@@ -37,10 +36,13 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
     final project = estimateNotifer.projectDetails.services!;
     final isSupportActive = supportNotifier.supportStatus == 1;
     final bookingId = project.estimateNo;
-    final isNormalProject = project.normal!;
-    final projectId = project.projectId.toString();
+     final projectId = project.projectId.toString();
     final isProjectCompleted = project.isCompleted!;
-
+    final invoice = estimateNotifer.progressInvoiceModel.data;
+    final totalDueAmount = invoice?.amountToBePaid!.totalAmountDue!.split(".");
+    final bool amountPaid = totalDueAmount?[0] == "0";
+    final String invoicePaidOrPay = amountPaid ? "Paid" : "Pay";
+    
     // get invoice data
     void _getInvoiceHandler() {
       final estimateNotifer = context.read<EstimateNotifier>();
@@ -125,8 +127,6 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         
-
           // ============
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -180,7 +180,9 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                 ),
               ),
               // Spacer(),
-              SizedBox(width: 10.w,), 
+              SizedBox(
+                width: 10.w,
+              ),
               // Project Notes Button
               Expanded(
                 child: InkWell(
@@ -222,7 +224,6 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
           15.vs,
           // Message pro and Request additional work
 
-
           _buildIconButtonWithText(
               firstButtonText: "Message pro",
               firstButtonTextColor: AppColors.buttonBlue,
@@ -234,6 +235,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                   //     ? "   Additional Work   "
                   //     : "Req Additional Work",
                   "Invoice",
+                  // "Invoice($invoicePaidOrPay)",
               secondtButtonTextColor: const Color(0xFF934600),
               // secondButtonImgUrl: "assets/project_detail/work_details.svg",
               secondButtonImgUrl: "assets/project_detail/invoice 1.svg",
@@ -245,52 +247,48 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
 //
           15.vs,
 
-          
-
-           InkWell(
-                onTap:   !isProjectCompleted
-                      ? () {
-                          Navigator.pushNamed(
-                            context,
-                            AddAdditionalWorkScreen.routeName,
-                            arguments: projectId,
-                          );
-                          //   print("Project id For additional work : $projectId");
-                        }
-                      : () {
-                          // Show history of all the requested additional work
-                          _getAdditionalWorkHandler();
-                          Navigator.of(context).pushScreen(
-                            AdditionalWorkProProvideScreen(),
-                          );
-                        },
-                child: Container(
-                 // width: context.screenWidth / 3.2,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF7F6E0),
-                    borderRadius: BorderRadius.circular(30.r),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(  vertical: 10.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/project_detail/work_details.svg"),
-                      SizedBox(width: w / 40),
-                      MyTextPoppines(
-                        text: isProjectCompleted
-                      ? "   Additional Work   "
-                      : "Req Additional Work",
-                        
-                        fontSize:14.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFB9B100),
-                      ),
-                    ],
-                  ),
-                ),
+          InkWell(
+            onTap: !isProjectCompleted
+                ? () {
+                    Navigator.pushNamed(
+                      context,
+                      AddAdditionalWorkScreen.routeName,
+                      arguments: projectId,
+                    );
+                    //   print("Project id For additional work : $projectId");
+                  }
+                : () {
+                    // Show history of all the requested additional work
+                    _getAdditionalWorkHandler();
+                    Navigator.of(context).pushScreen(
+                      AdditionalWorkProProvideScreen(),
+                    );
+                  },
+            child: Container(
+              // width: context.screenWidth / 3.2,
+              decoration: BoxDecoration(
+                color: Color(0xFFF7F6E0),
+                borderRadius: BorderRadius.circular(30.r),
               ),
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset("assets/project_detail/work_details.svg"),
+                  SizedBox(width: w / 40),
+                  MyTextPoppines(
+                    text: isProjectCompleted
+                        ? "   Additional Work   "
+                        : "Req Additional Work",
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFB9B100),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
