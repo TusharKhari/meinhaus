@@ -160,28 +160,53 @@ class _AdditionalWorkProProvideCardWidgetState
                             ],
                           )
                         : isWaitingCard
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButtonWithText(
-                                    text: "Reject",
-                                    textColor: AppColors.white,
-                                    buttonColor: const Color(0xFFFF1414),
-                                    onTap: () => _rejectAdditionalWorkHandler(),
-                                    isIcon: true,
-                                  ),
-                                  10.hs,
-                                  IconButtonWithText(
-                                    text: "Approve",
-                                    textColor: AppColors.white,
-                                    buttonColor: const Color(0xFF68E365),
-                                    onTap: () =>
-                                        _approveAdditionalWorkHandler(),
-                                    iconUrl: "assets/icons/approve_it.svg",
-                                    isIcon: false,
-                                  ),
-                                ],
-                              )
+                            ?
+                            //  Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       IconButtonWithText(
+                            //         text: "Reject",
+                            //         textColor: AppColors.white,
+                            //         buttonColor: const Color(0xFFFF1414),
+                            //         onTap: () => _rejectAdditionalWorkHandler(),
+                            //         isIcon: true,
+                            //       ),
+                            //       10.hs,
+                            //       IconButtonWithText(
+                            //         text: "Approve",
+                            //         textColor: AppColors.white,
+                            //         buttonColor: const Color(0xFF68E365),
+                            //         onTap: () =>
+                            //             _approveAdditionalWorkHandler(),
+                            //         iconUrl: "assets/icons/approve_it.svg",
+                            //         isIcon: false,
+                            //       ),
+                            //     ],
+                            //   )
+                            // =======
+                            Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButtonWithText(
+                                      text: "Reject     ",
+                                      textColor: AppColors.white,
+                                      buttonColor: const Color(0xFFFF1414),
+                                      onTap: () => _rejectAdditionalWorkHandler(),
+                                      isIcon: true,
+                                    ),
+                                    10.hs,
+                                    SizedBox(height: 10.h,),
+                                    IconButtonWithText(
+                                      text: "Approve",
+                                      textColor: AppColors.white,
+                                      buttonColor: const Color(0xFF68E365),
+                                      onTap: () =>
+                                          _approveAdditionalWorkHandler(),
+                                      iconUrl: "assets/icons/approve_it.svg",
+                                      isIcon: false,
+                                    ),
+                                  ],
+                                )
                             : isApprovedCard
                                 ? IconButtonWithText(
                                     text: "Approved",

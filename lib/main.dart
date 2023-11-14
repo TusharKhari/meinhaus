@@ -7,10 +7,10 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
-import 'package:new_user_side/utils/constants/constant.dart';
+ import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
-import 'provider/provider.dart';
+ import 'provider/provider.dart';
 
 //  prod test env is in constants
 
@@ -40,27 +40,27 @@ class MyApp extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return ScreenUtilInit(
       // designSize: const Size(393, 781),
-      designSize:  Size(width, height),
+      designSize: Size(width, height),
       builder: (context, child) {
-        return 
-        // GetMaterialApp(
-        //   title: 'Mein Haus',
-        //   theme: ThemeData(
-        //     primarySwatch: Colors.blue,
-        //     dialogTheme: DialogTheme(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(20.r),
-        //       ),
-        //     ),
-        //   ),
-        //   navigatorKey: navigatorKey,
-        //   home: IntroScreen(), 
-        //   onGenerateRoute: (settings) => generateRoute(settings),
-        // );
-        // 
-        MaterialApp(
-              title: 'Mein Haus',
-              debugShowCheckedModeBanner: !isProd,
+        return
+            // GetMaterialApp(
+            //   title: 'Mein Haus',
+            //   theme: ThemeData(
+            //     primarySwatch: Colors.blue,
+            //     dialogTheme: DialogTheme(
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(20.r),
+            //       ),
+            //     ),
+            //   ),
+            //   navigatorKey: navigatorKey,
+            //   home: IntroScreen(),
+            //   onGenerateRoute: (settings) => generateRoute(settings),
+            // );
+            //
+            MaterialApp(
+          title: 'Mein Haus',
+          debugShowCheckedModeBanner: !isProd,
           theme: ThemeData(
             primarySwatch: Colors.blue,
             dialogTheme: DialogTheme(
@@ -70,11 +70,10 @@ class MyApp extends StatelessWidget {
             ),
           ),
           navigatorKey: navigatorKey,
-          home: IntroScreen(), 
+          home: IntroScreen(),
           onGenerateRoute: (settings) => generateRoute(settings),
         );
       },
     );
-
   }
 }

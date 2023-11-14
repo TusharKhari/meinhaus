@@ -191,23 +191,28 @@ class EstimateNotifier extends ChangeNotifier {
 
 // GET ESTIMATED WORK
   Future getEstimateWork(BuildContext context) async {
+    setLoadingState(true, true);
     final prefs = UserPrefrences();
     bool isFirstTime = await prefs.isFirstTime();
-    estimateRepository.getEstimates().then((response) {
+   estimateRepository.getEstimates().then((response) {
       var data = GeneratedEstimateModel.fromJson(response);
-      setEstimate(data);
+     if(context.mounted) setEstimate(data);
+      setLoadingState(false, true);
       // if (data.estimatedWorks!.length == 0 && _count == 0)
       if (isFirstTime) {
         prefs.setIsNotFirstTime();
         showSnakeBarr(
           context,
           //"Explore Sample Cards created for you",
-          "These card are samples",
+          "These are sample cards",
           SnackBarState.Warning,
         );
       }
      // print("object ${prefs}");
-    }).onError((error, stackTrace) {
+    }
+
+    ).onError((error, stackTrace) {
+       setLoadingState(false, true);
       showSnakeBarr(context, "$error", SnackBarState.Error);
       ("$error $stackTrace").log("Estimate notifier");
     });
