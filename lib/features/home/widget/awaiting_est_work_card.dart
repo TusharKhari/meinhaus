@@ -24,7 +24,8 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
 
     return Container(
       width: width / 2,
-      margin: EdgeInsets.only(right: 16.sp),
+      margin: EdgeInsets.only(right: 16.sp, ),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(width / 28),
         color: AppColors.white,
@@ -36,7 +37,7 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: height / 60),
+             //   SizedBox(height: height / 60),
                 // PROJECT NAME
                 MyTextPoppines(
                   text: projectDetails.title.toString(),
