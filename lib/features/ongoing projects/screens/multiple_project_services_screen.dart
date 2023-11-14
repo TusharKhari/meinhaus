@@ -164,11 +164,14 @@ class _MainCard extends StatelessWidget {
                     color: Color(0xFFFFFCF6),
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       1.vspacing(context),
                       MyTextPoppines(
                         text: "Total Project Cost",
                         fontSize: 14.sp,
+                        textAlign: TextAlign.center,
                         // fontSize: width / 36,
                         fontWeight: FontWeight.w500,
                         color: AppColors.black.withOpacity(0.8),
@@ -432,11 +435,14 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                         color: AppColors.golden.withOpacity(0.05),
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           1.vspacing(context),
                           MyTextPoppines(
                             text: "Service Cost",
                             fontSize: headline1,
+                            textAlign: TextAlign.center,
                             fontWeight: FontWeight.w500,
                             color: AppColors.black.withOpacity(0.8),
                           ),
