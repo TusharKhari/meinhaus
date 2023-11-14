@@ -2,7 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- import 'package:new_user_side/provider/notifiers/additional_work_notifier.dart';
+import 'package:new_user_side/provider/notifiers/additional_work_notifier.dart';
 import 'package:new_user_side/resources/common/cached_network_img_error_widget.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/constants/constant.dart';
@@ -185,28 +185,30 @@ class _AdditionalWorkProProvideCardWidgetState
                             //   )
                             // =======
                             Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    IconButtonWithText(
-                                      text: "Reject     ",
-                                      textColor: AppColors.white,
-                                      buttonColor: const Color(0xFFFF1414),
-                                      onTap: () => _rejectAdditionalWorkHandler(),
-                                      isIcon: true,
-                                    ),
-                                    10.hs,
-                                    SizedBox(height: 10.h,),
-                                    IconButtonWithText(
-                                      text: "Approve",
-                                      textColor: AppColors.white,
-                                      buttonColor: const Color(0xFF68E365),
-                                      onTap: () =>
-                                          _approveAdditionalWorkHandler(),
-                                      iconUrl: "assets/icons/approve_it.svg",
-                                      isIcon: false,
-                                    ),
-                                  ],
-                                )
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButtonWithText(
+                                    text: "Reject     ",
+                                    textColor: AppColors.white,
+                                    buttonColor: const Color(0xFFFF1414),
+                                    onTap: () => _rejectAdditionalWorkHandler(),
+                                    isIcon: true,
+                                  ),
+                                  10.hs,
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  IconButtonWithText(
+                                    text: "Approve",
+                                    textColor: AppColors.white,
+                                    buttonColor: const Color(0xFF68E365),
+                                    onTap: () =>
+                                        _approveAdditionalWorkHandler(),
+                                    iconUrl: "assets/icons/approve_it.svg",
+                                    isIcon: false,
+                                  ),
+                                ],
+                              )
                             : isApprovedCard
                                 ? IconButtonWithText(
                                     text: "Approved",
@@ -214,7 +216,8 @@ class _AdditionalWorkProProvideCardWidgetState
                                     buttonColor: const Color(0xFF68E365)
                                         .withOpacity(0.12),
                                     onTap: () {},
-                                    iconUrl: "assets/icons/approved_verified.svg",
+                                    iconUrl:
+                                        "assets/icons/approved_verified.svg",
                                     // iconUrl: "assets/icons/approved.png",
                                     isIcon: false,
                                   )
