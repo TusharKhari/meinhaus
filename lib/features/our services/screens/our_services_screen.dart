@@ -26,60 +26,62 @@ class OurServiceScreen extends StatelessWidget {
     final services = notifier.services.services![index];
     return Scaffold(
       appBar: MyAppBar(text: "Our Services"),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            color: AppColors.black,
-            padding: EdgeInsets.symmetric(
-                vertical: height / 60, horizontal: width / 20),
-            child: MyTextPoppines(
-              text: services.name.toString(),
-              fontSize: width / 22,
-              color: AppColors.white,
-              fontWeight: FontWeight.w500,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              color: AppColors.black,
+              padding: EdgeInsets.symmetric(
+                  vertical: height / 60, horizontal: width / 20),
+              child: MyTextPoppines(
+                text: services.name.toString(),
+                fontSize: width / 22,
+                color: AppColors.white,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: height / 80, horizontal: width / 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: height / 4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image:
-                      // AssetImage("assets/images/fixing/fixing_1.png"),
-                      NetworkImage(services.serviceDescImage!, ),
-                      fit: BoxFit.cover,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: height / 80, horizontal: width / 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: height / 4,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image:
+                        // AssetImage("assets/images/fixing/fixing_1.png"),
+                        NetworkImage(services.serviceDescImage!, ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                3.vspacing(context),
-                Divider(thickness: 1.0),
-                3.vspacing(context),
-                MyTextPoppines(
-                  text: "Description : ",
-                  fontSize: width / 24,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.black,
-                ),
-                3.vspacing(context),
-                MyTextPoppines(
-                  text: services.description.toString(),
-                  fontSize:16.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black.withOpacity(0.6),
-                  maxLines: 100,
-                ),
-              ],
+                  3.vspacing(context),
+                  Divider(thickness: 1.0),
+                  3.vspacing(context),
+                  MyTextPoppines(
+                    text: "Description : ",
+                    fontSize: width / 24,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.black,
+                  ),
+                  3.vspacing(context),
+                  MyTextPoppines(
+                    text: services.description.toString(),
+                    fontSize:16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black.withOpacity(0.6),
+                    maxLines: 100,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: MyBottomNavWidget(
         hPadding: MediaQuery.of(context).size.width / 7.6,

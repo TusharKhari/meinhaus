@@ -50,6 +50,7 @@ class EstimateCardHomeScreenView extends StatelessWidget {
                 child: SizedBox(
                   height: height / 3,
                   child: ListView.builder(
+                    shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemCount: estimateWorkPlusAwaitingWork,

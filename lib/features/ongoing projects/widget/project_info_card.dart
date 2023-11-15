@@ -107,7 +107,7 @@ class ProjectInfoCard extends StatelessWidget {
           ),
           Divider(thickness: 1.0, height: 5.0),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: width / 25),
+            padding: EdgeInsets.symmetric(horizontal: 9.w),
             child: Column(
               children: [
                 3.vspacing(context),
@@ -156,7 +156,7 @@ class ProjectInfoCard extends StatelessWidget {
                     // Project Cost
                     Container(
                       width: 90.w,
-                      margin: EdgeInsets.only(right: width / 40),
+                      //margin: EdgeInsets.only(right: width / 40),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(color: AppColors.golden),
@@ -195,7 +195,7 @@ class ProjectInfoCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MyTextPoppines(
-                      text: "Photos :",
+                      text: "Photos : ",
                       fontSize: headline1,
                       fontWeight: FontWeight.w600,
                       color: AppColors.black.withOpacity(0.8),
