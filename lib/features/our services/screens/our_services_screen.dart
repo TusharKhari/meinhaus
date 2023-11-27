@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/our_services_notifier.dart';
 import '../../../resources/common/buttons/my_bottom_bar_button.dart';
+import '../../estimate/screens/estimate_generation_screen.dart';
 
 class OurServiceScreen extends StatelessWidget {
   static const String routeName = '/our-services';
@@ -86,7 +87,13 @@ class OurServiceScreen extends StatelessWidget {
       bottomNavigationBar: MyBottomNavWidget(
         hPadding: MediaQuery.of(context).size.width / 7.6,
         text: "Convert Into Estimate",
-        onTap: () {},
+        onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      EstimateGenerationScreen.routeName,
+                      arguments: true,
+                    );
+                  },
       ),
     );
   }

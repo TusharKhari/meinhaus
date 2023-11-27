@@ -69,11 +69,6 @@ class AddressNotifier extends ChangeNotifier {
       input,
       _sessionToken,
     );
-    _addressList.forEach(
-      (element) {
-        //  print("${element} \n");
-      },
-    );
     notifyListeners();
     
     return _addressList;

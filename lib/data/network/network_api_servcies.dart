@@ -28,7 +28,7 @@ class NetworkApiServices {
   }) async {
     final uri = url;
 
-    if (body != null && !isProd) (body).log("${uri.path}");
+    if (body != null && isTest) (body).log("${uri.path}");
 
     dynamic responseJson;
     final getHeader = await UserPrefrences().getHeader();
@@ -65,11 +65,11 @@ class NetworkApiServices {
 
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      if(!isProd) (response.body).log();
+      if(isTest) (response.body).log();
       final xsrf = response.headers['set-cookie'];
       await UserPrefrences().setXsrf(xsrf.toString());
       responseJson = errorHandling(response, allowUnauthorizedResponse);
-      if(!isProd) (response.statusCode).log(response.request!.url.path.toString());
+      if(isTest) (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");

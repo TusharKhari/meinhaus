@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-  final bool isProd = false;
+  final bool isTest = true;
 
 // test env
 final String baseUrl = "https://test.meinhaus.ca/api";
@@ -15,7 +15,7 @@ final String baseUrl2 = "https://test.meinhaus.ca";
 
 // 
 
-final String googleAddresUrl =
+final String googleAddressUrl =
     "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 // Google Map API Keys   
  final  String kPLACES_API_KEY = "AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU";      

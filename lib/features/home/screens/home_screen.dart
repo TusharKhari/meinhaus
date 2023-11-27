@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //   color: AppColors.grey.withOpacity(0.2),
           // ),
           // SizedBox(height: height / 120),
-        //  const HomeOfferBanner(),
+         const HomeOfferBanner(),
           SizedBox(height: height / 120),
           Divider(
             thickness: 1.0,

@@ -7,7 +7,7 @@ import 'package:new_user_side/utils/constants/constant.dart';
 // Use it like this -> response.log();
 extension Log on Object {
   void log([String tag = 'Log']) {
-    if(!isProd)
+    if(isTest)
     dev.log(toString(), name: tag);
   }
 }

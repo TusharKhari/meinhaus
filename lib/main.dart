@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             //
             MaterialApp(
           title: 'Mein Haus',
-          debugShowCheckedModeBanner: !isProd,
+          debugShowCheckedModeBanner: isTest,
           theme: ThemeData(
             primarySwatch: Colors.blue,
             dialogTheme: DialogTheme(

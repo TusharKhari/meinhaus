@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart'; 
+import 'package:new_user_side/utils/extensions/extensions.dart';
 
-class HomeOfferBanner extends StatelessWidget {
-  const HomeOfferBanner({
+import '../../estimate/screens/estimate_generation_screen.dart';
+
+class HomeOfferBannerOld extends StatelessWidget {
+  const HomeOfferBannerOld({
     Key? key,
   }) : super(key: key);
 
@@ -46,11 +48,11 @@ class HomeOfferBanner extends StatelessWidget {
                 height > 800 ? 20.vs : 25.vs,
                 MyTextPoppines(
                   text: "Get 20% OFF",
-                  // fontSize: 
+                  // fontSize:
                   // height > 800
-                      // ? height / MyFontSize.font20
-                      // : height / MyFontSize.font24,
-                       fontSize: 22.sp,
+                  // ? height / MyFontSize.font20
+                  // : height / MyFontSize.font24,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   color: AppColors.white,
                 ),
@@ -59,7 +61,7 @@ class HomeOfferBanner extends StatelessWidget {
                   width: 200.w,
                   child: MyTextPoppines(
                     text: "Tap on banner to see more in details.",
-                     fontSize: 12.sp,
+                    fontSize: 12.sp,
                     //fontSize:
                     //  height > 800
                     //     ? height / MyFontSize.font10
@@ -104,6 +106,138 @@ class HomeOfferBanner extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ========
+
+class HomeOfferBanner extends StatefulWidget {
+  const HomeOfferBanner({super.key});
+
+  @override
+  State<HomeOfferBanner> createState() => _HomeOfferBannerState();
+}
+
+class _HomeOfferBannerState extends State<HomeOfferBanner> {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    BorderRadius borderRadius = BorderRadius.circular(24.r);
+    Border border = Border.all(
+      width: 1.2,
+      color: AppColors.grey.withOpacity(0.2),
+    );
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
+      //width: double.infinity,
+      height: 170,
+      // height: height / 4.46,
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        border: border,
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+        padding: EdgeInsets.only(top: 6.h, left: 9.w),
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          border: border,
+          // image: const DecorationImage(
+          //   image: AssetImage("assets/images/room/house.png"),
+          //   fit: BoxFit.fitWidth,
+          // ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Text("Get an instant quote for any project, anytime."),
+            Text.rich(TextSpan(children: [
+              TextSpan(
+                text: "Get an ",
+                style: TextStyle(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TextSpan(
+                text: "instant",
+                style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.golden),
+              ), 
+            ])),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "quote",
+                  style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.golden),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      EstimateGenerationScreen.routeName,
+                      arguments: true,
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: size.width*0.07,
+                      // horizontal: 5.w,
+                      vertical: 20,
+                      // vertical: 4.h,
+                    ),
+                    
+                    margin: EdgeInsets.only(right: 20.w, top: 4.h),
+                   
+                    decoration: BoxDecoration(
+ color: Colors.black,
+ borderRadius: BorderRadius.circular(10.w)
+                    ),
+                    child: Text(
+                      "Create Estimate",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600, fontSize: size.height*0.02),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              "Try our 3D image generator AI",
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.buttonBlue,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //  Text("*coming soon"),
+                Text(
+                  "*coming soon",
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.golden,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

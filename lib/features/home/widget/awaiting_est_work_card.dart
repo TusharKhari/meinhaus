@@ -207,7 +207,7 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
                   Align(
                       alignment: Alignment.center,
                       child: Container(
-                        // padding: EdgeInsets.symmetric(  horizontal: 10.w, vertical: 2.h),
+                         padding: EdgeInsets.symmetric(  horizontal: 10.w, vertical: 2.h),
                         margin: EdgeInsets.only(bottom: 5.h),
                         decoration: BoxDecoration(
                             border:
