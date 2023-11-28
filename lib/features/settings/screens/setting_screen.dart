@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
  import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
+import 'package:new_user_side/resources/common/api_url/api_urls.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/static%20components/dialogs/customer_support_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../resources/common/my_snake_bar.dart';
 import '../../edit profile/screens/edit_password_scree.dart';
@@ -42,6 +44,12 @@ class SettingCardWidget extends StatelessWidget {
     final notifier = context.read<AuthNotifier>();
     final user = notifier.user;
     final bool isSocialLogin = user.isSocialLogin!;
+
+     Future<void> _launchInBrowserView(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
+      throw Exception('Could not launch $url');
+    }
+  }
     return ListView.builder(
         shrinkWrap: true,
         itemCount: settingCardList.length,
@@ -49,6 +57,7 @@ class SettingCardWidget extends StatelessWidget {
           final list = settingCardList[index];
           return InkWell(
             onTap: () {
+            //  _launchInBrowserView(Uri.parse("https://www.google.com/"));
               if (index == 3) {
                 showDialog(
                   context: context,
@@ -64,9 +73,15 @@ class SettingCardWidget extends StatelessWidget {
                         SnackBarState.Warning,
                       )
                     : context.pushNamedRoute(list[3]);
-              } else {
+              } else if(index == 1){
+               _launchInBrowserView(list[3]);
+              //  _launchInBrowserView(Uri.parse(list[3]));
+              }
+              else 
+              {
                 context.pushNamedRoute(list[3]);
               }
+
             },
             child: Container(
               width: double.infinity,
@@ -120,9 +135,8 @@ List settingCardList = [
   [
     'assets/svgs/settings_doc_icon.svg',
     "Terms & Condition",
-    "know about terms & condition",
-    HomeScreen.routeName,
-    
+    "know about terms & condition", 
+    ApiUrls.termsAndConditions
   ], 
   // [
   //   'assets/svgs/settings_help_icon.svg',
@@ -131,3 +145,6 @@ List settingCardList = [
   //   HomeScreen.routeName,
   // ],
 ];
+
+
+/// https://www.google.com/
