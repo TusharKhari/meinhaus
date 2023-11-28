@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '544499278167',
     projectId: 'meinhause-user',
     storageBucket: 'meinhause-user.appspot.com',
+    androidClientId: '544499278167-qr79aquvomnpfhit5ot7i3orbvop0var.apps.googleusercontent.com',
     iosClientId: '544499278167-2e9su12l1h2js64g29dgdu6ks1spnfrq.apps.googleusercontent.com',
     iosBundleId: 'ca.meinhaus.user.app',
   );

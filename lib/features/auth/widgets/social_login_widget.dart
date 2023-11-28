@@ -77,25 +77,25 @@ class SocialLoginWidget extends StatelessWidget {
               ),
             ),
             10.hs,
-            InkWell(
-              onTap: () => AuthNotifier().logout(context),
-              child: Container(
-                width: 70.w,
-                height: 48.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: AppColors.buttonBlue.withOpacity(0.3),
-                  ),
-                  image: DecorationImage(
-                    image: const AssetImage(
-                      "assets/logo/facebook.png",
-                    ),
-                    scale: 20.sp,
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () => AuthNotifier().logout(context),
+            //   child: Container(
+            //     width: 70.w,
+            //     height: 48.h,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(12.r),
+            //       border: Border.all(
+            //         color: AppColors.buttonBlue.withOpacity(0.3),
+            //       ),
+            //       image: DecorationImage(
+            //         image: const AssetImage(
+            //           "assets/logo/facebook.png",
+            //         ),
+            //         scale: 20.sp,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ],

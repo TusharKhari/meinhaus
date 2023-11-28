@@ -339,8 +339,7 @@ class AuthNotifier extends ChangeNotifier {
         context,
         response['response_message'],
         SnackBarState.Success,
-      );
-      print(response);
+      ); 
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
