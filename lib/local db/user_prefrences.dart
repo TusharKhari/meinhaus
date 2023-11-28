@@ -7,6 +7,7 @@ import '../data/models/UserModel.dart';
 import '../features/auth/screens/signin_screen.dart';
 import '../provider/notifiers/auth_notifier.dart';
 import '../resources/common/my_snake_bar.dart';
+import '../utils/constants/constant.dart';
 
 class UserPrefrences {
   static String? _authToken;
@@ -15,7 +16,7 @@ class UserPrefrences {
   Future setToken(String authToken) async {
     prefs = await SharedPreferences.getInstance();
     await prefs!.setString('x-auth-token', authToken);
-    ("Token Saved --> $authToken").log("Utils Saved Token");
+    if(isTest) ("Token Saved --> $authToken").log("Utils Saved Token");
   }
 
 // get token
@@ -90,7 +91,7 @@ class UserPrefrences {
         SignInScreen.routeName,
         (route) => false,
       );
-      ("User Log-out .").log("UP Log-out");
+      if(isTest) ("User Log-out .").log("UP Log-out");
     } catch (e) {
       showSnakeBar(context, e.toString());
     }

@@ -96,7 +96,7 @@ class NetworkApiServices {
     bool? allowUnauthorizedResponse = false,
   }) async {
     final uri = url;
-    if (body != null) (body).log("${uri.path}");
+    if (body != null && isTest) (body).log("${uri.path}");
     dynamic responseJson;
     try {
       late final http.Request request;
@@ -124,9 +124,9 @@ class NetworkApiServices {
       request.headers.addAll({'Accept': 'application/json'});
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      (response.body).log();
+     if(isTest) (response.body).log();
       responseJson = errorHandling(response, allowUnauthorizedResponse);
-      (response.statusCode).log(response.request!.url.path.toString());
+     if(isTest) (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on FormatException {
       throw FetchDataException("Internal server error");
@@ -144,7 +144,7 @@ class NetworkApiServices {
     final dio = Dio();
     final getHeader = await UserPrefrences().getHeader();
     final postHeader = await UserPrefrences().postHeader();
-    if (body != null) (body).log("${url.path}");
+    if (body != null && isTest) (body).log("${url.path}");
     try {
       late final Response<dynamic> response;
       switch (method) {
@@ -178,11 +178,11 @@ class NetworkApiServices {
           );
           break;
       }
-       (response.statusCode)!.log(response.realUri.path);
+       if(isTest) (response.statusCode)!.log(response.realUri.path);
       if (response.statusCode == 200 || response.statusCode == 201)
         return response.data;
       else
-        ('API call failed').log("${url.path}");
+       if(isTest)  ('API call failed').log("${url.path}");
     } on DioException catch (e) {
       if (e.type == DioException.connectionTimeout ||
           e.type == DioException.sendTimeout ||

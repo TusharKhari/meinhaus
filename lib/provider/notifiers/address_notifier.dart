@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../data/models/UserModel.dart';
 import '../../error_screens.dart';
 import '../../resources/common/my_snake_bar.dart';
+import '../../utils/constants/constant.dart';
 import '../../utils/extensions/auto_complete_address.dart';
  import 'auth_notifier.dart';
 
@@ -80,7 +81,7 @@ class AddressNotifier extends ChangeNotifier {
     StackTrace stackTrace,
   ) {
     showSnakeBarr(context, "$error", SnackBarState.Error);
-    ("$error $stackTrace").log("Address notifier");
+     if(isTest)("$error $stackTrace").log("Address notifier");
     Navigator.of(context).pushScreen(ShowError(error: error.toString()));
   }
 
@@ -114,9 +115,7 @@ class AddressNotifier extends ChangeNotifier {
              "state" :  _state.toString(), 
              "country": _country.toString(), 
              "zip" : _zip.toString(), 
-          };
-         // value.log();
-       //  print("latLng $latLngAdd");
+          }; 
         })
         .onError((error, stackTrace) {
       ("$error $stackTrace").log("Address notifier"); 
@@ -142,7 +141,7 @@ class AddressNotifier extends ChangeNotifier {
     final  _addType = <String, String> {"type": _addAddressType};
       addressBody.addEntries(_addType.entries);
 
-    addressBody.log("address body");
+    if(isTest) addressBody.log("address body");
     addressRepository.addAddress(addressBody).then((response) {
 
       setLoadingState(false, true);
@@ -157,7 +156,7 @@ class AddressNotifier extends ChangeNotifier {
       userProvider.setUser(user);
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-       ("Address added").log();
+       if(isTest) ("Address added").log();
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -189,7 +188,7 @@ class AddressNotifier extends ChangeNotifier {
       final  _addType = <String, String> {"type": _updateAddressType};
       addressBody.addEntries(_addId.entries);
        addressBody.addEntries(_addType.entries);
-       addressBody.log("update address body");
+      if(isTest)  addressBody.log("update address body");
     addressRepository.updateAddress(addressBody).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
@@ -197,7 +196,7 @@ class AddressNotifier extends ChangeNotifier {
       userProvider.setUser(user);
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-      ("Address updated").log();
+       if(isTest)("Address updated").log();
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -218,7 +217,7 @@ class AddressNotifier extends ChangeNotifier {
       userProvider.setUser(user);
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-      ("Address deleted").log();
+      if(isTest) ("Address deleted").log();
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -241,7 +240,7 @@ class AddressNotifier extends ChangeNotifier {
         "Default Address Changed Successfully",
         SnackBarState.Success,
       );
-      ("Default Address updated").log();
+     if(isTest)  ("Default Address updated").log();
       //Navigator.pop(context);
       //(response).log("default address");
     }).onError((error, stackTrace) {

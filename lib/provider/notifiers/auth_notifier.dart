@@ -105,7 +105,7 @@ class AuthNotifier extends ChangeNotifier {
     StackTrace stackTrace,
   ) {
     showSnakeBarr(context, "$error", SnackBarState.Error);
-    ("$error $stackTrace").log("Auth notifier");
+    if(isTest) ("$error $stackTrace").log("Auth notifier");
     //Navigator.of(context).pushScreen(ShowError(error: error.toString()));
   }
 
@@ -116,7 +116,7 @@ class AuthNotifier extends ChangeNotifier {
     //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
     // prefs.setIsUserFirstVisit(isFirstVisit: false);
     await repository.auth().then((response) {
-      ("Token Verified!🔥").log("uth_Notifier");
+      if(isTest) ("Token Verified!🔥").log("uth_Notifier");
       final user = UserModel.fromJson(response).user!;
       setUser(user);
       pref.setUserId(user.userId.toString());
@@ -154,7 +154,7 @@ class AuthNotifier extends ChangeNotifier {
         setUser(user);
         await prefs.setToken(user.token!);
         if (user.phoneVerified!) {
-          ("User Logged in Successfully ✨").log("Login Notifier");
+          if(isTest) ("User Logged in Successfully ✨").log("Login Notifier");
           Navigator.of(context).pushNamedAndRemoveUntil(
             HomeScreen.routeName,
             (route) => false,
@@ -189,8 +189,8 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     repository.signUp(data).then((response) async {
       setLoadingState(false, true);
-      (response).log("SignUp Response");
-      (data).log("sign up data");
+      if(isTest) (response).log("SignUp Response");
+      if(isTest) (data).log("sign up data");
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
 
@@ -325,7 +325,7 @@ class AuthNotifier extends ChangeNotifier {
         "Something went wrong try again",
         SnackBarState.Warning,
       );
-      e.log("gauth");
+      if(isTest) e.log("gauth");
       print("gauth $e");
       setGoogleLoadingState(false, true);
     }
@@ -435,14 +435,14 @@ class AuthNotifier extends ChangeNotifier {
   Future logout(BuildContext context) async {
     try {
       if (user.isSocialLogin != null) {
-        ("Social").log("Log-out");
+        if(isTest) ("Social").log("Log-out");
         final GoogleSignIn googleSignIn = GoogleSignIn();
         await googleSignIn.signOut();
         UserPrefrences().logOut(context);
         //  print('Signed out successfully.');
       } else {
         //  print("Social login is null");
-        ("normal").log("Log-out");
+        if(isTest) ("normal").log("Log-out");
         UserPrefrences().logOut(context);
       }
     } catch (error) {

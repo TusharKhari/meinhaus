@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/models/generated_estimate_model.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../utils/constants/constant.dart';
 import '../../utils/extensions/get_images.dart';
 
 class EstimateNotifier extends ChangeNotifier {
@@ -144,7 +145,7 @@ class EstimateNotifier extends ChangeNotifier {
     // estimateRepository.createStartingEstimate(data).then((response) {
     estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
-      ('Estimate Successfully Created ✅').log("Estimate Creation");
+     if(isTest)  ('Estimate Successfully Created ✅').log("Estimate Creation");
       removeImagesFromList();
       // Navigator.of(context).pushScreen(HomeScreen());
       Navigator.of(context).pushNamedAndRemoveUntil(
@@ -171,7 +172,7 @@ class EstimateNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
-      ('Estimate Succesfully Created ✅').log("Estimate Creation");
+     if(isTest)  ('Estimate Succesfully Created ✅').log("Estimate Creation");
       removeImagesFromList();
       //Get.to(() => HomeScreen());
       // Navigator.of(context).pushScreen(HomeScreen());
@@ -214,7 +215,7 @@ class EstimateNotifier extends ChangeNotifier {
     ).onError((error, stackTrace) {
        setLoadingState(false, true);
       showSnakeBarr(context, "$error", SnackBarState.Error);
-      ("$error $stackTrace").log("Estimate notifier");
+     if(isTest)  ("$error $stackTrace").log("Estimate notifier");
     });
   }
 
@@ -225,7 +226,7 @@ class EstimateNotifier extends ChangeNotifier {
       setOngoingProjects(data);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", SnackBarState.Error);
-      ("$error $stackTrace").log("Estimate notifier");
+     if(isTest)  ("$error $stackTrace").log("Estimate notifier");
     });
   }
 

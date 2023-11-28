@@ -102,7 +102,7 @@ class PusherService {
       var json = jsonDecode(result.body);
       return {"auth": json['auth']};
     } catch (err) {
-      (err).log("Pusher onAuth error");
+       (err).log("Pusher onAuth error");
     }
   }
 

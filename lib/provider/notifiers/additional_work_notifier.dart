@@ -8,6 +8,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../error_screens.dart';
 import '../../resources/common/my_snake_bar.dart';
 import '../../static components/dialogs/additional_work_added_dialog.dart';
+import '../../utils/constants/constant.dart';
 import '../../utils/extensions/get_images.dart';
 
 class AdditionalWorkNotifier extends ChangeNotifier {
@@ -65,7 +66,7 @@ class AdditionalWorkNotifier extends ChangeNotifier {
     StackTrace stackTrace,
   ) {
     showSnakeBarr(context, "$error", SnackBarState.Error);
-    ("$error $stackTrace").log("Additional Work notifier");
+    if(isTest) ("$error $stackTrace").log("Additional Work notifier");
     Navigator.of(context).pushScreen(ShowError(error: error.toString()));
   }
 
@@ -76,7 +77,7 @@ class AdditionalWorkNotifier extends ChangeNotifier {
   }) async {
     setLoadingState(true, true);
     await repo.requestAdditionalWork(body).then((value) {
-      ('Request send ✅').log("Addtional Work");
+     if(isTest)  ('Request send ✅').log("Addtional Work");
       setImagesInList([]);
       showDialog(
         context: context,
@@ -105,11 +106,11 @@ class AdditionalWorkNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       var data = AdditionalWorkModel.fromJson(response);
       setAdditionalWork(data);
-      ('Fetched Addtional work succesfully ✅').log();
+      if(isTest) ('Fetched Addtional work succesfully ✅').log();
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
       showSnakeBarr(context, "$error", SnackBarState.Error);
-      ("$error $stackTrace").log("Additional Work notifier");
+      if(isTest) ("$error $stackTrace").log("Additional Work notifier");
     });
   }
 
@@ -123,7 +124,7 @@ class AdditionalWorkNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       var data = AdditionalWorkModel.fromJson(response);
       setAdditionalWork(data);
-      ('Approval Done Addtional work Succesfully ✅').log();
+      if(isTest) ('Approval Done Addtional work Succesfully ✅').log();
       showSnakeBar(context, 'Addtional Work Approved ✅');
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -141,7 +142,7 @@ class AdditionalWorkNotifier extends ChangeNotifier {
       setLoadingState(false, true);
       var data = AdditionalWorkModel.fromJson(response);
       setAdditionalWork(data);
-      ('Rejection Done Addtional work successfully ❌').log();
+     if(isTest)  ('Rejection Done Addtional work successfully ❌').log();
       showSnakeBar(context, 'Addtional Work Rejected ❌');
     }).onError((error, stackTrace) {
       setLoadingState(false, true);

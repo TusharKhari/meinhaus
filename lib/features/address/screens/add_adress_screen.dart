@@ -98,7 +98,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: addressNotifier.addressList.length,
                 itemBuilder: (context, index) {
-                  // ("place id ${addressNotifier.addressList[index]["place_id"]}").log();
+                  
                   final address =
                       addressNotifier.addressList[index]["description"];
                   return ListAddressTile(

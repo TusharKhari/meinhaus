@@ -475,7 +475,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                             ),
                           );
                           _getProjectDetails();
-                          ("Project Id:$projectId : Pro Id:$proId").log();
+                        if(isTest)   ("Project Id:$projectId : Pro Id:$proId").log();
                         },
                         child: Container(
                           decoration: BoxDecoration(

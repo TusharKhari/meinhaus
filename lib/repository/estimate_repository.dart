@@ -2,6 +2,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../data/network/network_api_servcies.dart';
 import '../resources/common/api_url/api_urls.dart';
+import '../utils/constants/constant.dart';
 import '../utils/enum.dart';
 
 class EstimateRepository {
@@ -96,7 +97,7 @@ class EstimateRepository {
 
   // progress invoice
   Future<ResponseType> progressInvoice(String id) async {
-    id.log();
+    if(isTest) id.log();
     try {
       return await services.sendHttpRequest(
         url: Uri.parse("${ApiUrls.progressInvoice}?booking_id=$id"),

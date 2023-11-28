@@ -11,6 +11,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../resources/common/api_url/api_urls.dart';
+import '../../../utils/constants/constant.dart';
 
 class MakePayment {
   Map<String, dynamic>? paymentIntent;
@@ -45,7 +46,7 @@ class MakePayment {
         Uri.parse('${ApiUrls.createIntent}$bookingId'),
         headers: headers,
       );
-      ("Status at Intent Creation : ${response.statusCode}")
+       if(isTest)("Status at Intent Creation : ${response.statusCode}")
           .log("Create Payment Intent");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
@@ -56,7 +57,7 @@ class MakePayment {
           print(data['data']['ephemeralKey']['secret']);
         }
        // print("payment intent ${data}");
-        ("payment intent : ${response.body.toString()}").log();
+        if(isTest) ("payment intent : ${response.body.toString()}").log();
         return data['data'];
       }
     } catch (err) {

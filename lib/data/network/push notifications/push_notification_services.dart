@@ -5,6 +5,8 @@ import 'package:new_user_side/features/notification/screens/notification_screen.
 import 'package:new_user_side/main.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../utils/constants/constant.dart';
+
 // This function help us to handle all the notifications when app was running in background
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print("Title : ${message.notification!.title}");
@@ -93,7 +95,7 @@ class PushNotificationServices {
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
     final fCMToken = await _firebaseMessaging.getToken();
-    ("$fCMToken").log("FCM Token");
+   if(isTest)  ("$fCMToken").log("FCM Token");
     initPushNotifications();
     initLocalNotifications();
   }

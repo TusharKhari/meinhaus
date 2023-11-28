@@ -6,6 +6,7 @@ import 'package:new_user_side/repository/upload_img_repo.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../resources/common/my_snake_bar.dart';
+import '../../utils/constants/constant.dart';
 import '../../utils/extensions/get_images.dart';
 
 class UploadImgNotifier extends ChangeNotifier {
@@ -55,7 +56,7 @@ class UploadImgNotifier extends ChangeNotifier {
     uploadImgRepo.uploadImg(body).then((response) {
       setLoadingState(false, true);
       setImagesInList([]);
-      ('Img Uploaded Succesfully ✅').log();
+     if(isTest)  ('Img Uploaded Succesfully ✅').log();
       Navigator.of(context).pushScreen(HomeScreen());
       showSnakeBarr(
           context, "Images Uploaded Succesfully", SnackBarState.Success);
