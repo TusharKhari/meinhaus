@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:new_user_side/features/notification/screens/notification_screen.dart';
 import 'package:new_user_side/main.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
-// This fucntion help us to handle all the notifications when app was running in background
+// This function help us to handle all the notifications when app was running in background
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print("Title : ${message.notification!.title}");
   print("Body : ${message.notification!.body}");

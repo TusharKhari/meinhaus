@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-// import 'package:get/get.dart';
 import 'package:new_user_side/features/splash/screens/intro_screen.dart';
 import 'package:new_user_side/firebase_options.dart';
 import 'package:new_user_side/resources/routing/router.dart';
@@ -12,7 +11,8 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
  import 'provider/provider.dart';
 
-//  prod test env is in constants
+///  prod test env is in constants 
+/// otp validation just go in auth_notifier "signUp" function
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -22,7 +22,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //await PushNotificationServices().initNotifications();
   Stripe.publishableKey = dotenv.env['stripePublishableKey']!;
-  ("").log();
   runApp(
     MultiProvider(
       providers: provider,
@@ -42,22 +41,7 @@ class MyApp extends StatelessWidget {
       // designSize: const Size(393, 781),
       designSize: Size(width, height),
       builder: (context, child) {
-        return
-            // GetMaterialApp(
-            //   title: 'Mein Haus',
-            //   theme: ThemeData(
-            //     primarySwatch: Colors.blue,
-            //     dialogTheme: DialogTheme(
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(20.r),
-            //       ),
-            //     ),
-            //   ),
-            //   navigatorKey: navigatorKey,
-            //   home: IntroScreen(),
-            //   onGenerateRoute: (settings) => generateRoute(settings),
-            // );
-            //
+        return 
             MaterialApp(
           title: 'Mein Haus',
           debugShowCheckedModeBanner: isTest,

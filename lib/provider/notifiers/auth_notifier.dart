@@ -116,14 +116,14 @@ class AuthNotifier extends ChangeNotifier {
     //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
     // prefs.setIsUserFirstVisit(isFirstVisit: false);
     await repository.auth().then((response) {
-      ("Token Verified!🔥").log("Auth-Auth_Notifier"); 
+      ("Token Verified!🔥").log("uth_Notifier");
       final user = UserModel.fromJson(response).user!;
       setUser(user);
       pref.setUserId(user.userId.toString());
       //Navigator.pushNamed(context, HomeScreen.routeName);
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     }).onError((error, stackTrace) {
-     // ("$error $stackTrace").log("Auth notifier");
+      // ("$error $stackTrace").log("Auth notifier");
     });
   }
 
@@ -184,21 +184,30 @@ class AuthNotifier extends ChangeNotifier {
     // });
   }
 
-// Signup
+// SignUp
   Future signUp(MapSS data, BuildContext context) async {
     setLoadingState(true, true);
     repository.signUp(data).then((response) async {
       setLoadingState(false, true);
       (response).log("SignUp Response");
+      (data).log("sign up data");
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-      Navigator.of(context).pushScreen(
-        OtpValidateScreen(
-          userId: response["user_id"],
-          contactNo: data["phone"]!,
-          isSkippAble: false,
-        ),
-      );
+
+      // ==== when otp validation is required just uncomment this  ====
+      // Navigator.of(context).pushScreen(
+      //   OtpValidateScreen(
+      //     userId: response["user_id"],
+      //     contactNo: data["phone"]!,
+      //     isSkippAble: true,
+      //   ),
+      // );
+      // ============
+
+      /// otp validation is not required here when user sign up all details will be registered and just login with those details
+      /// ==== comment this line when otp validation is required  ====
+      login(data, context);
+      // ======
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);
       setLoadingState(false, true);
@@ -304,7 +313,6 @@ class AuthNotifier extends ChangeNotifier {
   Future googleAuth(BuildContext context) async {
     setGoogleLoadingState(true, true);
     try {
- 
       // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;

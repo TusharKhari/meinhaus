@@ -31,7 +31,8 @@ class PusherService {
 
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
   final apiKey = dotenv.env['pusherApiKey']!;
-  final cluster = "ap2";
+  final cluster = dotenv.env['pusherCluster']!;
+  // final cluster = "ap2";
 
   // List of all the channelsName
   List _channelName = [];

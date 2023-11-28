@@ -18,7 +18,8 @@ final String baseUrl2 = "https://test.meinhaus.ca";
 final String googleAddressUrl =
     "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 // Google Map API Keys   
- final  String kPLACES_API_KEY = "AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU";      
+ final  String kPLACES_API_KEY = "AIzaSyCVqDZXoo2xPqEw8vksPeoqR8eF1kr8I8U";      
+//  final  String kPLACES_API_KEY = "AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU";      
 //  final  String kPLACES_API_KEY = "AIzaSyA_hQ7SWkmIToW7jOLsjjT-9fLQPFe3OvM";      
 
 

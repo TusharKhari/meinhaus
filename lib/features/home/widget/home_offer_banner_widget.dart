@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -167,76 +168,79 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                 ),
               ),
               TextSpan(
-                text: "instant",
+                text: "instant ",
                 style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.golden),
-              ), 
-            ])),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "quote",
-                  style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.golden),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      EstimateGenerationScreen.routeName,
-                      arguments: true,
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: size.width*0.07,
-                      // horizontal: 5.w,
-                      vertical: 20,
-                      // vertical: 4.h,
-                    ),
-                    
-                    margin: EdgeInsets.only(right: 20.w, top: 4.h),
-                   
-                    decoration: BoxDecoration(
- color: Colors.black,
- borderRadius: BorderRadius.circular(10.w)
-                    ),
-                    child: Text(
-                      "Create Estimate",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600, fontSize: size.height*0.02),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              "Try our 3D image generator AI",
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.buttonBlue,
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //  Text("*coming soon"),
-                Text(
-                  "*coming soon",
-                  style: TextStyle(
-                    fontSize: 12.sp,
+              TextSpan(
+                text: "quote",
+                style: TextStyle(
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.golden,
-                  ),
+                    color: AppColors.golden),
+              ),
+            ])),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.pushNamed(
+            //       context,
+            //       EstimateGenerationScreen.routeName,
+            //       arguments: true,
+            //     );
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.symmetric(
+            //       horizontal: size.width * 0.07,
+            //       // horizontal: 5.w,
+            //       vertical: 20,
+            //       // vertical: 4.h,
+            //     ),
+            //     margin: EdgeInsets.only(right: 20.w, top: 4.h),
+            //     decoration: BoxDecoration(
+            //         color: Colors.black,
+            //         borderRadius: BorderRadius.circular(10.w)),
+            //     child: Text(
+            //       "Create Estimate",
+            //       style: TextStyle(
+            //           color: Colors.white,
+            //           fontWeight: FontWeight.w600,
+            //           fontSize: size.height * 0.02),
+            //     ),
+            //   ),
+            // ),
+            MyBlueButton(hPadding: size.width * 0.12, text: "Create Estimate", onTap: () {
+              Navigator.pushNamed(
+                  context,
+                  EstimateGenerationScreen.routeName,
+                  arguments: true,
+                );
+            },), 
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Try our 3D image generator AI \n",
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        // fontWeight: FontWeight.w600,
+                        color: AppColors.buttonBlue,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "*coming soon",
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        // fontWeight: FontWeight.w600,
+                        color: AppColors.golden,
+                      ),
+                    )
+                  ],
                 ),
-              ],
+              ),
             )
           ],
         ),
