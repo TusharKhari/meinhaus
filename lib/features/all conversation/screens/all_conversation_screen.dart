@@ -13,6 +13,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../../static components/empty states/screens/no_message_found.dart';
 
 class AllConversationScreen extends StatefulWidget {
@@ -82,6 +83,7 @@ class ChatCardWidget extends StatelessWidget {
     final userNotifier = context.read<AuthNotifier>().user;
     final h = context.screenHeight;
     final w = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     final conv = conversations;
     int? toUserId = conv.toUserId;
     bool isSendByUser = conv.lastMessageSenderId == userNotifier.userId;
@@ -105,7 +107,8 @@ class ChatCardWidget extends StatelessWidget {
     return InkWell(
       onTap: () => loadMessages(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: w*0.02, vertical: h / 60),
+      margin: EdgeInsets.symmetric(  vertical: h / 60),
+       padding: EdgeInsets.symmetric(  vertical: h / 60, horizontal:  w * 0.03) ,
         // margin: EdgeInsets.symmetric(horizontal: w / 43, vertical: h / 60),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +116,7 @@ class ChatCardWidget extends StatelessWidget {
           children: [
             // profile pic, projectname, username, message
             Row(
-              children: [
+              children: [ 
                 // profile pic
                 CircleAvatar(
                   radius: w / 14,
@@ -129,11 +132,11 @@ class ChatCardWidget extends StatelessWidget {
                     SizedBox(height: h / 200),
                     // projectname
                     SizedBox(
-                      width: w / 1.8,
+                      //width: w / 1.8,
                       child: MyTextPoppines(
                         text: conv.projectName!,
                         // fontSize: w / 28,
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                         color: AppColors.buttonBlue,
                         fontWeight: FontWeight.w600,
                       ),
@@ -142,7 +145,7 @@ class ChatCardWidget extends StatelessWidget {
                     // username
                     MyTextPoppines(
                       text: conv.toUserName!,
-                      fontSize: 16.sp,
+                      fontSize: size.height * FontSize.sixteen,
                       // fontSize: w / 32,
                       fontWeight: FontWeight.w600,
                     ),
@@ -154,19 +157,24 @@ class ChatCardWidget extends StatelessWidget {
                         isSendByUser
                             ? MyTextPoppines(
                                 text: "You :  ",
-                                fontSize: 14.sp,
+                                fontSize: size.height * FontSize.fourteen,
                                 // fontSize: w / 40,
                                 fontWeight: FontWeight.w500,
                                 height: 1.4,
                               )
                             : const SizedBox(),
-                        SizedBox(
-                          width: isSendByUser ? w / 1.9 : w / 1.6,
-                          child: mType(
+                        // SizedBox(
+                        // //  width: w * 0.2,
+                        //   // width: isSendByUser ? w / 1.9 : w / 1.6,
+                        //   child: mType(
+                        //     conv.lastMessageType!,
+                        //     context,
+                        //   ),
+                        // ),
+                         mType(
                             conv.lastMessageType!,
                             context,
                           ),
-                        ),
                       ],
                     ),
                   ],
@@ -174,40 +182,37 @@ class ChatCardWidget extends StatelessWidget {
               ],
             ),
             // text time, unreaded count
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(height: h / 120),
-                    // text time
-                    MyTextPoppines(
-                      text: Utils.getTimeAgo(conv.lastMessageCreatedAt!),
-                      fontSize: 10.sp,
-                      // fontSize: w / 45,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    SizedBox(height: h / 120),
-                    // unreaded count
-                    conv.unreadCount! == 0
-                        ? const SizedBox()
-                        : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(w / 20),
-                              color: AppColors.yellow,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: w / 50, vertical: h / 300),
-                            child: MyTextPoppines(
-                              text: conv.unreadCount.toString(),
-                              fontSize: 10.sp,
-                              // fontSize: w / 45,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                  ],
+                SizedBox(height: h / 120),
+                // text time
+                MyTextPoppines(
+                  text: Utils.getTimeAgo(conv.lastMessageCreatedAt!),
+                  fontSize: 10.sp,
+                  // fontSize: w / 45,
+                  fontWeight: FontWeight.w600,
                 ),
+                SizedBox(height: h / 120),
+                // unreaded count
+                conv.unreadCount! == 0
+                    ? const SizedBox()
+                    : Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(w / 20),
+                          color: AppColors.yellow,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: w / 50, vertical: h / 300),
+                           
+                        child: MyTextPoppines(
+                          text: conv.unreadCount.toString(),
+                          fontSize: 10.sp,
+                          // fontSize: w / 45,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
               ],
             )
           ],
@@ -218,9 +223,10 @@ class ChatCardWidget extends StatelessWidget {
 
   Widget mType(String messageType, BuildContext context) {
     final w = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     final textMessage = MyTextPoppines(
       text: conversations.lastMessage!,
-      fontSize: 12.sp,
+      fontSize: size.height * FontSize.twelve,
       maxLines: 1,
       height: 1.4,
       color: conversations.unreadCount! == 0
@@ -239,7 +245,7 @@ class ChatCardWidget extends StatelessWidget {
         MyTextPoppines(
           text: "  Pdf",
           // fontSize: w / 40,
-          fontSize: 14.sp,
+          fontSize: size.height * FontSize.fourteen,
           maxLines: 1,
           height: 1.4,
           color: conversations.unreadCount! == 0
@@ -259,7 +265,7 @@ class ChatCardWidget extends StatelessWidget {
         ),
         MyTextPoppines(
           text: "  Photo",
-          fontSize: 14.sp,
+          fontSize: size.height * FontSize.fourteen,
           // fontSize: w / 36,
           maxLines: 1,
           height: 1.4,

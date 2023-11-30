@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../features/edit profile/screens/edit_profile_screen.dart'; 
 import '../../provider/notifiers/auth_notifier.dart';
+import '../../resources/font_size/font_size.dart';
 import '../../utils/constants/app_list.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -302,6 +303,7 @@ class _LogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+    final size = MediaQuery.of(context).size;
 
   
     return Container(
@@ -323,7 +325,7 @@ class _LogoutButton extends StatelessWidget {
           SizedBox(width: width / 36),
           MyTextPoppines(
             text: "Log Out",
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             // fontSize: height / MyFontSize.font18,
             color: AppColors.white,
             fontWeight: FontWeight.w500,

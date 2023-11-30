@@ -9,6 +9,7 @@ import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/estimate/widget/saved_adresses_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_app_bar.dart'; 
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 
 class CheckOutScreenStatic extends StatelessWidget {
@@ -24,7 +25,7 @@ class CheckOutScreenStatic extends StatelessWidget {
   final String amountToPay;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: MyAppBar(text: "Checkout"),
       body: SizedBox(
@@ -77,7 +78,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height; 
 
-   
+    final size = MediaQuery.of(context).size;
 
     return Container(
       height: 150.h,
@@ -109,7 +110,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
                   child: MyTextPoppines(
                     text: widget.projectName,
                     height: 1.4,
-                    fontSize: 12.sp,
+                    fontSize: size.height * FontSize.twelve,
                     color: AppColors.buttonBlue,
                     fontWeight: FontWeight.w600,
                   ),
@@ -120,12 +121,12 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
                   children: [
                     MyTextPoppines(
                       text: "  You have to pay :",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                     ),
                     MyTextPoppines(
                       text: "${widget.totalAmount}",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                       color: AppColors.yellow,
                     ),
@@ -139,7 +140,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
           MyBlueButton( 
             hPadding: 100.w,
             text: "Pay Now",
-            fontSize: height > 800 ? 13.sp : 16.sp,
+            fontSize: height > 800 ? 13.sp : size.height * FontSize.sixteen,
             onTap: () { 
                Navigator.of(context).pushScreen(
                     EstimateGenerationScreen());

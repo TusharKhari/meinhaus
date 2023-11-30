@@ -23,6 +23,7 @@ import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/utils.dart';
 import '../widget/bottom_sheet.dart';
 import '../widget/saved_adresses_widget.dart';
@@ -105,7 +106,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     final estimateNotifer = context.watch<EstimateNotifier>();
     final width = MediaQuery.sizeOf(context).width;
     final image = estimateNotifer.images;
-
+     final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
       child: Scaffold(
@@ -160,7 +161,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                       MyTextPoppines(
                         text: " Upload pictures of the project",
                         fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                       ),
                       15.vs,
                       DottedBorder(
@@ -182,7 +183,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                   ? Image.asset(
                                       "assets/icons/imgs.png",
                                       fit: BoxFit.fitWidth,
-                                      width: 260.w,
+                                     // width: 260.w,
                                     )
                                   :
 
@@ -223,7 +224,8 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                       ),
                                     ),
                               //
-                              20.hs,
+                             // 20.hs,
+                             SizedBox(width: width * 0.02,), 
                               InkWell(
                                 // onTap: () => getImagess(),
                                 onTap: () {
@@ -293,6 +295,8 @@ class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
   @override
   Widget build(BuildContext context) {
     final w = context.screenWidth;
+    final size  = MediaQuery.of(context).size;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -322,7 +326,7 @@ class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
             hint: MyTextPoppines(
               text: "When would you like to have this tasks to be done?",
               color: AppColors.black,
-             fontSize:15.sp,
+             fontSize:size.height * FontSize.fifteen,
               // fontSize: w / 34,
               fontWeight: FontWeight.w500,
             ),

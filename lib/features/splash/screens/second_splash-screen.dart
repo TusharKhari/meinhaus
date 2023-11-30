@@ -86,7 +86,7 @@ class SecondSplashScreen extends StatelessWidget {
               text:
                   "Pay a fixed price at the best market rates. Guaranteed to completion  ",
               fontSize: 
-              //height > 800 ? 15.sp : 17.sp,
+              //height > 800 ? size.height * FontSize.fifteen : 17.sp,
               17.sp, 
 
               fontWeight: FontWeight.w400,

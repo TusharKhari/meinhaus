@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/check%20out/screens/checkout_screen.dart';
+ import 'package:new_user_side/features/check%20out/screens/checkout_screen.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/resources/common/show_img_upload_option.dart';
@@ -11,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/buttons/my_bottom_bar_button.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../widget/download_pdf_card_widget.dart';
 import '../widget/estimate_carousel_img.dart';
 import '../widget/estimated_work_bill_card_widget.dart';
@@ -40,6 +40,7 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
     final projectDetails =
         getEstProvider.estimated.estimatedWorks![widget.index];
     final bookingId = projectDetails.estimateId;
+     final size = MediaQuery.of(context).size;
    // final amountToPay = projectDetails.projectBilling!.totalDepositAmount;
     final bool isImgPresent = projectDetails.uploadedImgs!.length > 0;
 
@@ -64,15 +65,15 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                         text: "Estimate  No :",
-                        fontSize: 16.sp,
-                        // fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
+                        // fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w600,
                       ),
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                        text: projectDetails.estimateId ?? "",
                       //  text: "my",
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
                       ),

@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/auth_notifier.dart';
 import '../../../resources/common/show_img_upload_option.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../estimate/widget/download_pdf_card_widget.dart';
 import '../widget/ongoing_project_bill_card_widget.dart';
 import '../widget/ongoing_project_button_panel.dart';
@@ -79,7 +80,7 @@ class _OngoingProjectDetailScreenState
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     final uploadNotifier =  context.watch<UploadImgNotifier>();
-
+ final size = MediaQuery.of(context).size;
     return services != null && notifier.proDetails.prodata != null
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
@@ -112,13 +113,13 @@ class _OngoingProjectDetailScreenState
                               SizedBox(width: width / 12),
                               MyTextPoppines(
                                 text: "Estimate  No :",
-                                fontSize: 16.sp,
+                                fontSize: size.height * FontSize.sixteen,
                                 fontWeight: FontWeight.w600,
                               ),
                               SizedBox(width: width / 20),
                               MyTextPoppines(
                                 text: services.estimateNo ?? "",
-                                fontSize: 16.sp,
+                                fontSize: size.height * FontSize.sixteen,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.yellow,
                               ),

@@ -7,6 +7,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
  
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class CheckOutSummaryCardWidget extends StatefulWidget {
   final String totalAmount;
@@ -24,13 +25,14 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
   
   @override
   Widget build(BuildContext context) {
-    
+        final size  = MediaQuery.of(context).size;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyTextPoppines(
           text: "Summary",
-          fontSize: 16.sp,
+          fontSize: size.height * FontSize.sixteen,
           fontWeight: FontWeight.w600,
         ),
         15.vs,
@@ -69,12 +71,12 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                         // text: estimate.estimatedWorks![0].projectName!,
                            text: widget.projectName,
                           //  text: "Bathroom Renewall",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           fontWeight: FontWeight.w600,
                         ),
                         MyTextPoppines(
                           text:"\$${widget.totalAmount}",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           fontWeight: FontWeight.w600,
                         ),
                       ],
@@ -85,11 +87,11 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                       children: [
                         MyTextPoppines(
                           text: "Other charges",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                         ),
                         MyTextPoppines(
                           text: "0",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                         ),
                       ],
                     ),
@@ -99,11 +101,11 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                       children: [
                         MyTextPoppines(
                           text: "Discount & Offer",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                         ),
                         MyTextPoppines(
                           text: "0",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                         ),
                       ],
                     ),
@@ -117,12 +119,12 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                 children: [
                   MyTextPoppines(
                     text: "To Pay",
-                    fontSize: 14.sp,
+                    fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w600,
                   ),
                   MyTextPoppines(
                     text: "\$${widget.totalAmount}",
-                    fontSize: 14.sp,
+                    fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w700,
                   ),
                 ],

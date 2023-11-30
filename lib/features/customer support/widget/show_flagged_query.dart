@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/home/screens/home_screen.dart';
+ import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+
+import '../../../resources/font_size/font_size.dart';
 
 // BACK TO HOME BUTTON
 class ShowQueryIsFlagged extends StatelessWidget {
@@ -15,7 +16,7 @@ class ShowQueryIsFlagged extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final h = context.screenHeight;
-    final w = context.screenWidth;
+    final w = context.screenWidth; final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       height: h / 4.6,
@@ -31,7 +32,7 @@ class ShowQueryIsFlagged extends StatelessWidget {
           MyTextPoppines(
             text:
                 "Your ticket has been flagged for our escalation team. They will contact you shortly!",
-            fontSize:16.sp,
+            fontSize:size.height * FontSize.sixteen,
             // fontSize: w / 26,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
@@ -40,7 +41,7 @@ class ShowQueryIsFlagged extends StatelessWidget {
           SizedBox(height: 18),
           MyBlueButton(
             hPadding: w / 10,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             // fontSize: w / 26,
             text: "Back To Home",
             onTap: () {

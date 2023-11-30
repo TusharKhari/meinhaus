@@ -5,6 +5,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class OngoingProjectDescCardWidget extends StatelessWidget {
   const OngoingProjectDescCardWidget({
@@ -17,6 +18,7 @@ class OngoingProjectDescCardWidget extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;
+    final size  = MediaQuery.of(context).size;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +40,7 @@ class OngoingProjectDescCardWidget extends StatelessWidget {
           child: MyTextPoppines(
             text: services.discription ??
                 'No project description found. This area usually provides details about the project.',
-            fontSize: 14.sp,
+            fontSize: size.height * FontSize.fourteen,
             fontWeight: FontWeight.w500,
             height: 1.6,
             color: AppColors.black.withOpacity(0.6),

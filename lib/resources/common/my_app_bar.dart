@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../utils/constants/app_colors.dart';
+import '../font_size/font_size.dart';
 import 'my_text.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,6 +24,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return PreferredSize(
       preferredSize: preferredSize,
       child: Column(
@@ -48,7 +50,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Icon(
                     Icons.arrow_back_ios_new,
                     color: AppColors.black,
-                    size: 16.sp,
+                    size: size.height * FontSize.sixteen,
                   ),
                 ),
               ),

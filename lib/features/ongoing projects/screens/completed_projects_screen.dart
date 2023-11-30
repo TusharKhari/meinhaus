@@ -7,7 +7,8 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
- import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
+ import '../../../resources/font_size/font_size.dart';
+import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
 import '../widget/project_info_card.dart';
 
 class CompletedProjectsScreen extends StatefulWidget {
@@ -39,7 +40,7 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
   Widget build(BuildContext context) {
     final notifer = context.watch<EstimateNotifier>();
     final project = notifer.projectsHistory.projects; 
-
+ final size = MediaQuery.of(context).size;
     return project != null
         ? Scaffold(
             appBar: MyAppBar(text: "Project History"),
@@ -56,7 +57,7 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
                         text:
                             "We have record of your last projects .Tap to view details.",
                         // fontSize: height / MyFontSize.font16,
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

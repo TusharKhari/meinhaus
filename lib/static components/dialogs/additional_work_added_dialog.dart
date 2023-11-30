@@ -8,6 +8,7 @@ import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../resources/common/my_text.dart';
+import '../../resources/font_size/font_size.dart';
 
 class AdditionalWorkAddedDialog extends StatelessWidget {
   const AdditionalWorkAddedDialog({
@@ -16,6 +17,8 @@ class AdditionalWorkAddedDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final size = MediaQuery.of(context).size;
+
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -46,7 +49,7 @@ class AdditionalWorkAddedDialog extends StatelessWidget {
                 alignment: Alignment.center,
                 child: MyTextPoppines(
                   text: "Additional Work has been requested successfully.",
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w500,
                   maxLines: 3,
                   height: 1.3,

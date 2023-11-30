@@ -7,6 +7,8 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 
 class EmptyProjectsStateWidget extends StatelessWidget {
   const EmptyProjectsStateWidget(
@@ -18,6 +20,8 @@ class EmptyProjectsStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size = MediaQuery.of(context).size;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width / 14),
       child: Column(
@@ -36,7 +40,7 @@ class EmptyProjectsStateWidget extends StatelessWidget {
           MyTextPoppines(
             text:
                 "Don’t worry! To start new project You can create new estimate by tapping below.",
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
             color: AppColors.black.withOpacity(0.5),

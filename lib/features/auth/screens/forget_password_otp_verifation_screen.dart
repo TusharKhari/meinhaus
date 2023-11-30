@@ -13,6 +13,8 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 class ForgetPasswordOtpValidateScreen extends StatefulWidget {
   static const String routeName = '/forget-password-otp';
   const ForgetPasswordOtpValidateScreen({
@@ -96,6 +98,8 @@ class _ForgetPasswordOtpValidateScreenState
     final notifer = context.watch<AuthNotifier>();
     final h = context.screenHeight;
     final w = context.screenWidth;
+        final size  = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -155,7 +159,7 @@ class _ForgetPasswordOtpValidateScreenState
                     MyTextPoppines(
                       text:
                           "We’ve sent an text message with an activation code on your email ${widget.email}",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       // fontSize: w / 30,
                       color: AppColors.black.withOpacity(0.7),
                       textAlign: TextAlign.center,
@@ -219,14 +223,14 @@ class _ForgetPasswordOtpValidateScreenState
                       children: [
                         MyTextPoppines(
                           text: "I didn't receive a code",
-                          fontSize: 15.sp,
+                          fontSize: size.height * FontSize.fifteen,
                           // fontSize: w / 30,
                           color: AppColors.black.withOpacity(0.6),
                         ),
                         SizedBox(width: w / 60),
                         MyTextPoppines(
                           text: "00:$startTime",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           // fontSize: w / 27,
                           fontWeight: FontWeight.bold,
                           color: AppColors.buttonBlue,
@@ -236,7 +240,7 @@ class _ForgetPasswordOtpValidateScreenState
                           onTap: _resendOtpHandler,
                           child: MyTextPoppines(
                             text: "Resend",
-                            fontSize: 16.sp,
+                            fontSize: size.height * FontSize.sixteen,
                             //  fontSize: w / 27,
                             fontWeight: FontWeight.bold,
                             color: showResendButton

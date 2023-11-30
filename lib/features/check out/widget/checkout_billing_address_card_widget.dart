@@ -4,6 +4,7 @@ import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../estimate/widget/address_card.dart';
 
 class CheckOutBillingAddressCardWidget extends StatelessWidget {
@@ -13,13 +14,14 @@ class CheckOutBillingAddressCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyTextPoppines(
           text: "Billing Address",
           fontWeight: FontWeight.w600,
-          fontSize: 16.sp,
+          fontSize: size.height * FontSize.sixteen,
         ),
         10.vs,
         // Address

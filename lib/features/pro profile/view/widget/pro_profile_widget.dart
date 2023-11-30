@@ -10,6 +10,7 @@ import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../provider/notifiers/estimate_notifier.dart';
+import '../../../../resources/font_size/font_size.dart';
 
 class ProProfileWidget extends StatelessWidget {
   const ProProfileWidget({super.key});
@@ -18,6 +19,7 @@ class ProProfileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>();
     final pro = notifier.proDetails.prodata;
+    final size = MediaQuery.of(context).size;
 
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
@@ -41,22 +43,25 @@ class ProProfileWidget extends StatelessWidget {
                 children: [
                   MyTextPoppines(
                     text: pro?.proName ?? "",
-                    fontSize:  16.sp,
+                    fontSize: size.height * FontSize.sixteen,
+                    // fontSize: size.height * FontSize.sixteen,
                     fontWeight: FontWeight.bold,
                   ),
                   5.vs,
                   MyTextPoppines(
                     text: pro?.proCompanyName ?? "",
-                    fontSize: 16.sp,
+                    fontSize: size.height * FontSize.sixteen,
+                    // fontSize: size.height * FontSize.sixteen,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                   ),
                   5.vs,
                   SizedBox(
-                    width: context.screenWidth / 1.5,
+                    width: size.width * 0.5,
                     child: MyTextPoppines(
                       text: pro?.proMotive ?? "",
-                      fontSize:16.sp,
+                      fontSize: size.height * FontSize.sixteen,
+                      // fontSize: size.height * FontSize.sixteen,
                       fontWeight: FontWeight.bold,
                       color: AppColors.grey,
                       maxLines: 5,
@@ -89,7 +94,7 @@ class ProProfileWidget extends StatelessWidget {
                     MyTextPoppines(
                       text: "Verified Pro",
                       height: 1.8,
-                      fontSize: 13.sp,
+                      fontSize: size.height * FontSize.thirteen,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -108,14 +113,15 @@ class ProProfileWidget extends StatelessWidget {
                     MyTextPoppines(
                       text: pro?.jobsDone.toString() ?? "",
                       height: 1.8,
-                      fontSize:   13.sp,
+                      fontSize: size.height * FontSize.thirteen,
+                      // fontSize:   13.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     5.hs,
                     MyTextPoppines(
                       text: "Job Completed",
                       height: 1.8,
-                      fontSize: 13.sp,
+                      fontSize: size.height * FontSize.thirteen,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -128,7 +134,7 @@ class ProProfileWidget extends StatelessWidget {
           10.vs,
           MyTextPoppines(
             text: "Services Offered :",
-            fontSize:  16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w500,
           ),
           Padding(
@@ -143,7 +149,7 @@ class ProProfileWidget extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 5.h),
                   child: MyTextPoppines(
                     text: "•   $service",
-                   fontSize: 14.sp,
+                    fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                   ),

@@ -11,6 +11,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../screens/multiple_project_services_screen.dart';
 import '../screens/ongoing_project_details_screen.dart';
 
@@ -30,7 +31,8 @@ class ProjectInfoCard extends StatelessWidget {
     final ongoingJobs = projects[index];
     final projectId = ongoingJobs.services![0].projectId.toString();
     final proId = ongoingJobs.services![0].proId.toString();
-    final headline1 = 16.sp;
+     final size = MediaQuery.of(context).size;
+    final headline1 = size.height * FontSize.sixteen;
     final bool isHourlyBooking = ongoingJobs.normal!;
     final bool isMultipleServices = ongoingJobs.services!.length > 1;
 
@@ -202,7 +204,8 @@ class ProjectInfoCard extends StatelessWidget {
                     ),
                     SizedBox(
                       height: height / 13,
-                      width: 250.w,
+                      width:width * 0.65,
+                      // width: 250.w,
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -243,7 +246,7 @@ class ProjectInfoCard extends StatelessWidget {
                       visible: !isHourlyBooking,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            vertical: height / 110, horizontal: 16.sp),
+                            vertical: height / 110, horizontal: size.height * FontSize.sixteen),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           color: Color(0xFFB9B100).withOpacity(0.12),

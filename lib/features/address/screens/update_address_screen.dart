@@ -127,12 +127,13 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
           ],
         ),
         bottomSheet: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric( ),
+          // padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyBlueButton(
-                hPadding: 60.w,
+                hPadding: w* 0.1,
                 text: "Delete",
                 onTap: () => _deleteAddressHandler(),
               ),

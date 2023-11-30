@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
- import 'my_buttons.dart';
+ import '../../font_size/font_size.dart';
+import 'my_buttons.dart';
 
 class MyBottomNavWidget extends StatelessWidget {
   final double hPadding;
@@ -17,6 +18,8 @@ class MyBottomNavWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final size = MediaQuery.of(context).size;
+
     return SizedBox(
       height: 100.h,
       child: Column(
@@ -28,7 +31,7 @@ class MyBottomNavWidget extends StatelessWidget {
             hPadding: hPadding,
             text: text,
             onTap: onTap,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             // fontSize: context.screenHeight / MyFontSize.font16,
           ),
         ],

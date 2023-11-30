@@ -9,6 +9,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
  import '../../../resources/common/my_text.dart';
 import '../../../provider/notifiers/auth_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class AddressCardWidget extends StatefulWidget {
   final int index;
@@ -30,6 +31,8 @@ class AddressCardWidget extends StatefulWidget {
 class _AddressCardWidgetState extends State<AddressCardWidget> {
   @override
   Widget build(BuildContext context) {
+        final size  = MediaQuery.of(context).size;
+
     final userProvider = Provider.of<AuthNotifier>(context, listen: true);
     final userAddress = userProvider.user.savedAddress![widget.index]; 
     final String fullAddres = userAddress.line1!.length == 1
@@ -57,7 +60,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
               MyTextPoppines(
                 text: "Address ${widget.index + 1}",
                 fontWeight: FontWeight.w600,
-                fontSize: 14.sp,
+                fontSize: size.height * FontSize.fourteen,
               ),
               InkWell(
                 onTap: () {
@@ -85,7 +88,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
           MyTextPoppines(
             text: fullAddres,
             maxLines: 3,
-            fontSize: 14.sp,
+            fontSize: size.height * FontSize.fourteen,
             height: 1.3,
           ),
           10.vs,
@@ -106,13 +109,13 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           // text: "Default",
                           text: widget.isProfileEdit  ? "Default" : "selected", 
                           fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           color: AppColors.yellow,
                         ),
                       ),
                       Icon(
                         Icons.check_circle_outline_sharp,
-                        size: 16.sp,
+                        size: size.height * FontSize.sixteen,
                         color: AppColors.yellow,
                       ),
                     ],

@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/chat/widgets/sent_message.dart';
+ import 'package:new_user_side/features/chat/widgets/sent_message.dart';
  import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
  import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../data/models/message_model.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/utils.dart';
 
 class RecivedMessage extends StatelessWidget {
@@ -22,6 +22,8 @@ class RecivedMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = context.screenHeight;
     final w = context.screenWidth;
+        final size  = MediaQuery.of(context).size;
+
     final createdAt = message.createdAt.toString();
     final messageTime = Utils.convertToRailwayTime(createdAt);
     return Row(
@@ -69,12 +71,13 @@ class RecivedMessage extends StatelessWidget {
                 messageType: message.type ?? "text",
                 message: message.message!,
                 messageColor: AppColors.black,
+                size: size, 
               ),
               // mType(messageType!, context),
               SizedBox(width: w / 60),
               MyTextPoppines(
                 text: messageTime,
-                fontSize:14.sp,
+                fontSize:size.height * FontSize.fourteen,
                 // fontSize: w / 32,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black.withOpacity(0.6),

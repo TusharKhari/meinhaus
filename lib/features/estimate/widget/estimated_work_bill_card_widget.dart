@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_text.dart';
+ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class EstimatedWorkBillCardWidget extends StatelessWidget {
   final int index;
@@ -65,13 +65,14 @@ class _EstimatedDetailsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final size = MediaQuery.of(context).size;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         30.hs,
         MyTextPoppines(
           text: prefixText,
-          fontSize: 16.sp,
+          fontSize: size.height * FontSize.sixteen,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -79,7 +80,7 @@ class _EstimatedDetailsRow extends StatelessWidget {
         Expanded(
           child: MyTextPoppines(
             text: suffixText,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w400,
             maxLines: 10,
             height: 1.5,

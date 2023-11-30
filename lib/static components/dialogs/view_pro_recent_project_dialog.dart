@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../provider/notifiers/estimate_notifier.dart';
 import '../../resources/common/my_text.dart';
+import '../../resources/font_size/font_size.dart';
 import '../../utils/constants/app_colors.dart';
 
 class ProRecentProjectDialog extends StatelessWidget {
@@ -24,7 +25,7 @@ class ProRecentProjectDialog extends StatelessWidget {
     final notifier = context.watch<EstimateNotifier>();
     final proRecentProject =
         notifier.proDetails.prodata!.proRecentProjects![index];
-
+ final size = MediaQuery.of(context).size;
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -57,7 +58,7 @@ class ProRecentProjectDialog extends StatelessWidget {
                     backgroundColor: AppColors.textBlue.withOpacity(0.15),
                     child: Icon(
                       CupertinoIcons.xmark,
-                      size: 12.sp,
+                      size: size.height * FontSize.twelve,
                       color: AppColors.black,
                     ),
                   ),
@@ -163,6 +164,7 @@ class ProRecentProjectDialog extends StatelessWidget {
   }) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+    final size = MediaQuery.of(context).size;
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.h),
@@ -189,7 +191,7 @@ class ProRecentProjectDialog extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.only(right:16.sp),
+                        padding: EdgeInsets.only(right:size.height * FontSize.sixteen),
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context).pushScreen(

@@ -12,6 +12,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../static components/empty states/no_estimate/no_est_view_home_screen.dart';
 import '../../../static components/empty states/no_project/on_going_work_card_static.dart';
 import '../../../utils/constants/constant.dart';
@@ -26,12 +27,11 @@ class OngoingCardHomeScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-
+ 
     final estimateNotifier = context.watch<EstimateNotifier>();
     final ongoingProjects = estimateNotifier.ongoingProjects.projects;
     final project = ongoingProjects ?? OngoingProjectsModel().projects;
-
+ final size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -51,7 +51,7 @@ class OngoingCardHomeScreenView extends StatelessWidget {
               child: MyTextPoppines(
                 text: "View All",
                 fontWeight: FontWeight.w500,
-                fontSize: 16.sp,
+                fontSize: size.height * FontSize.sixteen,
               ),
             ),
           ],
@@ -117,6 +117,8 @@ class OngoingWorkCard extends StatelessWidget {
   }) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size  = MediaQuery.of(context).size;
+
     final notifier = context.read<EstimateNotifier>();
     final projects = notifier.ongoingProjects.projects!;
     final project = projects[index];
@@ -164,7 +166,7 @@ class OngoingWorkCard extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal:16.sp,
+              horizontal:size.height * FontSize.sixteen,
               vertical: height / 130,
             ),
             child: Column(
@@ -174,7 +176,7 @@ class OngoingWorkCard extends StatelessWidget {
                 MyTextPoppines(
                   text: project.projectName ?? "",
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
                 ),
                 Visibility(
@@ -374,7 +376,7 @@ class OngoingWorkCard extends StatelessWidget {
                       hPadding: 10.w,
                       vPadding: height / 120,
                       text: "View Project",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
                       

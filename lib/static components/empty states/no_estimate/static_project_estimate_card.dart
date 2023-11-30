@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/constant.dart';
 import '../screens/project_estimate_static_data.dart';
@@ -22,6 +23,8 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width; 
+        final size  = MediaQuery.of(context).size;
+
 
     return Container(
       margin:
@@ -41,7 +44,7 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
               MyTextPoppines(
                 text: "Project Area :",
                 fontWeight: FontWeight.w600,
-                fontSize:16.sp,
+                fontSize:size.height * FontSize.sixteen,
               ),
               SizedBox(width: width / 22),
               Flexible(
@@ -51,7 +54,7 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
                   // text: "Project Area",
                   //v project_area
                  text:  projectEstimateStaticData[widget.index]["project_area"]!,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   
                 ),
               ),
@@ -61,7 +64,7 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
           MyTextPoppines( 
             text: "Description ",
             fontWeight: FontWeight.w600,
-            fontSize:16.sp,
+            fontSize:size.height * FontSize.sixteen,
           ),
           SizedBox(height: height / 80),
           Padding(
@@ -70,7 +73,7 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
               // text:  "Description of project",
               // projectEstimateStaticData
               text:  projectEstimateStaticData[widget.index]["description"]!,
-              fontSize: 14.sp,
+              fontSize: size.height * FontSize.fourteen,
               maxLines: 100,
               height: 1.4,
               color: AppColors.black.withOpacity(0.5),
@@ -81,13 +84,13 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
           //   children: [
           //     MyTextPoppines(
           //       text: "Deposit Amount :",
-          //       fontSize:16.sp,
+          //       fontSize:size.height * FontSize.sixteen,
           //       fontWeight: FontWeight.w600,
           //     ),
           //     SizedBox(width: width / 22),
           //     MyTextPoppines(
           //       text: "Deposited Amount",
-          //       fontSize: 16.sp,
+          //       fontSize: size.height * FontSize.sixteen,
           //       fontWeight: FontWeight.w600,
           //       color: AppColors.yellow,
           //     ),
@@ -98,14 +101,14 @@ class _StaticProjectEstimateCardState extends State<StaticProjectEstimateCard> {
             children: [
               MyTextPoppines(
                 text: "Project Cost :",
-                fontSize:16.sp,
+                fontSize:size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
               ),
               20.hs,
               MyTextPoppines(
                 // text: "\$00",
                 text:  "\$${projectEstimateStaticData[widget.index]["price"]!}",
-                fontSize: 16.sp,
+                fontSize: size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
@@ -139,12 +142,14 @@ class __BuildButtonState extends State<_BuildButton> {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size = MediaQuery.of(context).size;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MyTextPoppines(
           text: "Action :",
-          fontSize:16.sp,
+          fontSize:size.height * FontSize.sixteen,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(width: width / 22),

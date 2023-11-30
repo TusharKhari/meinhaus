@@ -12,6 +12,7 @@ import '../../../features/estimate/widget/download_pdf_card_widget.dart';
 import '../../../resources/common/buttons/my_bottom_bar_button.dart';
 import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'static_project_billing_card_widget.dart';
 import 'static_project_estimate_card.dart';
@@ -27,6 +28,8 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
   Widget build(BuildContext context) {
      final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: MyAppBar(text: "Sample Estimated Work"),
       body: Column(
@@ -49,16 +52,16 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                         text: "Estimate  No :",
-                     fontSize:16.sp,
-                        // fontSize: 16.sp,
+                     fontSize:size.height * FontSize.sixteen,
+                        // fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w600,
                       ),
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                     //   text: projectDetails.estimateId ?? "",
                        text: "Estimate id",
-                       fontSize:16.sp,
-                        // fontSize: 16.sp,
+                       fontSize:size.height * FontSize.sixteen,
+                        // fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
                       ),
@@ -247,13 +250,15 @@ class _EstimatedDetailsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final size = MediaQuery.of(context).size;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         30.hs,
         MyTextPoppines(
           text: prefixText,
-          fontSize: 16.sp,
+          fontSize: size.height * FontSize.sixteen,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -261,7 +266,7 @@ class _EstimatedDetailsRow extends StatelessWidget {
         Expanded(
           child: MyTextPoppines(
             text: suffixText,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w400,
             maxLines: 10,
             height: 1.5,

@@ -31,11 +31,13 @@ class OurServicesCardHomeScreenView extends StatelessWidget {
         ),
         ourservices != null
             ? SizedBox(
-                height: height / 2.30,
+                height: height * 0.4,
+                // height: height / 2.30,
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: ourservices.length,
+                  shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return OurServicesCard(
                       index: index,

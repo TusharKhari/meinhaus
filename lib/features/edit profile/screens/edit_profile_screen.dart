@@ -21,6 +21,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
  import '../../../resources/common/buttons/my_buttons.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../static components/dialogs/edit_profile_dialog.dart';
  import '../../../utils/extensions/get_images.dart';
 import '../../estimate/widget/saved_adresses_widget.dart';
@@ -102,7 +103,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final width = MediaQuery.sizeOf(context).width;
     final user = context.watch<AuthNotifier>().user;
     final notifier = context.watch<EditProfileNotifier>();
-
+ final size = MediaQuery.of(context).size;
     ///  final addressNotifier = context.watch<AddressNotifier>();
     // String userName = "${user.firstname}";
     String userName = "${user.firstname} ${user.lastname}";
@@ -137,7 +138,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             10.vs,
             Row(
               children: [
-                30.hs,
+                //30.hs,
+                (width * 0.02).hs, 
                 user.profilePic!.isNotEmpty || img.path.isNotEmpty
                     ? InkWell(
                         onTap: () {
@@ -219,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             MyTextPoppines(
                               text: "Change Profile",
                               color: AppColors.textBlue1E9BD0,
-                              fontSize: 12.sp, 
+                              fontSize: size.height * FontSize.twelve, 
                                   //  fontSize:
                                   // context.screenHeight / MyFontSize.font10,
                               fontWeight: FontWeight.w500,
@@ -228,7 +230,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             Icon(
                               Icons.camera_alt_outlined,
                               color: AppColors.textBlue1E9BD0,
-                              size: 16.sp,
+                              size: size.height * FontSize.sixteen,
                             )
                           ],
                         ),
@@ -280,15 +282,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               children: [
                                 MyTextPoppines(
                                   text: "Basic Info",
-                                  fontSize: 16.sp,
-                                  // fontSize: 15.sp,
+                                  fontSize: size.height * FontSize.sixteen,
+                                  // fontSize: size.height * FontSize.fifteen,
                                   fontWeight: FontWeight.w600,
                                 ),
                                 MyBlueButton(
                                   hPadding: 20.w,
                                   vPadding: 10.h,
                                   text: "Update Profile",
-                                   fontSize: 14.sp, 
+                                   fontSize: size.height * FontSize.fourteen, 
                                   // fontSize: 10.sp,
                                   onTap: () => _editProfileHandler(),
                                 ),
@@ -380,6 +382,8 @@ class _TextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final authNotifier = context.watch<AuthNotifier>();
      final w = context.screenWidth;
+         final size  = MediaQuery.of(context).size;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h),
       child: Column(
@@ -390,7 +394,7 @@ class _TextField extends StatelessWidget {
             children: [
               MyTextPoppines(
                 text: hText,
-                 fontSize: 16.sp, 
+                 fontSize: size.height * FontSize.sixteen, 
                 // fontSize: h / MyFontSize.font12,
               ),
               isAuthFields!
@@ -423,7 +427,7 @@ class _TextField extends StatelessWidget {
               controller: controller,
               enabled: isEditable,
               style: GoogleFonts.poppins(
-                fontSize: 14.sp,
+                fontSize: size.height * FontSize.fourteen,
                 // fontSize: h / MyFontSize.font12,
               ),
               decoration: InputDecoration(
@@ -442,7 +446,7 @@ class _TextField extends StatelessWidget {
                 ),
                 hintText: hintText,
                 hintStyle: TextStyle(
-                  fontSize: 14.sp, 
+                  fontSize: size.height * FontSize.fourteen, 
                   // fontSize: h / MyFontSize.font12
                   ),
               ),

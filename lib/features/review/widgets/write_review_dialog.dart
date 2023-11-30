@@ -13,6 +13,7 @@ import 'package:new_user_side/utils/extensions/validator.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/network/network_api_servcies.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class WriteReviewDialog extends StatefulWidget {
   @override
@@ -46,7 +47,7 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
     final notifier = context.watch<EstimateNotifier>();
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-
+ final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Dialog(
@@ -63,7 +64,7 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
                   MyTextPoppines(
                     text:
                         "Please write Overall level of satisfaction with your Project/Pro Service.",
-                    fontSize:16.sp,
+                    fontSize:size.height * FontSize.sixteen,
                     fontWeight: FontWeight.w600,
                   ),
                   8.vspacing(context),
@@ -117,7 +118,7 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
                       isWaiting: notifier.reviewLoading,
                       hPadding: width / 4,
                       vPadding: height / 55,
-                      fontSize: 16.sp,
+                      fontSize: size.height * FontSize.sixteen,
                       text: "Submit",
                       onTap: () => _reviewHandler(),
                     ),
@@ -152,12 +153,13 @@ class __buildRatingSnackBarState extends State<_buildRatingBar> {
   @override
   Widget build(BuildContext context) {
     final width = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MyTextPoppines(
           text: widget.title,
-          fontSize:16.sp,
+          fontSize:size.height * FontSize.sixteen,
           fontWeight: FontWeight.w500,
         ),
         RatingBar.builder(

@@ -10,6 +10,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/full_screen_image_view.dart';
 import 'package:provider/provider.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import 'icon_button_with_text.dart';
 
 class AdditionalWorkProProvideCardWidget extends StatefulWidget {
@@ -34,6 +35,7 @@ class _AdditionalWorkProProvideCardWidgetState
     final bool isApprovedCard = work.status == 1;
     final bool isPending = work.status == 0 && work.amount == null;
     final isImgNull = work.images!.length != 0;
+     final size = MediaQuery.of(context).size;
 
     return Container(
       decoration: BoxDecoration(
@@ -51,8 +53,8 @@ class _AdditionalWorkProProvideCardWidgetState
             child: MyTextPoppines(
               text: work.title ?? "",
               fontWeight: FontWeight.w600,
-              fontSize: 16.sp,
-              // fontSize: 14.sp,
+              fontSize: size.height * FontSize.sixteen,
+              // fontSize: size.height * FontSize.fourteen,
             ),
           ),
           const Divider(thickness: 1.0),
@@ -108,13 +110,13 @@ class _AdditionalWorkProProvideCardWidgetState
                 MyTextPoppines(
                   text: "Description",
                   fontWeight: FontWeight.w600,
-                  fontSize: 16.sp,
-                  // fontSize: 14.sp,
+                  fontSize: size.height * FontSize.sixteen,
+                  // fontSize: size.height * FontSize.fourteen,
                 ),
                 10.vs,
                 MyTextPoppines(
                   text: work.description ?? "",
-                  fontSize: 12.sp,
+                  fontSize: size.height * FontSize.twelve,
                   // fontSize: 10.sp,
                   maxLines: 6,
                   height: 1.4,
@@ -132,15 +134,15 @@ class _AdditionalWorkProProvideCardWidgetState
                         MyTextPoppines(
                           text: "Price :   ",
                           fontWeight: FontWeight.w600,
-                          // fontSize: 14.sp,
-                          fontSize: 16.sp,
+                          // fontSize: size.height * FontSize.fourteen,
+                          fontSize: size.height * FontSize.sixteen,
                         ),
                         MyTextPoppines(
                           text:
                               work.amount != null ? "\$${work.amount}" : "----",
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          // fontSize: 14.sp,
+                          fontSize: size.height * FontSize.sixteen,
+                          // fontSize: size.height * FontSize.fourteen,
                           color: AppColors.yellow,
                         ),
                       ],

@@ -10,6 +10,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../features/auth/widgets/my_text_field.dart';
+import '../../resources/font_size/font_size.dart';
 import '../../utils/extensions/get_images.dart';
 import '../../utils/extensions/show_picked_images.dart';
 
@@ -38,6 +39,7 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<CustomerSupportNotifier>();
+    final size  = MediaQuery.of(context).size;
 
     Future getImages() async {
       await GetImages().pickImages<CustomerSupportNotifier>(context: context);
@@ -71,7 +73,7 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
                         5.hspacing(context),
                         MyTextPoppines(
                           text: "Customer Support",
-                          fontSize:16.sp,
+                          fontSize:size.height * FontSize.sixteen,
                           fontWeight: FontWeight.w500,
                         ),
                       ],
@@ -91,7 +93,7 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
                         child: Icon(
                           CupertinoIcons.xmark,
                           color: AppColors.black,
-                          size: 16.sp,
+                          size: size.height * FontSize.sixteen,
                         ),
                       ),
                     ),
@@ -109,12 +111,12 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
                     children: [
                       MyTextPoppines(
                         text: "Furniture Fixing",
-                        fontSize:16.sp,
+                        fontSize:size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
                         text: "OD-79E9646",
-                        fontSize:16.sp,
+                        fontSize:size.height * FontSize.sixteen,
                         color: AppColors.yellow,
                         fontWeight: FontWeight.w500,
                       ),
@@ -143,7 +145,7 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
                     children: [
                       MyTextPoppines(
                         text: "Select Photos To Upload :",
-                        fontSize:14.sp,
+                        fontSize:size.height * FontSize.fourteen,
                         // fontSize: width / 40,
                         fontWeight: FontWeight.w600,
                       ),
@@ -166,13 +168,13 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
                                 text: "Select File",
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.buttonBlue,
-                                fontSize:16.sp,
+                                fontSize:size.height * FontSize.sixteen,
                               ),
                               2.hspacing(context),
                               Icon(
                                 Icons.attach_file,
                                 color: AppColors.buttonBlue,
-                                size:16.sp,
+                                size:size.height * FontSize.sixteen,
                               ),
                             ],
                           ),

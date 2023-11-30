@@ -13,6 +13,7 @@ import 'package:new_user_side/utils/extensions/validator.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/extensions/get_images.dart';
 import '../../../utils/extensions/show_picked_images.dart';
 import '../../../utils/utils.dart';
@@ -74,6 +75,8 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
 
   @override
   Widget build(BuildContext context) {
+        final size  = MediaQuery.of(context).size;
+
     final notifier = context.watch<CustomerSupportNotifier>();
     final estimateNotifier = context.read<EstimateNotifier>();
     final project = estimateNotifier.projectDetails.services;
@@ -105,12 +108,12 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                           children: [
                             MyTextPoppines(
                               text: project.projectName.toString(),
-                              fontSize:16.sp,
+                              fontSize:size.height * FontSize.sixteen,
                               fontWeight: FontWeight.w500,
                             ),
                             MyTextPoppines(
                               text: project.estimateNo.toString(),
-                              fontSize:16.sp,
+                              fontSize:size.height * FontSize.sixteen,
                               color: AppColors.yellow,
                               fontWeight: FontWeight.w500,
                             ),
@@ -126,7 +129,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           child: Padding(
                             padding:
-                                EdgeInsets.symmetric(horizontal: 16.sp),
+                                EdgeInsets.symmetric(horizontal: size.height * FontSize.sixteen),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -156,7 +159,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                     children: [
                                       MyTextPoppines(
                                         text: "Select Photos To Upload :",
-                                        fontSize: 14.sp,
+                                        fontSize: size.height * FontSize.fourteen,
                                         // fontSize: width / 34,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -181,14 +184,14 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                                 text: "Select File",
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.buttonBlue,
-                                                fontSize: 16.sp,
-                                                // fontSize:16.sp,
+                                                fontSize: size.height * FontSize.sixteen,
+                                                // fontSize:size.height * FontSize.sixteen,
                                               ),
                                               2.hspacing(context),
                                               Icon(
                                                 Icons.attach_file,
                                                 color: AppColors.buttonBlue,
-                                                size:16.sp,
+                                                size:size.height * FontSize.sixteen,
                                               ),
                                             ],
                                           ),
@@ -214,7 +217,7 @@ class _SendQueryScreenState extends State<SendQueryScreen> {
                                       6.vspacing(context),
                                       MyTextPoppines(
                                         text: "Raised Query",
-                                        fontSize: 16.sp,
+                                        fontSize: size.height * FontSize.sixteen,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.grey,
                                       ),

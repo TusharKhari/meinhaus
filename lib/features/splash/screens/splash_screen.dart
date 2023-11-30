@@ -7,6 +7,8 @@ import 'package:new_user_side/features/splash/screens/second_splash-screen.dart'
 import 'package:new_user_side/features/splash/screens/third_splash.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+
+import '../../../resources/font_size/font_size.dart';
  
 
 class SplashScreen extends StatefulWidget {
@@ -41,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
+ final size = MediaQuery.of(context).size;
     return Scaffold(
       body: 
       Stack(
@@ -105,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen>
                         text: "Next",
                         fontWeight: FontWeight.w600,
                         color: AppColors.buttonBlue,
-                         fontSize: 16.sp,
+                         fontSize: size.height * FontSize.sixteen,
                         // fontSize: height / MyFontSize.font16,
                       ),
                     ),
@@ -145,7 +147,7 @@ class _SplashScreenState extends State<SplashScreen>
                     text: "Get Started",
                     fontWeight: FontWeight.w600,
                     color: AppColors.white,
-                    fontSize: 16.sp,
+                    fontSize: size.height * FontSize.sixteen,
                     // fontSize: height / MyFontSize.font16,
                   ),
                 ),

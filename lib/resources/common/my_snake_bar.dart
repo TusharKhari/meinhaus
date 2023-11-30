@@ -4,6 +4,8 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../font_size/font_size.dart';
+
 enum SnackBarState { Success, Error, Warning, Info }
 
 void showSnakeBar(
@@ -40,6 +42,7 @@ void showSnakeBarr(
 ) {
   final width = context.screenWidth;
   final mainColor;
+   final size = MediaQuery.of(context).size;
   final IconData icon;
   switch (state) {
     case SnackBarState.Success:
@@ -81,14 +84,14 @@ void showSnakeBarr(
         child: Row(
           children: [
             Icon(icon, color: mainColor, size: width / 15),
-            SizedBox(width: width / 90),
+            SizedBox(width: width * 0.01),
             SizedBox(
-              width: width / 1.4,
+              width: width * 0.6,
               child: MyTextPoppines(
                 text: text,
                 color: mainColor,
                 fontWeight: FontWeight.w600,
-                fontSize:16.sp,
+                fontSize:size.height * FontSize.sixteen,
                 maxLines: 10,
               ),
             ),

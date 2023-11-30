@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../../utils/constants/app_colors.dart';
 import '../../utils/extensions/get_images.dart';
 import '../../utils/utils.dart';
+import '../font_size/font_size.dart';
 
 class ShowImgUploadOption extends StatelessWidget {
   final String bookingId;
@@ -26,6 +27,8 @@ class ShowImgUploadOption extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<UploadImgNotifier>();
+        final size = MediaQuery.of(context).size;
+
     bool isImgPresent = notifier.images.length > 0;
     GetImages getImages = GetImages();
 
@@ -95,7 +98,7 @@ class ShowImgUploadOption extends StatelessWidget {
                     ),
                     child: MyTextPoppines(
                       text: "Cancel",
-                      fontSize: 16.sp,
+                      fontSize: size.height * FontSize.sixteen,
                       color: AppColors.white,
                       fontWeight: FontWeight.w600,
                     ),
@@ -119,7 +122,7 @@ class ShowImgUploadOption extends StatelessWidget {
                         : Center(
                             child: MyTextPoppines(
                               text: "Upload",
-                              fontSize: 16.sp,
+                              fontSize: size.height * FontSize.sixteen,
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
                             ),

@@ -8,6 +8,7 @@ import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../screens/estimate_work_deatils_screen.dart';
 
 class AllEstimateWorkCard extends StatelessWidget {
@@ -25,7 +26,8 @@ class AllEstimateWorkCard extends StatelessWidget {
     final estimate = notifier.estimated.estimatedWorks![index];
    // final estimateCost = estimate.projectBilling!.projectAmount.toString();
     final isImgNull = estimate.uploadedImgs!.length == 0;
-    final headline1 =16.sp;
+     final size = MediaQuery.of(context).size;
+    final headline1 =size.height * FontSize.sixteen;
 
     return Container(
       width: double.infinity,
@@ -59,8 +61,8 @@ class AllEstimateWorkCard extends StatelessWidget {
                   child: MyTextPoppines(
                   text: estimate.projectName!,
                     //text: "",
-                    fontSize: 16.sp,
-                    // fontSize:16.sp,
+                    fontSize: size.height * FontSize.sixteen,
+                    // fontSize:size.height * FontSize.sixteen,
                     fontWeight: FontWeight.w600,
                     maxLines: 6,
                   ),
@@ -196,7 +198,7 @@ class AllEstimateWorkCard extends StatelessWidget {
                         ),
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal:16.sp,
+                        horizontal:size.height * FontSize.sixteen,
                         vertical: height / 100,
                       ),
                       child: MyTextPoppines(

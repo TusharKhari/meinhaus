@@ -5,6 +5,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class OngoingProjectBillCardWidget extends StatelessWidget {
   const OngoingProjectBillCardWidget({
@@ -48,13 +49,14 @@ class ProjectDetailsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final size = MediaQuery.of(context).size;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         10.hs,
         MyTextPoppines(
           text: prefixText,
-          fontSize: 16.sp,
+          fontSize: size.height * FontSize.sixteen,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -63,7 +65,7 @@ class ProjectDetailsRow extends StatelessWidget {
           // width: 260.w,
           child: MyTextPoppines(
             text: suffixText,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w400,
             maxLines: 3,
             height: 1.5,

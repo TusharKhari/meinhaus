@@ -8,7 +8,8 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
- import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
+ import '../../../resources/font_size/font_size.dart';
+import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
 import '../widget/project_info_card.dart';
 
 class AllOngoingProjects extends StatelessWidget {
@@ -21,8 +22,7 @@ class AllOngoingProjects extends StatelessWidget {
   Widget build(BuildContext context) {
     final notifer = context.read<EstimateNotifier>();
     final ongoingProjects = notifer.ongoingProjects.projects!;
-    final height = MediaQuery.of(context).size.height;
-
+  final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: MyAppBar(text: "Ongoing Projects"),
       body: Padding(
@@ -36,7 +36,7 @@ class AllOngoingProjects extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                 child: MyTextPoppines(
                   text: "Here’s the list of all ongoing projects.",
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   // fontSize: height / MyFontSize.font16,
                   fontWeight: FontWeight.w500,
                 ),

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../provider/notifiers/auth_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 import 'address_card.dart';
 
 class SavedAddressesWidget extends StatelessWidget {
@@ -22,7 +23,8 @@ class SavedAddressesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = context.watch<AuthNotifier>();
     final address = userProvider.user.savedAddress;
-   
+       final size  = MediaQuery.of(context).size;
+
     // _defaultAddressIndex
     final addressNotifier = context.watch<AddressNotifier>();
    int defaultAddressIdx = addressNotifier.getDefaultAddressIndex(context);
@@ -38,7 +40,7 @@ class SavedAddressesWidget extends StatelessWidget {
               child: MyTextPoppines(
                 text: "Saved Address",
                 fontWeight: FontWeight.w600,
-                fontSize: 14.sp,
+                fontSize: size.height * FontSize.fourteen,
               ),
             ),
             Visibility(
@@ -110,11 +112,12 @@ class NoAddressFoundWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(16.sp),
+        borderRadius: BorderRadius.circular(size.height * FontSize.sixteen),
         border: Border.all(
           color: AppColors.golden,
         ),
@@ -126,7 +129,7 @@ class NoAddressFoundWidget extends StatelessWidget {
           SizedBox(height: height / 50),
           MyTextPoppines(
             text: "No Saved Address found!",
-            fontSize:16.sp,
+            fontSize:size.height * FontSize.sixteen,
             fontWeight: FontWeight.w600,
             textAlign: TextAlign.center,
           ),

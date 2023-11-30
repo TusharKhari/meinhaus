@@ -7,6 +7,7 @@ import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 
 class OnGoingProjectDetailsStatic extends StatelessWidget {
@@ -16,6 +17,8 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size  = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: MyAppBar(text: "Sample Ongoing Projects"),
       body: SingleChildScrollView(
@@ -50,6 +53,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                     return _buildOnProjectCard(
                         context: context,
                         height: height,
+                        size: size,
                         width: width,
                         projectName: index == 0
                             ? "Bathroom Renewal"
@@ -79,6 +83,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                       context: context,
                       height: height,
                       width: width,
+                      size: size,
                       projectName: "Furniture Fixing")),
             ),
           ],
@@ -92,6 +97,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
     required double height,
     required double width,
     required String projectName,
+    required Size size, 
   }) {
     void onViewEstTapped() async {
       //  showSnakeBarr(context, "No Ongoing Project Available", SnackBarState.Info);
@@ -125,7 +131,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                   //  text: project.projectName ?? "",
                   text: projectName,
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
                 ),
                 Visibility(
@@ -308,7 +314,7 @@ class OnGoingProjectDetailsStatic extends StatelessWidget {
                     child: MyBlueButton(
                       hPadding: 10.w,
                       vPadding: height / 120,
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       text: "View Details",
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/our_services_notifier.dart';
 import '../../../resources/common/buttons/my_bottom_bar_button.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../estimate/screens/estimate_generation_screen.dart';
 
 class OurServiceScreen extends StatelessWidget {
@@ -25,6 +26,7 @@ class OurServiceScreen extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.read<OurServicesNotifier>();
     final services = notifier.services.services![index];
+     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: MyAppBar(text: "Our Services"),
       body: SingleChildScrollView(
@@ -73,7 +75,7 @@ class OurServiceScreen extends StatelessWidget {
                   3.vspacing(context),
                   MyTextPoppines(
                     text: services.description.toString(),
-                    fontSize:16.sp,
+                    fontSize:size.height * FontSize.sixteen,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                     maxLines: 100,

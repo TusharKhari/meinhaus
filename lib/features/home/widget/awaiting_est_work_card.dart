@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'project_img_card_widget.dart';
 
@@ -21,7 +22,7 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final getEstProvider = context.watch<EstimateNotifier>();
     final projectDetails = getEstProvider.estimated.awaitingEstimate![index];
-
+ final size = MediaQuery.of(context).size;
     return Container(
       width: width / 2,
       // height: 400,
@@ -47,7 +48,7 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
                   text:
                       "${projectDetails.title}",
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   maxLines: 2,
                 ),
 
@@ -66,12 +67,14 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
                     children: [
                       MyTextPoppines(
                         text: "Estimate Date :",
-                        fontSize: 11.sp,
+                        fontSize: size.height * FontSize.twelve,
+                        // fontSize: size.height * FontSize.twelve,
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
                         text: projectDetails.createdAt!.substring(0, 10),
-                        fontSize: 11.sp,
+                        fontSize: size.height * FontSize.twelve,
+                        // fontSize: size.height * FontSize.twelve,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
                       ),
@@ -122,7 +125,7 @@ class AwaitingEstimateWorkCard extends StatelessWidget {
                   MyTextPoppines(
                     text: "Photos:",
                     color: AppColors.white,
-                    fontSize: 12.sp,
+                    fontSize: size.height * FontSize.twelve,
                   ),
                   // SizedBox(height: 10),
                   // Project Images

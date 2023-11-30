@@ -7,6 +7,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/download_files/download_file.dart';
 import '../../../utils/utils.dart';
 import 'preview_single_images.dart';
@@ -23,6 +24,8 @@ class SendMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final size  = MediaQuery.of(context).size;
+
     final h = context.screenHeight;
     final w = context.screenWidth;
     final createdAt = message.createdAt.toString();
@@ -57,7 +60,7 @@ class SendMessage extends StatelessWidget {
                 children: [
                   MyTextPoppines(
                     text: "Reason for denying : ",
-                      fontSize:14.sp,
+                      fontSize:size.height * FontSize.fourteen,
                     // fontSize: w / 32,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black,
@@ -66,7 +69,7 @@ class SendMessage extends StatelessWidget {
                   SizedBox(height: h / 200),
                   MyTextPoppines(
                     text: message.message!,
-                     fontSize:14.sp,
+                     fontSize:size.height * FontSize.fourteen,
                     // fontSize: w / 32,
                     fontWeight: FontWeight.w500,
                     color: isConvoEnd! ? AppColors.black : AppColors.white,
@@ -81,10 +84,11 @@ class SendMessage extends StatelessWidget {
               messageType: message.type ?? "text",
               message: message.message ?? "",
               messageColor: isConvoEnd! ? AppColors.black : AppColors.white,
+              size:  size, 
             ),
           MyTextPoppines(
             text: messageTime,
-              fontSize:14.sp,
+              fontSize:size.height * FontSize.fourteen,
             // fontSize: w / 32,
             fontWeight: FontWeight.w500,
             color: isConvoEnd!
@@ -110,13 +114,14 @@ class ChatHelper {
     required String messageType,
     required String message,
     required Color messageColor,
+    required Size size , 
   }) {
     final w = context.screenWidth;
     final textMessage = SizedBox(
       width: w / 1.9,
       child: MyTextPoppines(
         text: message,
-         fontSize:14.sp,
+         fontSize: size.height * FontSize.fourteen,
         // fontSize: w / 32,
         fontWeight: FontWeight.w500,
         color: messageColor,

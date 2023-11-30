@@ -13,6 +13,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../data/models/ongoing_project_model.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 import 'ongoing_project_details_screen.dart';
 
 class MultipleProjectServicesScreen extends StatelessWidget {
@@ -102,7 +103,8 @@ class _MainCard extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final projectCost = project.projectCost;
     final isImgNull = project.projectImages!.length == 0;
-    final headline1 = width / 30;
+         final size  = MediaQuery.of(context).size;
+
 
     return Container(
       width: double.infinity,
@@ -147,7 +149,7 @@ class _MainCard extends StatelessWidget {
                     2.vspacing(context),
                     MyTextPoppines(
                       text: "( Include ${project.services!.length} Services)",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       // fontSize: width / 38,
                       fontWeight: FontWeight.w500,
                       color: AppColors.black.withOpacity(0.4),
@@ -170,7 +172,7 @@ class _MainCard extends StatelessWidget {
                       1.vspacing(context),
                       MyTextPoppines(
                         text: "Total Project Cost",
-                        fontSize: 14.sp,
+                        fontSize: size.height * FontSize.fourteen,
                         textAlign: TextAlign.center,
                         // fontSize: width / 36,
                         fontWeight: FontWeight.w500,
@@ -183,7 +185,7 @@ class _MainCard extends StatelessWidget {
                       ),
                       MyTextPoppines(
                         text: "\$${projectCost}",
-                        fontSize:14.sp,
+                        fontSize:size.height * FontSize.fourteen,
                         // fontSize: width / 36,
                         fontWeight: FontWeight.bold,
                         color: AppColors.golden,
@@ -207,14 +209,14 @@ class _MainCard extends StatelessWidget {
                   children: [
                     MyTextPoppines(
                       text: "Booking ID :",
-                      fontSize: 15.sp,
+                      fontSize: size.height * FontSize.fifteen,
                       // fontSize: headline1,
                       fontWeight: FontWeight.w600,
                     ),
                     5.hspacing(context),
                     MyTextPoppines(
                       text: project.estimateNo.toString(),
-                      fontSize: 15.sp,
+                      fontSize: size.height * FontSize.fifteen,
                       // fontSize: headline1,
                       fontWeight: FontWeight.w600,
                       color: AppColors.black.withOpacity(0.6),
@@ -227,17 +229,18 @@ class _MainCard extends StatelessWidget {
                   children: [
                     MyTextPoppines(
                       text: "Description :",
-                      fontSize: 15.sp,
+                      fontSize: size.height * FontSize.fifteen,
+                      // fontSize: size.height * FontSize.fifteen,
                       // fontSize: headline1,
                       fontWeight: FontWeight.w600,
                     ),
                     5.hspacing(context),
                     SizedBox(
-                     // width: width / 1.7,
-                     width: 200.w,
+                     width: width / 1.7,
+                    // width: 200.w,
                       child: MyTextPoppines(
                         text:  project.description  ?? "No Description",
-                        fontSize:14.sp,
+                        fontSize:size.height * FontSize.fourteen,
                         // fontSize: width / 40,
                         fontWeight: FontWeight.w500,
                         color: AppColors.black.withOpacity(0.4),
@@ -251,7 +254,7 @@ class _MainCard extends StatelessWidget {
                 // Photos
                 MyTextPoppines(
                   text: "Photos",
-                  fontSize: 15.sp,
+                  fontSize: size.height * FontSize.fifteen,
                   // fontSize: headline1,
                   fontWeight: FontWeight.w600,
                   color: AppColors.black.withOpacity(0.8),
@@ -260,7 +263,7 @@ class _MainCard extends StatelessWidget {
                 isImgNull
                     ? MyTextPoppines(
                         text: "     No Img uploaded yet",
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                         // fontSize: headline1,
                         fontWeight: FontWeight.w600,
                         color: AppColors.buttonBlue.withOpacity(0.8),
@@ -324,9 +327,10 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final size = MediaQuery.of(context).size;
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-    final headline1 =16.sp;
+    final headline1 =size.height * FontSize.sixteen;
     final service = this.service;
     final projectId = service.projectId.toString();
     final proId = service.proId.toString();
@@ -366,7 +370,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
             ),
             child: MyTextPoppines(
               text: service.serviceName.toString(),
-              fontSize:16.sp,
+              fontSize:size.height * FontSize.sixteen,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -486,7 +490,7 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                             ),
                           ),
                           padding: EdgeInsets.symmetric(
-                            horizontal:16.sp,
+                            horizontal:size.height * FontSize.sixteen,
                             vertical: height / 100,
                           ),
                           child: MyTextPoppines(

@@ -9,6 +9,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 
 class OngoingWorkCardStatic extends StatelessWidget {
@@ -22,12 +23,15 @@ class OngoingWorkCardStatic extends StatelessWidget {
   Widget build(BuildContext context) {
      final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size  = MediaQuery.of(context).size;
+
     return SizedBox(
      height:  height / 2.90,
       child: _buildOnProjectCard(
         context: context,
         height: height, 
-        width: width
+        width: width, 
+        size: size, 
       ),
     );
   }
@@ -36,6 +40,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
     required BuildContext context,
     required double height, 
     required double width, 
+    required Size size, 
   }) {
     void onViewEstTapped() async {
       // isMultiProjects
@@ -84,7 +89,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                 //  text: project.projectName ?? "",
                 text:  "Kitchen Repairing",
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
                 ),
                 Visibility(
@@ -267,7 +272,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                     child: MyBlueButton(
                        hPadding: 10.w,
                     vPadding: height / 120,
-                     fontSize:14.sp,
+                     fontSize:size.height * FontSize.fourteen,
                       text: "View Project", 
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,

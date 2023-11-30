@@ -9,6 +9,8 @@ import 'package:new_user_side/features/home/screens/home_screen.dart';
 import 'package:new_user_side/features/splash/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
   @override
@@ -81,7 +83,7 @@ class _IntroScreenState extends State<IntroScreen>
   @override
   Widget build(BuildContext context) {
     final Duration duration = const Duration(milliseconds: 2000);
-    final bool opacityValue = _opacityAnimation.value == 0;
+    final bool opacityValue = _opacityAnimation.value == 0; final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
@@ -112,7 +114,7 @@ class _IntroScreenState extends State<IntroScreen>
                 child: MyTextPoppines(
                   text:
                       "#1 Fastest & Safest way of performing any renovation or repair",
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                 ),

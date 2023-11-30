@@ -13,6 +13,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../utils/extensions/validator.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class EditPasswordScreen extends StatefulWidget {
   static const String routeName = '/editPassword';
@@ -64,6 +65,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
   Widget build(BuildContext context) {
     final notifier = context.watch<EditProfileNotifier>();
     final height = context.screenHeight;
+        final size  = MediaQuery.of(context).size;
+
     return ModalProgressHUD(
       //inAsyncCall: isWaiting,
       inAsyncCall: notifier.loading,
@@ -77,7 +80,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 MyTextPoppines(
                   text:
                       "Your new password must be different from previously used ones.",
-                  fontSize: height > 800 ? 14.sp : 16.sp,
+                  fontSize: height > 800 ? size.height * FontSize.fourteen : size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w600,
                   height: height > 700 ? 1.2 : 1.4,
                 ),
@@ -134,7 +137,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 const Divider(thickness: 1.0),
                 20.vs,
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -156,18 +159,16 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                               text: "Discard",
                               fontWeight: FontWeight.w500,
                               fontSize: 18.sp,
-                              // fontSize: height > 800 ? 14.sp : 16.sp,
                               color: AppColors.grey,
                             ),
                           ),
                         ),
                       ),
-                      MyBlueButton(
-                        hPadding: height > 600 ? 55.w : 65.w,
-                        vPadding: height > 600 ? 15.h : 28.h,
+                      MyBlueButton( 
+                        hPadding: 42.w,
+                        vPadding: 15.h,
                         fontSize: 18.sp,
-                        // fontSize: height > 800 ? 14.sp : 16.sp,
-                        text: "Save",
+                        text: " Save  ",
                         onTap: () => _editPasswordHandler(),
                       )
                     ],

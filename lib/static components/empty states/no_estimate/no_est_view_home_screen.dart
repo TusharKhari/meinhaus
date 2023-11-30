@@ -7,6 +7,8 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 class NoEstViewHomeScreenWidget extends StatelessWidget {
   final String text;
   const NoEstViewHomeScreenWidget({
@@ -18,6 +20,8 @@ class NoEstViewHomeScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size = MediaQuery.of(context).size;
+
     return Stack(
       children: [
         Container(
@@ -45,7 +49,7 @@ class NoEstViewHomeScreenWidget extends StatelessWidget {
               children: [
                 MyTextPoppines(
                   text: text,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w500,
                   maxLines: 5,
                   textAlign: TextAlign.start,

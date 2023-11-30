@@ -5,6 +5,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../estimate/screens/estimate_generation_screen.dart';
 
 class HomeOfferBannerOld extends StatelessWidget {
@@ -16,6 +17,7 @@ class HomeOfferBannerOld extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     BorderRadius borderRadius = BorderRadius.circular(24.r);
+     final size = MediaQuery.of(context).size;
     Border border = Border.all(
       width: 1.2,
       color: AppColors.grey.withOpacity(0.2),
@@ -62,7 +64,7 @@ class HomeOfferBannerOld extends StatelessWidget {
                   width: 200.w,
                   child: MyTextPoppines(
                     text: "Tap on banner to see more in details.",
-                    fontSize: 12.sp,
+                    fontSize: size.height * FontSize.twelve,
                     //fontSize:
                     //  height > 800
                     //     ? height / MyFontSize.font10
@@ -89,7 +91,7 @@ class HomeOfferBannerOld extends StatelessWidget {
                     child: Center(
                       child: MyTextPoppines(
                         text: "View Details",
-                        fontSize: 14.sp,
+                        fontSize: size.height * FontSize.fourteen,
                         // fontSize: height / MyFontSize.font12,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
@@ -225,7 +227,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                     TextSpan(
                       text: "Try our 3D image generator AI \n",
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: size.height * FontSize.twelve,
                         // fontWeight: FontWeight.w600,
                         color: AppColors.buttonBlue,
                       ),

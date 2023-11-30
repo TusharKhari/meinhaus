@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/cached_network_img_error_widget.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/extensions/full_screen_image_view.dart';
 
 class OngoingProjectPhotoCardWidget extends StatelessWidget {
@@ -19,7 +20,8 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;
-    final EdgeInsets paddingH15 = EdgeInsets.symmetric(horizontal: 16.sp);
+     final size = MediaQuery.of(context).size;
+    final EdgeInsets paddingH15 = EdgeInsets.symmetric(horizontal: size.height * FontSize.sixteen);
 
     return Padding(
       padding: paddingH15,
@@ -29,7 +31,7 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
           MyTextPoppines(
             text: "Project Photos :",
             fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
           ),
           20.vs,
           Container(

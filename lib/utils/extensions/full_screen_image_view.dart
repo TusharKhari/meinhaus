@@ -8,6 +8,8 @@ import 'package:new_user_side/resources/common/cached_network_img_error_widget.d
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 
+import '../../resources/font_size/font_size.dart';
+
 class FullScreenImageView extends StatefulWidget {
   final List images;
   final int currentIndex;
@@ -33,6 +35,8 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
 
   @override
   Widget build(BuildContext context) {
+    final size  = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -87,7 +91,7 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 4.h),
         child: MyTextPoppines(
           text: "${activeIndex + 1}/${widget.images.length}",
-          fontSize: 15.sp,
+          fontSize: size.height * FontSize.fifteen,
           color: AppColors.white,
           height: 1.6,
           fontWeight: FontWeight.w600,

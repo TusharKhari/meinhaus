@@ -1,0 +1,30 @@
+class FontSize {
+  static double eight = 0.0094;  // d
+  // static double eight = 8.0;
+  static double ten = 0.012;
+  // static double ten = 10.0;
+  static double eleven = 0.013;   // not used
+  // static double eleven = 11.0;   // not used
+  static double twelve = 0.014;    // d
+  // static double twelve = 12.0;
+  static double thirteen = 0.015; // d
+  // static double thirteen = 13.0;
+  static double fourteen = 0.0167;  // d
+  // static double fourteen = 14.0;
+  static double fifteen = 0.0177;   // d
+  // static double fifteen = 15.0;
+  static double sixteen = 0.019;   // d
+  // static double sixteen = 16.0;
+  static double seventeen = 17.0;
+  static double eighteen = 18.0;
+  static double nineteen = 19.0;
+  static double twenty = 20.0;
+  static double twentyOne = 21.0;
+  static double twentyTwo = 22.0;
+  static double twentyThree = 23.0;
+  static double twentyFour = 0.03;   // d
+  // static double twentyFour = 24.0;
+  static double twentyFive = 25.0;
+  static double twentyNine = 29.0;
+  static double fortyEight = 48.0;
+}

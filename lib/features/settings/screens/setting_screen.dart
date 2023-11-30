@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../resources/common/my_snake_bar.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../edit profile/screens/edit_password_scree.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -44,7 +45,7 @@ class SettingCardWidget extends StatelessWidget {
     final notifier = context.read<AuthNotifier>();
     final user = notifier.user;
     final bool isSocialLogin = user.isSocialLogin!;
-
+ final size = MediaQuery.of(context).size;
      Future<void> _launchInBrowserView(Uri url) async {
     if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
       throw Exception('Could not launch $url');
@@ -107,7 +108,7 @@ class SettingCardWidget extends StatelessWidget {
                     children: [
                       MyTextPoppines(
                         text: list[1],
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w600,
                       ),
                       8.vs,

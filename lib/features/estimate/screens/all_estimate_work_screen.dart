@@ -5,10 +5,10 @@ import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
-import 'package:provider/provider.dart';
+ import 'package:provider/provider.dart';
 
- import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
+ import '../../../resources/font_size/font_size.dart';
+import '../../../static components/empty states/screens/empty_projects_state_widget.dart';
 import '../widget/all_estimate_work_card.dart';
 
 class AllEstimatedWorkScreen extends StatelessWidget {
@@ -21,7 +21,8 @@ class AllEstimatedWorkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.read<EstimateNotifier>();
-    final estimate = notifier.estimated.estimatedWorks!; 
+    final estimate = notifier.estimated.estimatedWorks!;
+     final size = MediaQuery.of(context).size; 
     return Scaffold(
       appBar: MyAppBar(text: "Estimated Works"),
       body: Padding(
@@ -35,7 +36,7 @@ class AllEstimatedWorkScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                 child: MyTextPoppines(
                   text: "Here’s the list of all estimates.",
-                  fontSize: 16.sp, 
+                  fontSize: size.height * FontSize.sixteen, 
                   // fontSize: height / MyFontSize.font16,
                   fontWeight: FontWeight.w500,
                 ),

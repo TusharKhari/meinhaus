@@ -5,6 +5,8 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 class MyTextField extends StatefulWidget {
   final String text;
   final bool? isSuffix;
@@ -40,8 +42,8 @@ class MyTextField extends StatefulWidget {
 class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+    final height = MediaQuery.sizeOf(context).height; 
+     final size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: widget.isHs20! ? 25.w : 0.w,
@@ -53,7 +55,7 @@ class _MyTextFieldState extends State<MyTextField> {
           MyTextPoppines(
             text: " ${widget.text}",
             fontWeight: widget.headingFontWeight ?? FontWeight.w600,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             maxLines: 1,
           ),
           3.vspacing(context),
@@ -71,7 +73,7 @@ class _MyTextFieldState extends State<MyTextField> {
                 filled: true,
                 fillColor: const Color.fromARGB(194, 240, 240, 240),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16.sp,
+                  horizontal: size.height * FontSize.sixteen,
                   vertical: widget.isSuffix!
                       ? 14.h
                       : widget.maxLines == 1
@@ -113,14 +115,14 @@ class _MyTextFieldState extends State<MyTextField> {
                 hintText: widget.hintText,
                 hintStyle: GoogleFonts.poppins(
                   color: AppColors.black.withOpacity(0.5),
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w500,
                   height: 1.5,
                 ),
               ),
               style: GoogleFonts.poppins(
                 color: AppColors.black,
-                fontSize: 15.sp,
+                fontSize: size.height * FontSize.fifteen,
                 fontWeight: FontWeight.w400,
                 height: 1.5,
               ),

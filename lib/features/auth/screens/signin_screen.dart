@@ -12,6 +12,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/extensions/validator.dart';
 import 'dart:io' show Platform;
 
@@ -72,6 +73,8 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<AuthNotifier>(); 
+        final size  = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -111,7 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
                 child: MyTextPoppines(
                   text: "Forget Password ?",
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   color: AppColors.textBlue,
                   fontWeight: FontWeight.w600,
                 ),
@@ -134,7 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 MyTextPoppines(
                   text: "Don't have an account ?",
-                  fontSize: 14.sp,
+                  fontSize: size.height * FontSize.fourteen,
                   color: AppColors.black.withOpacity(0.7),
                 ),
                 10.hs,
@@ -143,7 +146,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       context, SignUpStepFirstScreen.routeName),
                   child: MyTextPoppines(
                     text: "Sign up",
-                    fontSize: 14.sp,
+                    fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textBlue,
                   ),

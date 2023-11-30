@@ -12,6 +12,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/extensions/validator.dart';
 import '../widgets/social_login_widget.dart';
 
@@ -60,6 +61,8 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
     final notifer = context.watch<AuthNotifier>();
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+        final size  = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Column(
         children: [
@@ -75,7 +78,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                     alignment: Alignment.bottomRight,
                     child: MyTextPoppines(
                       text: "Step 1     ",
-                      fontSize: 16.sp,
+                      fontSize: size.height * FontSize.sixteen,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -121,7 +124,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                     children: [
                       MyTextPoppines(
                         text: "Already have an account ?",
-                        fontSize: 14.sp,
+                        fontSize: size.height * FontSize.fourteen,
                         color: AppColors.black.withOpacity(0.7),
                       ),
                       SizedBox(width: width / 40),
@@ -130,7 +133,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                             context, SignInScreen.routeName),
                         child: MyTextPoppines(
                           text: "Sign In",
-                          fontSize: 16.sp,
+                          fontSize: size.height * FontSize.sixteen,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textBlue,
                         ),

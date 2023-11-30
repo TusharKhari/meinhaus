@@ -9,6 +9,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../widgets/phone_number_textfield.dart';
 
@@ -43,6 +44,7 @@ class _AddPhoneNumberScreenState extends State<AddPhoneNumberScreen> {
       final authNotifier = context.watch<AuthNotifier>();
     final h = context.screenHeight;
     final w = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: MyAppBar(text: "Add Mobile No"),
@@ -57,7 +59,7 @@ class _AddPhoneNumberScreenState extends State<AddPhoneNumberScreen> {
                   SizedBox(height: h / 30),
                   MyTextPoppines(
                     text: "Please Enter the registered number to continue.",
-                    fontSize: 16.sp,
+                    fontSize: size.height * FontSize.sixteen,
                     // fontSize: w / 19,
                     fontWeight: FontWeight.w600,
                   ),

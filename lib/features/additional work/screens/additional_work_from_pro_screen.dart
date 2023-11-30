@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../estimate/widget/download_pdf_card_widget.dart';
 import '../widget/additional_work_pro_provide_card_widget.dart';
 
@@ -25,6 +26,7 @@ class AdditionalWorkProProvideScreen extends StatelessWidget {
     final estimateNotifier = context.watch<EstimateNotifier>();
     final additionalWork = additionalNotifier.additionalWork.additionalWork!;
     final projectDetails = estimateNotifier.projectDetails.services!;
+     final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
       inAsyncCall: additionalNotifier.loading,
       child: Scaffold(
@@ -54,7 +56,7 @@ class AdditionalWorkProProvideScreen extends StatelessWidget {
                         text:
                             "This is for adding to the scope of work that your current pro can provide.",
                         fontWeight: FontWeight.w500,
-                        fontSize: 16.sp,
+                        fontSize: size.height * FontSize.sixteen,
                       ),
                       5.vspacing(context),
                       ListView.builder(

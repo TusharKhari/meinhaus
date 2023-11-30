@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
+
+import '../../../resources/font_size/font_size.dart';
 
 class DownloadPdfCard extends StatelessWidget {
   final String workName;
@@ -19,9 +20,9 @@ class DownloadPdfCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final h = context.screenHeight;
     final w = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: w / 28, vertical: h / 85),
       color: AppColors.black,
@@ -38,14 +39,14 @@ class DownloadPdfCard extends StatelessWidget {
                         width: w / 1.1,
                         child: MyTextPoppines(
                           text: workName,
-                          fontSize: 16.sp,
+                          fontSize: size.height * FontSize.sixteen,
                           color: AppColors.white,
                         ),
                       ),
                       3.vs,
                       MyTextPoppines(
                         text: projectId!,
-                       fontSize: 12.sp,
+                       fontSize: size.height * FontSize.twelve,
                         // fontSize: height / MyFontSize.font11,
                         color: AppColors.yellow,
                         fontWeight: FontWeight.w600,
@@ -56,7 +57,7 @@ class DownloadPdfCard extends StatelessWidget {
                     width: w / 1.1,
                     child: MyTextPoppines(
                       text: workName,
-                      fontSize: 16.sp,
+                      fontSize: size.height * FontSize.sixteen,
                       color: AppColors.white,
                     ),
                   ),

@@ -10,6 +10,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/progress_invoice_model.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class ProgressInvoiceScreen extends StatelessWidget {
   static const String routeName = '/progess-invoice';
@@ -28,7 +29,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
     final billTo = invoice?.billTo!.address!;
     final totalDueAmount = invoice?.amountToBePaid!.totalAmountDue!.split(".");
     final bool amountPaid = totalDueAmount?[0] == "0";
-
+ final size = MediaQuery.of(context).size;
     return !notifier.loading
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
@@ -75,7 +76,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                         "Project Number : ${invoice?.bookingId}",
                                         // "Estimate Number : ${invoice?.bookingId}",
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
@@ -84,7 +85,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                         "Project Date : ${invoice!.createdAt}",
                                         // "Estimate Date : ${invoice!.createdAt}",
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
@@ -92,7 +93,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                     text:
                                         "Grand Total (CAD) : \$${invoice.totalAmount}",
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
@@ -115,7 +116,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                   MyTextPoppines(
                                     text: billFrom!.address1.toString(),
                                    fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                   ),
                                   1.vspacing(context),
@@ -123,21 +124,21 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                     text:
                                         "${billFrom.city}, ${billFrom.province} ${billFrom.postalCode}",
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: billFrom.country.toString(),
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: "+${billFrom.phone}",
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
@@ -145,7 +146,7 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                   MyTextPoppines(
                                     text: billFrom.website.toString(),
                                     fontSize:18.sp,
-                                    // fontSize:16.sp,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                     color: AppColors.textBlue,
@@ -168,8 +169,8 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                   ),
                                   MyTextPoppines(
                                     text: invoice.billTo!.name.toString(),
-                                   fontSize:16.sp,
-                                    // fontSize: 16.sp,
+                                   fontSize:size.height * FontSize.sixteen,
+                                    // fontSize: size.height * FontSize.sixteen,
                                     height: 1.5,
                                     fontWeight: FontWeight.w600,
                                     textAlign: TextAlign.end,
@@ -177,48 +178,48 @@ class ProgressInvoiceScreen extends StatelessWidget {
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: billTo!.address1.toString().trim(),
-                                   fontSize:16.sp,
-                                    // fontSize:16.sp,
+                                   fontSize:size.height * FontSize.sixteen,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: billTo.address2.toString().trim(),
-                                   fontSize:16.sp,
-                                    // fontSize:16.sp,
+                                   fontSize:size.height * FontSize.sixteen,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: billTo.city.toString(),
-                                  fontSize:16.sp,
-                                    // fontSize:16.sp,
+                                  fontSize:size.height * FontSize.sixteen,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: "${billTo.state}, ${billTo.country}",
-                                  fontSize:16.sp,
-                                    // fontSize:16.sp,
+                                  fontSize:size.height * FontSize.sixteen,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: invoice.billTo!.phone.toString(),
-                                   fontSize:16.sp,
-                                    // fontSize:16.sp,
+                                   fontSize:size.height * FontSize.sixteen,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
                                   1.vspacing(context),
                                   MyTextPoppines(
                                     text: invoice.billTo!.email.toString(),
-                                    fontSize:16.sp,
-                                    // fontSize:16.sp,
+                                    fontSize:size.height * FontSize.sixteen,
+                                    // fontSize:size.height * FontSize.sixteen,
                                     height: 1.5,
                                     textAlign: TextAlign.start,
                                   ),
@@ -277,6 +278,7 @@ class _ShowTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     final notifier = context.watch<EstimateNotifier>().progressInvoiceModel;
     final invoice = notifier.data!;
+     final size = MediaQuery.of(context).size;
     return Table(
       border: TableBorder.all(),
       columnWidths: {
@@ -294,28 +296,28 @@ class _ShowTableView extends StatelessWidget {
           "Project Cost",
           "Due",
         ]),
-        for (var service in invoice.services!) _buildRow(service, invoice),
+        for (var service in invoice.services!) _buildRow(service, invoice, size),
       ],
     );
   }
 
-  TableRow _buildRow(Services service, Data invoice) => TableRow(
+  TableRow _buildRow(Services service, Data invoice, Size size) => TableRow(
         children: [
-          buildCell(service.serviceName ?? "", isBold: true),
-          buildCell(service.description ?? ""),
+          buildCell(service.serviceName ?? "",size,  isBold: true),
+          buildCell(service.description ?? "", size),
           buildCell(
-              "\$${invoice.invoiceSummary!.totalAmountPaid!}"),
-           buildCell("\$${invoice.totalAmount!}"),
-           buildCell("\$${service.amountToPay!}"),
+              "\$${invoice.invoiceSummary!.totalAmountPaid!}", size),
+           buildCell("\$${invoice.totalAmount!}", size),
+           buildCell("\$${service.amountToPay!}", size),
         ],
       );
 
-  Widget buildCell(String value, {bool isBold = false}) {
+  Widget buildCell(String value,Size size,  {bool isBold = false}) {
     return Padding(
       padding: const EdgeInsets.only(left: 6, top: 4, bottom: 4),
       child: MyTextPoppines(
         text: value,
-        fontSize: 12.sp,
+        fontSize: size.height * FontSize.twelve,
         fontWeight: isBold ? FontWeight.w700 : FontWeight.w500,
         textAlign: TextAlign.start,
         maxLines: 100,
@@ -331,7 +333,7 @@ class _ShowTableView extends StatelessWidget {
             color: AppColors.golden,
             child: MyTextPoppines(
               text: cell,
-              fontSize: 11.sp,
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.black,
             ),
@@ -346,6 +348,7 @@ class _ShowInvoiceSummary extends StatelessWidget {
     final notifier = context.read<EstimateNotifier>().progressInvoiceModel;
     final invoice = notifier.data!.invoiceSummary!;
     final width = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     return SizedBox(
       width: width / 1.15,
       child: Column(
@@ -353,7 +356,7 @@ class _ShowInvoiceSummary extends StatelessWidget {
         children: [
           MyTextPoppines(
             text: "Invoice Summary",
-           fontSize:16.sp,
+           fontSize:size.height * FontSize.sixteen,
             // fontSize: width / 33,
             fontWeight: FontWeight.w700,
           ),
@@ -397,17 +400,18 @@ class _ShowInvoiceSummary extends StatelessWidget {
     required String heading,
     required String amount,
   }) {
+     final size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MyTextPoppines(
           text: heading,
-         fontSize:16.sp,
+         fontSize:size.height * FontSize.sixteen,
           // fontSize: context.screenWidth / 35,
         ),
         MyTextPoppines(
           text: "\$$amount",
-        fontSize:16.sp,
+        fontSize:size.height * FontSize.sixteen,
           // fontSize: context.screenWidth / 35,
         ),
       ],
@@ -421,6 +425,7 @@ class _ShowAmountToPaid extends StatelessWidget {
     final notifier = context.read<EstimateNotifier>().progressInvoiceModel;
     final invoice = notifier.data!.amountToBePaid!;
     final width = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     return SizedBox(
       width: width / 1.15,
       child: Column(
@@ -428,8 +433,8 @@ class _ShowAmountToPaid extends StatelessWidget {
         children: [
           MyTextPoppines(
             text: "Amount to be Paid",
-            fontSize:16.sp,
-            // fontSize: 16.sp,
+            fontSize:size.height * FontSize.sixteen,
+            // fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w700,
           ),
           Divider(thickness: 1.0),
@@ -460,17 +465,18 @@ class _ShowAmountToPaid extends StatelessWidget {
     required String heading,
     required String amount,
   }) {
+     final size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MyTextPoppines(
           text: heading,
-          fontSize:16.sp,
+          fontSize:size.height * FontSize.sixteen,
           // fontSize: context.screenWidth / 35,
         ),
         MyTextPoppines(
           text: "\$$amount",
-        fontSize:16.sp,
+        fontSize:size.height * FontSize.sixteen,
           // fontSize: context.screenWidth / 35,
         ),
       ],

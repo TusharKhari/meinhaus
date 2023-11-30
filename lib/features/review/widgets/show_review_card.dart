@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
+import '../../../resources/font_size/font_size.dart';
 
 // ShowNoReview(),
 class ShowReviewCard extends StatelessWidget {
@@ -20,6 +21,7 @@ class ShowReviewCard extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final review = notifier.projectDetails.services!.reviews!;
+     final size = MediaQuery.of(context).size;
     return review.isEmpty
         ? ShowNoReview()
         : Container(
@@ -90,7 +92,7 @@ class ShowReviewCard extends StatelessWidget {
                 8.vspacing(context),
                 MyTextPoppines(
                   text: review[0].review.toString(),
-                  fontSize:16.sp,
+                  fontSize:size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w500,
                   color: AppColors.grey,
                   maxLines: 5,
@@ -124,6 +126,7 @@ class ShowReviewCard extends StatelessWidget {
   }) {
     final width = context.screenWidth;
     final height = context.screenHeight;
+     final size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: width / 25,
@@ -134,7 +137,7 @@ class ShowReviewCard extends StatelessWidget {
         children: [
           MyTextPoppines(
             text: title,
-            fontSize:16.sp,
+            fontSize:size.height * FontSize.sixteen,
             fontWeight: FontWeight.w500,
           ),
           _buildRatingBar(width: width, rating: rating),
@@ -192,6 +195,7 @@ class ShowNoReview extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: height / 70),
       child: Row(
@@ -208,7 +212,7 @@ class ShowNoReview extends StatelessWidget {
             ),
             child: MyTextPoppines(
               text: "No review yet, Add a review.",
-              fontSize: 16.sp,
+              fontSize: size.height * FontSize.sixteen,
               color: AppColors.black.withOpacity(0.5),
             ),
           ),
@@ -217,7 +221,7 @@ class ShowNoReview extends StatelessWidget {
             text: "Write a review",
             vPadding: height / 80,
             fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             onTap: () {
               showDialog(
                 context: context,

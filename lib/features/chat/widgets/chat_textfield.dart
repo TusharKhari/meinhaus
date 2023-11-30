@@ -14,6 +14,8 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/extensions/get_images.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 class ChatTextField extends StatefulWidget {
   const ChatTextField({
     Key? key,
@@ -45,7 +47,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
     );
   }
   Future<void> selectImgFromCamera(BuildContext context) async {
-    final notifier = context.read<ChatNotifier>();
+     final notifier = context.read<ChatNotifier>();
     await getImage.pickImageFromCamera<ChatNotifier>(context: context);
     Navigator.pop(context);
     final imgPath = await notifier.image.path;
@@ -97,6 +99,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
     final notifier = context.watch<ChatNotifier>();
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       height: height / 9,
@@ -136,7 +139,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
 
                   hintText: "write a Massage ",
                   hintStyle: TextStyle(
-                    fontSize:16.sp,
+                    fontSize:size.height * FontSize.sixteen,
                     color: AppColors.black.withOpacity(0.4),
                   ),
                   // show attachment options

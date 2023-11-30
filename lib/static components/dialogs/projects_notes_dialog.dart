@@ -14,6 +14,7 @@ import 'package:new_user_side/utils/extensions/get_images.dart';
 import 'package:new_user_side/utils/extensions/validator.dart';
 import 'package:provider/provider.dart';
 
+import '../../resources/font_size/font_size.dart';
 import '../../utils/extensions/show_picked_images.dart';
 import '../../utils/utils.dart';
 
@@ -81,8 +82,9 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
   Widget build(BuildContext context) {
     final notifer = context.watch<SavedNotesNotifier>();
     final height = context.screenHeight;
+    final size = MediaQuery.of(context).size;
+
     return Dialog(
-      
       backgroundColor: Colors.white,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -102,10 +104,10 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       children: [
                         MyTextPoppines(
                           text: "Project Notes",
-                          fontSize: 15.sp,
+                          fontSize: size.height * FontSize.fifteen,
                           fontWeight: FontWeight.w500,
                         ),
-                        10.hs, 
+                        10.hs,
                         SvgPicture.asset(
                           "assets/project_detail/project_notes.svg",
                           height: height * 0.02,
@@ -122,7 +124,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                         backgroundColor: AppColors.textBlue.withOpacity(0.15),
                         child: Icon(
                           CupertinoIcons.xmark,
-                          size: 14.sp,
+                          size: size.height * FontSize.fourteen,
                           color: AppColors.black,
                         ),
                       ),
@@ -177,7 +179,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                             Text(
                               "Saved Notes",
                               style: GoogleFonts.poppins(
-                                fontSize: 14.sp,
+                                fontSize: size.height * FontSize.fourteen,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
                                 color: AppColors.textBlue1E9BD0,
@@ -198,7 +200,7 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                         child: _Button(
                           buttonText: "Select File",
                           iconData: Icons.attach_file,
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           vPadding: 3.h,
                           iconSize: 18.sp,
                         ),
@@ -219,10 +221,10 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       child: _Button(
                         buttonText: "Save For Me Only",
                         iconData: Icons.bookmark,
-                        fontSize: 11.sp,
+                        fontSize: size.height * FontSize.twelve,
                         // fontSize: height > 800 ? 8.sp : 10.sp,
                         vPadding: 10.h,
-                        iconSize: height > 800 ? 14.sp : 16.sp,
+                        iconSize: height > 800 ? size.height * FontSize.fourteen : size.height * FontSize.sixteen,
                       ),
                     ),
                     InkWell(
@@ -230,10 +232,10 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                       child: _Button(
                         buttonText: "Save For Me & Pro",
                         iconData: Icons.bookmark,
-                        fontSize: 11.sp,
+                        fontSize: size.height * FontSize.twelve,
                         // fontSize: height > 800 ? 8.sp : 10.sp,
                         vPadding: 10.h,
-                        iconSize: height > 800 ? 14.sp : 16.sp,
+                        iconSize: height > 800 ? size.height * FontSize.fourteen : size.height * FontSize.sixteen,
                         isBorder: false,
                       ),
                     ),

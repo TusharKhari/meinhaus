@@ -6,6 +6,7 @@ import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/provider/notifiers/address_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
+import 'package:new_user_side/resources/font_size/font_size.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../resources/common/my_snake_bar.dart';
@@ -60,6 +61,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   Widget build(BuildContext context) {
     final addressNotifier = context.watch<AddressNotifier>();
     final w = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
       inAsyncCall: addressNotifier.loading,
       child: Scaffold(
@@ -115,19 +117,32 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           ],
         ),
         bottomSheet: Padding(
-          padding: EdgeInsets.only(left: 40.w, bottom: 10.h),
+          padding: EdgeInsets.only(bottom: w * 0.01, left: w * 0.01, right:  w * 0.01),
           child: addressNotifier.addAddressType.isNotEmpty &&
                   addressNotifier.addAddressType != "Address Type"
-              ? MyBlueButton(
-                  hPadding: 110.w,
-                  text: "Add Address",
-                  onTap: () {
-                    selectedAddres.isNotEmpty
-                        ? _addAddressHandler()
-                        : showSnakeBar(
-                            context, "Please Select an Address First");
-                  },
-                )
+              ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // SizedBox(), 
+                  Container(
+
+                    child: Text("  Type : ${addressNotifier.addAddressType}", style: TextStyle(
+                      fontSize: size.height * FontSize.fourteen, 
+                      // fontSize: size.height * FontSize.fourteen, 
+                    ),),
+                  ), 
+                  MyBlueButton(
+                      hPadding: w * 0.1,
+                      text: "Add Address",
+                      onTap: () {
+                        selectedAddres.isNotEmpty
+                            ? _addAddressHandler()
+                            : showSnakeBar(
+                                context, "Please Select an Address First");
+                      },
+                    ),
+                ],
+              )
               : Container(
                   height: 70,
                   // width: 160,

@@ -7,6 +7,7 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class IconButtonWithText extends StatelessWidget {
   final String text;
@@ -35,7 +36,7 @@ class IconButtonWithText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
+ final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -65,7 +66,7 @@ class IconButtonWithText extends StatelessWidget {
                     child: Icon(
                       CupertinoIcons.xmark,
                       color: textColor,
-                      size: 12.sp,
+                      size: size.height * FontSize.twelve,
                     ),
                   )
                 : SizedBox(
@@ -87,8 +88,8 @@ class IconButtonWithText extends StatelessWidget {
             MyTextPoppines(
               text: text,
               color: textColor,
-              fontSize: 16.sp,
-              // fontSize: 14.sp,
+              fontSize: size.height * FontSize.sixteen,
+              // fontSize: size.height * FontSize.fourteen,
               fontWeight: FontWeight.w600,
             ),
           ],

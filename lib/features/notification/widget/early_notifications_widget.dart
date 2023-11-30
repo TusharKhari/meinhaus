@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import '../../../resources/font_size/font_size.dart';
 import 'notification_card_widget.dart';
 
 class EarlyNotificationWidget extends StatelessWidget {
@@ -9,6 +10,7 @@ class EarlyNotificationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -16,7 +18,7 @@ class EarlyNotificationWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
           child: MyTextPoppines(
             text: "EARLIER",
-            fontSize: 12.sp,
+            fontSize: size.height * FontSize.twelve,
             fontWeight: FontWeight.w500,
           ),
         ),

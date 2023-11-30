@@ -7,6 +7,7 @@ import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'no_est_work_detail_static_screen.dart';
 
@@ -17,6 +18,8 @@ class NoEstStaticScreen extends StatelessWidget {
   Widget build(BuildContext context)  {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width; 
+        final size  = MediaQuery.of(context).size;
+
     return Container(
       width: width / 2,
       margin: EdgeInsets.only(right: width / 36),
@@ -37,7 +40,7 @@ class NoEstStaticScreen extends StatelessWidget {
                   // text: projectDetails.projectName.toString(),
                   text:  "Project Name Sample",
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
                 ),
                 Divider(thickness: 1.0, color: AppColors.grey.withOpacity(0.2)),
@@ -159,7 +162,7 @@ class NoEstStaticScreen extends StatelessWidget {
                     hPadding: 10.w,
                     vPadding: height / 120,
                     text: "View Est",
-                    fontSize:14.sp, 
+                    fontSize:size.height * FontSize.fourteen, 
                     fontWeight: FontWeight.w600,
                     onTap: () {
                       showSnakeBarr(context, "This is a sample estimate", SnackBarState.Info);

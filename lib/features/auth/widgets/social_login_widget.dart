@@ -7,6 +7,8 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
+import '../../../resources/font_size/font_size.dart';
+
 class SocialLoginWidget extends StatelessWidget {
   const SocialLoginWidget({
     Key? key,
@@ -15,6 +17,7 @@ class SocialLoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<AuthNotifier>();
+final size  = MediaQuery.of(context).size;
 
     _handleGoogleAuth() async {
       await notifier.googleAuth(context);
@@ -35,7 +38,7 @@ class SocialLoginWidget extends StatelessWidget {
               ),
               MyTextPoppines(
                 text: "Or Login with",
-                fontSize: 15.sp,
+                fontSize: size.height * FontSize.fifteen,
                 color: AppColors.black.withOpacity(0.7),
               ),
               Expanded(

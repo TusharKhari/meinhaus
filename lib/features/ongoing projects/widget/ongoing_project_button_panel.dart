@@ -9,6 +9,7 @@ import 'package:new_user_side/features/project%20notes/view/screens/project_note
 
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/provider/notifiers/support_notifier.dart';
+import 'package:new_user_side/resources/font_size/font_size.dart';
  import 'package:new_user_side/static%20components/dialogs/projects_notes_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -31,6 +32,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = context.screenHeight;
     final w = context.screenWidth;
+    final size  = MediaQuery.of(context).size;
     final supportNotifier = context.watch<SupportNotifier>();
     final estimateNotifer = context.read<EstimateNotifier>();
     final project = estimateNotifer.projectDetails.services!;
@@ -157,9 +159,11 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                             SizedBox(width: w / 40),
                             MyTextPoppines(
                               text: "Customer Support",
-                              fontSize: 14.sp,
+                              fontSize: size.height * FontSize.fourteen,
+                              // fontSize: size.height * FontSize.fourteen,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
+                              maxLines: 1,
                             ),
                           ],
                         ),
@@ -209,7 +213,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                         SizedBox(width: w / 40),
                         MyTextPoppines(
                           text: "Project Notes",
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           fontWeight: FontWeight.w600,
                           color: AppColors.yellow,
                           //
@@ -281,7 +285,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                     text: isProjectCompleted
                         ? "   Additional Work   "
                         : "Req Additional Work",
-                    fontSize: 14.sp,
+                    fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFB9B100),
                   ),

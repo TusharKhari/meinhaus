@@ -8,6 +8,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class CheckOutBottomBar extends StatefulWidget {
   final String totalAmount;
@@ -29,7 +30,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final notifier = context.watch<CheckOutNotifier>();
-
+ final size = MediaQuery.of(context).size;
     _checkOutHandler() async {
       final notifier = context.read<CheckOutNotifier>();
       await notifier.checkOut(
@@ -68,7 +69,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
                   child: MyTextPoppines(
                     text: widget.projectName,
                     height: 1.4,
-                    fontSize: 12.sp,
+                    fontSize: size.height * FontSize.twelve,
                     color: AppColors.buttonBlue,
                     fontWeight: FontWeight.w600,
                   ),
@@ -79,12 +80,12 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
                   children: [
                     MyTextPoppines(
                       text: "  You have to pay :",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                     ),
                     MyTextPoppines(
                       text: "\$ ${widget.totalAmount}",
-                      fontSize: 14.sp,
+                      fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                       color: AppColors.yellow,
                     ),
@@ -100,7 +101,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
            // vPadding: 1.h,
             hPadding: 100.w,
             text: "Pay Now",
-            fontSize: height > 800 ? 13.sp : 16.sp,
+            fontSize: height > 800 ? 13.sp : size.height * FontSize.sixteen,
             onTap: () => _checkOutHandler(),
           )
         ],

@@ -15,6 +15,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../provider/notifiers/estimate_notifier.dart';
+import '../../../../resources/font_size/font_size.dart';
 
 class ProRecentProjectsCardWidget extends StatelessWidget {
   const ProRecentProjectsCardWidget({
@@ -28,11 +29,12 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
 
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 90),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.sp),
+        borderRadius: BorderRadius.circular(size.height * FontSize.sixteen),
         color: AppColors.white,
         border: Border.all(
           width: 1.0,
@@ -46,7 +48,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
           2.5.vspacing(context),
           MyTextPoppines(
             text: "Recent Projects",
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w500,
           ),
           Divider(thickness: 1.0),
@@ -96,6 +98,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
   }) {
     final height = context.screenHeight;
     final widthh = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     final BorderRadius borderRadius = BorderRadius.circular(widthh / 40);
     return Container(
       padding: EdgeInsets.all(4),
@@ -119,7 +122,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
             width: widthh / 2.50,
             child: MyTextPoppines(
               text: "  $projectTitle",
-              fontSize:12.sp,
+              fontSize:size.height * FontSize.twelve,
               fontWeight: FontWeight.w500,
               maxLines: 1,
             ),
@@ -183,7 +186,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 1,
-                                itemSize: 15.sp,
+                                itemSize: size.height * FontSize.fifteen,
                                 itemPadding:
                                     EdgeInsets.only(left: 4.w),
                                 itemBuilder: (context, _) => Icon(
@@ -198,7 +201,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                                    Text(
                                 "$rating/5",
                                 style: GoogleFonts.poppins(
-                                  fontSize: 11.sp,
+                                  fontSize: size.height * FontSize.twelve,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
@@ -208,7 +211,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                               Text(
                                 "View Details",
                                 style: GoogleFonts.poppins(
-                                  fontSize: 11.sp,
+                                  fontSize: size.height * FontSize.twelve,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,

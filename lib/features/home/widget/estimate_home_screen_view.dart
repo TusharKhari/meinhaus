@@ -12,6 +12,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../static components/empty states/no_estimate/no_est_static_screen.dart';
 
 class EstimateCardHomeScreenView extends StatelessWidget {
@@ -98,10 +99,11 @@ class EstimatedWorkCard extends StatelessWidget {
     final getEstProvider = context.watch<EstimateNotifier>();
     final projectDetails = getEstProvider.estimated.estimatedWorks![index];
     final projectCost = projectDetails.projectEstimate![index].projectCost;
+ final size = MediaQuery.of(context).size;
 
     return Container(
       width: width / 2,
-      margin: EdgeInsets.only(right: 16.sp),
+      margin: EdgeInsets.only(right: size.height * FontSize.sixteen),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(width / 28),
         color: AppColors.white,
@@ -118,7 +120,7 @@ class EstimatedWorkCard extends StatelessWidget {
                 MyTextPoppines(
                   text: projectDetails.projectName.toString(),
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
                 ),
                 Divider(thickness: 1.0, color: AppColors.grey.withOpacity(0.2)),
@@ -135,12 +137,12 @@ class EstimatedWorkCard extends StatelessWidget {
                     children: [
                       MyTextPoppines(
                         text: "Estimate Date :",
-                        fontSize: 11.sp,
+                        fontSize: size.height * FontSize.twelve,
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
                         text: projectDetails.estimateDate ?? "",
-                        fontSize: 11.sp,
+                        fontSize: size.height * FontSize.twelve,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
                       ),
@@ -274,7 +276,7 @@ class EstimatedWorkCard extends StatelessWidget {
                   child: MyBlueButton(
                     hPadding: 10.w,
                     vPadding: height / 120,
-                    fontSize: 14.sp,
+                    fontSize: size.height * FontSize.fourteen,
                     text: "View Est",
                     fontWeight: FontWeight.w600,
                     onTap: () {

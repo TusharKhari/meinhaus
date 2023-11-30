@@ -8,6 +8,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/notification_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../widget/early_notifications_widget.dart';
 import '../widget/today_notification_widget.dart';
 
@@ -18,6 +19,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<NotificationNotifier>();
+     final size = MediaQuery.of(context).size;
     return 
     ModalProgressHUD(
       inAsyncCall: notifier.isLoading,
@@ -30,7 +32,7 @@ class NotificationScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
               child: MyTextPoppines(
                 text: "Stay up to date",
-                fontSize: 16.sp,
+                fontSize: size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
               ),
             ),

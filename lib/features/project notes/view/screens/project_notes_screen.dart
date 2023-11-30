@@ -16,6 +16,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../../data/models/saved_notes_model.dart';
 import '../../../../resources/common/cached_network_img_error_widget.dart';
+import '../../../../resources/font_size/font_size.dart';
 import '../../../../static components/dialogs/projects_notes_dialog.dart';
 
 class SavedNotesScreen extends StatefulWidget {
@@ -318,6 +319,7 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
     final estimateNotifer = context.read<EstimateNotifier>();
     final project = estimateNotifer.projectDetails.services!;
     final projectId = project.projectId.toString();
+     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -326,7 +328,7 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
           SizedBox(height: height / 40),
           MyTextPoppines(
             text: "No Saved Notes found!",
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w600,
           ),
           SizedBox(height: height / 60),

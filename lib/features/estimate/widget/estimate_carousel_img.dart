@@ -2,8 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/data/models/generated_estimate_model.dart';
+ import 'package:new_user_side/data/models/generated_estimate_model.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -11,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/extensions/full_screen_image_view.dart';
 
 class EstimateCarouselImg extends StatefulWidget {
@@ -30,7 +30,7 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
+    final height = MediaQuery.sizeOf(context).height; 
     final getEstProvider = context.read<EstimateNotifier>().estimated;
     final projectImgs =
         getEstProvider.estimatedWorks![widget.index].uploadedImgs;
@@ -106,6 +106,7 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
   Widget buildIndicator(List<UploadedImgs> projectImgs) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -127,7 +128,7 @@ class _EstimateCarouselImgState extends State<EstimateCarouselImg> {
             color: AppColors.black.withOpacity(0.3),
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: 16.sp,
+            horizontal: size.height * FontSize.sixteen,
             vertical: height / 200,
           ),
           child: MyTextPoppines(

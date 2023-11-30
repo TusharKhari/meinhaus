@@ -6,6 +6,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../provider/notifiers/estimate_notifier.dart';
 import '../../resources/common/my_text.dart';
+import '../../resources/font_size/font_size.dart';
 import '../../utils/constants/app_colors.dart';
 
 class ProWorkDetailsDialog extends StatelessWidget {
@@ -19,6 +20,7 @@ class ProWorkDetailsDialog extends StatelessWidget {
     final notifier = context.watch<EstimateNotifier>();
     final workDetails = notifier
         .projectDetails.services!.professionalWorkHistory![0].workDetails;
+         final size = MediaQuery.of(context).size;
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -53,7 +55,7 @@ class ProWorkDetailsDialog extends StatelessWidget {
                     backgroundColor: AppColors.textBlue.withOpacity(0.15),
                     child: Icon(
                       CupertinoIcons.xmark,
-                      size: 12.sp,
+                      size: size.height * FontSize.twelve,
                       color: AppColors.black,
                     ),
                   ),

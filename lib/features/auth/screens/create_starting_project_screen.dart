@@ -15,6 +15,7 @@ import 'package:new_user_side/utils/extensions/show_picked_images.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
+import '../../../resources/font_size/font_size.dart';
 import '../../../utils/extensions/validator.dart';
 import '../../../utils/utils.dart';
 import '../../estimate/screens/estimate_generation_screen.dart';
@@ -92,6 +93,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     // Mediaquerys for responsiveness
     final h = context.screenHeight;
     final w = context.screenWidth;
+     final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
       child: Scaffold(
@@ -137,7 +139,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                       child: Text(
                         "Skip",
                         style: GoogleFonts.poppins(
-                          fontSize: 14.sp,
+                          fontSize: size.height * FontSize.fourteen,
                           // fontSize: w / 28,
                           color: AppColors.buttonBlue,
                           fontWeight: FontWeight.w600,
@@ -201,7 +203,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                           SizedBox(height: h / 50),
                           MyTextPoppines(
                             text: "Upload clear photos of project area",
-                            fontSize: 14.sp,
+                            fontSize: size.height * FontSize.fourteen,
                             // fontSize: w / 34,
                             fontWeight: FontWeight.w600,
                           ),
@@ -244,7 +246,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                           SizedBox(height: h / 80),
                           MyTextPoppines(
                             text: "You can select multiple images",
-                            fontSize: 12.sp,
+                            fontSize: size.height * FontSize.twelve,
                             // fontSize: w / 36,
                             fontWeight: FontWeight.w500,
                             color: AppColors.golden,
@@ -272,7 +274,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                           text:
                               'By Signing Up with MeinHaus you agree with our ',
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: size.height * FontSize.twelve,
                             // fontSize: h / 55,
                           ),
                           children: [
@@ -280,7 +282,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                               text: 'Terms & Conditions',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14.sp,
+                                fontSize: size.height * FontSize.fourteen,
                                 // fontSize: w / 30,
                                 decoration: TextDecoration.underline,
                               ),
@@ -289,7 +291,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                             TextSpan(
                               text: ' and ',
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: size.height * FontSize.fourteen,
                                 // fontSize: w / 30,
                               ),
                             ),
@@ -297,7 +299,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                               text: 'Privacy Policy',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14.sp,
+                                fontSize: size.height * FontSize.fourteen,
                                 // fontSize: w / 30,
                                 decoration: TextDecoration.underline,
                               ),

@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../data/models/generated_estimate_model.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
+import '../../../resources/font_size/font_size.dart';
 
 class EstimateServiceCardWidget extends StatelessWidget {
   final EstimatedWorks project;
@@ -22,6 +23,7 @@ class EstimateServiceCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return ListView.builder(
       shrinkWrap: true,
       itemCount: project.projectEstimate!.length,
@@ -57,6 +59,7 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
     final projectEstimate = widget.project;
     final service = widget.service;
     final servicesLength = projectEstimate.projectEstimate!.length;
+    final size  = MediaQuery.of(context).size;
 
     return Container(
       margin:
@@ -76,7 +79,7 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
               MyTextPoppines(
                 text: "Project Area :",
                 fontWeight: FontWeight.w600,
-                fontSize:16.sp,
+                fontSize:size.height * FontSize.sixteen,
               ),
               SizedBox(width: width / 22),
               Flexible(
@@ -84,8 +87,8 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
                   maxLines: 3,
                  // height: 10,
                   text: service.projectArea ?? "",
-                  fontSize: 16.sp,
-                  // fontSize: 16.sp,
+                  fontSize: size.height * FontSize.sixteen,
+                  // fontSize: size.height * FontSize.sixteen,
                   
                 ),
               ),
@@ -96,14 +99,14 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             
             text: "Description ",
             fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
+            fontSize: size.height * FontSize.sixteen,
           ),
           SizedBox(height: height / 80),
           Padding(
             padding: EdgeInsets.only(left: width / 30),
             child: MyTextPoppines(
               text: service.projectDescription ?? "No Description",
-              fontSize: 14.sp,
+              fontSize: size.height * FontSize.fourteen,
               // fontSize: height / 65,
               maxLines: 100,
               height: 1.4,
@@ -115,13 +118,13 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             children: [
               MyTextPoppines(
                 text: "Deposit Amount :",
-                fontSize:16.sp,
+                fontSize:size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
               ),
               SizedBox(width: width / 22),
               MyTextPoppines(
                 text: "\$${service.depositAmount}",
-                fontSize: 16.sp,
+                fontSize: size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
@@ -132,13 +135,13 @@ class __BuildServiceCardState extends State<_BuildServiceCard> {
             children: [
               MyTextPoppines(
                 text: "Project Cost :",
-                fontSize:16.sp,
+                fontSize:size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
               ),
               20.hs,
               MyTextPoppines(
                 text: "\$${service.projectCost}",
-                fontSize: 16.sp,
+                fontSize: size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
                 color: AppColors.yellow,
               ),
@@ -176,12 +179,13 @@ class __BuildButtonState extends State<_BuildButton> {
     final service = widget.service;
     int status = service.status!;
     int projectId = service.projectId!;
+     final size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MyTextPoppines(
           text: "Action :",
-          fontSize:16.sp,
+          fontSize:size.height * FontSize.sixteen,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(width: width / 22),

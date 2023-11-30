@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
+ import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
 import 'package:provider/provider.dart';
 
-import 'package:new_user_side/utils/constants/app_colors.dart'; 
+import 'package:new_user_side/utils/constants/app_colors.dart';
+
+import '../../../resources/font_size/font_size.dart'; 
 
 class CustomerBottomSheet extends StatefulWidget {
   final bool? isSupportChat;
@@ -30,6 +31,7 @@ class _CustomerBottomSheetState extends State<CustomerBottomSheet> {
     final notifier = context.watch<ChatNotifier>();
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
+     final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       height: height / 9,
@@ -64,7 +66,7 @@ class _CustomerBottomSheetState extends State<CustomerBottomSheet> {
                 ),
                 hintText: "write a Meassage to check",
                 hintStyle: TextStyle(
-                  fontSize:16.sp,
+                  fontSize:size.height * FontSize.sixteen,
                   color: AppColors.black.withOpacity(0.4),
                 ),
                 prefixIcon: widget.isSupportChat!
