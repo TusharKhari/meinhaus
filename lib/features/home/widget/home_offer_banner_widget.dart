@@ -17,7 +17,7 @@ class HomeOfferBannerOld extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     BorderRadius borderRadius = BorderRadius.circular(24.r);
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     Border border = Border.all(
       width: 1.2,
       color: AppColors.grey.withOpacity(0.2),
@@ -136,114 +136,104 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
     );
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.w),
-      //width: double.infinity,
-      height: 170,
-      // height: height / 4.46,
+      width: double.infinity,
+      height: size.height / 4.46,
       decoration: BoxDecoration(
         borderRadius: borderRadius,
-        border: border,
+        border: Border.all(
+          width: 1.2,
+          color: AppColors.golden,
+        ),
       ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-        padding: EdgeInsets.only(top: 6.h, left: 9.w),
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
           borderRadius: borderRadius,
           border: border,
-          // image: const DecorationImage(
-          //   image: AssetImage("assets/images/room/house.png"),
-          //   fit: BoxFit.fitWidth,
-          // ),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/room/house.png"),
+            fit: BoxFit.fitWidth,
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            // Text("Get an instant quote for any project, anytime."),
-            Text.rich(TextSpan(children: [
-              TextSpan(
-                text: "Get an ",
-                style: TextStyle(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              TextSpan(
-                text: "instant ",
-                style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.golden),
-              ),
-              TextSpan(
-                text: "quote",
-                style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.golden),
-              ),
-            ])),
-            // GestureDetector(
-            //   onTap: () {
-            //     Navigator.pushNamed(
-            //       context,
-            //       EstimateGenerationScreen.routeName,
-            //       arguments: true,
-            //     );
-            //   },
-            //   child: Container(
-            //     padding: EdgeInsets.symmetric(
-            //       horizontal: size.width * 0.07,
-            //       // horizontal: 5.w,
-            //       vertical: 20,
-            //       // vertical: 4.h,
-            //     ),
-            //     margin: EdgeInsets.only(right: 20.w, top: 4.h),
-            //     decoration: BoxDecoration(
-            //         color: Colors.black,
-            //         borderRadius: BorderRadius.circular(10.w)),
-            //     child: Text(
-            //       "Create Estimate",
-            //       style: TextStyle(
-            //           color: Colors.white,
-            //           fontWeight: FontWeight.w600,
-            //           fontSize: size.height * 0.02),
-            //     ),
-            //   ),
-            // ),
-            MyBlueButton(hPadding: size.width * 0.12, text: "Create Estimate", onTap: () {
-              Navigator.pushNamed(
-                  context,
-                  EstimateGenerationScreen.routeName,
-                  arguments: true,
-                );
-            },), 
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Try our 3D image generator AI \n",
-                      style: TextStyle(
-                        fontSize: size.height * FontSize.twelve,
-                        // fontWeight: FontWeight.w600,
-                        color: AppColors.buttonBlue,
-                      ),
+            20.hs,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Text("Get an instant quote for any project, anytime."),
+                Text.rich(TextSpan(children: [
+                  TextSpan(
+                    text: "Get an ",
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
                     ),
-                    TextSpan(
-                      text: "*coming soon",
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        // fontWeight: FontWeight.w600,
-                        color: AppColors.golden,
-                      ),
-                    )
-                  ],
+                  ),
+                  TextSpan(
+                    text: "instant ",
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.golden),
+                  ),
+                  TextSpan(
+                    text: "quote",
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.golden),
+                  ),
+                ])),
+
+                MyBlueButton(
+                  hPadding: size.width * 0.028,
+                  vPadding: size.height * 0.01,
+                  fontSize: size.height * FontSize.fourteen,
+                  text: "Create Estimate",
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      EstimateGenerationScreen.routeName,
+                      arguments: true,
+                    );
+                  },
                 ),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Try our 3D image generator AI \n",
+                        style: TextStyle(
+                          fontSize: size.height * FontSize.thirteen,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "*coming soon...",
+                        style: TextStyle(
+                          fontSize: size.height * FontSize.eleven,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.golden,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: double.infinity,
+              width: 110.w,
+              child: Image.asset(
+                "assets/images/workers/worker_1.png",
+                fit: BoxFit.cover,
               ),
-            )
+            ),
           ],
         ),
       ),

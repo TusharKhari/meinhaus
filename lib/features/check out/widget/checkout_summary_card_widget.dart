@@ -56,7 +56,7 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
             children: [
               MyTextPoppines(
                 text: "Project details",
-                fontSize: 1.sp,
+                fontSize: size.height * FontSize.sixteen,
                 fontWeight: FontWeight.w600,
               ),
               20.vs,
@@ -67,12 +67,17 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MyTextPoppines(
-                        // text: estimate.estimatedWorks![0].projectName!,
-                           text: widget.projectName,
-                          //  text: "Bathroom Renewall",
-                          fontSize: size.height * FontSize.fourteen,
-                          fontWeight: FontWeight.w600,
+                        SizedBox(
+                          width: size.width * 0.4,
+                         // margin: EdgeInsets.symmetric(horizontal: 3),
+                          child: MyTextPoppines(
+                          // text: estimate.estimatedWorks![0].projectName!,
+                             text: "${widget.projectName}",
+                            //  text: "Bathroom Renewall",
+                            fontSize: size.height * FontSize.fourteen,
+                            fontWeight: FontWeight.w600,
+                            maxLines: 9,
+                          ),
                         ),
                         MyTextPoppines(
                           text:"\$${widget.totalAmount}",

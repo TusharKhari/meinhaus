@@ -162,10 +162,16 @@ List settingCardList = [
   ],
   [
     'assets/svgs/settings_help_icon.svg',
-    "Help & Support",
-    "Raise a concern or read our FAQs",
+    "Delete Account",
+    "Delete your account.",
     HomeScreen.routeName,
-  ],
+  ]
+  // [
+  //   'assets/svgs/settings_help_icon.svg',
+  //   "Help & Support",
+  //   "Raise a concern or read our FAQs",
+  //   HomeScreen.routeName,
+  // ],
 ];
 
 
