@@ -83,7 +83,7 @@ class ChatCardWidget extends StatelessWidget {
     final userNotifier = context.read<AuthNotifier>().user;
     final h = context.screenHeight;
     final w = context.screenWidth;
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final conv = conversations;
     int? toUserId = conv.toUserId;
     bool isSendByUser = conv.lastMessageSenderId == userNotifier.userId;
@@ -107,8 +107,8 @@ class ChatCardWidget extends StatelessWidget {
     return InkWell(
       onTap: () => loadMessages(),
       child: Container(
-      margin: EdgeInsets.symmetric(  vertical: h / 60),
-       padding: EdgeInsets.symmetric(  vertical: h / 60, horizontal:  w * 0.03) ,
+        margin: EdgeInsets.symmetric(vertical: h / 60),
+        padding: EdgeInsets.symmetric(vertical: h / 60, horizontal: w * 0.03),
         // margin: EdgeInsets.symmetric(horizontal: w / 43, vertical: h / 60),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class ChatCardWidget extends StatelessWidget {
           children: [
             // profile pic, projectname, username, message
             Row(
-              children: [ 
+              children: [
                 // profile pic
                 CircleAvatar(
                   radius: w / 14,
@@ -132,11 +132,11 @@ class ChatCardWidget extends StatelessWidget {
                     SizedBox(height: h / 200),
                     // projectname
                     SizedBox(
-                      //width: w / 1.8,
+                      width: w / 1.8,
                       child: MyTextPoppines(
                         text: conv.projectName!,
                         // fontSize: w / 28,
-                        fontSize: size.height * FontSize.sixteen,
+                        fontSize: size.height * FontSize.fifteen,
                         color: AppColors.buttonBlue,
                         fontWeight: FontWeight.w600,
                       ),
@@ -145,7 +145,7 @@ class ChatCardWidget extends StatelessWidget {
                     // username
                     MyTextPoppines(
                       text: conv.toUserName!,
-                      fontSize: size.height * FontSize.sixteen,
+                      fontSize: size.height * FontSize.fifteen,
                       // fontSize: w / 32,
                       fontWeight: FontWeight.w600,
                     ),
@@ -163,18 +163,10 @@ class ChatCardWidget extends StatelessWidget {
                                 height: 1.4,
                               )
                             : const SizedBox(),
-                        // SizedBox(
-                        // //  width: w * 0.2,
-                        //   // width: isSendByUser ? w / 1.9 : w / 1.6,
-                        //   child: mType(
-                        //     conv.lastMessageType!,
-                        //     context,
-                        //   ),
-                        // ),
-                         mType(
-                            conv.lastMessageType!,
-                            context,
-                          ),
+                        mType(
+                          conv.lastMessageType!,
+                          context,
+                        ),
                       ],
                     ),
                   ],
@@ -204,7 +196,6 @@ class ChatCardWidget extends StatelessWidget {
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: w / 50, vertical: h / 300),
-                           
                         child: MyTextPoppines(
                           text: conv.unreadCount.toString(),
                           fontSize: 10.sp,
@@ -223,16 +214,19 @@ class ChatCardWidget extends StatelessWidget {
 
   Widget mType(String messageType, BuildContext context) {
     final w = context.screenWidth;
-     final size = MediaQuery.of(context).size;
-    final textMessage = MyTextPoppines(
-      text: conversations.lastMessage!,
-      fontSize: size.height * FontSize.twelve,
-      maxLines: 1,
-      height: 1.4,
-      color: conversations.unreadCount! == 0
-          ? AppColors.black.withOpacity(0.5)
-          : AppColors.black.withOpacity(0.8),
-      fontWeight: FontWeight.w500,
+    final size = MediaQuery.of(context).size;
+    final textMessage = SizedBox(
+      width: w * 0.4,
+      child: MyTextPoppines(
+        text: conversations.lastMessage!,
+        fontSize: size.height * FontSize.twelve,
+        maxLines: 10,
+        height: 1.4,
+        color: conversations.unreadCount! == 0
+            ? AppColors.black.withOpacity(0.5)
+            : AppColors.black.withOpacity(0.8),
+        fontWeight: FontWeight.w500,
+      ),
     );
     final pdfMessage = Row(
       crossAxisAlignment: CrossAxisAlignment.start,

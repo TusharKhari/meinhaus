@@ -196,7 +196,7 @@ class EstimateNotifier extends ChangeNotifier {
     final prefs = UserPrefrences();
     bool isFirstTime = await prefs.isFirstTime();
    estimateRepository.getEstimates().then((response) {
-   print(response);
+  //  print(response);
       var data = GeneratedEstimateModel.fromJson(response);
      if(context.mounted) setEstimate(data);
       setLoadingState(false, true);

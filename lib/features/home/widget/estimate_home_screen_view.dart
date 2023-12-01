@@ -57,17 +57,14 @@ class EstimateCardHomeScreenView extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemCount: estimateWork.length,
-                      // itemCount: estimateWorkPlusAwaitingWork,
-
+                      // itemCount: estimateWork.length,
+                      // itemCount: estimateWork.length,
+                      itemCount: estimateWorkPlusAwaitingWork,
                       itemBuilder: (context, index) {
-                       // print("estimate work  ${estimateWork!.length}");
-                         
                         if (estimateWork!.length != 0 &&
                             index < estimateWork.length) {
-                        return EstimatedWorkCard(index: index);
-                        }
-                        else {
+                          return EstimatedWorkCard(index: index);
+                        } else {
                           return AwaitingEstimateWorkCard(
                             index: index - estimateWork.length,
                           );
@@ -105,7 +102,7 @@ class EstimatedWorkCard extends StatelessWidget {
     // final width = MediaQuery.sizeOf(context).width;
     final getEstProvider = context.watch<EstimateNotifier>();
     final projectDetails = getEstProvider.estimated.estimatedWorks![index];
-    final projectCost = projectDetails.projectEstimate![index].projectCost;
+    final projectCost = projectDetails.projectEstimate?[0].projectCost ?? "0"; 
     final size = MediaQuery.of(context).size;
 
     return Container(

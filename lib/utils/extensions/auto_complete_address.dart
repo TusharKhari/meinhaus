@@ -13,7 +13,7 @@ class AddressAutocomplete {
     var data = jsonDecode(response.body);
    // print(response.body);
     if (response.statusCode == 200) {
-   //   print("addresprint :  $data");
+   //   print("addressPrint :  $data");
       return data['predictions'];
     } else {
       throw Exception("Failed to load suggestions");
