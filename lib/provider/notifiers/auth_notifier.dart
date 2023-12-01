@@ -316,8 +316,9 @@ class AuthNotifier extends ChangeNotifier {
       // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
       accessToken = await gAuth.accessToken!;
-      // print(gAuth.accessToken);
+     
       if (accessToken.isNotEmpty) googleSignIn(context);
     } catch (e) {
       showSnakeBarr(
@@ -325,7 +326,6 @@ class AuthNotifier extends ChangeNotifier {
         "Something went wrong try again",
         SnackBarState.Warning,
       );
-      if(isTest) e.log("gauth");
       print("gauth $e");
       setGoogleLoadingState(false, true);
     }
@@ -334,6 +334,7 @@ class AuthNotifier extends ChangeNotifier {
   // Google Authentication Login/Signup
   Future googleSignIn(BuildContext context) async {
     MapSS data = {"provider": "google", "access_token": accessToken};
+   if(isTest) print(data);
     await repository.googleLogin(data).then((response) async {
       showSnakeBarr(
         context,

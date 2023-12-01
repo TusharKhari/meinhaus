@@ -95,7 +95,7 @@ abstract class ApiUrls {
   static Uri notification = setUrls("read-notifications");
 
   // terms and conditions
-  static Uri termsAndConditions = Uri.parse("https://www.google.com/");
-  // static Uri termsAndConditions = setUrls("https://www.google.com/");
+  static Uri termsAndConditions = Uri.parse("$baseUrl2/terms-and-conditions");
+  // static Uri termsAndConditions = setUrls("terms-and-conditions");
 
 }
