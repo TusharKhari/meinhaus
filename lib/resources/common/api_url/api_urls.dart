@@ -26,6 +26,8 @@ abstract class ApiUrls {
   static Uri addMobileNo = setUrls("customer/add-mobile");
   static Uri google = setUrls("customer-social-login");
   static Uri userDetails = setUrls("user-details");
+  static Uri deleteAccount = setUrls("delete-account");
+
 
   // Forget Password
   static Uri forgetPassword = setUrls("send-forgot-password-otp");
@@ -97,5 +99,4 @@ abstract class ApiUrls {
   // terms and conditions
   static Uri termsAndConditions = Uri.parse("$baseUrl2/terms-and-conditions");
   // static Uri termsAndConditions = setUrls("terms-and-conditions");
-
 }

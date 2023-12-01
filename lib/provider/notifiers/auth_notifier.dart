@@ -105,7 +105,7 @@ class AuthNotifier extends ChangeNotifier {
     StackTrace stackTrace,
   ) {
     showSnakeBarr(context, "$error", SnackBarState.Error);
-    if(isTest) ("$error $stackTrace").log("Auth notifier");
+    if (isTest) ("$error $stackTrace").log("Auth notifier");
     //Navigator.of(context).pushScreen(ShowError(error: error.toString()));
   }
 
@@ -116,7 +116,7 @@ class AuthNotifier extends ChangeNotifier {
     //_isUserFirstVisit =  prefs.getIsUserFirstVisit();
     // prefs.setIsUserFirstVisit(isFirstVisit: false);
     await repository.auth().then((response) {
-      if(isTest) ("Token Verified!🔥").log("uth_Notifier");
+      if (isTest) ("Token Verified!🔥").log("uth_Notifier");
       final user = UserModel.fromJson(response).user!;
       setUser(user);
       pref.setUserId(user.userId.toString());
@@ -154,7 +154,7 @@ class AuthNotifier extends ChangeNotifier {
         setUser(user);
         await prefs.setToken(user.token!);
         if (user.phoneVerified!) {
-          if(isTest) ("User Logged in Successfully ✨").log("Login Notifier");
+          if (isTest) ("User Logged in Successfully ✨").log("Login Notifier");
           Navigator.of(context).pushNamedAndRemoveUntil(
             HomeScreen.routeName,
             (route) => false,
@@ -189,8 +189,8 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     repository.signUp(data).then((response) async {
       setLoadingState(false, true);
-      if(isTest) (response).log("SignUp Response");
-      if(isTest) (data).log("sign up data");
+      if (isTest) (response).log("SignUp Response");
+      if (isTest) (data).log("sign up data");
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
 
@@ -206,7 +206,12 @@ class AuthNotifier extends ChangeNotifier {
 
       /// otp validation is not required here when user sign up all details will be registered and just login with those details
       /// ==== comment this line when otp validation is required  ====
-      login(data, context);
+    await login(data, context);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CreateStartingProject(),
+          ));
       // ======
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);
@@ -318,7 +323,7 @@ class AuthNotifier extends ChangeNotifier {
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
 
       accessToken = await gAuth.accessToken!;
-     
+
       if (accessToken.isNotEmpty) googleSignIn(context);
     } catch (e) {
       showSnakeBarr(
@@ -334,13 +339,13 @@ class AuthNotifier extends ChangeNotifier {
   // Google Authentication Login/Signup
   Future googleSignIn(BuildContext context) async {
     MapSS data = {"provider": "google", "access_token": accessToken};
-   if(isTest) print(data);
+    if (isTest) print(data);
     await repository.googleLogin(data).then((response) async {
       showSnakeBarr(
         context,
         response['response_message'],
         SnackBarState.Success,
-      ); 
+      );
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
@@ -436,18 +441,35 @@ class AuthNotifier extends ChangeNotifier {
   Future logout(BuildContext context) async {
     try {
       if (user.isSocialLogin != null) {
-        if(isTest) ("Social").log("Log-out");
+        if (isTest) ("Social").log("Log-out");
         final GoogleSignIn googleSignIn = GoogleSignIn();
         await googleSignIn.signOut();
         UserPrefrences().logOut(context);
         //  print('Signed out successfully.');
       } else {
         //  print("Social login is null");
-        if(isTest) ("normal").log("Log-out");
+        if (isTest) ("normal").log("Log-out");
         UserPrefrences().logOut(context);
       }
     } catch (error) {
       ("$error").log("Logout notifier");
     }
+  }
+
+  // delete account
+
+  Future deleteAccount(BuildContext context) async {
+    setLoadingState(true, true);
+    await repository.deleteAccount().then((value) {
+      if (isTest) print("delete account $value");
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInScreen(),));
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignInScreen())); 
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignInScreen(),), (route) => false);
+     setLoadingState(false, true);
+    }).onError((error, stackTrace) {
+      print("delete account error $error");
+      onErrorHandler(context, error, stackTrace);
+      setLoadingState(false, true);
+    });
   }
 }

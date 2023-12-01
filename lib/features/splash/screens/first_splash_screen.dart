@@ -62,6 +62,7 @@ class FirstSplashScreen extends StatelessWidget {
         Positioned(
           bottom: 190.h,
           left: 50.w,
+           right: 20.w,
           child: SizedBox(
             width: 300.w,
             child: MyTextPoppines(
@@ -75,6 +76,7 @@ class FirstSplashScreen extends StatelessWidget {
         Positioned(
           bottom: 140.h,
           left: 20.w,
+          right: 20.w,
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(
@@ -82,7 +84,6 @@ class FirstSplashScreen extends StatelessWidget {
               fontSize: 17.sp,
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,
-              // color: AppColors.black.withOpacity(0.6),
               color: AppColors.orange ,
             ),
           ),

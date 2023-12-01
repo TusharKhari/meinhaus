@@ -64,6 +64,7 @@ class SecondSplashScreen extends StatelessWidget {
         Positioned(
           bottom: 190.h,
           left: 20.w,
+          right: 20.w,
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(

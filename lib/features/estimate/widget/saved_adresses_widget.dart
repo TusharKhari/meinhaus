@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_user_side/features/address/screens/add_adress_screen.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -28,80 +27,84 @@ class SavedAddressesWidget extends StatelessWidget {
     // _defaultAddressIndex
     final addressNotifier = context.watch<AddressNotifier>();
    int defaultAddressIdx = addressNotifier.getDefaultAddressIndex(context);
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                print(userProvider.user.savedAddress!.length);
-              },
-              child: MyTextPoppines(
-                text: "Saved Address",
-                fontWeight: FontWeight.w600,
-                fontSize: size.height * FontSize.fourteen,
+    return
+     Visibility(
+      visible: address != null,
+       child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  print(userProvider.user.savedAddress!.length);
+                },
+                child: MyTextPoppines(
+                  text: "Saved Address",
+                  fontWeight: FontWeight.w600,
+                  fontSize: size.height * FontSize.fourteen,
+                ),
               ),
-            ),
-            Visibility(
-              visible: (address != null && address.isNotEmpty),
-              child: _AddAdressButton(),
-            )
-          ],
-        ),
-        20.vs,
-        // Address
-        Visibility(
-          visible: address != null && address.isNotEmpty,
-          child: 
-          ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: userProvider.user.savedAddress!.length,
-              itemBuilder: (context, index) {
-                final addressId = address![index].id;
-                return Consumer<AddressNotifier>(
-                  builder: (context, selectedAddress, child) {
-                    return InkWell(
-                      onTap:  
-                    isProfileEdit  && index != defaultAddressIdx  ? (){
-                      selectedAddress.updateDefaultAddress(context: context, 
-                       body: {
-                         "address_id": addressId.toString(),
-                           },
-                            ); 
-                      selectedAddress.setSelectedDefaultAddressIdx(index);
-                     } :() {
-                    selectedAddress.setSelectedAddress(index);
-                    }, 
-                      child: AddressCardWidget(
-                        index:   index, 
-                        isSelected: isProfileEdit && addressNotifier.selectedDefaultAddressIdx == -1 ? 
-                        defaultAddressIdx == index  
-                         : 
-                         isProfileEdit && addressNotifier.selectedDefaultAddressIdx != -1 ? 
-                          addressNotifier.selectedDefaultAddressIdx == index  
-                            :
-                         defaultAddressIdx == -1 && isProfileEdit ? false
-                          : addressNotifier.index == index,
-                          // 
-                         addressId: addressId!,
-                        isProfileEdit:  isProfileEdit,
-                      ),
-                    );
-                  },
-                );
-              }),
-        ),
-
-        Visibility(
-          visible: address!.isEmpty,
-          child: NoAddressFoundWidget(),
-        ),
-        
-        30.vs,
-      ],
-    );
+              Visibility(
+                visible: (address != null && address.isNotEmpty),
+                child: _AddAdressButton(),
+              )
+            ],
+          ),
+          20.vs,
+          // Address
+          Visibility(
+            visible: address != null && address.isNotEmpty,
+            child: 
+            ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: userProvider.user.savedAddress!.length,
+                itemBuilder: (context, index) {
+                  final addressId = address![index].id;
+                  return Consumer<AddressNotifier>(
+                    builder: (context, selectedAddress, child) {
+                      return InkWell(
+                        onTap:  
+                      isProfileEdit  && index != defaultAddressIdx  ? (){
+                        selectedAddress.updateDefaultAddress(context: context, 
+                         body: {
+                           "address_id": addressId.toString(),
+                             },
+                              ); 
+                        selectedAddress.setSelectedDefaultAddressIdx(index);
+                       } :() {
+                      selectedAddress.setSelectedAddress(index);
+                      }, 
+                        child: AddressCardWidget(
+                          index:   index, 
+                          isSelected: isProfileEdit && addressNotifier.selectedDefaultAddressIdx == -1 ? 
+                          defaultAddressIdx == index  
+                           : 
+                           isProfileEdit && addressNotifier.selectedDefaultAddressIdx != -1 ? 
+                            addressNotifier.selectedDefaultAddressIdx == index  
+                              :
+                           defaultAddressIdx == -1 && isProfileEdit ? false
+                            : addressNotifier.index == index,
+                            // 
+                           addressId: addressId!,
+                          isProfileEdit:  isProfileEdit,
+                        ),
+                      );
+                    },
+                  );
+                }),
+          ),
+     
+          Visibility(
+            visible: address!.isEmpty,
+            child: NoAddressFoundWidget(),
+          ),
+          
+          30.vs,
+        ],
+         ),
+     );
   }
 }
 

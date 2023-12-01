@@ -62,6 +62,8 @@ class ThirdSplashScreen extends StatelessWidget {
           ),
           Positioned(
             bottom: height / 5,
+            left: 20.w,
+            right: 20.w,
             child: Container(
               width: width / 1.15,
               margin: EdgeInsets.symmetric(horizontal: width / 17),

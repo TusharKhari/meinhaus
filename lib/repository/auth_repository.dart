@@ -4,13 +4,13 @@ import '../resources/common/api_url/api_urls.dart';
 import '../utils/enum.dart';
 
 class AuthRepositorys {
-  NetworkApiServices services = NetworkApiServices(); 
+  NetworkApiServices services = NetworkApiServices();
 
 // Sanctum
   Future<ResponseType> sanctum() async {
     try {
       return await services.sendHttpRequest(
-        url: Uri.parse("$baseUrl2/sanctum/csrf-cookie"), 
+        url: Uri.parse("$baseUrl2/sanctum/csrf-cookie"),
         method: HttpMethod.get,
       );
     } catch (e) {
@@ -27,11 +27,9 @@ class AuthRepositorys {
         body: body,
         allowUnauthorizedResponse: true,
       );
-    } 
-     on FormatException {
+    } on FormatException {
       throw "Internal server error";
-     }
-    catch (e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -147,7 +145,6 @@ class AuthRepositorys {
         method: HttpMethod.post,
         body: data,
       );
-     
     } catch (e) {
       throw e;
     }
@@ -208,9 +205,20 @@ class AuthRepositorys {
 
   Future<Map<String, dynamic>> google(ResponseType data) async {
     try {
-      return await services.postApiWithoutHeader(ApiUrls.google, data); 
+      return await services.postApiWithoutHeader(ApiUrls.google, data);
     } catch (e) {
       throw e;
     }
+  }
+
+  // delete account
+
+  Future deleteAccount() async {
+    try {
+    return  await services.sendHttpRequest(
+        url: ApiUrls.deleteAccount,
+        method: HttpMethod.post,
+      );
+    } catch (e) {}
   }
 }

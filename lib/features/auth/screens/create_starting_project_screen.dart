@@ -93,7 +93,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
     // Mediaquerys for responsiveness
     final h = context.screenHeight;
     final w = context.screenWidth;
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
       child: Scaffold(
