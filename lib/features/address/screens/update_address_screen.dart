@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
@@ -11,6 +12,8 @@ import '../../../data/network/network_api_servcies.dart';
 import '../../../provider/notifiers/address_notifier.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../resources/font_size/font_size.dart';
+import '../../../utils/constants/app_colors.dart';
 import '../widget/address_list_tile.dart';
 
 class UpdateAdressScreen extends StatefulWidget {
@@ -66,7 +69,6 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
   }
 
   var addressTypes = [
-    "Address Type",
     "work",
     'home',
     'other',
@@ -74,7 +76,8 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
     final addressNotifier = context.watch<AddressNotifier>();
     return ModalProgressHUD(
       inAsyncCall: addressNotifier.loading,
@@ -89,6 +92,12 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            UpdateAddressSelectedAddressType(
+              addressNotifier: addressNotifier,
+              options: addressTypes,
+              size: size,
+              addressType: widget.addType,
+            ),
             MyTextField(
               text: "Edit Address",
               controller: addressController,
@@ -117,7 +126,7 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
                     onTap: () {
                       addressController.text = address;
                       selectedAddres = address;
-                      placeId = addressNotifier.addressList[index]["place_id"]; 
+                      placeId = addressNotifier.addressList[index]["place_id"];
                     },
                     address: address,
                   );
@@ -127,54 +136,103 @@ class _UpdateAdressScreenState extends State<UpdateAdressScreen> {
           ],
         ),
         bottomSheet: Padding(
-          padding: EdgeInsets.symmetric( ),
+          padding: EdgeInsets.only(bottom: size.height * 0.02),
           // padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               MyBlueButton(
-                hPadding: w* 0.1,
+                hPadding: w * 0.1,
                 text: "Delete",
                 onTap: () => _deleteAddressHandler(),
-              ),
-              addressNotifier.updateAddressType.isNotEmpty &&
-                      addressNotifier.updateAddressType != "Address Type"
-                  ? MyBlueButton(
-                      hPadding: 60.w,
-                      text: "Update",
-                      onTap: () {
-                        selectedAddres.isNotEmpty
-                            ? _updateAddressHandler(addressId: widget.addressId)
-                            : showSnakeBar(context, "Select an address please");
-                      },
-                    )
-                  : Container(
-                      height: 70,
-                      width: 160,
-                      child: DropdownButton(
-                        borderRadius: BorderRadius.circular(w / 28),
-                        hint: Text("Address Type"),
-                        elevation: 0,
-                        isExpanded: true,
-                        value: widget.addType,
-                        //   value: "Address Type",
-                        // Down Arrow Icon
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: addressTypes.map((String items) { 
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          addressNotifier.setupdateAddressType(
-                              updateAddressType: value!);
-                        },
-                      ),
-                    ),
+              ), 
+              MyBlueButton(
+                hPadding: 60.w,
+                text: "Update", 
+                onTap: () {
+                  selectedAddres.isNotEmpty
+                      ? _updateAddressHandler(addressId: widget.addressId)
+                      : showSnakeBar(context, "Select an address please");
+                },
+              ), 
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class UpdateAddressSelectedAddressType extends StatelessWidget {
+  const UpdateAddressSelectedAddressType({
+    super.key,
+    required this.size,
+    required this.addressNotifier,
+    required this.options,
+    required this.addressType,
+  });
+
+  final Size size;
+
+  final AddressNotifier addressNotifier;
+  final List<String> options;
+  final String addressType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 25.w,
+        vertical: 10.h,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyTextPoppines(
+            text: "Select address type",
+            fontWeight: FontWeight.w600,
+            fontSize: size.height * FontSize.sixteen,
+          ),
+          5.vspacing(context),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: size.width / 28),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size.width / 30),
+              color: const Color.fromARGB(194, 240, 240, 240),
+            ),
+            child: DropdownButton<String>(
+              value: addressNotifier.addAddressType,
+              borderRadius: BorderRadius.circular(size.width / 28),
+              isExpanded: true,
+              underline: SizedBox(),
+              items: options.map((String option) {
+                return DropdownMenuItem<String>(
+                  value: option,
+                  child: Text(option),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                addressNotifier.setUpdateAddressType(
+                    updateAddressType: newValue!);
+              },
+              hint: MyTextPoppines(
+                text: addressType,
+                // text: "Not Selected",
+                color: AppColors.black,
+                fontSize: size.height * FontSize.fifteen,
+                // fontSize: w / 34,
+                fontWeight: FontWeight.w500,
+              ),
+              style: GoogleFonts.poppins(
+                color: AppColors.black,
+                fontSize: size.width / 32,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

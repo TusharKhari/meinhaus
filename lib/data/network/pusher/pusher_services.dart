@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+ import 'package:http/http.dart' as http;
 import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -15,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 import '../../../static components/dialogs/customer_close_ticket_dialog.dart';
+import '../../../utils/constants/constant.dart';
 
 class PusherService {
   //*  Singleton Design Pattern
@@ -30,9 +30,10 @@ class PusherService {
   }
 
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-  final apiKey = dotenv.env['pusherApiKey']!;
-  final cluster = dotenv.env['pusherCluster']!;
-  // final cluster = "ap2";
+  final apiKey = pusherApiKey;
+  // final apiKey = dotenv.env['pusherApiKey']!;
+  final cluster = pusherCluster;
+  // final cluster = dotenv.env['pusherCluster']!;
 
   // List of all the channelsName
   List _channelName = [];

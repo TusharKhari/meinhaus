@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/provider/notifiers/address_notifier.dart';
@@ -11,6 +12,7 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
+import '../../../utils/constants/app_colors.dart';
 import '../widget/address_list_tile.dart';
 
 class AddAddressScreen extends StatefulWidget {
@@ -57,6 +59,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     await notifier.addAddress(context: context, placeId: _placeId);
   }
 
+  List<String> options = [
+    'Work',
+    'Home',
+    'Other',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final addressNotifier = context.watch<AddressNotifier>();
@@ -75,6 +83,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SelectAddressType(size: size, w: w, addressNotifier: addressNotifier, options: options),
+        
+            // ===============
             MyTextField(
               text: "Add Address",
               controller: addressController,
@@ -100,7 +111,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: addressNotifier.addressList.length,
                 itemBuilder: (context, index) {
-                  
                   final address =
                       addressNotifier.addressList[index]["description"];
                   return ListAddressTile(
@@ -117,58 +127,96 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           ],
         ),
         bottomSheet: Padding(
-          padding: EdgeInsets.only(bottom: w * 0.01, left: w * 0.01, right:  w * 0.01),
-          child: addressNotifier.addAddressType.isNotEmpty &&
-                  addressNotifier.addAddressType != "Address Type"
-              ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // SizedBox(), 
-                  Container(
-
-                    child: Text("  Type : ${addressNotifier.addAddressType}", style: TextStyle(
-                      fontSize: size.height * FontSize.fourteen, 
-                      // fontSize: size.height * FontSize.fourteen, 
-                    ),),
-                  ), 
-                  MyBlueButton(
-                      hPadding: w * 0.1,
-                      text: "Add Address",
-                      onTap: () {
-                        selectedAddres.isNotEmpty
-                            ? _addAddressHandler()
-                            : showSnakeBar(
-                                context, "Please Select an Address First");
-                      },
-                    ),
-                ],
-              )
-              : Container(
-                  height: 70,
-                  // width: 160,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30.w,
-                  ).copyWith(bottom: 20),
-                  child: DropdownButton(
-                    borderRadius: BorderRadius.circular(w / 28),
-                    hint: Text("Address Type"),
-                    elevation: 0,
-                    isExpanded: true,
-                    value: "Address Type",
-                    // Down Arrow Icon
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: addressTypes.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      addressNotifier.setAddAddressType(addAddressType: value!);
-                    },
-                  ),
-                ),
+          padding: EdgeInsets.only(bottom: size.height * 0.016),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyBlueButton(
+                hPadding: w * 0.1,
+                text: "Add Address",
+                onTap: () {
+                  selectedAddres.isNotEmpty
+                      ? _addAddressHandler()
+                      : showSnakeBar(context, "Please Select an Address First");
+                },
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class SelectAddressType extends StatelessWidget {
+  const SelectAddressType({
+    super.key,
+    required this.size,
+    required this.w,
+    required this.addressNotifier,
+    required this.options,
+  });
+
+  final Size size;
+  final double w;
+  final AddressNotifier addressNotifier;
+  final List<String> options;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 25.w,
+        vertical: 10.h,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyTextPoppines(
+            text: "Select address type",
+            fontWeight: FontWeight.w600,
+            fontSize: size.height * FontSize.sixteen,
+          ),
+          5.vspacing(context), 
+          Container(
+            width: double.infinity,
+
+            padding: EdgeInsets.symmetric(horizontal: w / 28),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(w / 30),
+              color: const Color.fromARGB(194, 240, 240, 240),
+            ),
+            child: DropdownButton<String>(
+              value: addressNotifier.addAddressType,
+              borderRadius: BorderRadius.circular(w / 28),
+              isExpanded: true,
+              underline: SizedBox(),
+              items: options.map((String option) {
+                return DropdownMenuItem<String>(
+                  value: option,
+                  child: Text(option),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                addressNotifier.setAddAddressType(
+                    addAddressType: newValue!);
+              },
+              hint: MyTextPoppines(
+                text: "Not Selected",
+                color: AppColors.black,
+                fontSize: size.height * FontSize.fifteen,
+                // fontSize: w / 34,
+                fontWeight: FontWeight.w500,
+              ),
+              style: GoogleFonts.poppins(
+                color: AppColors.black,
+                fontSize: w / 32,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

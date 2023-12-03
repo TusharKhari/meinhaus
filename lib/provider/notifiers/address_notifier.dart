@@ -9,7 +9,7 @@ import '../../error_screens.dart';
 import '../../resources/common/my_snake_bar.dart';
 import '../../utils/constants/constant.dart';
 import '../../utils/extensions/auto_complete_address.dart';
- import 'auth_notifier.dart';
+import 'auth_notifier.dart';
 
 class AddressNotifier extends ChangeNotifier {
   var uuid = Uuid();
@@ -56,9 +56,9 @@ class AddressNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onBackClick(){
+  void onBackClick() {
     _updateAddressType = "";
-    _addAddressType="";
+    _addAddressType = null;
     notifyListeners();
   }
 
@@ -66,12 +66,12 @@ class AddressNotifier extends ChangeNotifier {
 
   Future<List> getAddressSuggestions(String input) async {
     sessionToken();
-   _addressList = await AddressAutocomplete.getSuggestions(
+    _addressList = await AddressAutocomplete.getSuggestions(
       input,
       _sessionToken,
     );
     notifyListeners();
-    
+
     return _addressList;
   }
 
@@ -81,114 +81,111 @@ class AddressNotifier extends ChangeNotifier {
     StackTrace stackTrace,
   ) {
     showSnakeBarr(context, "$error", SnackBarState.Error);
-     if(isTest)("$error $stackTrace").log("Address notifier");
+    if (isTest) ("$error $stackTrace").log("Address notifier");
     Navigator.of(context).pushScreen(ShowError(error: error.toString()));
   }
 
   // get lat and lng  from place id
 
-  Future<Map<String, String>> getLatLngFromPlaceId(  {required String placeId}) async {
-    
-   late Map<String, String> ? latLngAdd;
+  Future<Map<String, String>> getLatLngFromPlaceId(
+      {required String placeId}) async {
+    late Map<String, String>? latLngAdd;
     await addressRepository
-        .getLatLngFromPlaceId( placeId: placeId)
-        .then((value) { 
-         int _lengthOfAddress = value["result"]["address_components"].length;
-          String _line1 = value["result"]["address_components"][0]["long_name"];
-          String _line2 = value["result"]["address_components"][1]["long_name"];
-          String _city = value["result"]["address_components"][2]["long_name"];
-          String _state = "";
-           for(int i =3; i<_lengthOfAddress-3; i++){
-           _state += "${value["result"]["address_components"][i]["long_name"]} ";
-          }
-           String _zip = value["result"]["address_components"][_lengthOfAddress-1]["long_name"];
-          _lengthOfAddress--;
-          String _country = value["result"]["address_components"][_lengthOfAddress-1]["long_name"];
+        .getLatLngFromPlaceId(placeId: placeId)
+        .then((value) {
+      int _lengthOfAddress = value["result"]["address_components"].length;
+      String _line1 = value["result"]["address_components"][0]["long_name"];
+      String _line2 = value["result"]["address_components"][1]["long_name"];
+      String _city = value["result"]["address_components"][2]["long_name"];
+      String _state = "";
+      for (int i = 3; i < _lengthOfAddress - 3; i++) {
+        _state += "${value["result"]["address_components"][i]["long_name"]} ";
+      }
+      String _zip = value["result"]["address_components"][_lengthOfAddress - 1]
+          ["long_name"];
+      _lengthOfAddress--;
+      String _country = value["result"]["address_components"]
+          [_lengthOfAddress - 1]["long_name"];
 
-          latLngAdd = {
-            "latitude" :  value["result"]["geometry"]["location"]["lat"].toString(),
-            "longitude" : value["result"]["geometry"]["location"]["lng"].toString(),
-             "address" : value["result"]["formatted_address"].toString(),
-             "line1" : _line1.toString(), 
-             "line2" : _line2.toString(), 
-             "city" : _city.toString(), 
-             "state" :  _state.toString(), 
-             "country": _country.toString(), 
-             "zip" : _zip.toString(), 
-          }; 
-        })
-        .onError((error, stackTrace) {
-      ("$error $stackTrace").log("Address notifier"); 
-    }); 
+      latLngAdd = {
+        "latitude": value["result"]["geometry"]["location"]["lat"].toString(),
+        "longitude": value["result"]["geometry"]["location"]["lng"].toString(),
+        "address": value["result"]["formatted_address"].toString(),
+        "line1": _line1.toString(),
+        "line2": _line2.toString(),
+        "city": _city.toString(),
+        "state": _state.toString(),
+        "country": _country.toString(),
+        "zip": _zip.toString(),
+      };
+    }).onError((error, stackTrace) {
+      ("$error $stackTrace").log("Address notifier");
+    });
     return latLngAdd ?? {};
   }
 
-   String _addAddressType ="";
-  String get addAddressType => _addAddressType;
+  String? _addAddressType;
+  String? get addAddressType => _addAddressType;
 
-  void setAddAddressType({required String addAddressType}){
+  void setAddAddressType({required String addAddressType}) {
     _addAddressType = addAddressType;
     notifyListeners();
   }
 
   Future<void> addAddress({
-    required BuildContext context, 
-    required String placeId, 
+    required BuildContext context,
+    required String placeId,
   }) async {
-    setLoadingState(true, true);
-    final userProvider = context.read<AuthNotifier>(); 
-    final MapSS addressBody = await getLatLngFromPlaceId(placeId: placeId);
-    final  _addType = <String, String> {"type": _addAddressType};
+    if (_addAddressType == null) {
+      showSnakeBarr(context, "Please select address type", SnackBarState.Info);
+    } else {
+      setLoadingState(true, true);
+      final userProvider = context.read<AuthNotifier>();
+      final MapSS addressBody = await getLatLngFromPlaceId(placeId: placeId);
+      final _addType = <String, String>{"type": _addAddressType!};
       addressBody.addEntries(_addType.entries);
-
-    if(isTest) addressBody.log("address body");
-    addressRepository.addAddress(addressBody).then((response) {
-
-      setLoadingState(false, true);
-      var data = UserModel.fromJson(response).user!;
-      // Need testing Done WOrking fine
-      // userProvider.user.savedAddress!.insert(0, data.savedAddress![0]);
-      // userProvider.updateUser();
-      // User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
-      User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
-      // User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
-
-      userProvider.setUser(user);
-      showSnakeBarr(
-          context, response['response_message'], SnackBarState.Success);
-       if(isTest) ("Address added").log();
-      Navigator.pop(context);
-    }).onError((error, stackTrace) {
-      setLoadingState(false, true);
-      onErrorHandler(context, error, stackTrace);
-    });
+      if (isTest) addressBody.log("address body");
+      addressRepository.addAddress(addressBody).then((response) {
+        setLoadingState(false, true);
+        var data = UserModel.fromJson(response).user!;
+        User user = userProvider.user.copyWith(savedAddress: data.savedAddress);
+        userProvider.setUser(user);
+        showSnakeBarr(
+            context, response['response_message'], SnackBarState.Success);
+        _addAddressType = null;
+        if (isTest) ("Address added").log();
+        Navigator.pop(context);
+      }).onError((error, stackTrace) {
+        setLoadingState(false, true);
+        onErrorHandler(context, error, stackTrace);
+      });
+    }
   }
 
-
- 
- String _updateAddressType ="";
+  String _updateAddressType = "";
   String get updateAddressType => _updateAddressType;
 
-  void setupdateAddressType({required String updateAddressType}){
+  void setUpdateAddressType({required String updateAddressType}) {
     _updateAddressType = updateAddressType;
     notifyListeners();
   }
+
   Future updateAddress({
     required BuildContext context,
-   // required MapSS body,
-    required String placeId, 
-    required String addressId, 
+    // required MapSS body,
+    required String placeId,
+    required String addressId,
   }) async {
     setLoadingState(true, true);
-    final userProvider = context.read<AuthNotifier>(); 
+    final userProvider = context.read<AuthNotifier>();
 
-       MapSS addressBody = await getLatLngFromPlaceId(placeId: placeId);
-       
-      final  _addId = <String, String> {"address_id": addressId};
-      final  _addType = <String, String> {"type": _updateAddressType};
-      addressBody.addEntries(_addId.entries);
-       addressBody.addEntries(_addType.entries);
-      if(isTest)  addressBody.log("update address body");
+    MapSS addressBody = await getLatLngFromPlaceId(placeId: placeId);
+
+    final _addId = <String, String>{"address_id": addressId};
+    final _addType = <String, String>{"type": _updateAddressType};
+    addressBody.addEntries(_addId.entries);
+    addressBody.addEntries(_addType.entries);
+    if (isTest) addressBody.log("update address body");
     addressRepository.updateAddress(addressBody).then((response) {
       setLoadingState(false, true);
       var data = UserModel.fromJson(response).user!;
@@ -196,7 +193,7 @@ class AddressNotifier extends ChangeNotifier {
       userProvider.setUser(user);
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-       if(isTest)("Address updated").log();
+      if (isTest) ("Address updated").log();
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -217,7 +214,7 @@ class AddressNotifier extends ChangeNotifier {
       userProvider.setUser(user);
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-      if(isTest) ("Address deleted").log();
+      if (isTest) ("Address deleted").log();
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoadingState(false, true);
@@ -233,14 +230,14 @@ class AddressNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     // final userProvider = context.read<AuthNotifier>();
     addressRepository.setDefaultAddress(body).then((response) {
-      setLoadingState(false, true); 
+      setLoadingState(false, true);
       showSnakeBarr(
         context,
         // response['response_message'],
         "Default Address Changed Successfully",
         SnackBarState.Success,
       );
-     if(isTest)  ("Default Address updated").log();
+      if (isTest) ("Default Address updated").log();
       //Navigator.pop(context);
       //(response).log("default address");
     }).onError((error, stackTrace) {

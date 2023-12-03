@@ -15,10 +15,22 @@ final String baseUrl2 = "https://test.meinhaus.ca";
 
 // 
 
-final String googleAddressUrl =
-    "https://maps.googleapis.com/maps/api/place/autocomplete/json";
+
 // Google Map API Keys   
- final  String kPLACES_API_KEY = "AIzaSyCVqDZXoo2xPqEw8vksPeoqR8eF1kr8I8U";      
+ final  String kPLACES_API_KEY = "AIzaSyCVqDZXoo2xPqEw8vksPeoqR8eF1kr8I8U"; 
+
+// stripePublishableKey
+final String stripePublishableKey = "pk_test_51N179pSELejhGBY67FodNVLvVJlV3H8RGdzLtEStBGxmFKv8DQSjK8Bcg6gTHTFjbjpkrogLisDTRQKEwaazHoAQ00769CpcH2";
+
+//  Pusher
+ final String pusherApiKey = "823f246fdf95c1ff3f95";
+ final String pusherCluster = "ap2";
+
+
+
+
+final String googleAddressUrl =
+    "https://maps.googleapis.com/maps/api/place/autocomplete/json";     
 //  final  String kPLACES_API_KEY = "AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU";      
 //  final  String kPLACES_API_KEY = "AIzaSyA_hQ7SWkmIToW7jOLsjjT-9fLQPFe3OvM";      
 
