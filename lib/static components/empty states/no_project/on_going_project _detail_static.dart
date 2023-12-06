@@ -1,331 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_app_bar.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart';
-
-import '../../../features/estimate/screens/estimate_generation_screen.dart';
-import '../../../features/home/widget/project_img_card_widget.dart';
-import '../../../resources/common/buttons/my_buttons.dart';
+import 'package:new_user_side/features/estimate/widget/download_pdf_card_widget.dart';
+ 
+import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
+import 'buttons_panel_static.dart';
+import 'ongoing_bill_card_Static.dart';
+import 'pro_profile_static.dart';
 
-class OnGoingProjectDetailsStatic extends StatelessWidget {
+class OnGoingProjectDetailsStatic extends StatefulWidget {
   const OnGoingProjectDetailsStatic({super.key});
 
   @override
+  State<OnGoingProjectDetailsStatic> createState() =>
+      _OnGoingProjectDetailsStaticState();
+}
+
+class _OnGoingProjectDetailsStaticState
+    extends State<OnGoingProjectDetailsStatic> {
+
+      @override
+      void initState() {
+        super.initState();
+        
+      }
+      showInfo(){
+       
+      }
+  @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-        final size  = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
 
     return Scaffold(
       appBar: MyAppBar(text: "Sample Ongoing Projects"),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-              ),
-              child: Text(
-                'Here’s the list of your all ongoing projects.',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                ),
-              ),
+            DownloadPdfCard(
+              workName: "Kitchen Repairing",
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
-              child: SizedBox(
-                height: height / 2.90,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
-                    return _buildOnProjectCard(
-                        context: context,
-                        height: height,
-                        size: size,
-                        width: width,
-                        projectName: index == 0
-                            ? "Bathroom Renewal"
-                            : "Furniture Fixing");
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30, left: 20, bottom: 30),
-              child: Text(
-                'Hourly Bookings',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: SizedBox(
-                  height: height / 2.90,
-                  child: _buildOnProjectCard(
-                      context: context,
-                      height: height,
-                      width: width,
-                      size: size,
-                      projectName: "Furniture Fixing")),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+            SizedBox(height: height / 120),
+            Divider(thickness: height * 0.003, height: 0.0),
+            SizedBox(height: height / 60),
 
-  Widget _buildOnProjectCard({
-    required BuildContext context,
-    required double height,
-    required double width,
-    required String projectName,
-    required Size size, 
-  }) {
-    void onViewEstTapped() async {
-      //  showSnakeBarr(context, "No Ongoing Project Available", SnackBarState.Info);
-      Navigator.of(context).pushScreen(EstimateGenerationScreen());
-    }
+            //
 
-    return Container(
-      width: context.screenWidth / 1.95,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: AppColors.white,
-      ),
-      margin: EdgeInsets.only(right: width / 30),
-      padding: EdgeInsets.symmetric(
-        horizontal: width / 70,
-        vertical: height / 200,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: width / 36,
-              vertical: height / 130,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                // PROJECT NAME
+                SizedBox(width: width / 12),
                 MyTextPoppines(
-                  //  text: project.projectName ?? "",
-                  text: projectName,
-                  fontWeight: FontWeight.w500,
+                  text: "Estimate  No :",
                   fontSize: size.height * FontSize.sixteen,
-                  maxLines: 1,
+                  fontWeight: FontWeight.w600,
                 ),
-                Visibility(
-                  visible: true,
-                  // visible: isMultiProjects,
-                  child: SizedBox(height: height / 150),
+                SizedBox(width: width / 20),
+                MyTextPoppines(
+                  text: "OD-18CM17",
+                  fontSize: size.height * FontSize.sixteen,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.yellow,
                 ),
-                // TOTAL SERVICES COUNT
-                Visibility(
-                  visible: false,
-                  // visible: isMultiProjects,
-                  child: MyTextPoppines(
-                    text: "   +2 more services",
-                    //  text: "   +${project.services!.length} more services",
-                    fontWeight: FontWeight.w500,
-                    fontSize: width / 40,
-                    color: AppColors.black.withOpacity(0.5),
-                  ),
-                ),
-                Visibility(
-                  visible: false,
-                  child: SizedBox(height: height / 150),
-                ),
-                Divider(
-                  thickness: 1.0,
-                  color: AppColors.grey.withOpacity(0.2),
-                  height: height / 150,
-                ),
-                SizedBox(height: height / 140),
-                // ESTIMSTE BOOKING ID
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: AppColors.yellow.withOpacity(0.1),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: height / 160),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MyTextPoppines(
-                        text: "Booking ID : ",
-                        fontSize: width / 38,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      MyTextPoppines(
-                        //  text: project.estimateNo,
-                        text: "OD-058699S",
-                        fontSize: width / 38,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.yellow,
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(
-                  thickness: 1.0,
-                  color: AppColors.grey.withOpacity(0.2),
-                  height: height / 50,
-                ),
-                // PROJECT COST
-                Visibility(
-                  // visible: !isMultiProjects,
-                  visible: true,
-                  child: Row(
-                    children: [
-                      MyTextPoppines(
-                        text: "Project Cost :",
-                        fontWeight: FontWeight.w400,
-                        fontSize: width / 38,
-                      ),
-                      10.hs,
-                      MyTextPoppines(
-                        //  text: "${project.projectCost}",
-                        text: "\$100",
-                        fontWeight: FontWeight.w600,
-                        fontSize: width / 38,
-                      ),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  // visible: !isMultiProjects,
-                  visible: true,
-                  child: SizedBox(height: height / 120),
-                ),
-                Row(
-                  children: [
-                    MyTextPoppines(
-                      text: "Date Assigned :",
-                      fontWeight: FontWeight.w400,
-                      fontSize: width / 38,
-                    ),
-                    SizedBox(width: width / 60),
-                    MyTextPoppines(
-                      //   text: project.projectStartDate ?? "",
-                      text: "01/01/2023",
-                      fontWeight: FontWeight.w600,
-                      fontSize: width / 38,
-                    ),
-                  ],
-                ),
-                // SizedBox(height: height / 135),
               ],
             ),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: width / 34),
-              decoration: BoxDecoration(
-                color: AppColors.black,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-                image:
-                    //  isImgisNotNull
-                    //     ? DecorationImage(
-                    //         image: NetworkImage(
-                    //           project.projectImages!.first.thumbnailUrl!,
-                    //         ),
-                    //         fit: BoxFit.cover,
-                    //       )
-                    //     :
-                    DecorationImage(
-                  image: AssetImage("assets/images/room/2(1).png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: height / 80),
-                  MyTextPoppines(
-                    text: "Project Photos:",
-                    color: AppColors.white,
-                    fontSize: width / 32,
-                  ),
-                  SizedBox(height: height / 80),
-                  // Project Images
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ProjectImgCardWidget(
-                        width: width / 8,
-                        height: height / 16,
-                        imgPath: "assets/images/room/2(1).png",
-                      ),
-                      ProjectImgCardWidget(
-                        width: width / 8,
-                        height: height / 16,
-                        imgPath: "assets/images/room/room_3.png",
-                      ),
-                      Stack(
-                        children: [
-                          ProjectImgCardWidget(
-                            width: width / 8,
-                            height: height / 16,
-                            imgPath: "assets/images/room/room_1.png",
-                          ),
-                          Positioned(
-                            left: width / 30,
-                            top: height / 90,
-                            child: MyTextPoppines(
-                              text: " +5\nMore",
-                              fontSize: width / 36,
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(height: height / 80),
-                  ),
-                  // View Estimate Button
-                  Align(
-                    alignment: Alignment.center,
-                    child: MyBlueButton(
-                      hPadding: 10.w,
-                      vPadding: height / 120,
-                      fontSize: size.height * FontSize.fourteen,
-                      text: "View Details",
-                      fontWeight: FontWeight.w600,
-                      onTap: onViewEstTapped,
-                    ),
-                  ),
-                  SizedBox(height: height / 80),
-                ],
+            Divider(thickness: height * 0.003),
+            SizedBox(height: height / 90),
+            OngoingProjectBillCardStatic(),
+            SizedBox(height: height / 90),
+            Divider(thickness: height * 0.003),
+            SizedBox(height: height / 90),
+            // DESCRIPTION
+
+            Padding(
+              padding: EdgeInsets.only(left: 0, bottom: height / 90),
+              child: MyTextPoppines(
+                text: "Description :",
+                fontWeight: FontWeight.w600,
+                fontSize: size.height * FontSize.sixteen,
               ),
             ),
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.only(
+                left: width / 20,
+                bottom: height / 90,
+                right: width / 15,
+              ),
+              child: MyTextPoppines(
+                text: 'This area usually provides details about the project.',
+                fontSize: size.height * FontSize.fourteen,
+                fontWeight: FontWeight.w500,
+                height: 1.6,
+                color: AppColors.black.withOpacity(0.6),
+                maxLines: 100,
+              ),
+            ),
+            // ============
+            Divider(thickness: height * 0.003),
+            OngoingJobsButtonsPanelStatic(),
+            Divider(thickness: height * 0.003),
+            SizedBox(height: height / 40),
+            ProProfileWidgetStatic(),
+          ],
+        ),
       ),
     );
   }

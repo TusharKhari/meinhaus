@@ -6,8 +6,7 @@ import 'package:new_user_side/features/pro%20profile/view/widget/pro_recent_proj
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
-import 'package:provider/provider.dart';
+ import 'package:provider/provider.dart';
 
 import '../../../../provider/notifiers/estimate_notifier.dart';
 import '../../../../resources/font_size/font_size.dart';

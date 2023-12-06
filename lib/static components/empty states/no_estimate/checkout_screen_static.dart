@@ -1,14 +1,13 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
-import 'package:new_user_side/utils/extensions/extensions.dart'; 
+import 'package:new_user_side/static%20components/dialogs/static_screens_dialog.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../../features/check out/widget/checkout_summary_card_widget.dart';
 import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/estimate/widget/saved_adresses_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
-import '../../../resources/common/my_app_bar.dart'; 
+import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 
@@ -25,7 +24,7 @@ class CheckOutScreenStatic extends StatelessWidget {
   final String amountToPay;
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(text: "Checkout"),
       body: SizedBox(
@@ -36,18 +35,18 @@ class CheckOutScreenStatic extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CheckOutSummaryCardWidget(totalAmount: "100", projectName: 'Kitchen Repairing'),
+                CheckOutSummaryCardWidget(
+                    totalAmount: "100", projectName: 'Kitchen Repairing'),
                 8.vspacing(context),
                 const Divider(thickness: 1.0),
                 8.vspacing(context),
-                  SavedAddressesWidget(),
+                SavedAddressesWidget(),
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: 
-      CheckOutBottomBarStatic(
+      bottomNavigationBar: CheckOutBottomBarStatic(
         projectName: ProjectName,
         totalAmount: amountToPay,
         bookingId: bookingId,
@@ -55,8 +54,6 @@ class CheckOutScreenStatic extends StatelessWidget {
     );
   }
 }
-
- 
 
 class CheckOutBottomBarStatic extends StatefulWidget {
   final String totalAmount;
@@ -70,13 +67,14 @@ class CheckOutBottomBarStatic extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CheckOutBottomBarStatic> createState() => _CheckOutBottomSnackBarState();
+  State<CheckOutBottomBarStatic> createState() =>
+      _CheckOutBottomSnackBarState();
 }
 
 class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height; 
+    final height = MediaQuery.of(context).size.height;
 
     final size = MediaQuery.of(context).size;
 
@@ -97,7 +95,9 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.w,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -137,15 +137,24 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
           ),
           Divider(thickness: 2, height: 5.h),
           10.vs,
-          MyBlueButton( 
-            hPadding: 100.w,
-            text: "Pay Now",
-            fontSize: height > 800 ? 13.sp : size.height * FontSize.sixteen,
-            onTap: () { 
-               Navigator.of(context).pushScreen(
-                    EstimateGenerationScreen());
-                    }
-          )
+          MyBlueButton(
+              hPadding: 100.w,
+              text: "Pay Now",
+              fontSize: height > 800 ? 13.sp : size.height * FontSize.sixteen,
+              onTap: () {
+                //  Navigator.of(context).pushScreen(
+                //       EstimateGenerationScreen());
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return StaticScreensDialog(
+                      subtitle:
+                          "Payment will be done here and your estimate will be converted into project and professional will be assigned to the project.",
+                    );
+                  },
+                );
+              })
         ],
       ),
     );

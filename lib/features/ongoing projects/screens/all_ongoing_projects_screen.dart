@@ -5,7 +5,6 @@ import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:new_user_side/utils/sizer.dart';
 import 'package:provider/provider.dart';
 
  import '../../../resources/font_size/font_size.dart';

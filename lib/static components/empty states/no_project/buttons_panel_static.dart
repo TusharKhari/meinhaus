@@ -2,120 +2,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:new_user_side/data/models/conversation_list_model.dart';
-import 'package:new_user_side/features/chat/screen/chatting_screen.dart';
-import 'package:new_user_side/features/customer%20support/screens/customer_support_send_query_screen.dart';
-import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
 
-import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
-import 'package:new_user_side/provider/notifiers/support_notifier.dart';
 import 'package:new_user_side/resources/font_size/font_size.dart';
-import 'package:new_user_side/static%20components/dialogs/projects_notes_dialog.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
-import '../../../provider/notifiers/additional_work_notifier.dart';
-import '../../../provider/notifiers/saved_notes_notifier.dart';
+import '../../../features/additional work/widget/icon_button_with_text.dart';
 import '../../../resources/common/my_text.dart';
-import '../../additional work/screens/add_addition_work_screen.dart';
-import '../../additional work/screens/additional_work_from_pro_screen.dart';
-import '../../additional work/widget/icon_button_with_text.dart';
-import '../../invoice/screens/progess_invoice_screen.dart';
+import '../../dialogs/static_screens_dialog.dart';
 
-class OngoingJobsButtonsPanel extends StatelessWidget {
-  const OngoingJobsButtonsPanel({
+class OngoingJobsButtonsPanelStatic extends StatelessWidget {
+  const OngoingJobsButtonsPanelStatic({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final h = context.screenHeight;
-    final w = context.screenWidth;
     final size = MediaQuery.of(context).size;
-    final supportNotifier = context.watch<SupportNotifier>();
-    final estimateNotifer = context.read<EstimateNotifier>();
-    final project = estimateNotifer.projectDetails.services!;
-    final isSupportActive = supportNotifier.supportStatus == 1;
-    final bookingId = project.estimateNo;
-    final projectId = project.projectId.toString();
-    final isProjectCompleted = project.isCompleted!;
 
-    // get invoice data
-    void _getInvoiceHandler() {
-      final estimateNotifer = context.read<EstimateNotifier>();
-      Navigator.of(context).pushScreen(ProgressInvoiceScreen());
-      estimateNotifer.progressInvoice(
-        context: context,
-        bookingId: bookingId!,
-      );
-    }
-
-    // Getting all the additional work requested by user
-    _getAdditionalWorkHandler() async {
-      final notifier = context.read<AdditionalWorkNotifier>();
-      await notifier.getAdditonalWork(
-        context: context,
-        projectId: projectId,
-      );
-    }
-
-    // To get all the saved notes
-    _getSavedNotesHandler() async {
-      final notifer = context.read<SavedNotesNotifier>();
-      await notifer.getSavedNotes(context: context, id: projectId);
-      Navigator.of(context).pushScreen(SavedNotesScreen());
-    }
-
-    // onTap Customer Button
-    _onTapCustomerButton() {
-      isSupportActive
-          ? Navigator.of(context).pushScreen(
-              ChattingScreen(
-                isChatWithPro: false,
-                estimateId: project.projectId.toString(),
-              ),
-            )
-          : Navigator.of(context).pushNamed(
-              SendQueryScreen.routeName,
-            );
-    }
-
-    // onTap Project Notes
-    _onTapProjectNotesButton() {
-      isProjectCompleted
-          ? _getSavedNotesHandler()
-          : showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return ProjectNotesDialog(
-                  serviceId: projectId,
-                );
-              },
-            );
-    }
-
-    // Navigate to chatting screen
-    void onMessageProTapped() async {
-      final projectNotifer =
-          context.read<EstimateNotifier>().projectDetails.services;
-      final proNotifier = context.read<EstimateNotifier>().proDetails.prodata;
-      Navigator.of(context).pushScreen(
-        ChattingScreen(
-          isChatWithPro: true,
-          sendUserId: proNotifier!.proId,
-          estimateId: projectNotifer!.projectId.toString(),
-          conversations: Conversations(
-            profilePicture: proNotifier.proProfileUrl,
-            toUserName: proNotifier.proName,
-            projectName: projectNotifer.projectName,
-            estimateBookingId: projectNotifer.estimateNo,
-            projectStartedOn: projectNotifer.projectStartDate,
-          ),
-        ),
-      );
-    }
+    final h = size.height;
+    final w = size.width;
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -134,7 +40,18 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                 child: Stack(
                   children: [
                     InkWell(
-                      onTap: _onTapCustomerButton,
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return StaticScreensDialog(
+                              subtitle:
+                                  "You can use customer support when you need if any professional not doing work properly or any other complain regarding the same.",
+                            );
+                          },
+                        );
+                      },
                       child: Container(
                         //  width: w / 2.15,
                         decoration: BoxDecoration(
@@ -166,16 +83,6 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                       ),
                     ),
                     // WWhen support is active we will show a active status
-                    isSupportActive
-                        ? Positioned(
-                            right: w / 200000,
-                            child: CircleAvatar(
-                              radius: w / 60,
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 255, 106),
-                            ),
-                          )
-                        : SizedBox(),
                   ],
                 ),
               ),
@@ -186,7 +93,18 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
               // Project Notes Button
               Expanded(
                 child: InkWell(
-                  onTap: _onTapProjectNotesButton,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return StaticScreensDialog(
+                          subtitle:
+                              "You can save important notes for yourself and also for both(you and pro) about the project.",
+                        );
+                      },
+                    );
+                  },
                   child: Container(
                     // width: double.maxFinite,
                     // height: h / 16,
@@ -229,41 +147,52 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
               firstButtonTextColor: AppColors.buttonBlue,
               firstButtonImgUrl: "assets/project_detail/message_pro.svg",
               firstButtonColor: const Color(0xFFE8F4FF),
-              firstButtonOnTap: () => onMessageProTapped(),
-              secondButtonext:
-                  // isProjectCompleted
-                  //     ? "   Additional Work   "
-                  //     : "Req Additional Work",
-                  "Invoice",
+              firstButtonOnTap: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return StaticScreensDialog(
+                        subtitle:
+                            "Here you can message your assigned professional regarding the project.");
+                  },
+                );
+              },
+              secondButtonext: "Invoice",
               // "Invoice($invoicePaidOrPay)",
               secondtButtonTextColor: const Color(0xFF934600),
               // secondButtonImgUrl: "assets/project_detail/work_details.svg",
               secondButtonImgUrl: "assets/project_detail/invoice 1.svg",
               secondButtonColor: const Color(0xFF934600).withOpacity(0.12),
               secondButtonOnTap: () {
-                _getInvoiceHandler();
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return StaticScreensDialog(
+                      subtitle:
+                          "Here you can view your all payments invoices that has been paid regarding this project.",
+                    );
+                  },
+                );
               }),
 
 //
           15.vs,
 
           InkWell(
-            onTap: !isProjectCompleted
-                ? () {
-                    Navigator.pushNamed(
-                      context,
-                      AddAdditionalWorkScreen.routeName,
-                      arguments: projectId,
-                    );
-                    //   print("Project id For additional work : $projectId");
-                  }
-                : () {
-                    // Show history of all the requested additional work
-                    _getAdditionalWorkHandler();
-                    Navigator.of(context).pushScreen(
-                      AdditionalWorkProProvideScreen(),
-                    );
-                  },
+            onTap: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return StaticScreensDialog(
+                    subtitle:
+                        "Here you can request additional work if you require in the particular project which is ongoing.",
+                  );
+                },
+              );
+            },
             child: Container(
               // width: context.screenWidth / 3.2,
               decoration: BoxDecoration(
@@ -278,9 +207,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
                   SvgPicture.asset("assets/project_detail/work_details.svg"),
                   SizedBox(width: w / 40),
                   MyTextPoppines(
-                    text: isProjectCompleted
-                        ? "   Additional Work   "
-                        : "Req Additional Work",
+                    text: "Req Additional Work",
                     fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFB9B100),

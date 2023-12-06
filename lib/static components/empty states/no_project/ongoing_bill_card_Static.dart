@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
- import 'package:new_user_side/resources/common/my_text.dart';
+import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-import 'package:provider/provider.dart';
 
-import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/font_size/font_size.dart';
 
-class OngoingProjectBillCardWidget extends StatelessWidget {
-  const OngoingProjectBillCardWidget({
+class OngoingProjectBillCardStatic extends StatelessWidget {
+  const OngoingProjectBillCardStatic({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<EstimateNotifier>();
-    final services = notifier.projectDetails.services!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ProjectDetailsRow(
           prefixText: "Project Started On :",
-          suffixText: services.projectStartDate.toString(),
+          suffixText: "23-11-01",
         ),
         15.vs,
         ProjectDetailsRow(
           prefixText: "Project Cost :",
-          suffixText: "\$${services.projectCost}",
+          suffixText: "\$2480",
         ),
         15.vs,
         ProjectDetailsRow(
           prefixText: "Address Details :",
-          suffixText: services.address.toString(),
+          suffixText: "1400, Rue Ottawa",
         ),
       ],
     );
@@ -48,7 +44,7 @@ class ProjectDetailsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- import 'package:new_user_side/resources/common/my_snake_bar.dart';
+import 'package:new_user_side/resources/common/my_snake_bar.dart';
 import 'package:new_user_side/static%20components/empty%20states/no_project/on_going_project%20_detail_static.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
@@ -11,36 +9,35 @@ import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
+import '../../dialogs/static_screens_dialog.dart';
 
 class OngoingWorkCardStatic extends StatelessWidget {
-   
   const OngoingWorkCardStatic({
     Key? key,
-    
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-     final height = MediaQuery.sizeOf(context).height;
+    final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-        final size  = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return SizedBox(
-     height:  height / 2.90,
+      height: height / 2.90,
       child: _buildOnProjectCard(
         context: context,
-        height: height, 
-        width: width, 
-        size: size, 
+        height: height,
+        width: width,
+        size: size,
       ),
     );
   }
 
   Widget _buildOnProjectCard({
     required BuildContext context,
-    required double height, 
-    required double width, 
-    required Size size, 
+    required double height,
+    required double width,
+    required Size size,
   }) {
     void onViewEstTapped() async {
       // isMultiProjects
@@ -54,16 +51,25 @@ class OngoingWorkCardStatic extends StatelessWidget {
       //         ),
       //       };
       // ("Project Id : $projectId || Pro Id : $proId").log();
-       Navigator.of(context).pushScreen(
-                OnGoingProjectDetailsStatic(),
-              );
+
+      Navigator.of(context).pushScreen(
+        OnGoingProjectDetailsStatic(),
+      );
+
       // OnGoingProjectDetailsStatic
-      showSnakeBarr(context, "This is a sample project", SnackBarState.Info);
+      //showSnakeBarr(context, "This is a sample project", SnackBarState.Info);
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => StaticScreensDialog(
+          subtitle:
+              "This is a sample project explore all the function when you create a new project all sample cards will be disappear.",
+        ),
+      );
     }
 
-    return 
-    Container(
-     width: context.screenWidth / 1.95, 
+    return Container(
+      width: context.screenWidth / 1.95,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppColors.white,
@@ -86,8 +92,8 @@ class OngoingWorkCardStatic extends StatelessWidget {
               children: [
                 // PROJECT NAME
                 MyTextPoppines(
-                //  text: project.projectName ?? "",
-                text:  "Kitchen Repairing",
+                  //  text: project.projectName ?? "",
+                  text: "Kitchen Repairing",
                   fontWeight: FontWeight.w500,
                   fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
@@ -103,7 +109,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   // visible: isMultiProjects,
                   child: MyTextPoppines(
                     text: "   +2 more services",
-                  //  text: "   +${project.services!.length} more services",
+                    //  text: "   +${project.services!.length} more services",
                     fontWeight: FontWeight.w500,
                     fontSize: width / 40,
                     color: AppColors.black.withOpacity(0.5),
@@ -135,8 +141,8 @@ class OngoingWorkCardStatic extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                      //  text: project.estimateNo,
-                      text: "OD-058699S",
+                        //  text: project.estimateNo,
+                        text: "OD-058699S",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
@@ -162,8 +168,8 @@ class OngoingWorkCardStatic extends StatelessWidget {
                       ),
                       10.hs,
                       MyTextPoppines(
-                      //  text: "${project.projectCost}",
-                      text: "\$100",
+                        //  text: "${project.projectCost}",
+                        text: "\$100",
                         fontWeight: FontWeight.w600,
                         fontSize: width / 38,
                       ),
@@ -184,14 +190,14 @@ class OngoingWorkCardStatic extends StatelessWidget {
                     ),
                     SizedBox(width: width / 60),
                     MyTextPoppines(
-                   //   text: project.projectStartDate ?? "",
-                   text: "01/01/2023",
+                      //   text: project.projectStartDate ?? "",
+                      text: "01/01/2023",
                       fontWeight: FontWeight.w600,
                       fontSize: width / 38,
                     ),
                   ],
                 ),
-               // SizedBox(height: height / 135),
+                // SizedBox(height: height / 135),
               ],
             ),
           ),
@@ -205,18 +211,18 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   bottomRight: Radius.circular(12),
                 ),
                 image:
-                //  isImgisNotNull
-                //     ? DecorationImage(
-                //         image: NetworkImage(
-                //           project.projectImages!.first.thumbnailUrl!,
-                //         ),
-                //         fit: BoxFit.cover,
-                //       )
-                //     : 
+                    //  isImgisNotNull
+                    //     ? DecorationImage(
+                    //         image: NetworkImage(
+                    //           project.projectImages!.first.thumbnailUrl!,
+                    //         ),
+                    //         fit: BoxFit.cover,
+                    //       )
+                    //     :
                     DecorationImage(
-                        image: AssetImage("assets/images/room/2(1).png"),
-                        fit: BoxFit.cover,
-                      ),
+                  image: AssetImage("assets/images/room/2(1).png"),
+                  fit: BoxFit.cover,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,10 +276,10 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: MyBlueButton(
-                       hPadding: 10.w,
-                    vPadding: height / 120,
-                     fontSize:size.height * FontSize.fourteen,
-                      text: "View Project", 
+                      hPadding: 10.w,
+                      vPadding: height / 120,
+                      fontSize: size.height * FontSize.fourteen,
+                      text: "View Project",
                       fontWeight: FontWeight.w600,
                       onTap: onViewEstTapped,
                     ),
