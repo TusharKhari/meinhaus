@@ -145,7 +145,7 @@ class _CustomerSupportDialogState extends State<CustomerSupportDialog> {
                     children: [
                       MyTextPoppines(
                         text: "Select Photos To Upload :",
-                        fontSize:size.height * FontSize.fourteen,
+                        fontSize:size.height * FontSize.twelve,
                         // fontSize: width / 40,
                         fontWeight: FontWeight.w600,
                       ),

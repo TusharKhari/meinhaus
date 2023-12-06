@@ -2,23 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_snake_bar.dart'; 
  
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
+import '../../dialogs/static_screens_dialog.dart';
 import 'no_est_work_detail_static_screen.dart';
 
 class NoEstStaticScreen extends StatelessWidget {
   const NoEstStaticScreen({super.key});
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width; 
-        final size  = MediaQuery.of(context).size;
+    final width = MediaQuery.sizeOf(context).width;
+    final size = MediaQuery.of(context).size;
 
     return Container(
       width: width / 2,
@@ -38,7 +38,7 @@ class NoEstStaticScreen extends StatelessWidget {
                 // PROJECT NAME
                 MyTextPoppines(
                   // text: projectDetails.projectName.toString(),
-                  text:  "Project Name Sample",
+                  text: "Project Name Sample",
                   fontWeight: FontWeight.w500,
                   fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
@@ -61,7 +61,7 @@ class NoEstStaticScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       MyTextPoppines(
-                        text:    "01/01/23",
+                        text: "01/01/23",
                         // text: projectDetails.estimateDate ?? "",
                         fontSize: width / 38,
                         fontWeight: FontWeight.w600,
@@ -91,11 +91,10 @@ class NoEstStaticScreen extends StatelessWidget {
                 bottomRight: Radius.circular(width / 40),
               ),
               // BACKGROUND PROJECT IMAGE
-              image: 
-              DecorationImage(
-                      image: AssetImage("assets/images/room/2(1).png"),
-                      fit: BoxFit.fill,
-                    ),
+              image: DecorationImage(
+                image: AssetImage("assets/images/room/2(1).png"),
+                fit: BoxFit.fill,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,15 +161,23 @@ class NoEstStaticScreen extends StatelessWidget {
                     hPadding: 10.w,
                     vPadding: height / 120,
                     text: "View Est",
-                    fontSize:size.height * FontSize.fourteen, 
+                    fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w600,
                     onTap: () {
-                      showSnakeBarr(context, "This is a sample estimate", SnackBarState.Info);
+                      // showSnakeBarr(context, "This is a sample estimate",
+                      //     SnackBarState.Info);
                       Navigator.pushNamed(
-                        context, 
-                     NoEstWorkDetailStaticScreen.routeName,
-                //   EstimatedWorkDetailScreen.routeName,  
-                  
+                        context,
+                        NoEstWorkDetailStaticScreen.routeName,
+                        //   EstimatedWorkDetailScreen.routeName,
+                      );
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => StaticScreensDialog(
+                          subtitle:
+                              "This is a sample project estimate all the function when you create a new estimate all sample cards will be disappear.",
+                        ),
                       );
                     },
                   ),

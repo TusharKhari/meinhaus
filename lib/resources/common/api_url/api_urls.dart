@@ -4,9 +4,9 @@ import 'package:new_user_side/utils/constants/constant.dart';
 @immutable
 abstract class ApiUrls {
   // static String _base = "https://quantumhostings.com/projects/meinhaus";
-    // static String _base = "https://meinhaus.ca";
-    static String _base = baseUrl2;
-    // static String _base = "https://test.meinhaus.ca";
+  // static String _base = "https://meinhaus.ca";
+  static String _base = baseUrl2;
+  // static String _base = "https://test.meinhaus.ca";
 
   static String baseUrl = "$_base/api/";
 
@@ -27,7 +27,6 @@ abstract class ApiUrls {
   static Uri google = setUrls("customer-social-login");
   static Uri userDetails = setUrls("user-details");
   static Uri deleteAccount = setUrls("delete-account");
-
 
   // Forget Password
   static Uri forgetPassword = setUrls("send-forgot-password-otp");
@@ -53,7 +52,7 @@ abstract class ApiUrls {
   static Uri updateAddress = setUrls("update-address");
   static Uri updateProfile = setUrls("update-profile");
   static Uri updatePassword = setUrls("update-password");
-  static Uri setDefaultAddress = setUrls("set-default-address"); 
+  static Uri setDefaultAddress = setUrls("set-default-address");
 
   // Additional Work
   static Uri requestAdditional = setUrls("request-additional-work");
@@ -98,5 +97,8 @@ abstract class ApiUrls {
 
   // terms and conditions
   static Uri termsAndConditions = Uri.parse("$baseUrl2/terms-and-conditions");
+  static Uri privacyPolicies = Uri.parse("$baseUrl2/privacy-policy");
   // static Uri termsAndConditions = setUrls("terms-and-conditions");
 }
+
+// https://meinhaus.ca/privacy-policy
