@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_snake_bar.dart';
-import 'package:new_user_side/static%20components/empty%20states/no_project/on_going_project%20_detail_static.dart';
+ import 'package:new_user_side/static%20components/empty%20states/no_project/on_going_project%20_detail_static.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
-
 import '../../../features/home/widget/project_img_card_widget.dart';
 import '../../../resources/common/buttons/my_buttons.dart';
 import '../../../resources/common/my_text.dart';
@@ -18,9 +16,10 @@ class OngoingWorkCardStatic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+  
     final size = MediaQuery.of(context).size;
+      final height = size.height;
+    final width = size.width;
 
     return SizedBox(
       height: height / 2.90,
@@ -39,18 +38,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
     required double width,
     required Size size,
   }) {
-    void onViewEstTapped() async {
-      // isMultiProjects
-      //     ? Navigator.of(context).pushScreen(
-      //         MultipleProjectServicesScreen(project: projects[index]),
-      //       )
-      //     : {
-      //         await _getProjectDetails(),
-      //         Navigator.of(context).pushScreen(
-      //           OngoingProjectDetailScreen(serviceId: projectId),
-      //         ),
-      //       };
-      // ("Project Id : $projectId || Pro Id : $proId").log();
+    void onViewEstTapped() async { 
 
       Navigator.of(context).pushScreen(
         OnGoingProjectDetailsStatic(),
