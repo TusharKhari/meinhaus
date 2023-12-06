@@ -74,7 +74,7 @@ class ThirdSplashScreen extends StatelessWidget {
                   fontSize:19.sp,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
-                  maxLines: 4,
+                  maxLines: 5,
                   height: width / 300,
                 ),
               ),

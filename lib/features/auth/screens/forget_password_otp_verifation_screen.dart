@@ -2,8 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
@@ -31,12 +30,12 @@ class ForgetPasswordOtpValidateScreen extends StatefulWidget {
 class _ForgetPasswordOtpValidateScreenState
     extends State<ForgetPasswordOtpValidateScreen> {
   // Initial otp is blank
-  bool isOtpEnterd = false;
+  bool isOtpEntered = false;
   // Storing otp
   late String otp;
   // Initial time for resending otp
   int startTime = 60;
-  // Boolen for showing the resend button
+  // Boolean for showing the resend button
   bool showResendButton = false;
   // Timer for otp
   late Timer _timer;
@@ -73,18 +72,18 @@ class _ForgetPasswordOtpValidateScreenState
 
   // verify forget password otp
   Future _verifyForgetPasswordOTP(String OTP) async {
-    final notifer = context.read<AuthNotifier>();
+    final notifier = context.read<AuthNotifier>();
     final body = {"email": widget.email, "otp": OTP};
-    if (isOtpEnterd)
-      await notifer.verifyForgetPassOTP(body: body, context: context);
+    if (isOtpEntered)
+      await notifier.verifyForgetPassOTP(body: body, context: context);
   }
 
   // resend otp handler
   void _resendOtpHandler() {
-    final notifer = context.read<AuthNotifier>();
+    final notifier = context.read<AuthNotifier>();
     if (showResendButton) {
       final body = {"email": widget.email};
-      notifer.resendForgetPassOTP(body: body, context: context);
+      notifier.resendForgetPassOTP(body: body, context: context);
       startTimer();
       setState(() {
         startTime = 60;
@@ -95,7 +94,7 @@ class _ForgetPasswordOtpValidateScreenState
 
   @override
   Widget build(BuildContext context) {
-    final notifer = context.watch<AuthNotifier>();
+    final notifier = context.watch<AuthNotifier>();
     final h = context.screenHeight;
     final w = context.screenWidth;
         final size  = MediaQuery.of(context).size;
@@ -191,7 +190,7 @@ class _ForgetPasswordOtpValidateScreenState
                         });
                       },
                       onCompleted: (value) {
-                        setState(() => isOtpEnterd = true);
+                        setState(() => isOtpEntered = true);
                         setState(() => otp = value);
                         // print("otp set" + otp);
                         // print("Completed " + value);
@@ -266,7 +265,7 @@ class _ForgetPasswordOtpValidateScreenState
                           color: buttonColor,
                         ),
                         child: Center(
-                          child: notifer.loading
+                          child: notifier.loading
                               ? LoadingAnimationWidget.inkDrop(
                                   color: AppColors.white,
                                   size: w / 26,

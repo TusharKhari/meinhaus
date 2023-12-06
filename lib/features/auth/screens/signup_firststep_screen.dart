@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/auth/screens/signin_screen.dart';
+ import 'package:new_user_side/features/auth/screens/signin_screen.dart';
 import 'package:new_user_side/features/auth/screens/signup_secondstep_screen.dart';
 import 'package:new_user_side/features/auth/widgets/auth_banner_widget.dart';
 import 'package:new_user_side/features/auth/widgets/auth_textfield.dart';
@@ -42,8 +41,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
   if(mounted) setState(() {
       isSignUpClicked = true;
    });
-    final notifer = context.read<AuthNotifier>();
-    if (_signUpFormKey.currentState!.validate()) {
+       if (_signUpFormKey.currentState!.validate()) {
          isSignUpClicked = false;
       Navigator.of(context).pushScreen(
         SignUpStepSecondScreen(
@@ -58,7 +56,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final notifer = context.watch<AuthNotifier>();
+    final notifier = context.watch<AuthNotifier>();
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
         final size  = MediaQuery.of(context).size;
@@ -115,7 +113,7 @@ class _SignUpStepFirstScreenState extends State<SignUpStepFirstScreen> {
                   MyBlueButton(
                     hPadding: width / 3,
                     text: "Next",
-                    isWaiting: notifer.loading,
+                    isWaiting: notifier.loading,
                     onTap: () => _signUpHandler(context),
                   ),
                   SizedBox(height: height / 50),

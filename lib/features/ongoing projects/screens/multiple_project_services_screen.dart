@@ -236,7 +236,7 @@ class _MainCard extends StatelessWidget {
                     ),
                     5.hspacing(context),
                     SizedBox(
-                     width: width / 1.7,
+                     width: width * 0.46,
                     // width: 200.w,
                       child: MyTextPoppines(
                         text:  project.description  ?? "No Description",

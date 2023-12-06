@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
-import 'package:new_user_side/utils/sizer.dart';
-
+ 
 class AuthBannerWidget extends StatelessWidget {
   final bool? isSignIn;
   const AuthBannerWidget({
@@ -13,8 +12,7 @@ class AuthBannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    return Container(
+     return Container(
       width: double.infinity,
       height: 220.h,
       color: const Color(0xFFE9F4FF),

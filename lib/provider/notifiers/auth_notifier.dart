@@ -169,7 +169,7 @@ class AuthNotifier extends ChangeNotifier {
             OtpValidateScreen(
               userId: user.userId!,
               contactNo: user.contact!,
-              isSkippAble: true,
+              isSkippAble: false,
             ),
           );
         }
