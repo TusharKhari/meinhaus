@@ -42,8 +42,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
- final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+ 
     return Scaffold(
       body: 
       Stack(
@@ -54,7 +55,8 @@ class _SplashScreenState extends State<SplashScreen>
             children: screens,
           ),
           Positioned(
-            bottom: 100.h,
+            bottom: size.height * 0.1,
+            // bottom: 100.h,
             child: InkWell(
               onTap: () {
                 setState(() {
@@ -130,7 +132,7 @@ class _SplashScreenState extends State<SplashScreen>
                 alignment: Alignment.center,
                 width: double.infinity,
                 height: 50.h,
-                margin: EdgeInsets.only(left: 40.w, right: 10.w),
+               margin: EdgeInsets.only(left: 40.w, right: 10.w, bottom: height * 0.01),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40.r),
                   color: AppColors.buttonBlue,

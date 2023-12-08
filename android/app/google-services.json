@@ -1,48 +1,40 @@
 {
   "project_info": {
-    "project_number": "544499278167",
-    "project_id": "meinhause-user",
-    "storage_bucket": "meinhause-user.appspot.com"
+    "project_number": "282066624103",
+    "project_id": "meinhaus-b6ea0",
+    "storage_bucket": "meinhaus-b6ea0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:544499278167:android:14f4f457c51587962d1e12",
+        "mobilesdk_app_id": "1:282066624103:android:82d62ba61812b70a78bec2",
         "android_client_info": {
           "package_name": "com.example.new_user_side"
         }
       },
       "oauth_client": [
         {
-          "client_id": "544499278167-qr79aquvomnpfhit5ot7i3orbvop0var.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.new_user_side",
-            "certificate_hash": "1b7cf44ea8df16f18199371972e0922103b50d3e"
-          }
-        },
-        {
-          "client_id": "544499278167-ucrvav5igt68m3gkem0uih8e3e7b89eg.apps.googleusercontent.com",
+          "client_id": "282066624103-orgu7j0okrsrk2lb9ogjusb5336764at.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyApgZFAymBiWW8MFjV1dnBPLiOFQZ5jxWM"
+          "current_key": "AIzaSyAv7bhi9KBbIbW6l9toRasj27EfMYj4wMI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "544499278167-ucrvav5igt68m3gkem0uih8e3e7b89eg.apps.googleusercontent.com",
+              "client_id": "282066624103-orgu7j0okrsrk2lb9ogjusb5336764at.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "544499278167-2e9su12l1h2js64g29dgdu6ks1spnfrq.apps.googleusercontent.com",
+              "client_id": "282066624103-qbqrk5vkv31sbbctpnm1c15d8a4utidj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "ca.meinhaus.user.app"
+                "bundle_id": "ca.meinhaus.app.user"
               }
             }
           ]

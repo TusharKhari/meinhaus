@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_text.dart'; 
+import 'package:new_user_side/resources/common/my_text.dart';
+import 'package:new_user_side/resources/font_size/font_size.dart'; 
 
 class ThirdSplashScreen extends StatelessWidget {
   const ThirdSplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
     return Scaffold(
       body: Stack(
         children: [
@@ -27,11 +29,13 @@ class ThirdSplashScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 30.h,
+            top: height * 0.04,
+            // top: 30.h,
             right: 0.w,
             child: Container(
               width: 320.w,
-              height: 300.h,
+              height: height * 0.37,
+              // height: 300.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
@@ -44,11 +48,13 @@ class ThirdSplashScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 270.h,
+            top: height * 0.3,
+            // top: 270.h,
             left: 0.w,
             child: Container(
               width: 320.w,
-              height: 300.h,
+              height: height * 0.37,
+              // height: 300.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
@@ -71,7 +77,8 @@ class ThirdSplashScreen extends StatelessWidget {
                 child: MyTextPoppines(
                   text:
                       "Have your own pro? No Problem! Book through our platform for a seamless experience at no additional cost",
-                  fontSize:19.sp,
+                  fontSize:height * FontSize.nineteen,
+                  // fontSize:19.sp,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   maxLines: 5,

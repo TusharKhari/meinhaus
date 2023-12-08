@@ -138,8 +138,7 @@ class AuthRepositorys {
 
   // Social Login
   Future<ResponseType> googleLogin(MapSS data) async {
-    try {
-      // print("data $data");
+    try { 
       return await services.sendHttpRequestWithoutToken(
         url: ApiUrls.google,
         method: HttpMethod.post,

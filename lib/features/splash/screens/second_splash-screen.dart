@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
+import 'package:new_user_side/resources/font_size/font_size.dart';
 
 import '../../../utils/constants/app_colors.dart';
 
@@ -9,7 +10,7 @@ class SecondSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(children: [
@@ -28,11 +29,13 @@ class SecondSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 20.h,
+          top: size.height * 0.02,
+          // top: 20.h,
           right: 0.w,
           child: Container(
             width: 320.w,
-            height: 320.h,
+            height: size.height * 0.4,
+            // height: 320.h,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
@@ -45,11 +48,13 @@ class SecondSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 280.h,
+          top: size.height * 0.38,
+          // top: 280.h,
           left: 0.w,
           child: Container(
             width: 320.w,
-            height: 300.h,
+            height: size.height * 0.4,
+            // height: 300.h,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
@@ -62,7 +67,8 @@ class SecondSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 190.h,
+          bottom:size.height * 0.26,
+          // bottom: 190.h,
           left: 20.w,
           right: 20.w,
           child: SizedBox(
@@ -71,7 +77,8 @@ class SecondSplashScreen extends StatelessWidget {
               text: "Instant quotation tailored to you.",
               fontSize: 
               //height > 800 ? 18.sp : 22.sp,
-              19.sp, 
+              size.height * FontSize.nineteen, 
+              // 19.sp, 
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
               maxLines: 3,
@@ -79,7 +86,8 @@ class SecondSplashScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 140.h,
+          bottom:size.height  * 0.2,
+          // bottom: 140.h,
           left: 20.w,
           child: SizedBox(
             width: 350.w,
@@ -88,7 +96,7 @@ class SecondSplashScreen extends StatelessWidget {
                   "Pay a fixed price at the best market rates. Guaranteed to completion  ",
               fontSize: 
               //height > 800 ? size.height * FontSize.fifteen : 17.sp,
-              17.sp, 
+              size.height * FontSize.seventeen, 
 
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,

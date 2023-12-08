@@ -321,8 +321,10 @@ class AuthNotifier extends ChangeNotifier {
       // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-
+         
+      // accessToken =  gUser.id;
       accessToken = await gAuth.accessToken!;
+      print("gToken ${accessToken}");
 
       if (accessToken.isNotEmpty) googleSignIn(context);
     } catch (e) {
@@ -341,11 +343,12 @@ class AuthNotifier extends ChangeNotifier {
     MapSS data = {"provider": "google", "access_token": accessToken};
     if (isTest) print(data);
     await repository.googleLogin(data).then((response) async {
-      showSnakeBarr(
-        context,
-        response['response_message'],
-        SnackBarState.Success,
-      );
+      print(response);
+      // showSnakeBarr(
+      //   context,
+      //   response['response_message'],
+      //   SnackBarState.Success,
+      // );
       User user = UserModel.fromJson(response).user!;
       setUser(user);
       await prefs.setToken(user.token!);
@@ -362,6 +365,7 @@ class AuthNotifier extends ChangeNotifier {
       }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
+      print(error);
       onErrorHandler(context, error, stackTrace);
     });
   }

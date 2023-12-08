@@ -15,9 +15,11 @@ class FontSize {
   // static double fifteen = 15.0;
   static double sixteen = 0.019;   // d
   // static double sixteen = 16.0;
-  static double seventeen = 17.0;
+  static double seventeen = 0.02;
+  // static double seventeen = 17.0;
   static double eighteen = 18.0;
-  static double nineteen = 19.0;
+  static double nineteen = 0.023;
+  // static double nineteen = 19.0;
   static double twenty = 20.0;
   static double twentyOne = 21.0;
   static double twentyTwo = 22.0;

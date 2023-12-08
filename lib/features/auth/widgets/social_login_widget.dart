@@ -20,6 +20,7 @@ class SocialLoginWidget extends StatelessWidget {
 final size  = MediaQuery.of(context).size;
 
     _handleGoogleAuth() async {
+      // await notifier.googleSignIn(context);
       await notifier.googleAuth(context);
     }
 
