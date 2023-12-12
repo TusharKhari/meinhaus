@@ -139,7 +139,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
       width: double.infinity,
       height: size.height / 4.46,
       decoration: BoxDecoration(
-        borderRadius: borderRadius,
+        borderRadius:  borderRadius,
         border: Border.all(
           width: 1.2,
           color: AppColors.golden,
@@ -159,35 +159,43 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
         ),
         child: Row(
           children: [
-            20.hs,
+           4.hs,
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  "Get an instant quote",
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
                 // Text("Get an instant quote for any project, anytime."),
-                Text.rich(TextSpan(children: [
-                  TextSpan(
-                    text: "Get an ",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "instant ",
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.golden),
-                  ),
-                  TextSpan(
-                    text: "quote",
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.golden),
-                  ),
-                ])),
+                // Text.rich(TextSpan(children: [
+                //   TextSpan(
+                //     text: "Get an ",
+                //     style: TextStyle(
+                //       fontSize: 20.sp,
+                //       fontWeight: FontWeight.w600,
+                //     ),
+                //   ),
+                //   TextSpan(
+                //     text: "instant ",
+                //     style: TextStyle(
+                //         fontSize: 20.sp,
+                //         fontWeight: FontWeight.w600,
+                //         color: AppColors.golden),
+                //   ),
+                //   TextSpan(
+                //     text: "quote",
+                //     style: TextStyle(
+                //         fontSize: 20.sp,
+                //         fontWeight: FontWeight.w600,
+                //         color: AppColors.golden),
+                //   ),
+                // ])),
 
                 MyBlueButton(
                   hPadding: size.width * 0.028,
@@ -208,7 +216,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                       TextSpan(
                         text: "Try our 3D image generator AI \n",
                         style: TextStyle(
-                          fontSize: size.height * FontSize.thirteen,
+                          fontSize: size.height * FontSize.fifteen,
                           fontWeight: FontWeight.w500,
                           color: AppColors.white,
                         ),
@@ -216,7 +224,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                       TextSpan(
                         text: "*coming soon...",
                         style: TextStyle(
-                          fontSize: size.height * FontSize.eleven,
+                          fontSize: size.height * FontSize.thirteen,
                           fontWeight: FontWeight.w500,
                           color: AppColors.golden,
                         ),
@@ -226,13 +234,9 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                 )
               ],
             ),
-            SizedBox(
-              height: double.infinity,
-              width: 110.w,
-              child: Image.asset(
-                "assets/images/workers/worker_1.png",
-                fit: BoxFit.cover,
-              ),
+            Image.asset(
+              "assets/images/workers/worker_1.png",
+              fit: BoxFit.cover,
             ),
           ],
         ),
