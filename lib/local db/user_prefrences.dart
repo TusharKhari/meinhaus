@@ -30,7 +30,7 @@ class UserPrefrences {
   Future<void> printToken() async {
     prefs = await SharedPreferences.getInstance();
     _authToken = prefs!.getString('x-auth-token');
-    print(_authToken!);
+    // print(_authToken!);
   }
 
 // set user-id

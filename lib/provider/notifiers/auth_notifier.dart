@@ -333,7 +333,7 @@ class AuthNotifier extends ChangeNotifier {
         "Something went wrong try again",
         SnackBarState.Warning,
       );
-      print("gauth $e");
+      // print("gauth $e");
       setGoogleLoadingState(false, true);
     }
   }

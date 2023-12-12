@@ -101,10 +101,10 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
       final projectNotifer =
           context.read<EstimateNotifier>().projectDetails.services;
       final proNotifier = context.read<EstimateNotifier>().proDetails.prodata;
-      Navigator.of(context).pushScreen(
+    if(proNotifier != null) { Navigator.of(context).pushScreen(
         ChattingScreen(
           isChatWithPro: true,
-          sendUserId: proNotifier!.proId,
+          sendUserId: proNotifier.proId,
           estimateId: projectNotifer!.projectId.toString(),
           conversations: Conversations(
             profilePicture: proNotifier.proProfileUrl,
@@ -114,7 +114,7 @@ class OngoingJobsButtonsPanel extends StatelessWidget {
             projectStartedOn: projectNotifer.projectStartDate,
           ),
         ),
-      );
+      );}
     }
 
     return Padding(

@@ -139,7 +139,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
                         onTap: () {
