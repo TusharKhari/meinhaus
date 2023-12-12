@@ -59,7 +59,7 @@ class SavedAddressesWidget extends StatelessWidget {
             ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: userProvider.user.savedAddress!.length,
+                itemCount: userProvider.user.savedAddress?.length ?? 0,
                 itemBuilder: (context, index) {
                   final addressId = address![index].id;
                   return Consumer<AddressNotifier>(

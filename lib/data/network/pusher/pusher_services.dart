@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
- import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
@@ -30,6 +30,7 @@ class PusherService {
   }
 
   final PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
+
   final apiKey = pusherApiKey;
   // final apiKey = dotenv.env['pusherApiKey']!;
   final cluster = pusherCluster;
@@ -65,7 +66,7 @@ class PusherService {
   }
 
   void onConnectionStateChange(dynamic currentState, dynamic previousState) {
-   // print("pusher Connection: $currentState");
+    // print("pusher Connection: $currentState");
   }
 
   void onError(String message, int? code, dynamic e) {
@@ -103,7 +104,7 @@ class PusherService {
       var json = jsonDecode(result.body);
       return {"auth": json['auth']};
     } catch (err) {
-       (err).log("Pusher onAuth error");
+      (err).log("Pusher onAuth error");
     }
   }
 
@@ -128,7 +129,7 @@ class PusherService {
         if (notifier.myMessaage.messages!.isNotEmpty) {
           if (notifier.myMessaage.conversationId == data['conversation_id']) {
             // Add or Update message in mymessages list
-            notifier.updateOrAddNewMessage(message,0);
+            notifier.updateOrAddNewMessage(message, 0);
             // Whenever we see the message we will mark
             //it as-read if all the conditions using this API
             notifier.readMessage(body);

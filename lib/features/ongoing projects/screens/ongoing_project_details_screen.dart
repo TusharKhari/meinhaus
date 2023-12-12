@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:new_user_side/features/pro%20profile/view/widget/pro_profile_widget.dart';
 import 'package:new_user_side/features/review/widgets/show_review_card.dart';
@@ -79,9 +78,11 @@ class _OngoingProjectDetailScreenState
     final services = projectDetails.services;
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-    final uploadNotifier =  context.watch<UploadImgNotifier>();
- final size = MediaQuery.of(context).size;
-    return services != null && notifier.proDetails.prodata != null
+    final uploadNotifier = context.watch<UploadImgNotifier>();
+
+    final size = MediaQuery.of(context).size;
+    return services != null
+        //  return services != null && notifier.proDetails.prodata != null
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
             child: Scaffold(
@@ -91,8 +92,8 @@ class _OngoingProjectDetailScreenState
                     : services.normal!
                         ? "Ongoing Job"
                         : "Hourly Job",
-                onBack: (){ 
-                 Navigator.pop(context);
+                onBack: () {
+                  Navigator.pop(context);
                   uploadNotifier.onBackClick();
                 },
               ),
@@ -101,6 +102,18 @@ class _OngoingProjectDetailScreenState
                   DownloadPdfCard(workName: services.projectName.toString()),
                   SizedBox(height: height / 120),
                   Divider(thickness: height * 0.003, height: 0.0),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  if (notifier.proDetails.prodata == null)
+                    Text(
+                      "* No Pro Assigned Yet",
+                      style: TextStyle(
+                        fontSize: size.height * FontSize.nineteen,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.red,
+                      ),
+                    ),
                   SizedBox(height: height / 60),
                   Expanded(
                     child: SingleChildScrollView(
@@ -153,7 +166,7 @@ class _OngoingProjectDetailScreenState
 
                           // BUTTONS
                           OngoingJobsButtonsPanel(),
-                          
+
                           Visibility(
                             visible: services.isCompleted!,
                             child: Divider(thickness: height * 0.003),
@@ -163,7 +176,10 @@ class _OngoingProjectDetailScreenState
                             child: ShowReviewCard(),
                           ),
                           Divider(thickness: height * 0.003),
-                          ProProfileWidget(),
+                          // if(notifier.proDetails.prodata != null)  ProProfileWidget(),
+                          notifier.proDetails.prodata != null
+                              ? ProProfileWidget()
+                              : SizedBox(),
                           SizedBox(height: height / 40),
                         ],
                       ),

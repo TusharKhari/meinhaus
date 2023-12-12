@@ -30,7 +30,7 @@ class EstimateNotifier extends ChangeNotifier {
   OngoingProjectsModel _projectsHistory = OngoingProjectsModel();
   GeneratedEstimateModel _estimateModel = GeneratedEstimateModel();
   ProjectDetailsModel _detailsModel = ProjectDetailsModel();
-  ProModel _proModel = ProModel();
+  ProModel? _proModel = ProModel();
   ProgressInvoiceModel _progressInvoiceModel = ProgressInvoiceModel();
 
   // getters
@@ -42,12 +42,11 @@ class EstimateNotifier extends ChangeNotifier {
   OngoingProjectsModel get projectsHistory => _projectsHistory;
   GeneratedEstimateModel get estimated => _estimateModel;
   ProjectDetailsModel get projectDetails => _detailsModel;
-  ProModel get proDetails => _proModel;
+  ProModel get proDetails => _proModel!;
   ProgressInvoiceModel get progressInvoiceModel => _progressInvoiceModel;
 
-
-  void onBackClick(){
-    _images = []; 
+  void onBackClick() {
+    _images = [];
     print("${_images.length}");
     notifyListeners();
   }
@@ -57,7 +56,7 @@ class EstimateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-   Future<void> selectImgFromCamera(BuildContext context) async { 
+  Future<void> selectImgFromCamera(BuildContext context) async {
     await GetImages().pickImageFromCamera<EstimateNotifier>(context: context);
   }
 
@@ -145,7 +144,7 @@ class EstimateNotifier extends ChangeNotifier {
     // estimateRepository.createStartingEstimate(data).then((response) {
     estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
-     if(isTest)  ('Estimate Successfully Created ✅').log("Estimate Creation");
+      if (isTest) ('Estimate Successfully Created ✅').log("Estimate Creation");
       removeImagesFromList();
       // Navigator.of(context).pushScreen(HomeScreen());
       Navigator.of(context).pushNamedAndRemoveUntil(
@@ -172,7 +171,7 @@ class EstimateNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     estimateRepository.createEstimate(data).then((response) {
       setLoadingState(false, true);
-     if(isTest)  ('Estimate Succesfully Created ✅').log("Estimate Creation");
+      if (isTest) ('Estimate Succesfully Created ✅').log("Estimate Creation");
       removeImagesFromList();
       //Get.to(() => HomeScreen());
       // Navigator.of(context).pushScreen(HomeScreen());
@@ -184,7 +183,7 @@ class EstimateNotifier extends ChangeNotifier {
           "Your estimate has been created successfully. we will contact you shortly",
           SnackBarState.Success);
     }).onError((error, stackTrace) {
-    //  print("err : $error");
+      //  print("err : $error");
       setLoadingState(false, true);
       onErrorHandler(context, error, stackTrace);
     });
@@ -195,10 +194,10 @@ class EstimateNotifier extends ChangeNotifier {
     setLoadingState(true, false);
     final prefs = UserPrefrences();
     bool isFirstTime = await prefs.isFirstTime();
-   estimateRepository.getEstimates().then((response) {
-  //  print(response);
+    estimateRepository.getEstimates().then((response) {
+      //  print(response);
       var data = GeneratedEstimateModel.fromJson(response);
-     if(context.mounted) setEstimate(data);
+      if (context.mounted) setEstimate(data);
       setLoadingState(false, true);
       // if (data.estimatedWorks!.length == 0 && _count == 0)
       if (isFirstTime) {
@@ -210,13 +209,11 @@ class EstimateNotifier extends ChangeNotifier {
           SnackBarState.Warning,
         );
       }
-     // print("object ${prefs}");
-    }
-
-    ).onError((error, stackTrace) {
-       setLoadingState(false, true);
+      // print("object ${prefs}");
+    }).onError((error, stackTrace) {
+      setLoadingState(false, true);
       showSnakeBarr(context, "$error", SnackBarState.Error);
-     if(isTest)  ("$error $stackTrace").log("Estimate notifier");
+      if (isTest) ("$error $stackTrace").log("Estimate notifier");
     });
   }
 
@@ -227,7 +224,7 @@ class EstimateNotifier extends ChangeNotifier {
       setOngoingProjects(data);
     }).onError((error, stackTrace) {
       showSnakeBarr(context, "$error", SnackBarState.Error);
-     if(isTest)  ("$error $stackTrace").log("Estimate notifier");
+      if (isTest) ("$error $stackTrace").log("Estimate notifier");
     });
   }
 
@@ -264,7 +261,8 @@ class EstimateNotifier extends ChangeNotifier {
       onErrorHandler(context, error, stackTrace);
     });
     // getting pro details
-    await getProDetails(proId, context);
+    ("proId $proId").log("pro id");
+    if (proId != "null") await getProDetails(proId, context);
     setLoadingState(false, true);
   }
 
@@ -295,14 +293,18 @@ class EstimateNotifier extends ChangeNotifier {
   }
 
 // GET PRO DETAILS
-  Future getProDetails(String proId, BuildContext context) async {
-    await estimateRepository.getProDetails(proId).then((response) {
-      var data = ProModel.fromJson(response);
-      setProDetails(data);
-    }).onError((error, stackTrace) {
-      setLoadingState(false, true);
-      onErrorHandler(context, error, stackTrace);
-    });
+  Future<void> getProDetails(String? proId, BuildContext context) async {
+    if (proId != null) {
+      await estimateRepository.getProDetails(proId).then((response) {
+        var data = ProModel.fromJson(response);
+        setProDetails(data);
+      }).onError((error, stackTrace) {
+        setLoadingState(false, true);
+        onErrorHandler(context, error, stackTrace);
+      });
+    } else {
+      return;
+    }
   }
 
   // PROGRESS INVOICE
