@@ -200,7 +200,9 @@ class EstimateNotifier extends ChangeNotifier {
       if (context.mounted) setEstimate(data);
       setLoadingState(false, true);
       // if (data.estimatedWorks!.length == 0 && _count == 0)
-      if (isFirstTime) {
+      if (isFirstTime &&
+          _estimateModel.awaitingEstimate?.length == 0 &&
+          _estimateModel.estimatedWorks?.length == 0) {
         prefs.setIsNotFirstTime();
         showSnakeBarr(
           context,
