@@ -6,6 +6,7 @@ import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../../resources/font_size/font_size.dart';
 
@@ -17,7 +18,7 @@ class SocialLoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<AuthNotifier>();
-final size  = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     _handleGoogleAuth() async {
       // await notifier.googleSignIn(context);
@@ -100,6 +101,39 @@ final size  = MediaQuery.of(context).size;
             //     ),
             //   ),
             // ),
+            // ============
+            // apple sign in 
+            // Container(
+            //     width: 70.w,
+            //     height: 48.h,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(12.r),
+            //       border: Border.all(
+            //         color: AppColors.black,
+            //       ),
+            //     ),
+            //     padding: EdgeInsets.all(2),
+            //     child: SignInWithAppleButton(
+            //         style: SignInWithAppleButtonStyle.white,
+            //         text: "",
+            //         onPressed: () async {
+            //           final credential =
+            //               await SignInWithApple.getAppleIDCredential(
+            //             scopes: [
+            //               AppleIDAuthorizationScopes.email,
+            //               AppleIDAuthorizationScopes.fullName,
+            //             ],
+            //             // ignore: avoid_print
+            //           );
+            //           print(credential);
+            //           print("em ${credential.email}");
+            //           print("authCd ${credential.authorizationCode}");
+            //           print("idTok ${credential.identityToken}");
+            //           print("userId ${credential.userIdentifier}");
+            //           print("state ${credential.state}");
+            //           print("name ${credential.givenName}");
+                      
+            //         }))
           ],
         ),
       ],

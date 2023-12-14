@@ -71,6 +71,7 @@ dependencies:
   # get: ^4.6.5 #Remove
   device_info_plus: ^9.0.3
   url_launcher: ^6.2.1
+  sign_in_with_apple: ^5.0.0
   # showcaseview: ^2.0.3    # remove
   # flutter_cache_manager: ^3.3.1
 
