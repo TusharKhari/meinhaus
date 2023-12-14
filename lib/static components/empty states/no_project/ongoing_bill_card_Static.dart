@@ -26,7 +26,7 @@ class OngoingProjectBillCardStatic extends StatelessWidget {
         15.vs,
         ProjectDetailsRow(
           prefixText: "Address Details :",
-          suffixText: "1400, Rue Ottawa",
+          suffixText: "251 Queen Street South, Mississauga, Ontario. L5M1Y2",
         ),
       ],
     );

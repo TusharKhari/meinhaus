@@ -61,7 +61,7 @@ class PusherService {
         await pusher.subscribe(channelName: channelName);
       }
     } catch (e) {
-      print("pusher ERROR: $e");
+     if(isTest) print("pusher ERROR: $e");
     }
   }
 
@@ -74,7 +74,7 @@ class PusherService {
   }
 
   void onSubscriptionSucceeded(String channelName, dynamic data) {
-    print("pusher onSubscriptionSucceeded: $channelName data: $data");
+  if(isTest)  print("pusher onSubscriptionSucceeded: $channelName data: $data");
   }
 
   void onSubscriptionError(String message, dynamic e) {
@@ -126,8 +126,8 @@ class PusherService {
           "to_user_id": data["message_data"]["sender_id"].toString(),
           "message_id": data["message_data"]["id"].toString(),
         };
-        if (notifier.myMessaage.messages!.isNotEmpty) {
-          if (notifier.myMessaage.conversationId == data['conversation_id']) {
+        if (notifier.myMessage.messages!.isNotEmpty) {
+          if (notifier.myMessage.conversationId == data['conversation_id']) {
             // Add or Update message in mymessages list
             notifier.updateOrAddNewMessage(message, 0);
             // Whenever we see the message we will mark
@@ -140,7 +140,7 @@ class PusherService {
       // Handle "message-read" event
       // Update messages seen status
       else if (event.eventName == "message-read") {
-        final messages = notifier.myMessaage.messages!;
+        final messages = notifier.myMessage.messages!;
         final updatedMessages = messages.map(
           (message) {
             if (message.senderId == userNotifier.userId) {
@@ -150,7 +150,7 @@ class PusherService {
           },
         ).toList();
         notifier.setMessages(
-          notifier.myMessaage.copyWith(messages: updatedMessages),
+          notifier.myMessage.copyWith(messages: updatedMessages),
         );
       }
       // Handle "ticket-accepted" evetns
@@ -177,6 +177,6 @@ class PusherService {
     } catch (e) {
       (e).log("OnEvent Error");
     }
-    ("Event: $event").log("onEvent");
+   if(isTest) ("Event: $event").log("onEvent");
   }
 }

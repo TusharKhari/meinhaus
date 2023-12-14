@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_user_side/features/estimate/widget/download_pdf_card_widget.dart';
- 
+
 import '../../../resources/common/my_app_bar.dart';
 import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
@@ -19,15 +19,12 @@ class OnGoingProjectDetailsStatic extends StatefulWidget {
 
 class _OnGoingProjectDetailsStaticState
     extends State<OnGoingProjectDetailsStatic> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
-      @override
-      void initState() {
-        super.initState();
-        
-      }
-      showInfo(){
-       
-      }
+  showInfo() {}
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,7 +37,7 @@ class _OnGoingProjectDetailsStaticState
         child: Column(
           children: [
             DownloadPdfCard(
-              workName: "Kitchen Repairing",
+              workName: "Washroom Renewal Project",
             ),
             SizedBox(height: height / 120),
             Divider(thickness: height * 0.003, height: 0.0),
@@ -88,7 +85,8 @@ class _OnGoingProjectDetailsStaticState
                 right: width / 15,
               ),
               child: MyTextPoppines(
-                text: 'This area usually provides details about the project.',
+                text:
+                    'Remove all existing tiles, vanity and toilet. All lines capped where shutoff valves not existing, baseboards removed. All debris bagged and placed curbside for pickup. Junk removal available for extra fee. ',
                 fontSize: size.height * FontSize.fourteen,
                 fontWeight: FontWeight.w500,
                 height: 1.6,

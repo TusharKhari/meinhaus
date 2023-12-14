@@ -37,7 +37,7 @@ class OurServicesCard extends StatelessWidget {
           1.vspacing(context),
           Container(
             width: size.width / 1.45,
-            height: size.height * 0.2,
+            height: size.height * 0.19,
             // height: 130.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),

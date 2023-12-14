@@ -36,14 +36,14 @@ class ProProfileWidgetStatic extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MyTextPoppines(
-                    text:  "Pro Name",
+                    text: "Johnny Jones",
                     fontSize: size.height * FontSize.sixteen,
                     // fontSize: size.height * FontSize.sixteen,
                     fontWeight: FontWeight.bold,
                   ),
                   5.vs,
                   MyTextPoppines(
-                    text:"Pro Company Name",
+                    text: "Johns Renovations",
                     fontSize: size.height * FontSize.sixteen,
                     // fontSize: size.height * FontSize.sixteen,
                     fontWeight: FontWeight.w500,
@@ -53,7 +53,7 @@ class ProProfileWidgetStatic extends StatelessWidget {
                   SizedBox(
                     width: size.width * 0.5,
                     child: MyTextPoppines(
-                      text: "Pro Motive",
+                      text: "Our mission is quality Renovations!",
                       fontSize: size.height * FontSize.sixteen,
                       // fontSize: size.height * FontSize.sixteen,
                       fontWeight: FontWeight.bold,
@@ -154,22 +154,19 @@ class ProProfileWidgetStatic extends StatelessWidget {
           5.vs,
           Divider(thickness: 0.8),
           10.vs,
-         MeinHouseProRatingCardStatic(),
+          MeinHouseProRatingCardStatic(),
           20.vs,
-         /// ProRecentProjectsCardWidget()
+
+          /// ProRecentProjectsCardWidget()
         ],
       ),
     );
   }
 }
 
-
-/// 
-/// 
-/// 
-
-
-
+///
+///
+///
 
 class MeinHouseProRatingCardStatic extends StatelessWidget {
   const MeinHouseProRatingCardStatic({
@@ -178,7 +175,6 @@ class MeinHouseProRatingCardStatic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
@@ -193,7 +189,7 @@ class MeinHouseProRatingCardStatic extends StatelessWidget {
           10.vs,
           MyTextPoppines(
             text: "Pro Rating",
-          fontSize: size.height * FontSize.fourteen,
+            fontSize: size.height * FontSize.fourteen,
             // fontSize: context.screenHeight / MyFontSize.font14,
             fontWeight: FontWeight.w600,
           ),
@@ -216,21 +212,20 @@ class MeinHouseProRatingCardStatic extends StatelessWidget {
                     ),
                     6.hs,
                     MyTextPoppines(
-                      text: "4/5",
+                      text: "5/5",
                       fontSize: size.height * FontSize.fourteen,
                       // fontSize: context.screenHeight / MyFontSize.font14,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textBlue,
                     ),
                     10.hs,
-                    
                   ],
                 ),
               ),
               10.hs,
               MyTextPoppines(
                 text: "2 Customer ratings",
-                 fontSize: size.height * FontSize.twelve,
+                fontSize: size.height * FontSize.twelve,
                 // fontSize: context.screenHeight / MyFontSize.font10,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black.withOpacity(0.6),
@@ -243,19 +238,19 @@ class MeinHouseProRatingCardStatic extends StatelessWidget {
             size: size,
             title: "Responsive",
             // valueNo: "(22)",
-            valueProgress: 70 * 0.01,
+            valueProgress: 100 * 0.01,
           ),
           RatingCardStatusContant(
             size: size,
             title: "Punctuality",
             //  valueNo: "(10)",
-            valueProgress: 80 * 0.01,
+            valueProgress: 100 * 0.01,
           ),
           RatingCardStatusContant(
             size: size,
             title: "Quality",
             //    valueNo: "(54)",
-            valueProgress:75 * 0.01,
+            valueProgress: 100 * 0.01,
           )
         ],
       ),

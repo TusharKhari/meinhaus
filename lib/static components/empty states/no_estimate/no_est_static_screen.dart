@@ -38,7 +38,7 @@ class NoEstStaticScreen extends StatelessWidget {
                 // PROJECT NAME
                 MyTextPoppines(
                   // text: projectDetails.projectName.toString(),
-                  text: "Project Name Sample",
+                  text: "Washroom Renewal Project",
                   fontWeight: FontWeight.w500,
                   fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
@@ -175,9 +175,7 @@ class NoEstStaticScreen extends StatelessWidget {
                         context: context,
                         barrierDismissible: false,
                         builder: (context) => StaticScreensDialog(
-                          subtitle:
-                              "This is a sample project estimate all the function when you create a new estimate all sample cards will be disappear.",
-                        ),
+                          subtitle: "This is a sample estimate for demonstration purposes. When you create a real estimate, this will disappear."),
                       );
                     },
                   ),

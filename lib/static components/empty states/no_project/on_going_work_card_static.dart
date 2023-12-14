@@ -51,8 +51,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
         barrierDismissible: false,
         builder: (context) => StaticScreensDialog(
           subtitle:
-              "This is a sample project explore all the function when you create a new project all sample cards will be disappear.",
-        ),
+             "This is a sample project where you can tour all the functions we provide for an ongoing project.",),
       );
     }
 
@@ -81,7 +80,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                 // PROJECT NAME
                 MyTextPoppines(
                   //  text: project.projectName ?? "",
-                  text: "Kitchen Repairing",
+                  text: "Washroom Renewal Project",
                   fontWeight: FontWeight.w500,
                   fontSize: size.height * FontSize.sixteen,
                   maxLines: 1,
@@ -215,13 +214,13 @@ class OngoingWorkCardStatic extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: height / 80),
+             //     SizedBox(height: height / 80),
                   MyTextPoppines(
                     text: "Project Photos:",
                     color: AppColors.white,
                     fontSize: width / 32,
                   ),
-                  SizedBox(height: height / 80),
+                 // SizedBox(height: height / 80),
                   // Project Images
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

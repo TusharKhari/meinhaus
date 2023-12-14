@@ -5,7 +5,8 @@ import 'package:new_user_side/data/models/message_model.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/network/pusher/pusher_services.dart';
 import 'package:new_user_side/local%20db/user_prefrences.dart';
-import 'package:new_user_side/repository/chat_respository.dart'; 
+import 'package:new_user_side/repository/chat_respository.dart';
+import 'package:new_user_side/utils/constants/constant.dart'; 
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:new_user_side/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,7 @@ class ChatNotifier extends ChangeNotifier {
   bool get loadMoreLoading => _loadMoreLoading;
   List<XFile> get images => _images;
   XFile get image => _image;
-  MessageModel get myMessaage => _message;
+  MessageModel get myMessage => _message;
   bool get sendingMsg => _sendingMsg;
 
 
@@ -152,7 +153,7 @@ class ChatNotifier extends ChangeNotifier {
     await _pusherService
         .setupPusherConnection(context, channelName)
         .then((value) {
-      ("Pusher setup done").log("Pusher");
+     if(isTest) ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);
     });
@@ -250,7 +251,7 @@ class ChatNotifier extends ChangeNotifier {
     final userNotifier = context.read<AuthNotifier>().user;
     final userId = userNotifier.userId;
     int largestId = 0;
-    for (var message in myMessaage.messages!) {
+    for (var message in myMessage.messages!) {
       int messageId = message.id!;
       if (messageId > largestId) {
         largestId = messageId;
@@ -298,7 +299,7 @@ class ChatNotifier extends ChangeNotifier {
 
   /// Read messages
   Future readMessage(MapSS body) async {
-    if (myMessaage.messages != null && myMessaage.messages!.isNotEmpty)
+    if (myMessage.messages != null && myMessage.messages!.isNotEmpty)
       repo.readMessage(body).then((value) {
        // print("messages readed my sender");
       }).onError((error, stackTrace) {

@@ -206,7 +206,7 @@ class AuthNotifier extends ChangeNotifier {
 
       /// otp validation is not required here when user sign up all details will be registered and just login with those details
       /// ==== comment this line when otp validation is required  ====
-    await login(data, context);
+      await login(data, context);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -321,7 +321,7 @@ class AuthNotifier extends ChangeNotifier {
       // Creating an user with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-         
+
       // accessToken =  gUser.id;
       accessToken = await gAuth.accessToken!;
       print("gToken ${accessToken}");
@@ -466,10 +466,13 @@ class AuthNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     await repository.deleteAccount().then((value) {
       if (isTest) print("delete account $value");
-      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInScreen(),));
-      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignInScreen())); 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignInScreen(),), (route) => false);
-     setLoadingState(false, true);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignInScreen(),
+          ),
+          (route) => false);
+      setLoadingState(false, true);
     }).onError((error, stackTrace) {
       print("delete account error $error");
       onErrorHandler(context, error, stackTrace);

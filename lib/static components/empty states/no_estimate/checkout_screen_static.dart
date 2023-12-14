@@ -36,7 +36,7 @@ class CheckOutScreenStatic extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CheckOutSummaryCardWidget(
-                    totalAmount: "100", projectName: 'Kitchen Repairing'),
+                    totalAmount: "100", projectName: 'Washroom Renewal Project'),
                 8.vspacing(context),
                 const Divider(thickness: 1.0),
                 8.vspacing(context),
@@ -150,8 +150,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
                   builder: (context) {
                     return StaticScreensDialog(
                       subtitle:
-                          "Payment will be done here and your estimate will be converted into project and professional will be assigned to the project.",
-                    );
+                          "This is where you can purchase the project. The estimate will now become an upcoming project. We can then assign our Pro’s to your job.",);
                   },
                 );
               })

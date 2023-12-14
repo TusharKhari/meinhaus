@@ -64,7 +64,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
   @override
   void dispose() {
     super.dispose();
-    notifier.myMessaage.messages!.clear();
+    notifier.myMessage.messages!.clear();
     widget.isChatWithPro ? null : notifier.unsubscribe();
   }
 
@@ -79,7 +79,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
 // clearing the saved messages
   void clearMessage() {
     final notifier = context.read<ChatNotifier>();
-    notifier.myMessaage.messages!.clear();
+    notifier.myMessage.messages!.clear();
   }
 
 // load messages
@@ -136,7 +136,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
     final h = context.screenHeight;
     final w = context.screenWidth;
 
-    return notifier.myMessaage.messages != null
+    return notifier.myMessage.messages != null
         ? ModalProgressHUD(
             inAsyncCall: notifier.loading,
             child: Scaffold(
@@ -170,7 +170,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
                                   projectDeatils.projectStartDate,
                             ),
                       // Showing all the message below
-                      notifier.myMessaage.messages!.length > 0
+                      notifier.myMessage.messages!.length > 0
                           ? Expanded(
                               child: NotificationListener<ScrollNotification>(
                                 onNotification: (scrollNotification) {
@@ -192,9 +192,9 @@ class _ChattingScreenState extends State<ChattingScreen> {
                                     controller: notifier.scrollController,
                                     padding: EdgeInsets.only(bottom: h / 10),
                                     itemCount:
-                                        notifier.myMessaage.messages!.length,
+                                        notifier.myMessage.messages!.length,
                                     itemBuilder: (context, index) {
-                                      final messages = notifier.myMessaage;
+                                      final messages = notifier.myMessage;
                                       final message = messages.messages![index];
                                       if (widget.isChatWithPro
                                           ? message.senderId ==

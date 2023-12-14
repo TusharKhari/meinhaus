@@ -47,7 +47,7 @@ class OngoingJobsButtonsPanelStatic extends StatelessWidget {
                           builder: (context) {
                             return StaticScreensDialog(
                               subtitle:
-                                  "You can use customer support when you need if any professional not doing work properly or any other complain regarding the same.",
+                                  "This is the customer support option. Select this anytime you need assistance and create a ticket so our team of experts can get right on it!",
                             );
                           },
                         );
@@ -100,7 +100,7 @@ class OngoingJobsButtonsPanelStatic extends StatelessWidget {
                       builder: (context) {
                         return StaticScreensDialog(
                           subtitle:
-                              "You can save important notes for yourself and also for both(you and pro) about the project.",
+                              "This is a note pad for you to save any relevant notes for yourself & your pro as well.",
                         );
                       },
                     );
@@ -153,8 +153,9 @@ class OngoingJobsButtonsPanelStatic extends StatelessWidget {
                   barrierDismissible: false,
                   builder: (context) {
                     return StaticScreensDialog(
-                        subtitle:
-                            "Here you can message your assigned professional regarding the project.");
+                      subtitle:
+                          "Here you can instant message your project Pro. We can access these conversations as required to provide you the best customer service experience!",
+                    );
                   },
                 );
               },
@@ -171,7 +172,7 @@ class OngoingJobsButtonsPanelStatic extends StatelessWidget {
                   builder: (context) {
                     return StaticScreensDialog(
                       subtitle:
-                          "Here you can view your all payments invoices that has been paid regarding this project.",
+                          "“Here you can view all of your past, current and remaining payments for your project.",
                     );
                   },
                 );
@@ -188,7 +189,7 @@ class OngoingJobsButtonsPanelStatic extends StatelessWidget {
                 builder: (context) {
                   return StaticScreensDialog(
                     subtitle:
-                        "Here you can request additional work if you require in the particular project which is ongoing.",
+                        "Here you can request additional work you may require for an ongoing project.",
                   );
                 },
               );

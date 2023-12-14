@@ -298,7 +298,7 @@ class OngoingWorkCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: height / 80),
+                 // SizedBox(height: height / 80),
                   MyTextPoppines(
                     text: "Project Photos:",
                     color: AppColors.white,

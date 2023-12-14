@@ -3,8 +3,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:new_user_side/data/network/network_api_servcies.dart';
 import 'package:new_user_side/data/network/pusher/pusher_services.dart';
 import 'package:new_user_side/provider/notifiers/chat_notifier.dart';
-import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
-import 'package:new_user_side/repository/customer_support_repo.dart';
+ import 'package:new_user_side/repository/customer_support_repo.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
@@ -92,7 +92,7 @@ class SupportNotifier extends ChangeNotifier {
     await _pusherService
         .setupPusherConnection(context, channelNames)
         .then((value) {
-      ("Pusher setup done").log("Pusher");
+    if(isTest)  ("Pusher setup done").log("Pusher");
     }).onError((error, stackTrace) {
       showSnakeBarr(context, error.toString(), SnackBarState.Error);
       ("Erorr in setup pusher --> $error").log("Pro-Chat Notifier");
@@ -104,7 +104,7 @@ class SupportNotifier extends ChangeNotifier {
     final userId = await UserPrefrences().getUserId();
     String channelName = "private-query.$projectId.$userId";
     _pusherService.pusher.unsubscribe(channelName: channelName);
-    ("Channel Unsunscribed $channelName").log("Pusher");
+   if(isTest) ("Channel Unsubscribed $channelName").log("Pusher");
   }
 
   // Send Query to support
@@ -145,7 +145,7 @@ class SupportNotifier extends ChangeNotifier {
   Future keepOpen(BuildContext context) async {
     final chatNotifier = context.read<ChatNotifier>();
     final supportNotifier = context.read<SupportNotifier>();
-    final conversationId = chatNotifier.myMessaage.conversationId;
+    final conversationId = chatNotifier.myMessage.conversationId;
     final ticketId = supportNotifier.ticketId;
     MapSS body = {
       "conversation_id": conversationId.toString(),
@@ -173,7 +173,7 @@ class SupportNotifier extends ChangeNotifier {
   // Accept and close support chat
   Future acceptAndClose(BuildContext context) async {
     final chatNotifier = context.read<ChatNotifier>();
-    final conversationId = chatNotifier.myMessaage.conversationId;
+    final conversationId = chatNotifier.myMessage.conversationId;
    
     MapSS body = {
       "conversation_id": conversationId.toString(),
