@@ -264,7 +264,11 @@ class EstimateNotifier extends ChangeNotifier {
     });
     // getting pro details
     ("proId $proId").log("pro id");
-    if (proId != "null") await getProDetails(proId, context);
+    if (proId != "null") {
+      await getProDetails(proId, context);
+    } else {
+      _proModel!.prodata = null;
+    }
     setLoadingState(false, true);
   }
 
