@@ -1,40 +1,92 @@
 {
   "project_info": {
-    "project_number": "282066624103",
-    "project_id": "meinhaus-b6ea0",
-    "storage_bucket": "meinhaus-b6ea0.appspot.com"
+    "project_number": "443437268523",
+    "project_id": "mein-haus-login",
+    "storage_bucket": "mein-haus-login.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:282066624103:android:82d62ba61812b70a78bec2",
+        "mobilesdk_app_id": "1:443437268523:android:48e426696310cb0182746e",
         "android_client_info": {
-          "package_name": "com.example.new_user_side"
+          "package_name": "com.example.mein_haus_user_side_apk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "282066624103-orgu7j0okrsrk2lb9ogjusb5336764at.apps.googleusercontent.com",
+          "client_id": "443437268523-t75h3h8p1c8l4a5rpkmsjbge21gtfr35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mein_haus_user_side_apk",
+            "certificate_hash": "b398c2f9de12f6726a94d6faca4d3d5fdbeab40b"
+          }
+        },
+        {
+          "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAv7bhi9KBbIbW6l9toRasj27EfMYj4wMI"
+          "current_key": "AIzaSyD-vH_F4MAnaGXDkZivwWlkZtY5u4yqPA0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "282066624103-orgu7j0okrsrk2lb9ogjusb5336764at.apps.googleusercontent.com",
+              "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "282066624103-qbqrk5vkv31sbbctpnm1c15d8a4utidj.apps.googleusercontent.com",
+              "client_id": "443437268523-f6fk7pn52cu8865bpvmrf9722lo3su6o.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "ca.meinhaus.app.user"
+                "bundle_id": "com.example.newUserSide"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443437268523:android:9e3948ab6d5a9cd082746e",
+        "android_client_info": {
+          "package_name": "com.example.new_user_side"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443437268523-b45r3023930j2rlu13648qso33srnjut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.new_user_side",
+            "certificate_hash": "b398c2f9de12f6726a94d6faca4d3d5fdbeab40b"
+          }
+        },
+        {
+          "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-vH_F4MAnaGXDkZivwWlkZtY5u4yqPA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443437268523-akb4ccdpn7inq3j12kjkqqnut8nn2tgg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "443437268523-f6fk7pn52cu8865bpvmrf9722lo3su6o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.newUserSide"
               }
             }
           ]
