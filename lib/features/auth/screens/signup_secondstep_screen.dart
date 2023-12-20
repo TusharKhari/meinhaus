@@ -175,7 +175,7 @@ class _SignUpStepSecondScreenState extends State<SignUpStepSecondScreen> {
                   MyBlueButton(
                     isWaiting: notifer.loading,
                     hPadding: width / 3,
-                    text: "Contiune",
+                    text: "Continue",
                     onTap: () => signUp(),
                   ),
                   SizedBox(height: height / 50),
