@@ -87,6 +87,7 @@ class ProProfileWidget extends StatelessWidget {
                   vertical: height / 80,
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset("assets/icons/approved_verified.svg"),
                     // Image.asset("assets/icons/approved.png"),

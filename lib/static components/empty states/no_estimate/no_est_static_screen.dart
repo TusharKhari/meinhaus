@@ -92,7 +92,7 @@ class NoEstStaticScreen extends StatelessWidget {
               ),
               // BACKGROUND PROJECT IMAGE
               image: DecorationImage(
-                image: AssetImage("assets/images/room/2(1).png"),
+                image: AssetImage("assets/static/1.png"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -112,31 +112,14 @@ class NoEstStaticScreen extends StatelessWidget {
                     ProjectImgCardWidget(
                       width: width / 8,
                       height: height / 16,
-                      imgPath: "assets/images/room/2(1).png",
+                      imgPath:"assets/static/2.png",
                     ),
                     ProjectImgCardWidget(
                       width: width / 8,
                       height: height / 16,
-                      imgPath: "assets/images/room/room_3.png",
+                      imgPath:"assets/static/3.png",
                     ),
-                    Stack(
-                      children: [
-                        ProjectImgCardWidget(
-                          width: width / 8,
-                          height: height / 16,
-                          imgPath: "assets/images/room/room_1.png",
-                        ),
-                        Positioned(
-                          left: width / 30,
-                          top: height / 60,
-                          child: MyTextPoppines(
-                            text: " +5\nMore",
-                            fontSize: width / 38,
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                    
                   ],
                 ),
                 SizedBox(height: height / 60),

@@ -6,15 +6,14 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../../resources/font_size/font_size.dart';
-import '../../../features/pro profile/view/widget/pro_rating_card.dart';
-
+ 
 class ProProfileWidgetStatic extends StatelessWidget {
   const ProProfileWidgetStatic({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+  final proServiceOffered =["Electrical", "Carpentry Framing", "Appliance Install", "Plumbing", "Tiling" ];
     final height = size.height;
     final width = size.width;
     return Padding(
@@ -82,6 +81,7 @@ class ProProfileWidgetStatic extends StatelessWidget {
                   vertical: height / 80,
                 ),
                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset("assets/icons/approved_verified.svg"),
                     // Image.asset("assets/icons/approved.png"),
@@ -131,26 +131,26 @@ class ProProfileWidgetStatic extends StatelessWidget {
             fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w500,
           ),
-          // Padding(
-          //   padding: EdgeInsets.only(left: 20.w, top: 10.h),
-          //   child: ListView.builder(
-          //     shrinkWrap: true,
-          //     physics: NeverScrollableScrollPhysics(),
-          //     itemCount: pro?.serviceOffered!.length,
-          //     itemBuilder: (context, index) {
-          //       final String? service = pro?.serviceOffered![index];
-          //       return Padding(
-          //         padding: EdgeInsets.only(bottom: 5.h),
-          //         child: MyTextPoppines(
-          //           text: "•   $service",
-          //           fontSize: size.height * FontSize.fourteen,
-          //           fontWeight: FontWeight.w500,
-          //           color: AppColors.black.withOpacity(0.6),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, top: 10.h),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: proServiceOffered.length,
+              itemBuilder: (context, index) {
+                final String? service = proServiceOffered[index];
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 5.h),
+                  child: MyTextPoppines(
+                    text: "•   $service",
+                    fontSize: size.height * FontSize.fourteen,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black.withOpacity(0.6),
+                  ),
+                );
+              },
+            ),
+          ),
           5.vs,
           Divider(thickness: 0.8),
           10.vs,

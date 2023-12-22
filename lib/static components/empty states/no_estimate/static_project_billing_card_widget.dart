@@ -55,15 +55,15 @@ class StaticProjectBillingCard extends StatelessWidget {
           2.vspacing(context),
           _buildShowPrice(
             context: context,
-           text: "Deposit for project Booking = \$100",
-      //  text: "Deposit for project Booking = \$",
+           text: "Deposit for project Booking = \$2600",
+      
 
           ),
           4.vspacing(context),
           _buildShowPrice(
             context: context,
             // text: "HST 13% (830275681RRT0001) = \$${pBill.hstForDepositAmount}",
-            text: "HST 13%  = \$13",
+            text: "HST 13%  = \$338",
           ),
           5.vspacing(context),
           Container(
@@ -80,7 +80,7 @@ class StaticProjectBillingCard extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: MyTextPoppines(
                 // text: "Total : \$${pBill.totalDepositAmount}",
-               text: "Total : \$113",
+               text: "Total : \$2938",
                 fontSize: height / 60,
                 fontWeight: FontWeight.w600,
                 color: AppColors.white,

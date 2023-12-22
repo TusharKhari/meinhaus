@@ -211,12 +211,12 @@ class _EstimatedDetailsColumn extends StatelessWidget {
         _EstimatedDetailsRow(
           prefixText: "Deposited Amount :",
           //suffixText: "\$${projectDetails.projectBilling!.depositAmount}",
-          suffixText: "\$100",
+          suffixText: "\$ 2600",
         ),
         15.vs,
         _EstimatedDetailsRow(
           prefixText: "Bill To :",
-          suffixText: "44 E. West Street Ashland, OH 44805.",
+          suffixText:"251 Queen Street South, Mississauga, Ontario. L5M1Y2",
         ),
         15.vs,
         _EstimatedDetailsRow(

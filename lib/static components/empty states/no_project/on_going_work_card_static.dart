@@ -8,6 +8,7 @@ import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../dialogs/static_screens_dialog.dart';
+import 'multiple_project_static_screen.dart';
 
 class OngoingWorkCardStatic extends StatelessWidget {
   const OngoingWorkCardStatic({
@@ -41,7 +42,8 @@ class OngoingWorkCardStatic extends StatelessWidget {
     void onViewEstTapped() async { 
 
       Navigator.of(context).pushScreen(
-        OnGoingProjectDetailsStatic(),
+        // OnGoingProjectDetailsStatic(),
+        MultipleProjectServicesStaticScreen(), 
       );
 
       // OnGoingProjectDetailsStatic
@@ -95,7 +97,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   visible: true,
                   // visible: isMultiProjects,
                   child: MyTextPoppines(
-                    text: "   +2 more services",
+                    text: " +3 more services",
                     //  text: "   +${project.services!.length} more services",
                     fontWeight: FontWeight.w500,
                     fontSize: width / 40,
@@ -156,7 +158,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                       10.hs,
                       MyTextPoppines(
                         //  text: "${project.projectCost}",
-                        text: "\$100",
+                        text: "\$2938",
                         fontWeight: FontWeight.w600,
                         fontSize: width / 38,
                       ),
@@ -197,17 +199,9 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
                 ),
-                image:
-                    //  isImgisNotNull
-                    //     ? DecorationImage(
-                    //         image: NetworkImage(
-                    //           project.projectImages!.first.thumbnailUrl!,
-                    //         ),
-                    //         fit: BoxFit.cover,
-                    //       )
-                    //     :
+                image: 
                     DecorationImage(
-                  image: AssetImage("assets/images/room/2(1).png"),
+                  image: AssetImage("assets/static/1.png"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -225,34 +219,17 @@ class OngoingWorkCardStatic extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ProjectImgCardWidget(
-                        width: width / 8,
-                        height: height / 16,
-                        imgPath: "assets/images/room/2(1).png",
-                      ),
-                      ProjectImgCardWidget(
-                        width: width / 8,
-                        height: height / 16,
-                        imgPath: "assets/images/room/room_3.png",
-                      ),
-                      Stack(
-                        children: [
-                          ProjectImgCardWidget(
-                            width: width / 8,
-                            height: height / 16,
-                            imgPath: "assets/images/room/room_1.png",
-                          ),
-                          Positioned(
-                            left: width / 30,
-                            top: height / 90,
-                            child: MyTextPoppines(
-                              text: " +5\nMore",
-                              fontSize: width / 36,
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                       ProjectImgCardWidget(
+                      width: width / 8,
+                      height: height / 16,
+                      imgPath:"assets/static/2.png",
+                    ),
+                    ProjectImgCardWidget(
+                      width: width / 8,
+                      height: height / 16,
+                      imgPath:"assets/static/3.png",
+                    ),
+                      
                     ],
                   ),
                   Expanded(

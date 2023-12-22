@@ -6,11 +6,13 @@ import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'buttons_panel_static.dart';
+import 'on_going_project_photos_static.dart';
 import 'ongoing_bill_card_Static.dart';
 import 'pro_profile_static.dart';
 
 class OnGoingProjectDetailsStatic extends StatefulWidget {
-  const OnGoingProjectDetailsStatic({super.key});
+  final project;
+  OnGoingProjectDetailsStatic({super.key, required this.project});
 
   @override
   State<OnGoingProjectDetailsStatic> createState() =>
@@ -32,12 +34,13 @@ class _OnGoingProjectDetailsStaticState
     final width = size.width;
 
     return Scaffold(
-      appBar: MyAppBar(text: "Sample Ongoing Projects"),
+      appBar: MyAppBar(text: "Sample Ongoing Project"),
       body: SingleChildScrollView(
         child: Column(
           children: [
             DownloadPdfCard(
-              workName: "Washroom Renewal Project",
+              workName: widget.project["service"],
+              
             ),
             SizedBox(height: height / 120),
             Divider(thickness: height * 0.003, height: 0.0),
@@ -55,7 +58,7 @@ class _OnGoingProjectDetailsStaticState
                 ),
                 SizedBox(width: width / 20),
                 MyTextPoppines(
-                  text: "OD-18CM17",
+                  text: widget.project["estimateNo"],
                   fontSize: size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w400,
                   color: AppColors.yellow,
@@ -64,7 +67,7 @@ class _OnGoingProjectDetailsStaticState
             ),
             Divider(thickness: height * 0.003),
             SizedBox(height: height / 90),
-            OngoingProjectBillCardStatic(),
+            OngoingProjectBillCardStatic(project: widget.project),
             SizedBox(height: height / 90),
             Divider(thickness: height * 0.003),
             SizedBox(height: height / 90),
@@ -85,8 +88,7 @@ class _OnGoingProjectDetailsStaticState
                 right: width / 15,
               ),
               child: MyTextPoppines(
-                text:
-                    'Remove all existing tiles, vanity and toilet. All lines capped where shutoff valves not existing, baseboards removed. All debris bagged and placed curbside for pickup. Junk removal available for extra fee. ',
+                text: widget.project["description"],
                 fontSize: size.height * FontSize.fourteen,
                 fontWeight: FontWeight.w500,
                 height: 1.6,
@@ -96,6 +98,9 @@ class _OnGoingProjectDetailsStaticState
             ),
             // ============
             Divider(thickness: height * 0.003),
+            OngoingProjectPhotoCardWidgetStatic(
+              project: widget.project,
+            ),
             OngoingJobsButtonsPanelStatic(),
             Divider(thickness: height * 0.003),
             SizedBox(height: height / 40),

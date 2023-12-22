@@ -45,6 +45,7 @@ class AuthBannerWidget extends StatelessWidget {
               ),
             ),
           ),
+          
           Positioned(
             left: 15.w,
             bottom: 10.h,

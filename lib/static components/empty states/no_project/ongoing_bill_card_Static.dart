@@ -5,8 +5,9 @@ import 'package:new_user_side/utils/extensions/extensions.dart';
 import '../../../resources/font_size/font_size.dart';
 
 class OngoingProjectBillCardStatic extends StatelessWidget {
-  const OngoingProjectBillCardStatic({
-    Key? key,
+  final project;
+    OngoingProjectBillCardStatic({
+    Key? key, required this.project,
   }) : super(key: key);
 
   @override
@@ -16,12 +17,12 @@ class OngoingProjectBillCardStatic extends StatelessWidget {
       children: [
         ProjectDetailsRow(
           prefixText: "Project Started On :",
-          suffixText: "23-11-01",
+          suffixText: project["startedOn"],
         ),
         15.vs,
         ProjectDetailsRow(
           prefixText: "Project Cost :",
-          suffixText: "\$2480",
+          suffixText: "\$${project["serviceCost"]}",
         ),
         15.vs,
         ProjectDetailsRow(

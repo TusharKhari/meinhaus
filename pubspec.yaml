@@ -108,6 +108,7 @@ flutter:
     - assets/images/
     - assets/images/workers/
     - assets/images/room/
+    - assets/static/
     - assets/images/face/
     - assets/images/fixing/
     - assets/icons/
