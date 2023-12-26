@@ -48,7 +48,7 @@ class AuthBannerWidget extends StatelessWidget {
           
           Positioned(
             left: 15.w,
-            bottom: 10.h,
+            bottom: 0.h,
             child: MyTextPoppines(
               text: isSignIn! ? "Sign In " : "Sign up",
               fontSize: 

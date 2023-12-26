@@ -65,11 +65,12 @@ class NetworkApiServices {
 
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-      if(isTest) (response.body).log();
+      if (isTest) (response.body).log();
       final xsrf = response.headers['set-cookie'];
       await UserPrefrences().setXsrf(xsrf.toString());
       responseJson = errorHandling(response, allowUnauthorizedResponse);
-      if(isTest) (response.statusCode).log(response.request!.url.path.toString());
+      if (isTest)
+        (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -124,9 +125,10 @@ class NetworkApiServices {
       request.headers.addAll({'Accept': 'application/json'});
       http.StreamedResponse streamedResponse = await request.send();
       http.Response response = await http.Response.fromStream(streamedResponse);
-     if(isTest) (response.body).log();
+      if (isTest) (response.body).log();
       responseJson = errorHandling(response, allowUnauthorizedResponse);
-     if(isTest) (response.statusCode).log(response.request!.url.path.toString());
+      if (isTest)
+        (response.statusCode).log(response.request!.url.path.toString());
       return responseJson;
     } on FormatException {
       throw FetchDataException("Internal server error");
@@ -178,11 +180,10 @@ class NetworkApiServices {
           );
           break;
       }
-       if(isTest) (response.statusCode)!.log(response.realUri.path);
+      if (isTest) (response.statusCode)!.log(response.realUri.path);
       if (response.statusCode == 200 || response.statusCode == 201)
         return response.data;
-      else
-       if(isTest)  ('API call failed').log("${url.path}");
+      else if (isTest) ('API call failed').log("${url.path}");
     } on DioException catch (e) {
       if (e.type == DioException.connectionTimeout ||
           e.type == DioException.sendTimeout ||

@@ -44,7 +44,8 @@ class OngoingProjectPhotoCardWidgetStatic extends StatelessWidget {
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: project["projectPhotos"].length,
+                    itemCount: 1,
+                    // itemCount: project["projectPhotos"].length,
                     // itemCount: services.projectImages!.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -52,25 +53,38 @@ class OngoingProjectPhotoCardWidgetStatic extends StatelessWidget {
                     ),
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: InkWell(
-                          onTap: () {
-                            // Navigator.of(context).pushScreen(
-                            //   FullScreenImageView(
-                            //     images: images,
-                            //     currentIndex: index,
-                            //   ),
-                            // );
-                          },
+                      if (project["service"] == "Demolition") {
+                        return Padding(
+                          padding: const EdgeInsets.all(6.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(width / 40),
                             child: Image.asset(
-                              project["projectPhotos"][index],
+                              project["projectPhotos"][0],
                             ),
                           ),
-                        ),
-                      );
+                        );
+                      }
+                      if (project["service"] == "Plumbing") {
+                        return Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(width / 40),
+                            child: Image.asset(
+                              project["projectPhotos"][1],
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(width / 40),
+                            child: Image.asset(
+                              project["projectPhotos"][2],
+                            ),
+                          ),
+                        );
+                      }
                     }),
                 6.vspacing(context),
               ],

@@ -119,7 +119,7 @@ class ProProfileWidget extends StatelessWidget {
                     ),
                     5.hs,
                     MyTextPoppines(
-                      text: "Job Completed",
+                      text: "Jobs Completed",
                       height: 1.8,
                       fontSize: size.height * FontSize.thirteen,
                       fontWeight: FontWeight.w500,
