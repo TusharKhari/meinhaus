@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -108,31 +110,33 @@ class SocialLoginWidget extends StatelessWidget {
             // ),
             // ============
             // apple sign in
-            Container(
-              width: 70.w,
-              height: 48.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  color: AppColors.black,
-                ),
-              ),
-              padding: EdgeInsets.all(2),
-              child: notifier.aLoading
-                  ? Center(
-                      child: LoadingAnimationWidget.inkDrop(
+            Platform.isIOS
+                ? Container(
+                    width: 70.w,
+                    height: 48.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(
                         color: AppColors.black,
-                        size: 20.sp,
                       ),
-                    )
-                  : SignInWithAppleButton(
-                      style: SignInWithAppleButtonStyle.white,
-                      text: "",
-                      onPressed: () async {
-                        await _handleAppleAuth();
-                      },
                     ),
-            ),
+                    padding: EdgeInsets.all(2),
+                    child: notifier.aLoading
+                        ? Center(
+                            child: LoadingAnimationWidget.inkDrop(
+                              color: AppColors.black,
+                              size: 20.sp,
+                            ),
+                          )
+                        : SignInWithAppleButton(
+                            style: SignInWithAppleButtonStyle.white,
+                            text: "",
+                            onPressed: () async {
+                              await _handleAppleAuth();
+                            },
+                          ),
+                  )
+                : SizedBox(),
           ],
         ),
       ],
