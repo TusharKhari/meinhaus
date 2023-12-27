@@ -138,9 +138,21 @@ class AuthRepositorys {
 
   // Social Login
   Future<ResponseType> googleLogin(MapSS data) async {
-    try { 
+    try {
       return await services.sendHttpRequestWithoutToken(
         url: ApiUrls.google,
+        method: HttpMethod.post,
+        body: data,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<ResponseType> appleSignIn(MapSS data) async {
+    try {
+      return await services.sendHttpRequestWithoutToken(
+        url: ApiUrls.apple,
         method: HttpMethod.post,
         body: data,
       );
@@ -214,7 +226,7 @@ class AuthRepositorys {
 
   Future deleteAccount() async {
     try {
-    return  await services.sendHttpRequest(
+      return await services.sendHttpRequest(
         url: ApiUrls.deleteAccount,
         method: HttpMethod.post,
       );

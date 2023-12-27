@@ -25,6 +25,7 @@ abstract class ApiUrls {
   static Uri registerProject = setUrls("project-details");
   static Uri addMobileNo = setUrls("customer/add-mobile");
   static Uri google = setUrls("customer-social-login");
+  static Uri apple = setUrls("customer-apple-login");
   static Uri userDetails = setUrls("user-details");
   static Uri deleteAccount = setUrls("delete-account");
 

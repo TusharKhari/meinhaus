@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:io' show Platform;
+import 'dart:math';
 
+import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +19,7 @@ import 'package:new_user_side/local%20db/user_prefrences.dart';
 import 'package:new_user_side/repository/auth_repository.dart';
 import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../data/network/network_api_servcies.dart';
 import '../../features/auth/screens/otp_validate_screen.dart';
 import '../../features/home/screens/home_screen.dart';
@@ -35,6 +40,7 @@ class AuthNotifier extends ChangeNotifier {
   String accessToken = "";
   String deviceName = "";
   bool _isUserFirstVisit = true;
+  bool _aLoading = false;
   // getters
   bool get isToggle => _isToggle;
   bool get isWaiting => _isWaiting;
@@ -44,6 +50,7 @@ class AuthNotifier extends ChangeNotifier {
   bool get gLoading => _gloading;
   bool get isAuthenticated => _isAuthenticated;
   bool get isUserFirstVisit => _isUserFirstVisit;
+  bool get aLoading => _aLoading;
 
   // setters
   void setLoadingState(bool state, bool notify) {
@@ -58,6 +65,11 @@ class AuthNotifier extends ChangeNotifier {
 
   void setGoogleLoadingState(bool state, bool notify) {
     _gloading = state;
+    if (notify) notifyListeners();
+  }
+
+  void setAppleLoadingState(bool state, bool notify) {
+    _aLoading = state;
     if (notify) notifyListeners();
   }
 
@@ -365,8 +377,84 @@ class AuthNotifier extends ChangeNotifier {
       }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
-      print(error);
+
       onErrorHandler(context, error, stackTrace);
+    });
+  }
+
+// apple sign in
+
+  String generateNonce([int length = 32]) {
+    final charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  Future<void> appleSignIn({required BuildContext context}) async {
+    setAppleLoadingState(true, true);
+    String rawNonce = generateNonce();
+    String nonce = sha256ofString(rawNonce);
+    await firebaseAuth.FirebaseAuth.instance.signOut();
+    await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: nonce,
+    ).then((credential) async {
+      final oauthCredential =
+          firebaseAuth.OAuthProvider("apple.com").credential(
+        idToken: credential.identityToken,
+        rawNonce: rawNonce,
+      );
+      await firebaseAuth.FirebaseAuth.instance
+          .signInWithCredential(oauthCredential);
+
+      firebaseAuth.User? firebaseUser =
+          firebaseAuth.FirebaseAuth.instance.currentUser;
+
+      // =====================
+      MapSS data = {
+        "provider": "apple",
+        "access_token": firebaseUser?.uid ?? credential.authorizationCode,
+        // "access_token": credential.authorizationCode,
+        "email": firebaseUser?.email ?? "",
+        "name": firebaseUser?.displayName ?? credential.givenName ?? "N/A",
+        // "name": firebaseUser?.displayName ?? "N/A",
+        // "name": credential.givenName ?? "N/A",
+      };
+      if (isTest) print(data);
+      await repository.appleSignIn(data).then((response) async {
+        User user = UserModel.fromJson(response).user!;
+        setUser(user);
+        await prefs.setToken(user.token!);
+        setAppleLoadingState(false, true);
+        if (user.contact == null || user.phoneVerified == false) {
+          Navigator.of(context).pushScreen(
+            AddPhoneNumberScreen(userId: user.userId.toString()),
+          );
+        } else {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            HomeScreen.routeName,
+            (route) => false,
+          );
+        }
+      }).onError((error, stackTrace) {
+        setAppleLoadingState(false, true);
+        onErrorHandler(context, "Something went wrong.", stackTrace);
+      });
+      // =========
+    }).onError((error, stackTrace) {
+      setAppleLoadingState(false, true);
+      onErrorHandler(context, "Something went wrong.", stackTrace);
     });
   }
 
@@ -449,6 +537,7 @@ class AuthNotifier extends ChangeNotifier {
         final GoogleSignIn googleSignIn = GoogleSignIn();
         await googleSignIn.signOut();
         UserPrefrences().logOut(context);
+        //  await firebaseAuth.FirebaseAuth.instance.signOut();
         //  print('Signed out successfully.');
       } else {
         //  print("Social login is null");
@@ -472,6 +561,7 @@ class AuthNotifier extends ChangeNotifier {
             builder: (context) => SignInScreen(),
           ),
           (route) => false);
+      logout(context);
       setLoadingState(false, true);
     }).onError((error, stackTrace) {
       print("delete account error $error");

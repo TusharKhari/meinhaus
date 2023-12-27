@@ -25,6 +25,11 @@ class SocialLoginWidget extends StatelessWidget {
       await notifier.googleAuth(context);
     }
 
+    _handleAppleAuth() async {
+      // await notifier.googleSignIn(context);
+      await notifier.appleSignIn(context: context);
+    }
+
     return Column(
       children: [
         SizedBox(
@@ -102,38 +107,32 @@ class SocialLoginWidget extends StatelessWidget {
             //   ),
             // ),
             // ============
-            // apple sign in 
-            // Container(
-            //     width: 70.w,
-            //     height: 48.h,
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(12.r),
-            //       border: Border.all(
-            //         color: AppColors.black,
-            //       ),
-            //     ),
-            //     padding: EdgeInsets.all(2),
-            //     child: SignInWithAppleButton(
-            //         style: SignInWithAppleButtonStyle.white,
-            //         text: "",
-            //         onPressed: () async {
-            //           final credential =
-            //               await SignInWithApple.getAppleIDCredential(
-            //             scopes: [
-            //               AppleIDAuthorizationScopes.email,
-            //               AppleIDAuthorizationScopes.fullName,
-            //             ],
-            //             // ignore: avoid_print
-            //           );
-            //           print(credential);
-            //           print("em ${credential.email}");
-            //           print("authCd ${credential.authorizationCode}");
-            //           print("idTok ${credential.identityToken}");
-            //           print("userId ${credential.userIdentifier}");
-            //           print("state ${credential.state}");
-            //           print("name ${credential.givenName}");
-                      
-            //         }))
+            // apple sign in
+            Container(
+              width: 70.w,
+              height: 48.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(
+                  color: AppColors.black,
+                ),
+              ),
+              padding: EdgeInsets.all(2),
+              child: notifier.aLoading
+                  ? Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                        color: AppColors.black,
+                        size: 20.sp,
+                      ),
+                    )
+                  : SignInWithAppleButton(
+                      style: SignInWithAppleButtonStyle.white,
+                      text: "",
+                      onPressed: () async {
+                        await _handleAppleAuth();
+                      },
+                    ),
+            ),
           ],
         ),
       ],
