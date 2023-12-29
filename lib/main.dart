@@ -9,7 +9,6 @@ import 'package:new_user_side/utils/constants/constant.dart';
 import 'package:provider/provider.dart';
 import 'provider/provider.dart';
 
-
 ///  prod test env is in constants
 /// otp validation just go in auth_notifier "signUp" function
 

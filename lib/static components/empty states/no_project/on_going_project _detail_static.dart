@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/features/estimate/widget/download_pdf_card_widget.dart';
 
 import '../../../resources/common/my_app_bar.dart';
@@ -40,7 +41,6 @@ class _OnGoingProjectDetailsStaticState
           children: [
             DownloadPdfCard(
               workName: widget.project["service"],
-              
             ),
             SizedBox(height: height / 120),
             Divider(thickness: height * 0.003, height: 0.0),
@@ -99,6 +99,10 @@ class _OnGoingProjectDetailsStaticState
             // ============
             Divider(thickness: height * 0.003),
             OngoingProjectPhotoCardWidgetStatic(
+              project: widget.project,
+            ),
+            10.verticalSpace,
+            OngoingProgressPhotoCardWidgetStatic(
               project: widget.project,
             ),
             OngoingJobsButtonsPanelStatic(),

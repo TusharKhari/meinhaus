@@ -139,7 +139,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
       width: double.infinity,
       height: size.height / 4.46,
       decoration: BoxDecoration(
-        borderRadius:  borderRadius,
+        borderRadius: borderRadius,
         border: Border.all(
           width: 1.2,
           color: AppColors.golden,
@@ -159,7 +159,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
         ),
         child: Row(
           children: [
-           4.hs,
+            4.hs,
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,31 +172,6 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                     color: Colors.white,
                   ),
                 ),
-                // Text("Get an instant quote for any project, anytime."),
-                // Text.rich(TextSpan(children: [
-                //   TextSpan(
-                //     text: "Get an ",
-                //     style: TextStyle(
-                //       fontSize: 20.sp,
-                //       fontWeight: FontWeight.w600,
-                //     ),
-                //   ),
-                //   TextSpan(
-                //     text: "instant ",
-                //     style: TextStyle(
-                //         fontSize: 20.sp,
-                //         fontWeight: FontWeight.w600,
-                //         color: AppColors.golden),
-                //   ),
-                //   TextSpan(
-                //     text: "quote",
-                //     style: TextStyle(
-                //         fontSize: 20.sp,
-                //         fontWeight: FontWeight.w600,
-                //         color: AppColors.golden),
-                //   ),
-                // ])),
-
                 MyBlueButton(
                   hPadding: size.width * 0.028,
                   vPadding: size.height * 0.01,
@@ -237,6 +212,7 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
             Image.asset(
               "assets/images/workers/worker_1.png",
               fit: BoxFit.cover,
+              width: size.width * 0.26,
             ),
           ],
         ),

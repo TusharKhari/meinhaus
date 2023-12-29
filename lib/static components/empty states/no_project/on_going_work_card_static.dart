@@ -201,7 +201,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                 ),
                 image: 
                     DecorationImage(
-                  image: AssetImage("assets/static/1.png"),
+                  image: AssetImage("assets/static/demoilation_user_uploaded.png"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -222,12 +222,12 @@ class OngoingWorkCardStatic extends StatelessWidget {
                        ProjectImgCardWidget(
                       width: width / 8,
                       height: height / 16,
-                      imgPath:"assets/static/2.png",
+                      imgPath:"assets/static/plumbing_user_uploaded.png",
                     ),
                     ProjectImgCardWidget(
                       width: width / 8,
                       height: height / 16,
-                      imgPath:"assets/static/3.png",
+                      imgPath:"assets/static/tiling_user_uploaded.png",
                     ),
                       
                     ],

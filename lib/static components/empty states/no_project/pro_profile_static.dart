@@ -6,14 +6,20 @@ import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
 
 import '../../../../resources/font_size/font_size.dart';
- 
+
 class ProProfileWidgetStatic extends StatelessWidget {
   const ProProfileWidgetStatic({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-  final proServiceOffered =["Electrical", "Carpentry Framing", "Appliance Install", "Plumbing", "Tiling" ];
+    final proServiceOffered = [
+      "Electrical",
+      "Carpentry Framing",
+      "Appliance Install",
+      "Plumbing",
+      "Tiling"
+    ];
     final height = size.height;
     final width = size.width;
     return Padding(
@@ -28,7 +34,9 @@ class ProProfileWidgetStatic extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30.r,
-                backgroundImage: const AssetImage("assets/images/man.png"),
+                backgroundImage:
+                    AssetImage("assets/images/contractor_profile.png"),
+                // backgroundImage: const AssetImage("assets/images/man.png"),
               ),
               20.hs,
               Column(
@@ -81,7 +89,7 @@ class ProProfileWidgetStatic extends StatelessWidget {
                   vertical: height / 80,
                 ),
                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset("assets/icons/approved_verified.svg"),
                     // Image.asset("assets/icons/approved.png"),

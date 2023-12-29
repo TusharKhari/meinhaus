@@ -27,12 +27,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   TextEditingController addressController = TextEditingController();
   String selectedAddres = '';
   String _placeId = "";
-  var addressTypes = [
-    "Address Type",
-    "work",
-    'home',
-    'other',
-  ];
   @override
   void initState() {
     super.initState();

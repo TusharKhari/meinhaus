@@ -23,9 +23,9 @@ class MultipleProjectServicesStaticScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> images = [
-      "assets/static/1.png",
-      "assets/static/2.png",
-      "assets/static/3.png"
+      "assets/static/demoilation_user_uploaded.png",
+      "assets/static/plumbing_user_uploaded.png",
+      "assets/static/tiling_user_uploaded.png"
     ];
     List<Map<String, dynamic>> multipleProjects = [
       {
@@ -37,7 +37,8 @@ class MultipleProjectServicesStaticScreen extends StatelessWidget {
         "projectCost": "6750",
         "description":
             "Remove all existing tiles, vanity and toilet. All lines capped where shutoff valves not existing, baseboards removed. All debris bagged and placed curbside for pickup. Junk removal available for extra fee",
-        "projectPhotos": images,
+        "projectPhotos": ["assets/static/demoilation_user_uploaded.png"],
+        "progressPhotos": ["assets/static/demolition_progress.png"],
       },
       {
         "serviceCost": "1850",
@@ -48,7 +49,8 @@ class MultipleProjectServicesStaticScreen extends StatelessWidget {
         "projectCost": "6750",
         "description":
             " Renewal of all shut off valves inside washroom, Shower faucet to be replaced with new control cartridge. Shower drain to be roughed in for new center drain according to proposed shower dimensions. Finish Plumbing after tile.",
-        "projectPhotos": images,
+        "projectPhotos": ["assets/static/plumbing_user_uploaded.png"],
+        "progressPhotos": ["assets/static/plumbing_progress.png"],
       },
       {
         "serviceCost": "2850",
@@ -59,17 +61,20 @@ class MultipleProjectServicesStaticScreen extends StatelessWidget {
         "projectCost": "6750",
         "description":
             "Complete waterproofing of washroom floors and shower walls, including tub surround using wonderboard and Redguard appropriately. Complete mesh/Tile mortar application with tile installation, grouting on all areas.",
-        "projectPhotos": images,
+        "projectPhotos": ["assets/static/tiling_user_uploaded.png"],
+        "progressPhotos": ["assets/static/tiling_progress.png"],
       },
       {
         "serviceCost": "850",
         "estimateNo": "OD-18CM17",
         "startedOn": "25/11/23",
-        "service": "Painting ans plastering",
+        "service": "Painting and plastering",
         "proAssigned": "5",
         "projectCost": "6750",
         "description":
-            "Drywall repairs anywhere necessary, installation of baseboards around finishes, complete prime and paint of walls, trim and ceilings of washroom. Caulking and filling of all trim.", "projectPhotos": images,
+            "Drywall repairs anywhere necessary, installation of baseboards around finishes, complete prime and paint of walls, trim and ceilings of washroom. Caulking and filling of all trim.",
+        "projectPhotos": ["assets/static/plumbing_user_uploaded.png"],
+        "progressPhotos": ["assets/static/painting_plastring_progress.png"],
       },
     ];
     return Scaffold(
@@ -125,7 +130,7 @@ class MultipleProjectServicesStaticScreen extends StatelessWidget {
           ),
           MyTextPoppines(
             text: "$totalServices Services",
-            fontSize: h / 52,
+            fontSize: h / 55,
             fontWeight: FontWeight.w500,
             color: AppColors.black.withOpacity(0.6),
           ),
@@ -148,9 +153,10 @@ class _MainCard extends StatelessWidget {
     final isImgNull = 0 == 1;
     final size = MediaQuery.of(context).size;
     final images = [
-      "assets/static/1.png",
-      "assets/static/2.png",
-      "assets/static/3.png"
+      // "assets/static/demolition_user_uploaded.png",
+      "assets/static/demoilation_user_uploaded.png",
+      "assets/static/plumbing_user_uploaded.png",
+      "assets/static/tiling_user_uploaded.png",
     ];
 
     return Container(

@@ -44,8 +44,8 @@ class OngoingProjectPhotoCardWidgetStatic extends StatelessWidget {
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 1,
-                    // itemCount: project["projectPhotos"].length,
+                    // itemCount: 1,
+                    itemCount: project["projectPhotos"].length,
                     // itemCount: services.projectImages!.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -53,38 +53,77 @@ class OngoingProjectPhotoCardWidgetStatic extends StatelessWidget {
                     ),
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
-                      if (project["service"] == "Demolition") {
-                        return Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: ClipRRect(
+                      return Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: ClipRRect(
                             borderRadius: BorderRadius.circular(width / 40),
-                            child: Image.asset(
-                              project["projectPhotos"][0],
-                            ),
-                          ),
-                        );
-                      }
-                      if (project["service"] == "Plumbing") {
-                        return Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: ClipRRect(
+                            child:
+                                Image.asset(project["projectPhotos"][index])),
+                      );
+                    }),
+                6.vspacing(context),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OngoingProgressPhotoCardWidgetStatic extends StatelessWidget {
+  final project;
+  OngoingProgressPhotoCardWidgetStatic({super.key, required this.project});
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+
+    final size = MediaQuery.of(context).size;
+    final EdgeInsets paddingH15 =
+        EdgeInsets.symmetric(horizontal: size.height * FontSize.sixteen);
+
+    return Padding(
+      padding: paddingH15,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyTextPoppines(
+            text: "Progress Photos :",
+            fontWeight: FontWeight.w600,
+            fontSize: size.height * FontSize.sixteen,
+          ),
+          20.vs,
+          Container(
+            padding: paddingH15,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.r),
+              color: AppColors.white,
+              boxShadow: boxShadow,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                20.vs,
+                GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    // itemCount: 1,
+                    itemCount: project["progressPhotos"].length,
+                    // itemCount: services.projectImages!.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: ClipRRect(
                             borderRadius: BorderRadius.circular(width / 40),
-                            child: Image.asset(
-                              project["projectPhotos"][1],
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(width / 40),
-                            child: Image.asset(
-                              project["projectPhotos"][2],
-                            ),
-                          ),
-                        );
-                      }
+                            child:
+                                Image.asset(project["progressPhotos"][index])),
+                      );
                     }),
                 6.vspacing(context),
               ],
