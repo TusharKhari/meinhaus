@@ -21,25 +21,25 @@ class GetImages {
     if (pickedFiles.isNotEmpty) {
       if (notifier is EstimateNotifier) {
         notifier.setImagesInList(pickedFiles);
-      //  print(notifier.images.length);
+        //  print(notifier.images.length);
       } else if (notifier is AdditionalWorkNotifier) {
         notifier.setImagesInList(pickedFiles);
-      //  print(notifier.images.length);
+        //  print(notifier.images.length);
       } else if (notifier is SavedNotesNotifier) {
         notifier.setImagesInList(pickedFiles);
-      //  print(notifier.images.length);
+        //  print(notifier.images.length);
       } else if (notifier is CustomerSupportNotifier) {
         notifier.setImagesInList(pickedFiles);
-       // print(notifier.images.length);
+        // print(notifier.images.length);
       } else if (notifier is UploadImgNotifier) {
         notifier.setImagesInList(pickedFiles);
-       // print(notifier.images.length);
+        // print(notifier.images.length);
       } else if (notifier is ChatNotifier) {
         notifier.setImagesInList(pickedFiles);
-      //  print(notifier.images.length);
+        //  print(notifier.images.length);
       }
     } else {
-     // print("No images picked");
+      // print("No images picked");
     }
   }
 
@@ -51,14 +51,14 @@ class GetImages {
     if (pickedFile != null) {
       if (notifier is EditProfileNotifier) {
         notifier.setProfileImg(pickedFile);
-       // print(notifier.image.path);
+        // print(notifier.image.path);
       }
       if (notifier is ChatNotifier) {
         notifier.setImage(pickedFile);
-       // print(notifier.image.path);
+        // print(notifier.image.path);
       }
     } else {
-     // print("No image picked");
+      // print("No image picked");
     }
   }
 
@@ -70,16 +70,17 @@ class GetImages {
     if (pickedFile != null) {
       if (notifier is EditProfileNotifier) {
         notifier.setProfileImg(pickedFile);
-       // print(notifier.image.path);
+        // print(notifier.image.path);
       }
       if (notifier is ChatNotifier) {
         notifier.setImage(pickedFile);
-       // print(notifier.image.path);
-      } if(notifier is EstimateNotifier){
+        // print(notifier.image.path);
+      }
+      if (notifier is EstimateNotifier) {
         notifier.setImagesInList([pickedFile]);
       }
     } else {
-     // print("No image picked");
+      // print("No image picked");
     }
   }
 }

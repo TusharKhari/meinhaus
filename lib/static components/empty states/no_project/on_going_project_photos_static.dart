@@ -25,7 +25,7 @@ class OngoingProjectPhotoCardWidgetStatic extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MyTextPoppines(
-            text: "Project Photos :",
+            text: "Your Photos :",
             fontWeight: FontWeight.w600,
             fontSize: size.height * FontSize.sixteen,
           ),
