@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:282066624103:android:82d62ba61812b70a78bec2",
+        "mobilesdk_app_id": "1:282066624103:android:a214c8e73f6f9a7578bec2",
         "android_client_info": {
-          "package_name": "com.example.new_user_side"
+          "package_name": "ca.meinhaus.app.user"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "282066624103-tnil4v684vkmhhmiim50j6dme9rj5tpp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.meinhaus.app.user",
+            "certificate_hash": "1b7cf44ea8df16f18199371972e0922103b50d3e"
+          }
+        },
         {
           "client_id": "282066624103-orgu7j0okrsrk2lb9ogjusb5336764at.apps.googleusercontent.com",
           "client_type": 3

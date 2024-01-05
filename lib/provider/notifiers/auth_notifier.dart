@@ -165,26 +165,34 @@ class AuthNotifier extends ChangeNotifier {
         User user = UserModel.fromJson(response).user!;
         setUser(user);
         await prefs.setToken(user.token!);
-        if (user.phoneVerified!) {
-          if (isTest) ("User Logged in Successfully ✨").log("Login Notifier");
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            HomeScreen.routeName,
-            (route) => false,
-          );
-        } else {
-          showSnakeBarr(
-            context,
-            "Please verify you details first",
-            SnackBarState.Warning,
-          );
-          Navigator.of(context).pushScreen(
-            OtpValidateScreen(
-              userId: user.userId!,
-              contactNo: user.contact!,
-              isSkippAble: false,
-            ),
-          );
-        }
+
+        // ============ mob no verification needed
+        // if (user.phoneVerified!) {
+        //   if (isTest) ("User Logged in Successfully ✨").log("Login Notifier");
+        //   Navigator.of(context).pushNamedAndRemoveUntil(
+        //     HomeScreen.routeName,
+        //     (route) => false,
+        //   );
+        // } else {
+        //   showSnakeBarr(
+        //     context,
+        //     "Please verify you details first",
+        //     SnackBarState.Warning,
+        //   );
+        //   Navigator.of(context).pushScreen(
+        //     OtpValidateScreen(
+        //       userId: user.userId!,
+        //       contactNo: user.contact!,
+        //       isSkippAble: false,
+        //     ),
+        //   );
+        // }
+// =============
+        // no otp
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeScreen.routeName,
+          (route) => false,
+        );
         setLoadingState(false, true);
       }
     }).onError((error, stackTrace) {

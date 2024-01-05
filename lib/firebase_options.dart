@@ -24,12 +24,12 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
+        return android;
+      case TargetPlatform.iOS:
         throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
+          'DefaultFirebaseOptions have not been configured for ios - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      case TargetPlatform.iOS:
-        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -52,14 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAFnsovltjyOhgZu1id6ZNOHBMT0JSLGVI',
-    appId: '1:282066624103:ios:9ac075fe02acc75578bec2',
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAv7bhi9KBbIbW6l9toRasj27EfMYj4wMI',
+    appId: '1:282066624103:android:a214c8e73f6f9a7578bec2',
     messagingSenderId: '282066624103',
     projectId: 'meinhaus-b6ea0',
     storageBucket: 'meinhaus-b6ea0.appspot.com',
-    androidClientId: '282066624103-tnil4v684vkmhhmiim50j6dme9rj5tpp.apps.googleusercontent.com',
-    iosClientId: '282066624103-qbqrk5vkv31sbbctpnm1c15d8a4utidj.apps.googleusercontent.com',
-    iosBundleId: 'ca.meinhaus.app.user',
   );
 }

@@ -1,4 +1,4 @@
-package com.example.new_user_side
+package ca.meinhaus.app.user
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
