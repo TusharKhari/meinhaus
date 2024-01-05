@@ -205,25 +205,31 @@ class AuthNotifier extends ChangeNotifier {
       if (isTest) (data).log("sign up data");
       showSnakeBarr(
           context, response['response_message'], SnackBarState.Success);
-
       // ==== when otp validation is required just uncomment this  ====
-      Navigator.of(context).pushScreen(
-        OtpValidateScreen(
-          userId: response["user_id"],
-          contactNo: data["phone"]!,
-          isSkippAble: false,
-        ),
-      );
+      // User user = UserModel.fromJson(response).user!;
+      // Navigator.of(context).pushScreen(
+      //   // OtpValidateScreen(
+      //   //   userId: response["user_id"],
+      //   //   contactNo: data["phone"]!,
+      //   //   isSkippAble: true,
+      //   // ),
+      //   OtpValidateScreen(
+      //     userId: user.userId!,
+      //     contactNo: user.contact!,
+      //     isSkippAble: false,
+      //   ),
+      // );
+
       // ============
 
       /// otp validation is not required here when user sign up all details will be registered and just login with those details
       /// ==== comment this  when otp validation is required  ====
-      // await login(data, context);
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => CreateStartingProject(),
-      //     ));
+      await login(data, context);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CreateStartingProject(),
+          ));
       // ======
     }).onError((error, stackTrace) {
       onErrorHandler(context, error, stackTrace);

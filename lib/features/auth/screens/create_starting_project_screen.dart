@@ -104,7 +104,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
               // Title -> Headline + Skip button
               Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: w / 20, vertical: h / 90),
+                    EdgeInsets.symmetric(horizontal: w / 20,).copyWith(top: h / 90),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,16 +118,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                           // fontSize: w / 24,
                           fontWeight: FontWeight.w700,
                         ),
-                        SizedBox(height: h / 130),
-                        MyTextPoppines(
-                          text: "We will provide you an estimate right away",
-                          fontSize: 13.sp,
-
-                          // fontSize: w / 34,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.grey,
-                          maxLines: 2,
-                        ),
+                        //  SizedBox(height: h / 130),
                       ],
                     ),
                     TextButton(
@@ -149,6 +140,15 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                     ),
                   ],
                 ),
+              ),
+              MyTextPoppines(
+                text: "   We will provide you an estimate right away",
+                fontSize: 13.sp,
+
+                // fontSize: w / 34,
+                fontWeight: FontWeight.w500,
+                color: AppColors.grey,
+                maxLines: 2,
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -197,7 +197,7 @@ class _CreateStartingProjectState extends State<CreateStartingProject> {
                             height: 20.h,
                           ),
 
-                          SavedAddressesWidget(), 
+                          SavedAddressesWidget(),
 
                           // Upload Images Section
                           SizedBox(height: h / 50),
