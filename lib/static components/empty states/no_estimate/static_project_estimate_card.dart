@@ -142,7 +142,7 @@ class __BuildButtonState extends State<_BuildButton> {
               builder: (context) {
                 return StaticScreensDialog(
                     subtitle:
-                        "It will remove the service from the project if you don't need it any further but you can also add this service if you want.");
+                        "Services can be removed or added back to a project by clicking here.");
               },
             );
           },

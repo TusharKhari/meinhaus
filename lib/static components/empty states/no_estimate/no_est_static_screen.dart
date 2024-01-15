@@ -125,7 +125,7 @@ class NoEstStaticScreen extends StatelessWidget {
                 SizedBox(height: height / 60),
                 // ESTIMATE COST
                 MyTextPoppines(
-                  text: "Estimated Amount: \$100",
+                  text: "Estimated Amount: \$2600",
                   fontSize: width / 36,
                   color: AppColors.white,
                   fontWeight: FontWeight.w600,

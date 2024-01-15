@@ -74,7 +74,7 @@ class SecondSplashScreen extends StatelessWidget {
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(
-              text: "Instant quotation tailored to you.",
+              text: "Instant quotations tailored to you.",
               fontSize: 
               //height > 800 ? 18.sp : 22.sp,
               size.height * FontSize.nineteen, 
@@ -93,7 +93,7 @@ class SecondSplashScreen extends StatelessWidget {
             width: 350.w,
             child: MyTextPoppines(
               text:
-                  "Pay a fixed price at the best market rates. Guaranteed to completion  ",
+                  "Pay a fixed price at the best market rates. Guaranteed to completion.  ",
               fontSize: 
               //height > 800 ? size.height * FontSize.fifteen : 17.sp,
               size.height * FontSize.seventeen, 

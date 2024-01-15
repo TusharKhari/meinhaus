@@ -1,31 +1,31 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
- 
+
 import '../../../resources/common/my_text.dart';
 import '../../../resources/font_size/font_size.dart';
 
 class CheckOutSummaryCardWidget extends StatefulWidget {
   final String totalAmount;
   final String projectName;
-   CheckOutSummaryCardWidget({
+  CheckOutSummaryCardWidget({
     Key? key,
-    required this.totalAmount, required this.projectName,
+    required this.totalAmount,
+    required this.projectName,
   }) : super(key: key);
 
   @override
-  State<CheckOutSummaryCardWidget> createState() => _CheckOutSummaryCardWidgetState();
+  State<CheckOutSummaryCardWidget> createState() =>
+      _CheckOutSummaryCardWidgetState();
 }
 
 class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
-  
   @override
   Widget build(BuildContext context) {
-        final size  = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,10 +69,10 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                       children: [
                         SizedBox(
                           width: size.width * 0.4,
-                         // margin: EdgeInsets.symmetric(horizontal: 3),
+                          // margin: EdgeInsets.symmetric(horizontal: 3),
                           child: MyTextPoppines(
-                          // text: estimate.estimatedWorks![0].projectName!,
-                             text: "${widget.projectName}",
+                            // text: estimate.estimatedWorks![0].projectName!,
+                            text: "${widget.projectName}",
                             //  text: "Bathroom Renewall",
                             fontSize: size.height * FontSize.fourteen,
                             fontWeight: FontWeight.w600,
@@ -80,36 +80,37 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                           ),
                         ),
                         MyTextPoppines(
-                          text:"\$${widget.totalAmount}",
+                          text: "\$${widget.totalAmount}",
                           fontSize: size.height * FontSize.fourteen,
                           fontWeight: FontWeight.w600,
                         ),
                       ],
                     ),
+                    // 15.vs,
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     MyTextPoppines(
+                    //       text: "Other charges",
+                    //       fontSize: size.height * FontSize.fourteen,
+                    //     ),
+                    //     MyTextPoppines(
+                    //       text: "0",
+                    //       fontSize: size.height * FontSize.fourteen,
+                    //     ),
+                    //   ],
+                    // ),
                     15.vs,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MyTextPoppines(
-                          text: "Other charges",
+                          text: "13% HST",
                           fontSize: size.height * FontSize.fourteen,
                         ),
                         MyTextPoppines(
-                          text: "0",
-                          fontSize: size.height * FontSize.fourteen,
-                        ),
-                      ],
-                    ),
-                    15.vs,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyTextPoppines(
-                          text: "Discount & Offer",
-                          fontSize: size.height * FontSize.fourteen,
-                        ),
-                        MyTextPoppines(
-                          text: "0",
+                          text:
+                              "${(double.parse(widget.totalAmount) * 0.13).toStringAsFixed(2)}",
                           fontSize: size.height * FontSize.fourteen,
                         ),
                       ],
@@ -128,7 +129,8 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                     fontWeight: FontWeight.w600,
                   ),
                   MyTextPoppines(
-                    text: "\$${widget.totalAmount}",
+                    text:
+                        "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
                     fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w700,
                   ),

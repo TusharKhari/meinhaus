@@ -36,7 +36,7 @@ class CheckOutScreenStatic extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CheckOutSummaryCardWidget(
-                    totalAmount: "100", projectName: 'Washroom Renewal Project'),
+                    totalAmount: "2600", projectName: 'Washroom Renewal Project'),
                 8.vspacing(context),
                 const Divider(thickness: 1.0),
                 8.vspacing(context),
@@ -125,8 +125,9 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
                       fontWeight: FontWeight.w600,
                     ),
                     MyTextPoppines(
-                      text: "${widget.totalAmount}",
-                      fontSize: size.height * FontSize.fourteen,
+                      text: "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
+                      // text: "${widget.totalAmount}",
+                      // fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                       color: AppColors.yellow,
                     ),

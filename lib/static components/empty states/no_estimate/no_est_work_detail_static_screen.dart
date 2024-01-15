@@ -170,7 +170,7 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
               //amountToPay: amountToPay ?? "",
               // projectDetails
               // amountToPay: projectDetails.projectBilling!.hstAmountToPay != null ?  projectDetails.projectBilling!.hstAmountToPay.toString() : "NA" ,
-              amountToPay: "\$100",
+              amountToPay: "2600",
             ),
           );
           // showSnakeBarr(context, "No Projects available", SnackBarState.Warning);

@@ -69,7 +69,7 @@ class FirstSplashScreen extends StatelessWidget {
           child: SizedBox(
             width: 300.w,
             child: MyTextPoppines(
-              text: "A secure platform for all renovation projects",
+              text: "A secure platform for all renovation projects.",
               fontSize: size.height * FontSize.nineteen,
               // fontSize: 19.sp,
               fontWeight: FontWeight.w500,
@@ -85,7 +85,7 @@ class FirstSplashScreen extends StatelessWidget {
           child: SizedBox(
             width: 350.w,
             child: MyTextPoppines(
-              text: "24/7  Customer Support Hire renovators instantly.",
+              text: "24/7  Customer Support. Hire renovators instantly.",
               fontSize: size.height * FontSize.seventeen,
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.center,

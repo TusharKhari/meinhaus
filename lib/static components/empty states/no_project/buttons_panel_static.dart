@@ -172,7 +172,7 @@ class OngoingJobsButtonsPanelStatic extends StatelessWidget {
                   builder: (context) {
                     return StaticScreensDialog(
                       subtitle:
-                          "“Here you can view all of your past, current and remaining payments for your project.",
+                          "Here you can view all of your past, current and remaining payments for your project.",
                     );
                   },
                 );
