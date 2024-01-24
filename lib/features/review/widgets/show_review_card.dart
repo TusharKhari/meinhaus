@@ -20,7 +20,7 @@ class ShowReviewCard extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
-    final review = notifier.projectDetails.services!.reviews!;
+    final review = notifier.projectDetails.services!.reviews ?? [];
      final size = MediaQuery.of(context).size;
     return review.isEmpty
         ? ShowNoReview()
