@@ -91,7 +91,7 @@ class ShowReviewCard extends StatelessWidget {
                 ),
                 8.vspacing(context),
                 MyTextPoppines(
-                  text: review[0].review.toString(),
+                  text: review[0].review ?? "",
                   fontSize:size.height * FontSize.sixteen,
                   fontWeight: FontWeight.w500,
                   color: AppColors.grey,
