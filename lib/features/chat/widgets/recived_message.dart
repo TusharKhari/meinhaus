@@ -28,7 +28,7 @@ class RecivedMessage extends StatelessWidget {
     final messageTime = Utils.convertToRailwayTime(createdAt);
     return Row(
       children: [
-        SizedBox(width: w / 38),
+        SizedBox(width: w / 43),
         // Sender Img
         ClipRRect(
           borderRadius: BorderRadius.circular(20),

@@ -24,11 +24,11 @@ class AdditionalWorkProProvideScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final additionalNotifier = context.watch<AdditionalWorkNotifier>();
     final estimateNotifier = context.watch<EstimateNotifier>();
-    final additionalWork = additionalNotifier.additionalWork.additionalWork!;
-    final projectDetails = estimateNotifier.projectDetails.services!;
+    final additionalWork = additionalNotifier.additionalWork.additionalWork ?? [];
+    final projectDetails = estimateNotifier.projectDetails.services;
      final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
-      inAsyncCall: additionalNotifier.loading,
+      inAsyncCall: additionalNotifier.loading || projectDetails == null,
       child: Scaffold(
         appBar: MyAppBar(text: "Additional Works", 
         onBack: () { 
@@ -38,9 +38,9 @@ class AdditionalWorkProProvideScreen extends StatelessWidget {
         body: Column(
           children: [
             DownloadPdfCard(
-              workName: projectDetails.projectName.toString(),
+              workName: projectDetails?.projectName.toString() ?? "",
               isAddonWork: true,
-              projectId: projectDetails.estimateNo,
+              projectId: projectDetails?.estimateNo??"",
               
             ),
             const Divider(thickness: 2, height: 9),

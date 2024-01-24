@@ -152,9 +152,9 @@ PODS:
     - NWWebSocket (~> 0.5.3)
     - TweetNacl (~> 1.0.0)
   - RecaptchaInterop (100.0.0)
-  - SDWebImage (5.18.8):
-    - SDWebImage/Core (= 5.18.8)
-  - SDWebImage/Core (5.18.8)
+  - SDWebImage (5.18.10):
+    - SDWebImage/Core (= 5.18.10)
+  - SDWebImage/Core (5.18.10)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -336,7 +336,7 @@ SPEC CHECKSUMS:
   pusher_channels_flutter: bf646336659d2cc058c62346b4b9e8b82e37b71b
   PusherSwift: 671c49e9c5441e30960d2e0282a879b2f8c80bcb
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
+  SDWebImage: fc8f2d48bbfd72ef39d70e981bd24a3f3be53fec
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a

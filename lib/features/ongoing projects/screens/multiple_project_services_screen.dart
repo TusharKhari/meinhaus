@@ -69,15 +69,22 @@ class MultipleProjectServicesScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: w / 1.4,
-            child: MyTextPoppines(
+          // SizedBox(
+          //   width: w / 1.4,
+          //   child: MyTextPoppines(
+          //     text: heading,
+          //     fontSize: h / 48.8,
+          //     fontWeight: FontWeight.w600,
+          //     maxLines: 2,
+          //   ),
+          // ),
+          // 
+          MyTextPoppines(
               text: heading,
               fontSize: h / 48.8,
               fontWeight: FontWeight.w600,
               maxLines: 2,
             ),
-          ),
           MyTextPoppines(
             text: "$totalServices Services",
             fontSize: h / 52,
@@ -397,7 +404,8 @@ class _ShowMiltipleServicesCard extends StatelessWidget {
                             MyTextPoppines(
                               text: service.dateAssigned ?? "",
                               // text: service.dateAssigned.toString(),
-                              fontSize: headline1,
+                              fontSize: size.height * FontSize.twelve,
+                              // fontSize: 14,
                               fontWeight: FontWeight.w600,
                               color: AppColors.black.withOpacity(0.4),
                             ),

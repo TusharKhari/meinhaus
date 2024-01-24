@@ -69,7 +69,8 @@ class ProjectBillingCardWidget extends StatelessWidget {
           _buildShowPrice(
             context: context,
             // text: "HST 13% (830275681RRT0001) = \$${pBill.hstForDepositAmount}",
-            text: "HST 13%  = \$${(pBill.hstAmountToPay! - pBill.amountToPay!).toStringAsFixed(2)}",
+            text: "HST 13%  = \$${(pBill.hstAmountToPay!).toStringAsFixed(2)}",
+            // text: "HST 13%  = \$${(pBill.hstAmountToPay! - pBill.amountToPay!).toStringAsFixed(2)}",
           ),
           5.vspacing(context),
           Container(
@@ -86,7 +87,7 @@ class ProjectBillingCardWidget extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: MyTextPoppines(
                 // text: "Total : \$${pBill.totalDepositAmount}",
-               text: "Total : \$${pBill.hstAmountToPay}",
+               text: "Total : \$${pBill.hstAmountToPay! + pBill.amountToPay!}",
 
                 fontSize: height / 60,
                 fontWeight: FontWeight.w600,

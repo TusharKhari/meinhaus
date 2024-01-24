@@ -149,7 +149,7 @@ class _MainCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-    final projectCost = 5900;
+    final projectCost = 6750;
     final isImgNull = 0 == 1;
     final size = MediaQuery.of(context).size;
     final images = [

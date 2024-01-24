@@ -87,19 +87,19 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     };
 
     if (_estimateFormKey.currentState!.validate()) {
+
       isCreateAnEstimateClicked = false;
-      if (isPhoneVerified) {
-        await estimateNotifer.createEstimate(context: context, data: data);
-      } else {
-        showSnakeBar(
-          context,
-          "Before making estimate request Please verify you phone number",
-        );
-      }
+      // if (isPhoneVerified) {
+      //   await estimateNotifer.createEstimate(context: context, data: data);
+      // } else {
+      //   showSnakeBar(
+      //     context,
+      //     "Before making estimate request Please verify you phone number",
+      //   );
+      // }
+       await estimateNotifer.createEstimate(context: context, data: data);
     }
   }
-
- 
 
   @override
   Widget build(BuildContext context) {

@@ -146,7 +146,7 @@ class EstimatedWorkCard extends StatelessWidget {
                       ),
                       MyTextPoppines(
                         text: projectDetails.estimateDate ?? "",
-                        fontSize: size.height * FontSize.twelve,
+                        fontSize: size.height * FontSize.ten,
                         fontWeight: FontWeight.w600,
                         color: AppColors.yellow,
                       ),

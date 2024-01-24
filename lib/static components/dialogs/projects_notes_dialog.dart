@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/features/project%20notes/view/screens/project_notes_screen.dart';
 import 'package:new_user_side/provider/notifiers/saved_notes_notifier.dart';
@@ -213,34 +214,44 @@ class _ProjectNotesDialogState extends State<ProjectNotesDialog> {
                     : SizedBox(),
                 const Divider(thickness: 1.5),
                 10.vs,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => _savedNoteForMeHandler(),
-                      child: _Button(
-                        buttonText: "Save For Me Only",
-                        iconData: Icons.bookmark,
-                        fontSize: size.height * FontSize.twelve,
-                        // fontSize: height > 800 ? 8.sp : 10.sp,
-                        vPadding: 10.h,
-                        iconSize: height > 800 ? size.height * FontSize.fourteen : size.height * FontSize.sixteen,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _savedNoteForMeAndProHandler(),
-                      child: _Button(
-                        buttonText: "Save For Me & Pro",
-                        iconData: Icons.bookmark,
-                        fontSize: size.height * FontSize.twelve,
-                        // fontSize: height > 800 ? 8.sp : 10.sp,
-                        vPadding: 10.h,
-                        iconSize: height > 800 ? size.height * FontSize.fourteen : size.height * FontSize.sixteen,
-                        isBorder: false,
-                      ),
-                    ),
-                  ],
-                )
+                notifer.loadingForMe || notifer.loadingForMeAndPro
+                    ?  Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                            color: AppColors.buttonBlue,
+                            size: size.width / 40,
+                          ),
+                    )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () => _savedNoteForMeHandler(),
+                            child: _Button(
+                              buttonText: "Save For Me Only",
+                              iconData: Icons.bookmark,
+                              fontSize: size.height * FontSize.twelve,
+                               vPadding: 10.h,
+                              iconSize: height > 800
+                                  ? size.height * FontSize.ten
+                                  : size.height * FontSize.twelve,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () => _savedNoteForMeAndProHandler(),
+                            child: _Button(
+                              buttonText: "Save For Me & Pro",
+                              iconData: Icons.bookmark,
+                              fontSize: size.height * FontSize.twelve,
+                              // fontSize: height > 800 ? 8.sp : 10.sp,
+                              vPadding: 10.h,
+                              iconSize: height > 800
+                                  ? size.height * FontSize.ten
+                                  : size.height * FontSize.twelve,
+                              isBorder: false,
+                            ),
+                          ),
+                        ],
+                      )
               ],
             ),
           ),

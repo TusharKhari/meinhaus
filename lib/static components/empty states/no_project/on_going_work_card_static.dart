@@ -158,7 +158,7 @@ class OngoingWorkCardStatic extends StatelessWidget {
                       10.hs,
                       MyTextPoppines(
                         //  text: "${project.projectCost}",
-                        text: "\$2938",
+                        text: "\$6750",
                         fontWeight: FontWeight.w600,
                         fontSize: width / 38,
                       ),

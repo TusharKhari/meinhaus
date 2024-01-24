@@ -20,11 +20,9 @@ import '../../../../resources/font_size/font_size.dart';
 import '../../../../static components/dialogs/projects_notes_dialog.dart';
 
 class SavedNotesScreen extends StatefulWidget {
-   
   static const String routeName = '/savedNotes';
   SavedNotesScreen({
     Key? key,
-     
   }) : super(key: key);
 
   @override
@@ -127,8 +125,10 @@ class _SavedNotesScreenState extends State<SavedNotesScreen>
                   ),
                   unselectedLabelColor: Colors.black.withOpacity(0.6),
                   tabs: const [
-                    Tab(text: "Notes Saved by Me"),
-                    Tab(text: "Notes Saved by Pro"),
+                    Tab(
+                      text: " Notes Saved by Me ",
+                    ),
+                    Tab(text: " Notes Saved by Pro "),
                   ],
                 ),
               ),
@@ -169,7 +169,7 @@ class NotesSavedByCustomer extends StatelessWidget {
                   return _ShowProjectNote(note: note);
                 },
               )
-            : _NoSavedNotesFoundWidget( );
+            : _NoSavedNotesFoundWidget();
   }
 }
 
@@ -308,9 +308,8 @@ class _ShowProjectNote extends StatelessWidget {
 }
 
 class _NoSavedNotesFoundWidget extends StatelessWidget {
-  
-    _NoSavedNotesFoundWidget({
-    Key? key, 
+  _NoSavedNotesFoundWidget({
+    Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -319,7 +318,7 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
     final estimateNotifer = context.read<EstimateNotifier>();
     final project = estimateNotifer.projectDetails.services!;
     final projectId = project.projectId.toString();
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -332,46 +331,46 @@ class _NoSavedNotesFoundWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           SizedBox(height: height / 60),
-          !project.isCompleted! ? 
-          InkWell(
-            onTap: () {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) {
-                  return ProjectNotesDialog(
-                    serviceId: projectId,
-                  );
-                },
-              );
-            },
-            child: Container(
-              width: width / 3.5,
-              height: height / 22,
-              decoration: BoxDecoration(
-                color: AppColors.buttonBlue.withOpacity(0.10),
-                borderRadius: BorderRadius.circular(width / 34),
-                border: Border.all(color: AppColors.buttonBlue),
-              ),
-              child: 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MyTextPoppines(
-                    text: "Add Note",
-                    fontSize: width / 34,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.buttonBlue,
+          !project.isCompleted!
+              ? InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return ProjectNotesDialog(
+                          serviceId: projectId,
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: width / 3.5,
+                    height: height / 22,
+                    decoration: BoxDecoration(
+                      color: AppColors.buttonBlue.withOpacity(0.10),
+                      borderRadius: BorderRadius.circular(width / 34),
+                      border: Border.all(color: AppColors.buttonBlue),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MyTextPoppines(
+                          text: "Add Note",
+                          fontSize: width / 34,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.buttonBlue,
+                        ),
+                        Icon(
+                          Icons.add_circle_outline_outlined,
+                          size: width / 24,
+                          color: AppColors.buttonBlue,
+                        )
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Icons.add_circle_outline_outlined,
-                    size: width / 24,
-                    color: AppColors.buttonBlue,
-                  )
-                ],
-              ),
-            ),
-          ) : SizedBox(), 
+                )
+              : SizedBox(),
         ],
       ),
     );

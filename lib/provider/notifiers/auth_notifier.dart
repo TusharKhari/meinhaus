@@ -379,16 +379,21 @@ class AuthNotifier extends ChangeNotifier {
       setUser(user);
       await prefs.setToken(user.token!);
       setGoogleLoadingState(false, true);
-      if (user.contact == null || user.phoneVerified == false) {
-        Navigator.of(context).pushScreen(
-          AddPhoneNumberScreen(userId: user.userId.toString()),
-        );
-      } else {
-        Navigator.of(context).pushNamedAndRemoveUntil(
+      // if (user.contact == null || user.phoneVerified == false) {
+      //   Navigator.of(context).pushScreen(
+      //     AddPhoneNumberScreen(userId: user.userId.toString()),
+      //   );
+      // } else {
+      //   Navigator.of(context).pushNamedAndRemoveUntil(
+      //     HomeScreen.routeName,
+      //     (route) => false,
+      //   );
+      // }
+      // no otp
+       Navigator.of(context).pushNamedAndRemoveUntil(
           HomeScreen.routeName,
           (route) => false,
         );
-      }
     }).onError((error, stackTrace) {
       setGoogleLoadingState(false, true);
 

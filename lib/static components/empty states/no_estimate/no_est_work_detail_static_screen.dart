@@ -56,7 +56,7 @@ class NoEstWorkDetailStaticScreen extends StatelessWidget {
                       SizedBox(width: width / 16),
                       MyTextPoppines(
                         //   text: projectDetails.estimateId ?? "",
-                        text: "Estimate id",
+                        text: "OD-345697",
                         fontSize: size.height * FontSize.sixteen,
                         // fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w400,
