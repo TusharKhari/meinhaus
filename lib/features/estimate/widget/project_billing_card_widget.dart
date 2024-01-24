@@ -87,6 +87,7 @@ class ProjectBillingCardWidget extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: MyTextPoppines(
                 // text: "Total : \$${pBill.totalDepositAmount}",
+                
                text: "Total : \$${pBill.hstAmountToPay! + pBill.amountToPay!}",
 
                 fontSize: height / 60,
