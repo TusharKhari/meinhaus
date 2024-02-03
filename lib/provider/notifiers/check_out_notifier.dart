@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/repository/check_out_repo.dart';
 import 'package:new_user_side/resources/common/my_snake_bar.dart';
+import 'package:new_user_side/utils/constants/constant.dart';
+import 'package:new_user_side/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/network/payment/payment_services.dart';
@@ -146,6 +148,7 @@ class CheckOutNotifier extends ChangeNotifier {
             null,
         "transaction_id": res["payment_intent"]?["id"] ?? null
       };
+      if(isTest)checkOutData.toString().log("checkout data");
       await repository.checkOut(checkOutData).then((response) {
         showSnakeBarr(
           context,
