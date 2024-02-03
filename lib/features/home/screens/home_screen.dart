@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         arguments: true,
                       ),
                       child: MyTextPoppines(
-                        text: "Create New Est",
+                        text: "Create New Quote",
                         fontWeight: FontWeight.w600,
                         color: AppColors.white,
                         fontSize: width / 32,

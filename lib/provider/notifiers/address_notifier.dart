@@ -93,6 +93,7 @@ class AddressNotifier extends ChangeNotifier {
     await addressRepository
         .getLatLngFromPlaceId(placeId: placeId)
         .then((value) {
+          value.toString().log("address value");
       int _lengthOfAddress = value["result"]["address_components"].length;
       String _line1 = value["result"]["address_components"][0]["long_name"];
       String _line2 = value["result"]["address_components"][1]["long_name"];

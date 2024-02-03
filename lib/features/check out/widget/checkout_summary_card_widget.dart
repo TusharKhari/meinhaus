@@ -86,20 +86,6 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                         ),
                       ],
                     ),
-                    // 15.vs,
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     MyTextPoppines(
-                    //       text: "Other charges",
-                    //       fontSize: size.height * FontSize.fourteen,
-                    //     ),
-                    //     MyTextPoppines(
-                    //       text: "0",
-                    //       fontSize: size.height * FontSize.fourteen,
-                    //     ),
-                    //   ],
-                    // ),
                     15.vs,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,6 +117,7 @@ class _CheckOutSummaryCardWidgetState extends State<CheckOutSummaryCardWidget> {
                   MyTextPoppines(
                     text:
                         "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
+                        // "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
                     fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w700,
                   ),

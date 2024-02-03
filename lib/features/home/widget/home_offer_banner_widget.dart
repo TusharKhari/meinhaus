@@ -119,7 +119,8 @@ class HomeOfferBannerOld extends StatelessWidget {
 // ========
 
 class HomeOfferBanner extends StatefulWidget {
-  const HomeOfferBanner({super.key});
+  final bool? isDemoEstimate;
+  const HomeOfferBanner({super.key, this.isDemoEstimate = false});
 
   @override
   State<HomeOfferBanner> createState() => _HomeOfferBannerState();
@@ -178,11 +179,18 @@ class _HomeOfferBannerState extends State<HomeOfferBanner> {
                   fontSize: size.height * FontSize.fourteen,
                   text: "Create Estimate",
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      EstimateGenerationScreen.routeName,
-                      arguments: true,
-                    );
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   EstimateGenerationScreen.routeName,
+                    //   arguments: true,
+                    // );
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return EstimateGenerationScreen(
+                          isDemoEstimate: widget.isDemoEstimate,
+                        );
+                      },
+                    ));
                   },
                 ),
                 Text.rich(

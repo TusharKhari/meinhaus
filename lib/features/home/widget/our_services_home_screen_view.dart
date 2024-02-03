@@ -7,16 +7,16 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/notifiers/our_services_notifier.dart';
 
-
 class OurServicesCardHomeScreenView extends StatelessWidget {
   final Function(BuildContext context) effect;
-  const OurServicesCardHomeScreenView({super.key, required this.effect});
+  final bool? isNoLogin;
+  const OurServicesCardHomeScreenView(
+      {super.key, required this.effect, this.isNoLogin = false});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
-
+ 
     final ourServicesNotifier = context.watch<OurServicesNotifier>();
 
     final ourservices = ourServicesNotifier.services.services;
@@ -26,7 +26,7 @@ class OurServicesCardHomeScreenView extends StatelessWidget {
         MyTextPoppines(
           text: "Our Services",
           fontWeight: FontWeight.w600,
-          fontSize: 18.sp, 
+          fontSize: 18.sp,
           // fontSize: width / 23,
         ),
         ourservices != null
@@ -39,7 +39,8 @@ class OurServicesCardHomeScreenView extends StatelessWidget {
                   itemCount: ourservices.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return OurServicesCard(
+                     return OurServicesCard(
+                      isNoLogin: isNoLogin,
                       index: index,
                     );
                   },

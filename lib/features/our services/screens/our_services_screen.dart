@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/resources/common/my_app_bar.dart';
+ import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/utils/constants/app_colors.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
@@ -15,10 +14,10 @@ import '../../estimate/screens/estimate_generation_screen.dart';
 class OurServiceScreen extends StatelessWidget {
   static const String routeName = '/our-services';
   final int index;
-  const OurServiceScreen({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  final bool? isNoLogin;
+  const OurServiceScreen(
+      {Key? key, required this.index, this.isNoLogin = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class OurServiceScreen extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.read<OurServicesNotifier>();
     final services = notifier.services.services![index];
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: MyAppBar(text: "Our Services"),
       body: SingleChildScrollView(
@@ -57,8 +56,10 @@ class OurServiceScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                         image:
-                        // AssetImage("assets/images/fixing/fixing_1.png"),
-                        NetworkImage(services.serviceDescImage!, ),
+                            // AssetImage("assets/images/fixing/fixing_1.png"),
+                            NetworkImage(
+                          services.serviceDescImage!,
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -75,7 +76,7 @@ class OurServiceScreen extends StatelessWidget {
                   3.vspacing(context),
                   MyTextPoppines(
                     text: services.description.toString(),
-                    fontSize:size.height * FontSize.sixteen,
+                    fontSize: size.height * FontSize.sixteen,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black.withOpacity(0.6),
                     maxLines: 100,
@@ -90,12 +91,19 @@ class OurServiceScreen extends StatelessWidget {
         hPadding: MediaQuery.of(context).size.width / 7.6,
         text: "Convert Into Estimate",
         onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      EstimateGenerationScreen.routeName,
-                      arguments: true,
-                    );
-                  },
+          // Navigator.pushNamed(
+          //   context,
+          //   EstimateGenerationScreen.routeName,
+          //   arguments: true,
+
+          // );
+           Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    EstimateGenerationScreen(isDemoEstimate: isNoLogin),
+              ));
+        },
       ),
     );
   }

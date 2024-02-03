@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
- import 'package:new_user_side/features/check%20out/screens/checkout_screen.dart';
+import 'package:new_user_side/features/check%20out/screens/checkout_screen.dart';
 import 'package:new_user_side/resources/common/my_app_bar.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/resources/common/show_img_upload_option.dart';
@@ -40,8 +40,8 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
     final projectDetails =
         getEstProvider.estimated.estimatedWorks![widget.index];
     final bookingId = projectDetails.estimateId;
-     final size = MediaQuery.of(context).size;
-   // final amountToPay = projectDetails.projectBilling!.totalDepositAmount;
+    final size = MediaQuery.of(context).size;
+    // final amountToPay = projectDetails.projectBilling!.totalDepositAmount;
     final bool isImgPresent = projectDetails.uploadedImgs!.length > 0;
 
     return Scaffold(
@@ -71,8 +71,8 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
                       ),
                       SizedBox(width: width / 16),
                       MyTextPoppines(
-                       text: projectDetails.estimateId ?? "",
-                      //  text: "my",
+                        text: projectDetails.estimateId ?? "",
+                        //  text: "my",
                         fontSize: size.height * FontSize.sixteen,
                         fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
@@ -131,13 +131,23 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
         hPadding: width / 7.6,
         text: "Book Project",
         onTap: () {
+          projectDetails.projectBilling?.toJson().log("we");
+          // final pBill = notifier.estimatedWorks![index].projectBilling!;
           Navigator.of(context).pushScreen(
             CheckOutScreen(
               ProjectName: projectDetails.projectName ?? "",
               bookingId: bookingId,
               //amountToPay: amountToPay ?? "",
               // projectDetails
-              amountToPay: projectDetails.projectBilling!.hstAmountToPay != null ?  projectDetails.projectBilling!.hstAmountToPay.toString() : "NA" ,
+              amountToPay: projectDetails.projectBilling?.amountToPay
+                      .toString() ??
+                  "0", // amountToPay: projectDetails.projectBilling!.hstAmountToPay != null ?  projectDetails.projectBilling!.hstAmountToPay.toString() : "NA" ,
+              // hstAmountToPay:
+              //     projectDetails.projectBilling?.hstAmountToPay.toString() ??
+              //         "0",
+              // hstTotalCost:
+              //     projectDetails.projectBilling?.hstTotalCost.toString() ?? "0",
+                  
             ),
           );
         },

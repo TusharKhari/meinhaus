@@ -48,6 +48,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
         ),
       ),
+      // CheckOutBottomBar
       bottomNavigationBar: CheckOutBottomBar(
         projectName: widget.ProjectName,
         totalAmount: widget.amountToPay,

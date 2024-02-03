@@ -33,37 +33,11 @@ class ProjectBillingCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // 8.vspacing(context),
-      //     _buildShowPrice(
-      //       context: context,
-      //      text: "Subtotal : \$${pBill.totalCost}",
-      //     // text: "Subtotal : \$${pBill.totalCost}",
-      //       fontWeight: FontWeight.w600,
-      //     ),
-      //     4.vspacing(context),
-      //     _buildShowPrice(
-      //       context: context,
-      //      text: "HST 13%  = \$${pBill.hstTotalCost! - pBill.totalCost!.toInt()}",
-      //     // text: "HST 13% (830275681RRT0001) = \$", hstAmountToPay
-       
-      //     ),
-      //     4.vspacing(context),
-      //     _buildShowPrice(
-      //       context: context,
-      //       // text: "Total : \$${pBill.totalCost}",
-      //        text: "Total : \$${pBill.hstTotalCost}",
-      //       fontWeight: FontWeight.w600,
-      //     ),
-      //     2.vspacing(context),
-      //     Divider(
-      //       thickness: 1.2,
-      //       color: AppColors.yellow.withOpacity(0.35),
-      //     ),
-         4.vspacing(context),
+          4.vspacing(context),
           _buildShowPrice(
             context: context,
-           text: "Remaining Project Cost = \$${pBill.amountToPay}",
-      //  text: "Deposit for project Booking = \$",
+            text: "Remaining Project Cost = \$${pBill.amountToPay}",
+            //  text: "Deposit for project Booking = \$",
           ),
           4.vspacing(context),
           _buildShowPrice(
@@ -87,7 +61,7 @@ class ProjectBillingCardWidget extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: MyTextPoppines(
                 // text: "Total : \$${pBill.totalDepositAmount}",
-               text: "Total : \$${pBill.hstAmountToPay! + pBill.amountToPay!}",
+                text: "Total : \$${pBill.hstAmountToPay! + pBill.amountToPay!}",
 
                 fontSize: height / 60,
                 fontWeight: FontWeight.w600,
@@ -115,5 +89,3 @@ class ProjectBillingCardWidget extends StatelessWidget {
     );
   }
 }
-
- 

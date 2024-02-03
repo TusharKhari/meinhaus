@@ -15,10 +15,9 @@ import '../../../resources/common/buttons/my_buttons.dart';
 
 class OurServicesCard extends StatelessWidget {
   final int index;
-  const OurServicesCard({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  final bool? isNoLogin;
+  const OurServicesCard({Key? key, required this.index, this.isNoLogin = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +105,10 @@ class OurServicesCard extends StatelessWidget {
               ],
             ),
           ),
-        //  6.vspacing(context),
-         SizedBox(
-                  height: size.height * 0.01,
-                ),
+          //  6.vspacing(context),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
           Align(
             alignment: Alignment.center,
             child: MyBlueButton(
@@ -119,11 +118,19 @@ class OurServicesCard extends StatelessWidget {
               fontSize: size.height * FontSize.fourteen,
               fontWeight: FontWeight.w600,
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  OurServiceScreen.routeName,
-                  arguments: index,
-                );
+                // Navigator.pushNamed(
+                //   context,
+                //   OurServiceScreen.routeName,
+                //   arguments: index,
+                // );
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OurServiceScreen(
+                        index: index,
+                        isNoLogin: isNoLogin,
+                      ),
+                    ));
               },
             ),
           )

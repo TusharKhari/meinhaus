@@ -20,20 +20,22 @@ import '../../../provider/notifiers/address_notifier.dart';
 import '../../../provider/notifiers/auth_notifier.dart';
 import '../../../provider/notifiers/estimate_notifier.dart';
 import '../../../resources/common/my_app_bar.dart';
-import '../../../resources/common/my_snake_bar.dart';
 import '../../../resources/common/my_text.dart';
 
 import '../../../resources/font_size/font_size.dart';
 import '../../../utils/utils.dart';
+import '../../auth/screens/signin_screen.dart';
 import '../widget/bottom_sheet.dart';
 import '../widget/saved_adresses_widget.dart';
 
 class EstimateGenerationScreen extends StatefulWidget {
   static const String routeName = '/estimate';
   final bool? isNewEstimate;
+  final bool? isDemoEstimate;
   const EstimateGenerationScreen({
     Key? key,
     this.isNewEstimate = true,
+    this.isDemoEstimate = false,
   }) : super(key: key);
 
   @override
@@ -68,9 +70,10 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
   }
 
   Future _createEstimateHandler() async {
-   if(mounted) setState(() {
-     isCreateAnEstimateClicked = true;
-   }); 
+    if (mounted)
+      setState(() {
+        isCreateAnEstimateClicked = true;
+      });
     final estimateNotifer = context.read<EstimateNotifier>();
     final userProvider = context.read<AuthNotifier>().user;
     final userAddress = userProvider.savedAddress!;
@@ -87,7 +90,6 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     };
 
     if (_estimateFormKey.currentState!.validate()) {
-
       isCreateAnEstimateClicked = false;
       // if (isPhoneVerified) {
       //   await estimateNotifer.createEstimate(context: context, data: data);
@@ -97,7 +99,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
       //     "Before making estimate request Please verify you phone number",
       //   );
       // }
-       await estimateNotifer.createEstimate(context: context, data: data);
+      await estimateNotifer.createEstimate(context: context, data: data);
     }
   }
 
@@ -106,7 +108,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
     final estimateNotifer = context.watch<EstimateNotifier>();
     final width = MediaQuery.sizeOf(context).width;
     final image = estimateNotifer.images;
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return ModalProgressHUD(
       inAsyncCall: estimateNotifer.loading,
       child: Scaffold(
@@ -183,7 +185,7 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                   ? Image.asset(
                                       "assets/icons/imgs.png",
                                       fit: BoxFit.fitWidth,
-                                     // width: 260.w,
+                                      // width: 260.w,
                                     )
                                   :
 
@@ -224,21 +226,23 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
                                       ),
                                     ),
                               //
-                             // 20.hs,
-                             SizedBox(width: width * 0.02,), 
+                              // 20.hs,
+                              SizedBox(
+                                width: width * 0.02,
+                              ),
                               InkWell(
                                 // onTap: () => getImagess(),
                                 onTap: () {
-
                                   showModalBottomSheet(
                                     backgroundColor: Colors.transparent,
                                     context: context,
                                     builder: (context) {
-                                      return BottomSheetSelectImagesOption( 
+                                      return BottomSheetSelectImagesOption(
                                         onTapGallery: () => getImagess(),
-                                        onTapCamera: () async{
-                                         await estimateNotifer.selectImgFromCamera(context);
-                                           },
+                                        onTapCamera: () async {
+                                          await estimateNotifer
+                                              .selectImgFromCamera(context);
+                                        },
                                       );
                                     },
                                   );
@@ -269,7 +273,9 @@ class _EstimateGenerationScreenState extends State<EstimateGenerationScreen> {
             return MyBottomNavWidget(
               hPadding: 60.w,
               text: "Create an Estimate",
-              onTap: () => _createEstimateHandler(),
+              onTap: () => widget.isDemoEstimate!
+                  ? Navigator.pushNamed(context, SignInScreen.routeName)
+                  : _createEstimateHandler(),
             );
           },
         ),
@@ -295,7 +301,7 @@ class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
   @override
   Widget build(BuildContext context) {
     final w = context.screenWidth;
-    final size  = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,9 +330,10 @@ class _GenerateEstimateDropdownState extends State<GenerateEstimateDropdown> {
               });
             },
             hint: MyTextPoppines(
-              text: "When would you like to have this tasks to be done?",
+              text: "When would you like this done?",
+              // text: "When would you like to have this tasks to be done?",
               color: AppColors.black,
-             fontSize:size.height * FontSize.fifteen,
+              fontSize: size.height * FontSize.fifteen,
               // fontSize: w / 34,
               fontWeight: FontWeight.w500,
             ),

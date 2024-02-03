@@ -80,7 +80,8 @@ class EstimateCardHomeScreenView extends StatelessWidget {
           //   text:
           //       "You Don’t have any estimated project right now. Add new project",
           // ),
-          child: NoEstStaticScreen(),
+          child: 
+          NoEstStaticScreen(),
           // child: NoEstShowCaseView(),
         ),
       ],
@@ -102,7 +103,7 @@ class EstimatedWorkCard extends StatelessWidget {
     // final width = MediaQuery.sizeOf(context).width;
     final getEstProvider = context.watch<EstimateNotifier>();
     final projectDetails = getEstProvider.estimated.estimatedWorks![index];
-    final projectCost = projectDetails.projectEstimate?[0].projectCost ?? "0"; 
+    final projectCost = projectDetails.projectBilling?.hstTotalCost ?? "0"; 
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -281,7 +282,7 @@ class EstimatedWorkCard extends StatelessWidget {
                     hPadding: 10.w,
                     vPadding: size.height / 120,
                     fontSize: size.height * FontSize.fourteen,
-                    text: "View Est",
+                    text: "View Quote",
                     fontWeight: FontWeight.w600,
                     onTap: () {
                       Navigator.pushNamed(

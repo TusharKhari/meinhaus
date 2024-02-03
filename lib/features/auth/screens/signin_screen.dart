@@ -6,6 +6,7 @@ import 'package:new_user_side/features/auth/screens/forget_password.dart';
 import 'package:new_user_side/features/auth/widgets/auth_banner_widget.dart';
 import 'package:new_user_side/features/auth/widgets/auth_textfield.dart';
 import 'package:new_user_side/features/auth/widgets/social_login_widget.dart';
+import 'package:new_user_side/features/no%20login/no_login_screen.dart';
 import 'package:new_user_side/provider/notifiers/auth_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -106,19 +107,31 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
             12.vs,
-            Align(
-              alignment: const Alignment(0.8, 0.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushScreen(ForgetPasswordScreen());
-                },
-                child: MyTextPoppines(
-                  text: "Forget Password ?",
-                  fontSize: size.height * FontSize.sixteen,
-                  color: AppColors.textBlue,
-                  fontWeight: FontWeight.w600,
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushScreen(NoLoginScreen());
+                  },
+                  child: MyTextPoppines(
+                    text: "       Skip login",
+                    fontSize: size.height * FontSize.sixteen,
+                    color: AppColors.textBlue,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushScreen(ForgetPasswordScreen());
+                  },
+                  child: MyTextPoppines(
+                    text: "Forget Password ?       ",
+                    fontSize: size.height * FontSize.sixteen,
+                    color: AppColors.textBlue,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
             20.vs,
             // Sing In Button

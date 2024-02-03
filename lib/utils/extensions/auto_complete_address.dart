@@ -2,6 +2,8 @@ import 'dart:convert';
 import '../constants/constant.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/g_map_api.dart';
+
 class AddressAutocomplete {
   static Future<List<dynamic>> getSuggestions(
     String input,

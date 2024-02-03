@@ -30,7 +30,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final notifier = context.watch<CheckOutNotifier>();
- final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     _checkOutHandler() async {
       final notifier = context.read<CheckOutNotifier>();
       await notifier.checkOut(
@@ -84,7 +84,9 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
                       fontWeight: FontWeight.w600,
                     ),
                     MyTextPoppines(
-                      text: "\$ ${widget.totalAmount}",
+                      text:
+                          // "\$ ${widget.totalAmount}",
+                          "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
                       fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
                       color: AppColors.yellow,
@@ -98,7 +100,7 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBar> {
           10.vs,
           MyBlueButton(
             isWaiting: notifier.loading,
-           // vPadding: 1.h,
+            // vPadding: 1.h,
             hPadding: 100.w,
             text: "Pay Now",
             fontSize: height > 800 ? 13.sp : size.height * FontSize.sixteen,

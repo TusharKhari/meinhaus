@@ -12,25 +12,24 @@ import '../../../resources/font_size/font_size.dart';
 import 'address_card.dart';
 
 class SavedAddressesWidget extends StatelessWidget {
-   bool isProfileEdit;
-   SavedAddressesWidget({
-     Key? key,
-      this.isProfileEdit = false,
+  bool isProfileEdit;
+  SavedAddressesWidget({
+    Key? key,
+    this.isProfileEdit = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<AuthNotifier>();
     final address = userProvider.user.savedAddress;
-       final size  = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     // _defaultAddressIndex
     final addressNotifier = context.watch<AddressNotifier>();
-   int defaultAddressIdx = addressNotifier.getDefaultAddressIndex(context);
-    return
-     Visibility(
+    int defaultAddressIdx = addressNotifier.getDefaultAddressIndex(context);
+    return Visibility(
       visible: address != null,
-       child: Column(
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,8 +54,7 @@ class SavedAddressesWidget extends StatelessWidget {
           // Address
           Visibility(
             visible: address != null && address.isNotEmpty,
-            child: 
-            ListView.builder(
+            child: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: userProvider.user.savedAddress?.length ?? 0,
@@ -65,46 +63,53 @@ class SavedAddressesWidget extends StatelessWidget {
                   return Consumer<AddressNotifier>(
                     builder: (context, selectedAddress, child) {
                       return InkWell(
-                        onTap:  
-                      isProfileEdit  && index != defaultAddressIdx  ? (){
-                        selectedAddress.updateDefaultAddress(context: context, 
-                         body: {
-                           "address_id": addressId.toString(),
-                             },
-                              ); 
-                        selectedAddress.setSelectedDefaultAddressIdx(index);
-                       } :() {
-                      selectedAddress.setSelectedAddress(index);
-                      }, 
+                        onTap: isProfileEdit && index != defaultAddressIdx
+                            ? () {
+                                selectedAddress.updateDefaultAddress(
+                                  context: context,
+                                  body: {
+                                    "address_id": addressId.toString(),
+                                  },
+                                );
+                                selectedAddress
+                                    .setSelectedDefaultAddressIdx(index);
+                              }
+                            : () {
+                                selectedAddress.setSelectedAddress(index);
+                              },
                         child: AddressCardWidget(
-                          index:   index, 
-                          isSelected: isProfileEdit && addressNotifier.selectedDefaultAddressIdx == -1 ? 
-                          defaultAddressIdx == index  
-                           : 
-                           isProfileEdit && addressNotifier.selectedDefaultAddressIdx != -1 ? 
-                            addressNotifier.selectedDefaultAddressIdx == index  
-                              :
-                           defaultAddressIdx == -1 && isProfileEdit ? false
-                            : addressNotifier.index == index,
-                            // 
-                           addressId: addressId!,
-                          isProfileEdit:  isProfileEdit,
+                          index: index,
+                          isSelected: isProfileEdit &&
+                                  addressNotifier.selectedDefaultAddressIdx ==
+                                      -1
+                              ? defaultAddressIdx == index
+                              : isProfileEdit &&
+                                      addressNotifier
+                                              .selectedDefaultAddressIdx !=
+                                          -1
+                                  ? addressNotifier.selectedDefaultAddressIdx ==
+                                      index
+                                  : defaultAddressIdx == -1 && isProfileEdit
+                                      ? false
+                                      : addressNotifier.index == index,
+                          //
+                          addressId: addressId!,
+                          isProfileEdit: isProfileEdit,
                         ),
                       );
                     },
                   );
                 }),
           ),
-     
           Visibility(
-            visible: address!.isEmpty,
+            visible: address?.isEmpty ?? false,
             child: NoAddressFoundWidget(),
           ),
-          
+
           30.vs,
         ],
-         ),
-     );
+      ),
+    );
   }
 }
 
@@ -115,7 +120,7 @@ class NoAddressFoundWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -132,7 +137,7 @@ class NoAddressFoundWidget extends StatelessWidget {
           SizedBox(height: height / 50),
           MyTextPoppines(
             text: "No Saved Address found!",
-            fontSize:size.height * FontSize.sixteen,
+            fontSize: size.height * FontSize.sixteen,
             fontWeight: FontWeight.w600,
             textAlign: TextAlign.center,
           ),

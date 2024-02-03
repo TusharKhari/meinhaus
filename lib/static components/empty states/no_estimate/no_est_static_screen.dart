@@ -143,7 +143,7 @@ class NoEstStaticScreen extends StatelessWidget {
                   child: MyBlueButton(
                     hPadding: 10.w,
                     vPadding: height / 120,
-                    text: "View Est",
+                    text: "View Quote",
                     fontSize: size.height * FontSize.fourteen,
                     fontWeight: FontWeight.w600,
                     onTap: () {

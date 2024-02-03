@@ -9,7 +9,7 @@ class OurServicesRepo {
 // Get Our services
   Future<ResponseType> getOurServices() async {
     try {
-      return await service.sendHttpRequest(
+      return await service.sendHttpRequestWithoutToken(
         url: ApiUrls.ourServices,
         method: HttpMethod.get,
       );
@@ -18,3 +18,4 @@ class OurServicesRepo {
     }
   }
 }
+ 

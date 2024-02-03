@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
 import 'package:new_user_side/static%20components/dialogs/static_screens_dialog.dart';
 import 'package:new_user_side/utils/extensions/extensions.dart';
+import '../../../features/auth/screens/signin_screen.dart';
 import '../../../features/check out/widget/checkout_summary_card_widget.dart';
 import '../../../features/estimate/screens/estimate_generation_screen.dart';
 import '../../../features/estimate/widget/saved_adresses_widget.dart';
@@ -36,7 +37,8 @@ class CheckOutScreenStatic extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CheckOutSummaryCardWidget(
-                    totalAmount: "2600", projectName: 'Washroom Renewal Project'),
+                    totalAmount: "2600",
+                    projectName: 'Washroom Renewal Project'),
                 8.vspacing(context),
                 const Divider(thickness: 1.0),
                 8.vspacing(context),
@@ -125,7 +127,8 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
                       fontWeight: FontWeight.w600,
                     ),
                     MyTextPoppines(
-                      text: "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
+                      text:
+                          "\$${(double.parse(widget.totalAmount) + (double.parse(widget.totalAmount) * 0.13)).toStringAsFixed(2)}",
                       // text: "${widget.totalAmount}",
                       // fontSize: size.height * FontSize.fourteen,
                       fontWeight: FontWeight.w600,
@@ -145,15 +148,17 @@ class _CheckOutBottomSnackBarState extends State<CheckOutBottomBarStatic> {
               onTap: () {
                 //  Navigator.of(context).pushScreen(
                 //       EstimateGenerationScreen());
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return StaticScreensDialog(
-                      subtitle:
-                          "This is where you can purchase the project. The estimate will now become an upcoming project. We can then assign our Pro’s to your job.",);
-                  },
-                );
+                // showDialog(
+                //   context: context,
+                //   barrierDismissible: false,
+                //   builder: (context) {
+                //     return StaticScreensDialog(
+                //       subtitle:
+                //           "This is where you can purchase the project. The estimate will now become an upcoming project. We can then assign our Pro’s to your job.",);
+                //   },
+                // );
+                //
+                Navigator.pushNamed(context, SignInScreen.routeName);
               })
         ],
       ),

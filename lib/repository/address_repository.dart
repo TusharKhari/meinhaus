@@ -2,6 +2,7 @@ import 'package:new_user_side/utils/constants/constant.dart';
 
 import '../data/network/network_api_servcies.dart';
 import '../resources/common/api_url/api_urls.dart';
+import '../utils/constants/g_map_api.dart';
 import '../utils/enum.dart';
 
 class AddressRepository {
@@ -82,7 +83,7 @@ class AddressRepository {
    }
     Future<ResponseType> getLatLngFromPlaceId({ required placeId})async{
   //    https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJga_7fdRzhlQRh6P6ivHhNxE&key=AIzaSyC3WLUbDPnruzxcS7eT8IQ5OVYJiSiLIlU
-    String url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$kPLACES_API_KEY";
+    String url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=address_components,formatted_address,geometry&key=$kPLACES_API_KEY";
       try {
         return await services.sendHttpRequest(url: Uri.parse(url), method: HttpMethod.get);
       } catch (e) {

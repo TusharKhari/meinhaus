@@ -34,7 +34,7 @@ class NetworkApiServices {
     final getHeader = await UserPrefrences().getHeader();
     //  print(getHeader);
     final postHeader = await UserPrefrences().postHeader();
-
+    
     try {
       late final http.Request request;
       switch (method) {
