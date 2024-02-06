@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-final bool isTest = true;
+final bool isTest = false;
 
 // test env
 
