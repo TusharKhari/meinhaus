@@ -103,7 +103,7 @@ class EstimatedWorkCard extends StatelessWidget {
     // final width = MediaQuery.sizeOf(context).width;
     final getEstProvider = context.watch<EstimateNotifier>();
     final projectDetails = getEstProvider.estimated.estimatedWorks![index];
-    final projectCost = projectDetails.projectBilling?.hstTotalCost ?? "0"; 
+    final projectCost = projectDetails.projectBilling?.amountToPay ?? "0"; 
     final size = MediaQuery.of(context).size;
 
     return Container(
