@@ -131,8 +131,7 @@ class _EstimatedWorkDetailScreenState extends State<EstimatedWorkDetailScreen> {
         hPadding: width / 7.6,
         text: "Book Project",
         onTap: () {
-          projectDetails.projectBilling?.toJson().log("we");
-          // final pBill = notifier.estimatedWorks![index].projectBilling!;
+           // final pBill = notifier.estimatedWorks![index].projectBilling!;
           Navigator.of(context).pushScreen(
             CheckOutScreen(
               ProjectName: projectDetails.projectName ?? "",
