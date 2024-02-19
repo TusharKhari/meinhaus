@@ -30,6 +30,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Column(
         children: [
           AppBar(
+            forceMaterialTransparency: true,
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             leadingWidth: width / 6.5,

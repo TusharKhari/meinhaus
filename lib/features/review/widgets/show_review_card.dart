@@ -20,7 +20,7 @@ class ShowReviewCard extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
-    final review = notifier.projectDetails.services!.reviews ?? [];
+    final review = notifier.projectDetails.services?.reviews ?? [];
      final size = MediaQuery.of(context).size;
     return review.isEmpty
         ? ShowNoReview()
@@ -201,35 +201,43 @@ class ShowNoReview extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: AppColors.black.withOpacity(0.08),
-            ),
-            padding: EdgeInsets.symmetric(
-              horizontal: width / 30,
-              vertical: height / 80,
-            ),
-            child: MyTextPoppines(
-              text: "No review yet, Add a review.",
-              fontSize: size.height * FontSize.sixteen,
-              color: AppColors.black.withOpacity(0.5),
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: AppColors.black.withOpacity(0.08),
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: width / 30,
+                vertical: height / 80,
+              ),
+              child: FittedBox(
+                child: MyTextPoppines(
+                  text: "No review yet, Add a review.",
+                  fontSize: size.height * FontSize.sixteen,
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+              ),
             ),
           ),
-          MyBlueButton(
-            hPadding: width / 30,
-            text: "Write a review",
-            vPadding: height / 80,
-            fontWeight: FontWeight.w600,
-            fontSize: size.height * FontSize.sixteen,
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return WriteReviewDialog();
+          Flexible(
+            child: FittedBox(
+              child: MyBlueButton(
+                hPadding: width / 30,
+                text: "Write a review",
+                vPadding: height / 80,
+                fontWeight: FontWeight.w600,
+                fontSize: size.height * FontSize.sixteen,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return WriteReviewDialog();
+                    },
+                  );
                 },
-              );
-            },
+              ),
+            ),
           )
         ],
       ),

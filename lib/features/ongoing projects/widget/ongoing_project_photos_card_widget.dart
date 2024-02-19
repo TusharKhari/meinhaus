@@ -16,13 +16,14 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
   const OngoingProjectPhotoCardWidget({super.key});
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final notifier = context.watch<EstimateNotifier>();
     final services = notifier.projectDetails.services!;
-     final size = MediaQuery.of(context).size;
-    final EdgeInsets paddingH15 = EdgeInsets.symmetric(horizontal: size.height * FontSize.sixteen);
-
+    final size = MediaQuery.of(context).size;
+    final EdgeInsets paddingH15 =
+        EdgeInsets.symmetric(horizontal: size.height * FontSize.sixteen);
+     // services.toJson().log("projectss");
     return Padding(
       padding: paddingH15,
       child: Column(
@@ -66,7 +67,6 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
                                 currentIndex: index,
                               ),
                             );
-                           
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(width / 40),
@@ -83,6 +83,44 @@ class OngoingProjectPhotoCardWidget extends StatelessWidget {
                       );
                     }),
                 6.vspacing(context),
+                // SizedBox(
+                //   height: height / 9,
+                //   width: width / 1.2,
+                //   child: ListView.builder(
+                //     shrinkWrap: true,
+                //     scrollDirection: Axis.horizontal,
+                //     padding: EdgeInsets.zero,
+                //     itemCount: project.projectImages!.length,
+                //     itemBuilder: (context, index) {
+                //       final images = project.projectImages![index];
+                //       return Container(
+                //         margin: EdgeInsets.only(right: width / 30),
+                //         width: width / 4,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(12),
+                //           border: Border.all(
+                //             width: 1,
+                //             color: AppColors.golden,
+                //           ),
+                //         ),
+                //         child: ClipRRect(
+                //           borderRadius: BorderRadius.circular(12),
+                //           child: CachedNetworkImage(
+                //             imageUrl: images.thumbnailUrl!,
+                //             placeholder: (context, url) => Center(
+                //               child: CircularProgressIndicator(),
+                //             ),
+                //             errorWidget: (context, url, error) =>
+                //                 CachedNetworkImgErrorWidget(
+                //               textSize: 46,
+                //             ),
+                //             fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // )
               ],
             ),
           ),

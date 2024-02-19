@@ -29,7 +29,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
 
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 90),
@@ -65,11 +65,12 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               final pros = pro[index];
-              final isImgNull = pros.beforeWorkImages!.length == 0;
-              final catalogueImg = pros.beforeWorkImages!.first;
+              final isImgNull = pros.afterWorkImages?.isEmpty ?? true;
+              final catalogueImg =
+                  !isImgNull ? pros.afterWorkImages?.first : "";
               return _buildRecentProjectCard(
                 projectTitle: pro[index].projectName.toString(),
-                projectImg: isImgNull ? "https://rb.gy/n775j" : catalogueImg,
+                projectImg: isImgNull ? "" : catalogueImg ?? "",
                 rating: pro[index].avgRating.toString(),
                 onTap: () {
                   showDialog(
@@ -98,7 +99,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
   }) {
     final height = context.screenHeight;
     final widthh = context.screenWidth;
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final BorderRadius borderRadius = BorderRadius.circular(widthh / 40);
     return Container(
       padding: EdgeInsets.all(4),
@@ -122,7 +123,7 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
             width: widthh / 2.50,
             child: MyTextPoppines(
               text: "  $projectTitle",
-              fontSize:size.height * FontSize.twelve,
+              fontSize: size.height * FontSize.twelve,
               fontWeight: FontWeight.w500,
               maxLines: 1,
             ),
@@ -180,25 +181,24 @@ class ProRecentProjectsCardWidget extends StatelessWidget {
                               // ),
                               RatingBar.builder(
                                 ignoreGestures: true,
-                                 initialRating: (double.parse(rating))/5,
-                              //  initialRating: 0.1,
+                                initialRating: (double.parse(rating)) / 5,
+                                //  initialRating: 0.1,
                                 minRating: 0,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 1,
                                 itemSize: size.height * FontSize.fifteen,
-                                itemPadding:
-                                    EdgeInsets.only(left: 4.w),
+                                itemPadding: EdgeInsets.only(left: 4.w),
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
-                                
+
                                 onRatingUpdate: (rating) {
-                                 // print(rating);
+                                  // print(rating);
                                 },
                               ),
-                                   Text(
+                              Text(
                                 "$rating/5",
                                 style: GoogleFonts.poppins(
                                   fontSize: size.height * FontSize.twelve,

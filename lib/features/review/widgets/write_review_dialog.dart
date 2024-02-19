@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
+ import 'package:new_user_side/features/auth/widgets/my_text_field.dart';
 import 'package:new_user_side/provider/notifiers/estimate_notifier.dart';
 import 'package:new_user_side/resources/common/buttons/my_buttons.dart';
 import 'package:new_user_side/resources/common/my_text.dart';
@@ -53,7 +52,7 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
       child: Dialog(
         insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
         child: Container(
-          height: height / 1.7,
+          height: height / 1.5,
           child: GestureDetector(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: width / 20),
@@ -113,14 +112,18 @@ class _WriteReviewDialogState extends State<WriteReviewDialog> {
                     ),
                   ),
                   4.vspacing(context),
-                  Center(
-                    child: MyBlueButton(
-                      isWaiting: notifier.reviewLoading,
-                      hPadding: width / 4,
-                      vPadding: height / 55,
-                      fontSize: size.height * FontSize.sixteen,
-                      text: "Submit",
-                      onTap: () => _reviewHandler(),
+                  Flexible(
+                    child: Center(
+                      child: MyBlueButton(
+                        isWaiting: notifier.reviewLoading,
+                        // hPadding:   4,
+                        hPadding: width / 4,
+                        vPadding: height*0.02,
+                        // vPadding: height / 55,
+                        fontSize: size.height * FontSize.sixteen,
+                        text: "Submit",
+                        onTap: () => _reviewHandler(),
+                      ),
                     ),
                   ),
                   2.vspacing(context),

@@ -168,11 +168,12 @@ class _OngoingProjectDetailScreenState
                           OngoingJobsButtonsPanel(),
 
                           Visibility(
-                            visible: services.isCompleted!,
+                            visible: services.isCompleted ?? false,
                             child: Divider(thickness: height * 0.003),
                           ),
                           Visibility(
-                            visible: services.isCompleted!,
+                            // visible: true,
+                            visible: services.isCompleted ?? false,
                             child: ShowReviewCard(),
                           ),
                           Divider(thickness: height * 0.003),
