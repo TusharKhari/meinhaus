@@ -252,8 +252,7 @@ class EstimateNotifier extends ChangeNotifier {
     setLoadingState(true, true);
     // getting project details
     await estimateRepository.getProjectDetails(id).then((response) {
-      response.log("dataa");
-      var data = ProjectDetailsModel.fromJson(response);
+       var data = ProjectDetailsModel.fromJson(response);
       setProjectDetails(data);
       // checking the support query status
       var query = data.services!.query;

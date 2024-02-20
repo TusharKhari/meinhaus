@@ -35,6 +35,7 @@ class Project {
   String? discription;
   String? address;
   List<UploadedImgs>? projectImages;
+  List<UploadedImgs>? progressImages;
   List<ProfessionalWorkHistory>? professionalWorkHistory;
   int? proId;
   List<Reviews>? reviews;
@@ -51,6 +52,7 @@ class Project {
     this.discription,
     this.address,
     this.projectImages,
+    this.progressImages, 
     this.professionalWorkHistory,
     this.proId,
     this.reviews,
@@ -71,6 +73,12 @@ class Project {
       projectImages = <UploadedImgs>[];
       json['project_images'].forEach((v) {
         projectImages!.add(new UploadedImgs.fromJson(v));
+      });
+    }
+    if (json['progress_images'] != null) {
+      progressImages = <UploadedImgs>[];
+      json['progress_images'].forEach((v) {
+        progressImages!.add(new UploadedImgs.fromJson(v));
       });
     }
     if (json['professional_work_history'] != null) {
