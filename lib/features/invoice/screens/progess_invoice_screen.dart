@@ -243,12 +243,19 @@ class ProgressInvoiceScreen extends StatelessWidget {
                 onTap: amountPaid
                     ? () {}
                     : () {
+                    
+                   String d=   invoice.amountToBePaid?.totalAmountDue ?? "";
+                      String am="";
+                    var a=  d.split(",");
+                    a.forEach((element) {
+                      am +=element;
+                     });
+                   
                         Navigator.of(context).pushScreen(
                           CheckOutScreen(
                             ProjectName: projectDetails.projectName.toString(),
                             bookingId: invoice.bookingId.toString(),
-                            amountToPay: invoice.amountToBePaid!.totalAmountDue
-                                .toString(),
+                            amountToPay: am
                           ),
                         );
                       },
