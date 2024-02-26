@@ -35,6 +35,7 @@ class CheckOutNotifier extends ChangeNotifier {
     required BuildContext context,
     required String bookingId,
   }) async {
+    // sample of payment intent
     // Map<String, dynamic> intent =
     //  {
     //   "response_code": 200,
@@ -131,8 +132,7 @@ class CheckOutNotifier extends ChangeNotifier {
 
     final onGoingProjects = context.read<EstimateNotifier>();
     setLoadingState(true);
-    // Map<String, String> data = {"booking_id": bookingId};
-    Map<String, dynamic>? res = await MakePayment()
+     Map<String, dynamic>? res = await MakePayment()
         .makePayment(context: context, bookingId: bookingId)
         .onError((error, stackTrace) {
       // print("Error in Check out notifier :: $error\n $stackTrace");
